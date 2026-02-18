@@ -1,0 +1,1694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Terraced BioDome — Design Guide</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com/">
+    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Source+Sans+Pro:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --forest-dark: #1a2e1a;
+            --forest-mid: #2d4a2d;
+            --earth-warm: #c9a227;
+            --cream: #faf8f5;
+            --cream-dark: #f0ebe3;
+            --text-dark: #2a2a2a;
+            --text-mid: #555;
+            --warning-bg: #fff8e6;
+            --warning-border: #e6c200;
+            --tip-bg: #e8f5e9;
+            --tip-border: #4caf50;
+            --danger-bg: #ffebee;
+            --danger-border: #ef5350;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--cream);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: var(--forest-dark);
+            color: white;
+            padding: 100px 20px 80px;
+            text-align: center;
+        }
+
+        .hero-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .hero-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: clamp(2.5rem, 7vw, 4.5rem);
+            font-weight: 700;
+            color: white;
+            line-height: 1.15;
+            margin-bottom: 24px;
+        }
+
+        .hero-tagline {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: rgba(255,255,255,0.85);
+            max-width: 650px;
+            margin: 0 auto 48px;
+            line-height: 1.6;
+        }
+
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 48px;
+            padding-top: 48px;
+            border-top: 1px solid rgba(255,255,255,0.15);
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-value {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2.75rem;
+            font-weight: 700;
+            display: block;
+            color: white;
+        }
+
+        .hero-stat-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+            color: rgba(255,255,255,0.5);
+            margin-top: 4px;
+        }
+
+        /* Navigation */
+        .nav {
+            background: var(--forest-mid);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            overflow-x: auto;
+        }
+
+        .nav-brand {
+            font-weight: 700;
+            color: white;
+            padding: 16px 0;
+            font-size: 1rem;
+            white-space: nowrap;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 8px;
+        }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            padding: 16px 14px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            white-space: nowrap;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: white;
+        }
+
+        /* Main Content */
+        .container {
+            max-width: 760px;
+            margin: 0 auto;
+            padding: 80px 24px;
+        }
+
+        /* Typography */
+        h1, h2, h3, h4 {
+            font-family: 'Playfair Display', Georgia, serif;
+            color: var(--forest-dark);
+            line-height: 1.3;
+        }
+
+        h1 {
+            font-size: 2.25rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--forest-mid);
+        }
+
+        h2 {
+            font-size: 1.75rem;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1.25rem;
+            color: var(--text-dark);
+        }
+
+        strong {
+            font-weight: 600;
+            color: var(--forest-dark);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 12px 16px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+
+        th {
+            background: var(--forest-dark);
+            color: white;
+            font-weight: 600;
+        }
+
+        tr:nth-child(even) {
+            background: var(--cream-dark);
+        }
+
+        /* Callout Boxes */
+        .warning-box, .tip-box, .danger-box {
+            padding: 20px 24px;
+            border-radius: 6px;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+        }
+
+        .warning-box {
+            background: var(--warning-bg);
+            border-color: var(--warning-border);
+        }
+
+        .tip-box {
+            background: var(--tip-bg);
+            border-color: var(--tip-border);
+        }
+
+        .danger-box {
+            background: var(--danger-bg);
+            border-color: var(--danger-border);
+        }
+
+        .callout-title {
+            font-weight: 700;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* Process Steps */
+        .process-step {
+            display: flex;
+            gap: 20px;
+            margin: 1.5rem 0;
+            align-items: flex-start;
+        }
+
+        .step-number {
+            width: 36px;
+            height: 36px;
+            background: var(--forest-dark);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 0.9rem;
+            flex-shrink: 0;
+        }
+
+        .step-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 24px;
+            border-radius: 8px;
+            text-align: center;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+
+        .stat-card-value {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--forest-dark);
+        }
+
+        .stat-card-label {
+            font-size: 0.85rem;
+            color: var(--text-mid);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Checklist */
+        .checklist {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .checklist li {
+            padding: 8px 0 8px 32px;
+            position: relative;
+            border-bottom: 1px solid #eee;
+        }
+
+        .checklist li::before {
+            content: '☐';
+            position: absolute;
+            left: 0;
+            color: var(--forest-mid);
+            font-size: 1.1rem;
+        }
+
+        /* Section Divider */
+        .section-divider {
+            text-align: center;
+            margin: 4rem 0;
+            color: var(--text-mid);
+        }
+
+        .section-divider::before {
+            content: '❧';
+            font-size: 1.5rem;
+        }
+
+        /* Part Headers */
+        .part-header {
+            background: var(--forest-dark);
+            color: white;
+            padding: 60px 24px;
+            text-align: center;
+            margin: 4rem -24px;
+        }
+
+        .part-header h2 {
+            color: white;
+            font-size: 2rem;
+            margin: 0 0 8px;
+        }
+
+        .part-header p {
+            color: rgba(255,255,255,0.7);
+            margin: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--forest-dark);
+            color: white;
+            text-align: center;
+            padding: 60px 24px;
+            margin-top: 80px;
+        }
+
+        footer p {
+            color: rgba(255,255,255,0.7);
+            font-size: 1rem;
+        }
+
+        .footer-quote {
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.5rem;
+            font-style: italic;
+            color: white;
+            margin-bottom: 16px;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 60px 20px;
+            }
+
+            .hero-stats {
+                gap: 32px;
+            }
+
+            .hero-stat-value {
+                font-size: 2.25rem;
+            }
+
+            .nav-brand {
+                display: none;
+            }
+
+            .container {
+                padding: 40px 20px;
+            }
+
+            .part-header {
+                margin: 3rem -20px;
+                padding: 40px 20px;
+            }
+        }
+
+        /* Print */
+        @media print {
+            .nav, .hero {
+                display: none;
+            }
+
+            .container {
+                max-width: 100%;
+                padding: 0;
+            }
+        }
+
+        /* Technical Diagram Styling */
+        .technical-diagram {
+            margin: 2rem 0;
+            text-align: center;
+            background: #fafaf8;
+            border: 1px solid #e0dcd4;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+
+        .technical-diagram img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+        }
+
+        .technical-diagram figcaption {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #666;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hero Section -->
+<header class="hero">
+    <div class="hero-content">
+        <p class="hero-label">Design Guide for Terraced Sites</p>
+        <h1 class="hero-title">The Terraced BioDome</h1>
+        <p class="hero-tagline">A beautiful, fireproof home adapted to agricultural terraces. Built with eucalyptus and cob, featuring simplified lean-to construction that requires less skill and materials.</p>
+
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <span class="hero-stat-value">47m²</span>
+                <span class="hero-stat-label">Floor Area</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-value">~90-150</span>
+                <span class="hero-stat-label">Trees Removed</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-value">5m</span>
+                <span class="hero-stat-label">Ridge Height</span>
+            </div>
+            <div class="hero-stat">
+                <span class="hero-stat-value">€3–5k</span>
+                <span class="hero-stat-label">Total Cost</span>
+            </div>
+        </div>
+    </div>
+</header>
+
+<!-- Navigation -->
+<nav class="nav">
+    <div class="nav-inner">
+        <span class="nav-brand">Terraced BioDome Guide</span>
+        <div class="nav-links">
+            <a href="#why">Why</a>
+            <a href="#design">Design</a>
+            <a href="#site">Site</a>
+            <a href="#materials">Materials</a>
+            <a href="#foundation">Foundation</a>
+            <a href="#walls">Walls</a>
+            <a href="#roof">Roof</a>
+            <a href="#finishing">Finishing</a>
+            <a href="#systems">Systems</a>
+            <a href="#maintenance">Maintenance</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Main Content -->
+<main class="container">
+
+    <section id="why">
+        <h1>Part One: Understanding</h1>
+
+        <h2>Chapter 1: Why the Terraced BioDome Matters</h2>
+
+        <p>Imagine an agricultural landscape with terrace walls built centuries ago—dry stone ramparts holding back hillsides, maintaining the slope. These walls represent human engineering at its best: elegant, enduring, integrated with the land.</p>
+
+        <p>Now imagine that same landscape invaded by eucalyptus. The walls remain, but they're now surrounded by water-stealing monoculture that blocks views, increases fire risk, and destroys the possibility of native forest return.</p>
+
+        <p>The <strong>Terraced BioDome is the solution for these specific landscapes.</strong> It's a compact, beautiful home that:</p>
+
+        <ul>
+            <li>Uses existing terrace walls as structural anchors</li>
+            <li>Requires 50-60% fewer materials than a full-circle BioDome</li>
+            <li>Features simpler lean-to roof construction (no reciprocal complexity)</li>
+            <li>Adapts naturally to sloped terrain</li>
+            <li>Creates a defensible, fireproof residence</li>
+            <li>Removes invasive trees while preserving agricultural infrastructure</li>
+        </ul>
+
+        <p>Like its circular sibling, the Terraced BioDome grew from a simple insight: the eucalyptus trees destroying our forests and fueling our fires can become the very material we build with. The design originated from experimenting with traditional wattle fencing techniques, angling young poles at 45 degrees to create stronger, more dynamic structures. The same principle of working <em>with</em> the material's nature—rather than against it—applies here, adapted for the unique opportunities that terraced landscapes provide. (For the full origin story, see the <a href="The Regenerative BioDome — Complete Build Guide.html">Standard BioDome Guide</a>.)</p>
+
+        <div class="tip-box">
+            <div class="callout-title">💡 This Design Is For You If</div>
+            <ul>
+                <li>Your land has existing terrace walls or similar vertical stone structures</li>
+                <li>You want to minimize material quantities and cost</li>
+                <li>You're uncomfortable with complex reciprocal roof construction</li>
+                <li>You want faster, simpler building with beginner-friendly techniques</li>
+                <li>You prefer a half-circular or D-shaped footprint to a full circle</li>
+            </ul>
+        </div>
+
+        <p>If your site doesn't have terrace walls but is otherwise suitable, you can adapt this guide to build against any existing stone wall structure—barn walls, boundary walls, or historic dry stone features.</p>
+    </section>
+
+    <section id="design">
+        <h2>Chapter 2: Design Overview</h2>
+
+        <p>The Terraced BioDome is a semicircular (D-shaped) structure built as a lean-to against an existing terrace wall. The design uses natural building materials—eucalyptus poles, cob, lime render, and living roof—adapted for faster, simpler construction than the reciprocal-roof version.</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-value">9m</div>
+                <div class="stat-card-label">Width</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">47m²</div>
+                <div class="stat-card-label">Floor Area</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">2.5m</div>
+                <div class="stat-card-label">Wall Height</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">5.0m</div>
+                <div class="stat-card-label">Ridge Height</div>
+            </div>
+        </div>
+
+        <h3>Key Advantages of This Design</h3>
+
+        <table>
+            <tbody>
+            <tr>
+                <th>Aspect</th>
+                <th>Terraced BioDome</th>
+                <th>Why It Matters</th>
+            </tr>
+            <tr>
+                <td>Foundation</td>
+                <td>Half-arc gabion (180°)</td>
+                <td>50% less material than full circle</td>
+            </tr>
+            <tr>
+                <td>Walls</td>
+                <td>Curved front + existing wall back</td>
+                <td>Half the cob/render needed</td>
+            </tr>
+            <tr>
+                <td>Roof</td>
+                <td>Simple lean-to (not reciprocal)</td>
+                <td>Easier construction, fewer poles</td>
+            </tr>
+            <tr>
+                <td>Structural Integration</td>
+                <td>Ring beam anchored to wall</td>
+                <td>Uses existing infrastructure</td>
+            </tr>
+            <tr>
+                <td>Total Cost</td>
+                <td>€3,000–5,000</td>
+                <td>40% cheaper than full BioDome</td>
+            </tr>
+            </tbody>
+            </table>
+
+        <h3>Design Principles</h3>
+
+        <p><strong>Site Adaptation:</strong> This design assumes a vertical stone wall or similar structure exists on your site. The terrace wall becomes the structural anchor, eliminating the need to build a complete ring foundation.</p>
+
+        <p><strong>Material Efficiency:</strong> A semicircular footprint means roughly half the materials of a full BioDome. For someone with modest resources, this is the practical choice.</p>
+
+        <p><strong>Constructability:</strong> The lean-to roof is architecturally simpler than reciprocal framing. Straight rafters sloping from the curved wall to the stone wall require less skill, fewer passes, and quicker installation.</p>
+
+        <p><strong>Thermal Integration:</strong> The massive stone terrace wall acts as thermal mass and weather barrier. The clerestory window brings diffuse northern light without overheating.</p>
+    </section>
+
+    <div class="part-header">
+        <h2>Part Two: Planning &amp; Preparation</h2>
+        <p>Site assessment, materials sourcing, and design verification</p>
+    </div>
+
+    <section id="site">
+        <h2>Chapter 3: Site Assessment and Preparation</h2>
+
+        <h3>Evaluating Your Terrace Wall</h3>
+
+        <p>Before committing to this design, thoroughly assess your existing wall structure. This determines the viability of the entire project.</p>
+
+        <div class="warning-box">
+            <div class="callout-title">⚠️ Critical: Wall Inspection Requirements</div>
+            <ol>
+                <li><strong>Structural integrity:</strong> No large displacement, bulging, or recent collapses. Older is usually better—centuries-old walls are proven.</li>
+                <li><strong>Height:</strong> Minimum 2.8m. The ridge of your roof will rest against or anchor into the top of this wall.</li>
+                <li><strong>Length:</strong> At least 10m of usable wall length where building won't interfere with adjacent structures or uses.</li>
+                <li><strong>Face condition:</strong> Reasonably flat or slightly curved (not severely convex). Small irregularities are acceptable.</li>
+                <li><strong>Base stability:</strong> The wall shouldn't show signs of tipping, settling unevenly, or undercutting at the base.</li>
+                <li><strong>Drainage:</strong> Confirm water moves away from the wall. You don't want your building to become a dam.</li>
+            </ol>
+        </div>
+
+        <h3>Site Clearance</h3>
+
+        <p>Before building, remove all eucalyptus trees from the footprint and surrounding area. Use this protocol:</p>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Clear Immediate Zone (0–15m from wall)</h4>
+                <p>Remove all vegetation, dead wood, and debris. Level to create working space. This also reduces fire risk around the completed structure.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Harvest Eucalyptus for Building Poles</h4>
+                <p>Select 2–7 year growth trees, 8–20cm diameter. Prioritize trees closest to your building footprint.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Treat All Cut Stumps Immediately</h4>
+                <p>Within 15 minutes of cutting, paint stumps with 25–50% glyphosate or triclopyr solution. Mark treated stumps visibly. Check monthly for 18 months for any resprouting.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Source Remaining Materials Locally</h4>
+                <p>Collect clay soil, sand, and granite from nearby. Use hand tools or animal power to minimize impact. Test clay quality (see materials section).</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="materials">
+        <h2>Chapter 4: Materials Overview</h2>
+
+        <h3>Materials from Your Land</h3>
+
+        <ul>
+            <li><strong>Eucalyptus poles:</strong> ~90–150 trees harvested on-site, 2–7 year growth, 8–20cm diameter</li>
+            <li><strong>Clay soil:</strong> ~8–10 cubic meters for cob walls (roughly 30% less than full BioDome)</li>
+            <li><strong>Sand:</strong> ~6–8 cubic meters (sharp building sand, sifted for cob)</li>
+            <li><strong>Straw:</strong> ~20 bales for cob reinforcement</li>
+            <li><strong>Granite rocks:</strong> ~8–12 cubic meters for semicircular foundation</li>
+        </ul>
+
+        <h3>Materials to Purchase</h3>
+
+        <table>
+            <tbody>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Est. Cost</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>Gabion mesh (galvanized)</td>
+                <td>40 linear meters</td>
+                <td>€250–400</td>
+                <td>Foundation cage</td>
+            </tr>
+            <tr>
+                <td>Borax/boric acid</td>
+                <td>25kg</td>
+                <td>€50–75</td>
+                <td>Pole treatment</td>
+            </tr>
+            <tr>
+                <td>Linseed oil (raw)</td>
+                <td>15 liters</td>
+                <td>€75–100</td>
+                <td>Pole sealing</td>
+            </tr>
+            <tr>
+                <td>EPDM pond liner</td>
+                <td>50m²</td>
+                <td>€350–500</td>
+                <td>Roof waterproofing</td>
+            </tr>
+            <tr>
+                <td>Lime (hydrated)</td>
+                <td>2–3 tons</td>
+                <td>€200–300</td>
+                <td>Render &amp; mortar</td>
+            </tr>
+            <tr>
+                <td>Windows &amp; door</td>
+                <td>3 units</td>
+                <td>€600–1000</td>
+                <td>Openings</td>
+            </tr>
+            <tr>
+                <td>Fasteners &amp; misc</td>
+                <td>Various</td>
+                <td>€300–500</td>
+                <td>Hardware</td>
+            </tr>
+            </tbody>
+            </table>
+
+        <div class="tip-box">
+            <div class="callout-title">💡 Budget Range for Terraced BioDome</div>
+            <p><strong>Minimal:</strong> €2,500–3,500 (maximum self-sourcing, minimal purchased materials)</p>
+            <p><strong>Realistic:</strong> €3,500–4,500 (balanced approach)</p>
+            <p><strong>Comfortable:</strong> €5,000–6,000 (quality materials throughout)</p>
+            <p>Note: Costs 40–50% lower than a full-circle BioDome due to reduced material quantities.</p>
+        </div>
+
+        <h3>Testing and Sourcing Local Materials</h3>
+
+        <h4>Clay Assessment</h4>
+
+        <p>Not all clay is suitable for cob. Perform this simple jar test:</p>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Collect Clay Sample</h4>
+                <p>Dig a hole 30cm deep. Collect soil from multiple locations on your property.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Fill Jar Test</h4>
+                <p>Fill a mason jar 1/3 with clay soil, add water to fill, close lid, shake vigorously for 3 minutes.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Read Results After 24 Hours</h4>
+                <p>Sand settles first (bottom), silt in middle, clay rises last (top). Good building clay has 15–30% clay by volume (top layer height). Below 15% = too sandy; above 30% = too much clay.</p>
+            </div>
+        </div>
+
+        <h4>Sand Assessment</h4>
+
+        <p><strong>You need sharp building sand, not play sand.</strong> It should feel gritty and angular. Avoid rounded, smooth sand. Local excavators often have suitable material. Test by rubbing between your fingers—it should not form a smooth ball.</p>
+
+        <h4>Granite Assessment</h4>
+
+        <p>Ideal gabion stone is 10–25cm pieces with flat or slightly angular faces. Sorted stone creates a more stable structure than mixed sizes. Check local quarries for screening discards.</p>
+    </section>
+
+    <div class="part-header">
+        <h2>Part Three: Construction</h2>
+        <p>Foundation, walls, and roof—step by step</p>
+    </div>
+
+    <section id="foundation">
+        <h2>Chapter 5: Foundation (Semicircular Gabion)</h2>
+
+        <p>The gabion foundation creates a raised, drained plinth that anchors the curved wall while maintaining the building-site separation from the terrace. It's half-circular, tying into the terrace wall at both ends.</p>
+
+        <h3>Specifications</h3>
+
+        <ul>
+            <li><strong>Shape:</strong> Semicircular arc (180°), radius ~4.5m</li>
+            <li><strong>Width:</strong> 0.6m (ring width from inner to outer face)</li>
+            <li><strong>Height:</strong> 0.5m above finished grade, 0.3m below (total 0.8m depth)</li>
+            <li><strong>Connections:</strong> Both ends tie into the terrace wall base using steel plates or through-stones</li>
+        </ul>
+
+        <h3>Excavation and Preparation</h3>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Mark the Arc</h4>
+                <p>Drive a stake at the approximate center point (against the wall). Use a 4.5m rope and chalk to mark the semicircular line on the ground. Mark both inner and outer radii.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Excavate Ring Trench</h4>
+                <p>Remove soil 0.3m deep between inner and outer arcs. Width should be 0.7m (slightly wider than finished gabion to allow room for stone filling). Level the trench bottom carefully—uneven excavation causes uneven settling.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Prepare Wall Connections</h4>
+                <p>At both ends where the semicircle meets the terrace wall, trowel a layer of lime mortar into the wall base. This creates a bind point for anchor plates or through-stones.</p>
+            </div>
+        </div>
+
+        <figure class="technical-diagram">
+            <img src="assets/render-terraced-ch5-terrace-connection.svg" alt="Terrace Wall Connection Detail" style="max-width: 100%; height: auto;">
+            <figcaption>Connection detail where gabion foundation meets existing stone terrace wall</figcaption>
+        </figure>
+
+        <h3>Gabion Assembly and Filling</h3>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Position Gabion Cages</h4>
+                <p>Set up galvanized wire mesh cages (3mm wire minimum, 10×10cm openings) around the semicircular trench. Position both inner and outer rings. Use stakes to hold in place temporarily.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Anchor at Wall Ends</h4>
+                <p>Secure the ends of both inner and outer ring cages to the terrace wall using through-bolts or embedded steel plates set in lime mortar. This prevents the entire structure from spreading.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Fill with Stone (Bottom Half)</h4>
+                <p>Fill the bottom 0.4m of the gabion with granite. Place larger, flatter stones on the exterior faces to create a finished appearance. Fill interior with smaller rubble. Compact every 15cm as you go.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Build Upper Walls of Cage</h4>
+                <p>Once lower fill is stable (1–2 days), build the upper wall structure of the gabion cages to their full height (0.8m total above ground).</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h4>Fill Upper Half and Create Level Top</h4>
+                <p>Complete filling to the top. The final 10cm uses flat, carefully selected stones to create a level bearing surface for the vertical wall poles.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">6</div>
+            <div class="step-content">
+                <h4>Backfill and Grade</h4>
+                <p>Once gabions are stable (allow 3–5 days), backfill the interior void area with soil to grade level. This creates the finished ground inside the ring.</p>
+            </div>
+        </div>
+
+        <h3>Installation Timeline</h3>
+
+        <p>The foundation can be completed in 2–3 weeks working part-time (weekends). Full-time, it's 5–7 days. Allow an additional week for initial settling before building wall poles.</p>
+    </section>
+
+    <section id="walls">
+        <h2>Chapter 6: Wall Framework and Infill</h2>
+
+        <p>The walls consist of vertical eucalyptus poles set into the gabion ring, horizontal poles woven between them, and cob infill. Only the curved front face needs walls—the terrace wall serves as the back.</p>
+
+        <h3>Pole Treatment (Critical for Longevity)</h3>
+
+        <div class="danger-box">
+            <div class="callout-title">🔥 All poles must be treated before installation</div>
+            <p><strong>Untreated eucalyptus will fail in 5–10 years.</strong> Proper treatment extends pole life to 30–50+ years.</p>
+        </div>
+
+        <p>The five-step treatment process cannot be skipped:</p>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Debark (Immediately After Cutting)</h4>
+                <p>Remove bark within 48 hours of cutting. Use a drawknife or scraper. This prevents insect nesting under bark and allows preservative penetration.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Borax Soak (72+ Hours)</h4>
+                <p>Mix borax and boric acid in a 12:8:80 ratio (borax:boric acid:water). Submerge poles completely. Weight them down—they float. Duration: minimum 72 hours; longer (up to 2 weeks) is better. The borax penetrates the sapwood, creating a toxic barrier against insects and fungi.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Dry Under Cover (2–3 Weeks)</h4>
+                <p>Stack treated poles on raised supports in a shaded, ventilated area. Protect from rain. Air circulation is essential—poles will mold if in a closed space.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Char the Base (50cm Embedding Portion)</h4>
+                <p>Before installation, lightly torch the lower 50cm of each pole to char the surface. This provides additional rot resistance where the pole meets soil/moisture. Don't burn deeply—just darken the surface.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h4>Seal with Hot Linseed Oil</h4>
+                <p>Heat linseed oil to 60–70°C (warm to touch but not steaming). Brush on all pole surfaces. The oil hardens over 2–3 days and waterproofs the wood. Reapply every 5–10 years.</p>
+            </div>
+        </div>
+
+        <h3>Vertical Poles (Posts)</h3>
+
+        <ul>
+            <li><strong>Quantity:</strong> ~14 posts on the curved semicircle + 2 posts against the terrace wall (one at each end)</li>
+            <li><strong>Diameter:</strong> 15–20cm (untapered)</li>
+            <li><strong>Total length:</strong> 3.3–3.5m</li>
+            <li><strong>Embedded depth:</strong> 0.4m in gabion (ring diameter is 0.5m high)</li>
+            <li><strong>Above-ground height:</strong> 2.5–3.0m (depending on position)</li>
+            <li><strong>Spacing:</strong> ~1.2m apart (14 posts × ~9m arc ÷ π = ~1.2m)</li>
+        </ul>
+
+        <div class="tip-box">
+            <div class="callout-title">💡 Post Spacing Principle</div>
+            <p>Space posts evenly around the arc. Use a measuring tape and divide total arc length by number of posts to find spacing. Mark positions before starting installation.</p>
+        </div>
+
+        <h4>Installation Steps for Vertical Poles</h4>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Prepare Pole Bases</h4>
+                <p>Sharpen the bottom 50cm of each pole slightly (like a pencil point) or create a flat, broad base. This helps initial placement. For a more stable long-term connection, place poles on flat stones within the gabion rather than driving them.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Position and Plumb</h4>
+                <p>Place each pole 0.4m deep in the gabion. Use a level to ensure vertical. Rock slightly to settle into stone. Check plumb in two perpendicular directions.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Brace Against Movement</h4>
+                <p>Install temporary diagonal braces from poles to ground anchors. This prevents movement during subsequent construction. Remove braces once horizontal poles and cob provide lateral support.</p>
+            </div>
+        </div>
+
+        <h3>Horizontal Wattle Poles</h3>
+
+        <ul>
+            <li><strong>Quantity:</strong> ~7 horizontal levels × ~14 spans per level = ~98 pieces</li>
+            <li><strong>Diameter:</strong> 5–8cm</li>
+            <li><strong>Spacing:</strong> 25–30cm vertical gaps (approximately 7 levels over 2.5m height)</li>
+            <li><strong>Attachment:</strong> Lashed with galvanized wire + natural fiber cordage to vertical poles</li>
+        </ul>
+
+        <h4>Installation Sequence</h4>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Mark Height Lines</h4>
+                <p>Measure up each vertical pole and mark height positions at 25–30cm intervals. Snap chalk lines across multiple poles for alignment.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Lay Horizontal Poles</h4>
+                <p>For each horizontal level, lay poles directly across the vertical posts, following the curved path of the semicircle. Poles between adjacent verticals should be straight (not curved to match the arc—the curve is in the overall form).</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Lash and Secure</h4>
+                <p>At each intersection, wrap the horizontal pole tightly to the vertical post using galvanized wire (twisted tight with pliers) combined with natural lashing for flexibility. Use at least 2 wraps per intersection—one above, one below the horizontal pole.</p>
+            </div>
+        </div>
+
+        <h3>Wall Infill (Cob)</h3>
+
+        <p>Cob is a clay-sand-straw mixture that provides thermal mass, fire resistance, and sculptable form. It fills between the pole framework to create solid walls.</p>
+
+        <h4>Cob Recipe (by volume)</h4>
+
+        <table>
+            <tbody>
+            <tr>
+                <th>Ingredient</th>
+                <th>Proportion</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>Clay soil (subsoil)</td>
+                <td>1 part</td>
+                <td>Binder—do jar test first</td>
+            </tr>
+            <tr>
+                <td>Sharp building sand</td>
+                <td>2–3 parts</td>
+                <td>Strength, prevents cracking</td>
+            </tr>
+            <tr>
+                <td>Straw (long fiber)</td>
+                <td>Generous handful per mixing batch</td>
+                <td>Tensile reinforcement</td>
+            </tr>
+            <tr>
+                <td>Water</td>
+                <td>As needed</td>
+                <td>Workability</td>
+            </tr>
+            </tbody>
+            </table>
+
+        <div class="warning-box">
+            <div class="callout-title">⚠️ Critical: The Drop Test</div>
+            <p>Form a ball of cob about the size of a grapefruit. Drop it from waist height (roughly 1m). Perfect cob should:</p>
+            <ul>
+                <li>NOT shatter or break into pieces (too dry)</li>
+                <li>NOT flatten like pancake batter (too wet)</li>
+                <li>Slump slightly but maintain its shape</li>
+            </ul>
+            <p>Adjust clay:sand ratio or add water accordingly. Get this right before building.</p>
+        </div>
+
+        <h4>Cob Building Process</h4>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Prepare First Lift Base</h4>
+                <p>Lightly dampen the gabion top surface to help adhesion. This prevents your cob from drying out and shrinking away from the foundation.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Build in Lifts (30–40cm per lift)</h4>
+                <p>Apply cob in vertical sections, building up one 30–40cm layer at a time around the entire perimeter. Work around the whole arc in each lift—this ensures even drying and prevents differential shrinkage.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Interlock Each Lift</h4>
+                <p>Before adding the next lift, use your thumb to create deep holes in the top surface of the previous lift. These thumb holes provide mechanical grip for the next layer.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Embed Horizontal Poles as You Build</h4>
+                <p>At each horizontal pole level, build cob around the pole, fully covering it. The poles become embedded in cob, creating a unified structure.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h4>Allow Cure Between Lifts</h4>
+                <p>Wait 1–2 days between lifts (depending on weather—faster in dry conditions, slower in humid weather). Press your thumb into the previous lift; if it barely indents, you're ready for the next lift.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">6</div>
+            <div class="step-content">
+                <h4>Final Wall Thickness</h4>
+                <p>Build to a final thickness of 40–50cm (measured from outer pole face to inner surface). This provides adequate thermal mass and structural stability.</p>
+            </div>
+        </div>
+
+        <h3>Cob Building Timeline</h3>
+
+        <p>With ~8–10 cubic meters of cob needed, expect 4–6 weeks of part-time work (weekends). Full-time (with help), 2–3 weeks. The critical constraint is drying time between lifts, not labor time.</p>
+    </section>
+
+    <section id="roof">
+        <h2>Chapter 7: Ring Beam and Lean-to Roof</h2>
+
+        <p>The ring beam ties the wall tops together and provides the base for the roof. The lean-to roof is a simple structure: straight rafters rising from the ring beam to the terrace wall, topped with living plants.</p>
+
+        <h3>Ring Beam (Half-Arc)</h3>
+
+        <p>The ring beam is a continuous semicircular beam that sits on top of the cob wall, locking all wall posts and layers together. Both ends anchor into the terrace wall.</p>
+
+        <h4>Specifications</h4>
+
+        <ul>
+            <li><strong>Shape:</strong> Semicircular arc (180°)</li>
+            <li><strong>Radius:</strong> ~4.5m (sits on top of cob walls)</li>
+            <li><strong>Diameter:</strong> 12–14cm</li>
+            <li><strong>Construction:</strong> Two courses (inner and outer ring) or single larger beam</li>
+            <li><strong>Connections:</strong> Both ends anchored to terrace wall with steel plates and threaded rod or pegged joints</li>
+        </ul>
+
+        <h4>Construction Method</h4>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Prepare Poles</h4>
+                <p>Select 12–14cm diameter poles. These need the same treatment as wall poles. For a semicircular ring, you have two options: a single large pole bent to the arc, or multiple shorter pieces scarf-jointed together.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Create Scarf Joints (if using multiple pieces)</h4>
+                <p>If using multiple pieces, create 50cm overlapping scarf joints between segments. Each joint is bound with wire lashing and pinned with wooden dowels. This creates a continuous, strong beam.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Position on Wall Top</h4>
+                <p>Carefully place the completed ring beam on top of the finished cob walls. Ensure it sits stable and level (as level as the curved wall top allows). Check with a level at multiple points.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Anchor to Terrace Wall</h4>
+                <p>At both ends where the ring beam meets the terrace wall, drill holes through the beam into the wall and set threaded rods (anchor bolts) with expansion anchors or epoxy. Alternatively, use steel plates and bolts. This prevents outward thrust.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h4>Secure All Connections</h4>
+                <p>Lash the ring beam tightly to the wall posts beneath with wire to ensure monolithic behavior during loads (wind, roof weight, seismic activity).</p>
+            </div>
+        </div>
+
+        <h3>Lean-to Roof Structure</h3>
+
+        <figure class="technical-diagram">
+            <img src="assets/render-terraced-ch7-leanto-roof.svg" alt="Lean-to Roof Structure" style="max-width: 100%; height: auto;">
+            <figcaption>Isometric view of lean-to roof with rafters spanning from ring beam to terrace wall ridge</figcaption>
+        </figure>
+
+        <p>This is the simplest roof system we offer. Straight rafters rise from the ring beam to a ridge at the terrace wall, creating a single-slope roof. No central post, no reciprocal complexity—just geometry.</p>
+
+        <h4>Specifications</h4>
+
+        <ul>
+            <li><strong>Rafters:</strong> ~14–15 pieces, 15–18cm diameter, treated eucalyptus</li>
+            <li><strong>Spacing:</strong> Approximately 1.2m apart (matching wall post spacing)</li>
+            <li><strong>Base:</strong> Rests on ring beam at curved wall (eaves height ~3.0m)</li>
+            <li><strong>Ridge:</strong> Meets terrace wall at 5.0m height (nearly at or slightly above terrace wall top)</li>
+            <li><strong>Slope:</strong> Approximately 25–30° pitch (1:1.8 to 1:2.4 rise:run)</li>
+            <li><strong>Overhang:</strong> 1.0–1.5m beyond the curved wall for weather protection</li>
+        </ul>
+
+        <h4>Rafter Installation</h4>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Select and Treat Rafter Poles</h4>
+                <p>Choose straight, knot-free poles 15–18cm diameter. Full treatment (debark, soak, dry, char, seal) is essential. Rafters will carry significant load and need longevity.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Calculate Rafter Angles and Lengths</h4>
+                <p>For each rafter, measure the horizontal distance from ring beam position to wall, calculate the height rise (5.0m at wall, 3.0m at eaves). Use Pythagorean theorem to find rafter length. Create a template from the first rafter for consistency.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Prepare Rafter Ends</h4>
+                <p>Cut a bird's mouth (notch) at the eaves end to seat on the ring beam. Cut a flat bearing surface at the wall end or create a mortise joint. Rafters can be pegged (using wooden dowels) or bolted for security.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Install Rafters Symmetrically</h4>
+                <p>Install pairs of rafters (one on each side of center) simultaneously to balance the load. This prevents twisting or tipping during installation.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h4>Brace Temporarily</h4>
+                <p>Install temporary diagonal braces to prevent movement until all rafters are in place and the next structural layer (purlins) provides lateral bracing.</p>
+            </div>
+        </div>
+
+        <h3>Roof Purlins (Secondary Structure)</h3>
+
+        <p>Purlins are smaller poles laid perpendicular to the rafters, supporting the roof sheathing. In this design, 3–4 semicircular arcs of purlins provide sufficient support.</p>
+
+        <ul>
+            <li><strong>Quantity:</strong> 3–4 purlins, 8–10cm diameter</li>
+            <li><strong>Arrangement:</strong> Semicircular arcs parallel to the wall, at varying heights</li>
+            <li><strong>Spacing:</strong> Evenly distributed from eaves to ridge</li>
+            <li><strong>Attachment:</strong> Lashed and pegged to rafters</li>
+        </ul>
+
+        <h4>Purlin Installation</h4>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Layout Purlin Positions</h4>
+                <p>Divide the roof slope into 3–4 sections vertically. Mark positions on each rafter where purlins will sit.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Create Purlin Arcs</h4>
+                <p>For each purlin height, create a continuous semicircular form using multiple pole segments, scarf-jointed together, or by selecting naturally curved pieces. Alternatively, use laminated (bent) construction.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Install and Secure</h4>
+                <p>Position each purlin at its marked height, resting on all rafters. Lash and peg at each rafter intersection. Use at least two wraps of wire per connection.</p>
+            </div>
+        </div>
+
+        <h3>Living Roof Assembly</h3>
+
+        <p>The roof is finished with a living (planted) surface that provides fire protection, thermal mass, habitat, and beauty.</p>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Roof Sheathing</h4>
+                <p>Cover purlins and rafters with boards or rigid insulation. Options: rough-sawn planks (6cm thick), cork boards, or wood fiber boards (fast-draining to prevent water pooling). Fasten securely to purlins with wooden pegs or bolts.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Waterproofing Layer</h4>
+                <p>Install EPDM pond liner (1mm minimum thickness). Overlap all seams by 30cm and seal with compatible sealant. This is the critical moisture barrier. Failure here leads to rot. Take time and do it right.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Root Barrier and Drainage</h4>
+                <p>Lay a root barrier (landscape fabric or mesh) over the liner to prevent root penetration. Above that, place a drainage mat or layer of large gravel to ensure water moves downslope toward gutters.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Growing Medium</h4>
+                <p>Spread 10–15cm of lightweight, fast-draining growing medium. A good mix: 40% pumice or perlite, 30% compost, 30% sharp sand. This provides nutrients and drainage while staying light (less roof load).</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h4>Planting and Establishment</h4>
+                <p>Plant with drought-tolerant sedums, sempervivums, and native groundcovers. These require minimal water and maintenance. Space plants 15–20cm apart. Water lightly for the first month to establish roots, then largely drought-dependent.</p>
+            </div>
+        </div>
+
+        <h3>Roof Timeline</h3>
+
+        <p>Expect 3–4 weeks for rafter and purlin installation, sheathing, waterproofing, and planting (working part-time). Allow an additional 2–3 weeks for the living roof to establish before heavy rain season.</p>
+    </section>
+
+    <section id="finishing">
+        <h2>Chapter 8: Finishing and Details</h2>
+
+        <h3>Lime Render</h3>
+
+        <p>The cob walls receive lime render for weather protection. Lime allows the wall to breathe, preventing moisture trap and maintaining the hygroscopic properties of cob.</p>
+
+        <h4>Render Application</h4>
+
+        <ul>
+            <li><strong>Base coat:</strong> 1:3 lime:sharp sand, 15mm thick. Apply with trowel after cob is fully dry (6–8 weeks minimum after final cob lift).</li>
+            <li><strong>Finish coat:</strong> 1:2.5 lime:fine sand, 5mm thick. Apply 1–2 weeks after base coat is firm (not fully hardened).</li>
+            <li><strong>Limewash:</strong> 3–4 coats of natural limewash applied over several months. This provides final weather protection and allows color adjustments.</li>
+        </ul>
+
+        <div class="tip-box">
+            <div class="callout-title">💡 Lime Recipe Tip</div>
+            <p>Hydrated lime (calcium hydroxide) is easier to use than quicklime. When mixing, add water slowly while stirring. The consistency should be like thick yogurt for base coat, thinner for finish coat. Let mixed mortar sit 1–2 hours before use (slake time).</p>
+        </div>
+
+        <h3>Windows and Doors</h3>
+
+        <p>The Terraced BioDome includes:</p>
+
+        <ul>
+            <li><strong>Main entry door:</strong> 1.0m wide × 2.1m tall, centered on curved face (south-facing)</li>
+            <li><strong>Side windows:</strong> Two windows on the curved face (east and west), 0.8m × 1.0m each</li>
+            <li><strong>Clerestory window:</strong> Triangular window where roof meets wall, bringing diffuse northern light</li>
+        </ul>
+
+        <h4>Installation</h4>
+
+        <p>Embed window and door frames in cob as you build walls. This is much easier than retrofitting. For wood frames, use chestnut posts pegged together with mortise and tenon joints (chestnut's dimensional stability prevents warping that would compromise weatherseals). Frames should be shimmed level during wall building and locked in place by cob infill.</p>
+
+        <h4>Deep Window Reveals</h4>
+
+        <p>Because cob walls are 40–50cm thick, windows create deep reveals (the thick wall recess on the interior). These are features, not problems. They provide:</p>
+
+        <ul>
+            <li>Natural window seats (perfect for reading or observation)</li>
+            <li>Thermal buffering (the thick wall moderates temperature)</li>
+            <li>Controllable light and privacy (deep reveals reduce glare)</li>
+        </ul>
+
+        <h3>Entry Door Detail</h3>
+
+        <p>The entry is the most exposed opening. Take extra care:</p>
+
+        <ul>
+            <li>Set door threshold 15–20cm above finished grade to prevent water intrusion</li>
+            <li>Install a small covered porch or overhang to shelter the entry from wind-driven rain</li>
+            <li>Use a water-resistant timber for the threshold (split eucalyptus heartwood or oak)</li>
+            <li>Slope ground away from entry (minimum 2% grade)</li>
+        </ul>
+
+        <h3>Floor Finish</h3>
+
+        <p>The floor sits on the leveled interior void created by the gabion ring. Options:</p>
+
+        <ul>
+            <li><strong>Earthen floor:</strong> Clay and sand mix with linseed oil finish. Beautiful, healthy, but requires regular maintenance. Ideal for dry climates.</li>
+            <li><strong>Flagstone on sand:</strong> Local stone laid on 5cm sand bed. Durable, attractive, allows water drainage underneath.</li>
+            <li><strong>Polished concrete:</strong> If you're using a concrete pad (heating, durability), polish or seal with natural wax for warmth and slip resistance.</li>
+        </ul>
+
+        <div class="tip-box">
+            <div class="callout-title">💡 Earthen Floor Recipe</div>
+            <p>Mix 1 part clay, 2 parts sharp sand, 1/2 part straw (fine fiber), and tallow or linseed oil for binding. Spread 5–8cm thick, tamp down, and allow 2–3 weeks to dry. Seal with boiled linseed oil (multiple coats) for dust control and water resistance.</p>
+        </div>
+    </section>
+
+    <div class="part-header">
+        <h2>Part Four: Living Systems</h2>
+        <p>Fire safety, water, and power for off-grid living</p>
+    </div>
+
+    <section id="systems">
+        <h2>Chapter 9: Fire Safety and Defensible Space</h2>
+
+        <div class="danger-box">
+            <div class="callout-title">🔥 Fire Danger Protocol</div>
+            <p><strong>This is a region where wildfires are possible.</strong> Your BioDome is built to resist fire, but the surrounding landscape must be managed aggressively. Complacency kills.</p>
+        </div>
+
+        <h3>Structure Fire Resistance</h3>
+
+        <p>The Terraced BioDome has <strong>exceptional fire resistance</strong> due to its construction materials:</p>
+
+        <ul>
+            <li><strong>Gabion stone foundation:</strong> Rock in wire mesh—completely non-combustible. Fire cannot damage or ignite stone.</li>
+            <li><strong>Cob walls:</strong> Unfired clay-sand-straw mixture. Clay is essentially fired earth—it cannot burn. The straw content is encased in clay and will not ignite.</li>
+            <li><strong>Dry stone terrace wall:</strong> The entire back wall is granite. This massive thermal mass absorbs heat without combustion.</li>
+            <li><strong>Living roof:</strong> Growing plants hold moisture. The soil substrate and vegetation create a heat-absorbing, non-combustible layer.</li>
+        </ul>
+
+        <p>The only combustible elements are the wooden door/window frames and the eucalyptus structural poles—but these are fully enclosed within the non-combustible envelope of stone, cob, and living roof. Fire would need to breach these barriers before reaching any wood.</p>
+
+        <h3>Native Forest Restoration: The Long-Term Fire Strategy</h3>
+
+        <p>The most effective fire prevention is <strong>replacing eucalyptus with native forest</strong>. Eucalyptus is explosively flammable—volatile oils in the leaves, shredding bark that carries fire up the trunk, and a tendency to drop burning branches. The catastrophic fires that have swept through Portugal and Galicia in recent decades burned almost exclusively through eucalyptus plantations.</p>
+
+        <p>Native Atlantic forests don't burn the same way. <strong>Oak, chestnut, and cork oak</strong> have high moisture content, don't produce volatile oils, and retain their leaves or bark in ways that resist ignition. A mature native forest is a firebreak, not a fire highway.</p>
+
+        <p>Your BioDome project is part of this restoration. Every eucalyptus you harvest for construction is one less fire ladder. Every native tree you plant in its place is long-term fire insurance. Within 10-15 years, the replanted zone becomes a living firebreak that protects not just your home but the entire landscape.</p>
+
+        <h3>Defensible Space Zones</h3>
+
+        <table>
+            <tbody>
+            <tr>
+                <th>Zone</th>
+                <th>Distance</th>
+                <th>Treatment</th>
+            </tr>
+            <tr>
+                <td>Zone 1</td>
+                <td>0–5m</td>
+                <td>Zero flammable vegetation. Mineral surface only (gravel, stone, bare earth). This is your immediate buffer against radiant heat and direct flame contact.</td>
+            </tr>
+            <tr>
+                <td>Zone 2</td>
+                <td>5–30m</td>
+                <td>Mowed grass, no eucalyptus, maintained fire breaks. Young native trees (oak, chestnut, cork oak) are encouraged—they will become your long-term protection as they mature.</td>
+            </tr>
+            <tr>
+                <td>Zone 3</td>
+                <td>30–100m</td>
+                <td>Reduced fuel load, maintained access paths. Continue eucalyptus removal and native replanting. This is your transition zone to restored native forest.</td>
+            </tr>
+            </tbody>
+            </table>
+
+        <div class="tip-box">
+            <div class="callout-title">💡 Replanting Priorities</div>
+            <p>Focus Zone 2 and Zone 3 replanting on fire-resistant natives: <strong>Quercus robur</strong> (pedunculate oak), <strong>Quercus suber</strong> (cork oak), <strong>Castanea sativa</strong> (sweet chestnut), and understory species like <strong>Arbutus unedo</strong> (strawberry tree). These species hold moisture, don't produce flammable oils, and create a closed canopy that shades out eucalyptus regrowth.</p>
+        </div>
+
+        <h3>Fire Risk Monitoring</h3>
+
+        <p>Implement a simple color-coded alert system:</p>
+
+        <table>
+            <tbody>
+            <tr>
+                <th>Level</th>
+                <th>Conditions</th>
+                <th>Actions</th>
+            </tr>
+            <tr>
+                <td style="background:#4caf50;color:white"><strong>GREEN</strong></td>
+                <td>Wet season, recent rain, 60%+ humidity</td>
+                <td>Normal operations. Maintain defensible space routinely.</td>
+            </tr>
+            <tr>
+                <td style="background:#ffeb3b;color:black"><strong>YELLOW</strong></td>
+                <td>Dry spell, 40–60% humidity, no rain for 3+ weeks</td>
+                <td>No open flames. Wet defensible space perimeter weekly. Monitor weather. Keep evacuation kit ready.</td>
+            </tr>
+            <tr>
+                <td style="background:#ff9800;color:white"><strong>ORANGE</strong></td>
+                <td>High temps (&gt;32°C), low humidity (&lt;30%), fires reported in region</td>
+                <td>Wet structure and surroundings daily. Prepare evacuation (pack essentials). Have vehicle fueled and pointed toward exit.</td>
+            </tr>
+            <tr>
+                <td style="background:#f44336;color:white"><strong>RED</strong></td>
+                <td>Extreme danger, fires advancing, evacuation orders in effect</td>
+                <td>Evacuate immediately. Accept possible loss of structure. Life first, always.</td>
+            </tr>
+            </tbody>
+            </table>
+
+        <h3>Water System</h3>
+
+        <p>Living off-grid requires reliable water—both for daily use and fire defense.</p>
+
+        <h4>Rainwater Harvesting</h4>
+
+        <ul>
+            <li><strong>Collection area:</strong> ~47m² roof (living roof runoff during dry spells)</li>
+            <li><strong>Annual rainfall:</strong> ~800mm (Portugal average; adjust for your location)</li>
+            <li><strong>Theoretical annual harvest:</strong> ~37,000 liters per year</li>
+            <li><strong>Realistic annual harvest:</strong> ~20,000–25,000 liters (accounting for first-flush loss, evaporation, roof retention)</li>
+            <li><strong>Recommended storage:</strong> 10,000–15,000 liter tanks</li>
+        </ul>
+
+        <h4>Gutter and Drainage</h4>
+
+        <p>Install gutters around the roof perimeter. Guide water to filter and storage tanks. A first-flush diverter (simple, homemade) removes initial roof debris before water enters tanks.</p>
+
+        <h4>Backup Sources</h4>
+
+        <p>Do not rely solely on rainwater harvesting. Establish backup:</p>
+
+        <ul>
+            <li><strong>Spring or spring-fed water system</strong> (if available on property)</li>
+            <li><strong>Well</strong> (if ground water is accessible)</li>
+            <li><strong>Regular trucked deliveries</strong> (for dry periods)</li>
+        </ul>
+
+        <h3>Power System</h3>
+
+        <h4>Off-Grid Solar</h4>
+
+        <p>The Terraced BioDome is designed for complete off-grid independence.</p>
+
+        <table>
+            <tbody>
+            <tr>
+                <th>Component</th>
+                <th>Specification</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>Solar panels</td>
+                <td>2–4kW array (south-facing)</td>
+                <td>Electricity generation</td>
+            </tr>
+            <tr>
+                <td>Battery storage</td>
+                <td>10–20kWh lithium</td>
+                <td>Off-grid storage for cloudy days</td>
+            </tr>
+            <tr>
+                <td>Inverter</td>
+                <td>3–5kW hybrid</td>
+                <td>AC power from DC batteries</td>
+            </tr>
+            <tr>
+                <td>Backup generator</td>
+                <td>Optional: 5–10kW diesel or LPG</td>
+                <td>Extended cloudy periods</td>
+            </tr>
+            </tbody>
+            </table>
+
+        <div class="tip-box">
+            <div class="callout-title">💡 Solar System Sizing</div>
+            <p>Start by calculating daily electricity need: appliances (refrigerator, lights, pump) × hours of use. A modest home (no air conditioning, electric heating) might need 8–12kWh/day. Size solar array for average winter generation + battery storage to bridge cloudy days (3–5 days autonomy is reasonable).</p>
+        </div>
+    </section>
+
+    <section id="maintenance">
+        <h2>Chapter 10: Maintenance and Long-Term Care</h2>
+
+        <h3>Monthly Checks</h3>
+
+        <ul class="checklist">
+            <li>Walk the structure perimeter. Look for new cracks, water marks, or damaged areas.</li>
+            <li>Check roof for debris accumulation or plant growth issues.</li>
+            <li>Inspect lime render for new cracks or spalling.</li>
+            <li>Test water system—check tanks, pump function, filter condition.</li>
+            <li>Verify solar system operation (if meter readings are normal).</li>
+        </ul>
+
+        <h3>Seasonal Tasks</h3>
+
+        <h4>Spring (March–May)</h4>
+        <ul class="checklist">
+            <li>Full structural inspection. Look for winter damage, frost spalling of lime.</li>
+            <li>Repair any cracked render. Small cracks are normal and not dangerous, but seal large ones to prevent water intrusion.</li>
+            <li>Plant native species in restoration zones around the structure.</li>
+            <li>Service and test solar and water systems.</li>
+            <li>Clear gutters and drainage paths of winter debris.</li>
+        </ul>
+
+        <h4>Summer (June–August)</h4>
+        <ul class="checklist">
+            <li>Maximum fire vigilance. Monitor fire danger daily during dry periods.</li>
+            <li>Maintain defensible space weekly—mow grass, remove deadwood, watch for approaching vegetation growth.</li>
+            <li>Water living roof if extended drought (beyond 3+ weeks without rain).</li>
+            <li>Monitor stored water levels. If drawing down faster than expected, adjust usage or seek backup sources.</li>
+            <li>Check pole connections and lashing for any loosening from thermal expansion.</li>
+        </ul>
+
+        <h4>Autumn (September–November)</h4>
+        <ul class="checklist">
+            <li>Apply limewash touch-ups to any damaged or weathered render.</li>
+            <li>Clean gutters and water system before heavy rain season.</li>
+            <li>Inspect roof thoroughly. Check for any loose vegetation or debris.</li>
+            <li>Prepare for wet season: ensure drainage is clear, gutters flow freely.</li>
+            <li>Assess restoration progress. Note plant growth and native species recovery.</li>
+        </ul>
+
+        <h4>Winter (December–February)</h4>
+        <ul class="checklist">
+            <li>Monitor for leaks during heavy rains. Interior ceiling inspection.</li>
+            <li>Check gutter drainage and ground-level water movement (prevent pooling near foundation).</li>
+            <li>Plan next year's improvements, repairs, or expansions.</li>
+            <li>Document ecosystem recovery. Photo comparisons over seasons are valuable.</li>
+        </ul>
+
+        <h3>Annual Maintenance</h3>
+
+        <p><strong>Pole Sealing:</strong> Every 5–10 years, reapply linseed oil to exposed poles. This keeps wood waterproof and maintains protection. Plan 1–2 days of work per year during dry season.</p>
+
+        <p><strong>Living Roof Care:</strong> Sedums and native groundcovers require minimal intervention. In extreme droughts, water lightly. Remove any woody plant seedlings (trees or shrubs) that germinate—you don't want a forest on your roof.</p>
+
+        <p><strong>Lime Render Maintenance:</strong> Every 5–10 years (depending on climate), reapply limewash. This is more of a cosmetic task but provides meaningful weather protection. One or two coats is sufficient.</p>
+
+        <h3>Monitoring Ecosystem Recovery</h3>
+
+        <p>Your BioDome is part of a larger restoration project. Track this:</p>
+
+        <ul>
+            <li><strong>Eucalyptus eradication:</strong> Monitor stumps you treated. After 18 months, record success rate of different treatment methods.</li>
+            <li><strong>Native species:</strong> Document trees and shrubs that appear naturally. Are cork oaks, wild olives, or other natives regenerating?</li>
+            <li><strong>Water indicators:</strong> Spring flow returning? Soil moisture increasing? Well levels rising?</li>
+            <li><strong>Biodiversity:</strong> Keep simple counts—bird species, insect diversity, mammal sightings. Even casual observation documents recovery.</li>
+        </ul>
+
+        <div class="tip-box">
+            <div class="callout-title">💡 Share Your Data</div>
+            <p>Your observations contribute to restoration science. Share results with local environmental organizations, forest authorities, or universities. Collective data helps refine best practices for eucalyptus eradication and native recovery.</p>
+        </div>
+    </section>
+
+    <div class="section-divider"></div>
+
+    <section>
+        <h2>Your Terraced Legacy</h2>
+
+        <p>When you build a Terraced BioDome, you're not just creating shelter. You're:</p>
+
+        <ul>
+            <li>Removing 90–150 invasive eucalyptus trees from the landscape</li>
+            <li>Restoring agricultural terraces to productive use</li>
+            <li>Returning thousands of liters of water daily to your watershed</li>
+            <li>Creating a fireproof home that resists the heat and flame that destroyed surrounding forests</li>
+            <li>Demonstrating that restoration can be economically viable and beautiful</li>
+            <li>Building a shelter that will function for 50–100 years—and the native forest beyond that, for centuries</li>
+        </ul>
+
+        <p>The genius of this design is its <strong>efficiency</strong>. You need 40–50% less material, less labor, less expertise than a full BioDome. This makes it possible for beginners, people with modest resources, and anyone working with limited land area.</p>
+
+        <p>The structure will last. The native forest you enable will outlast it.</p>
+
+        <p><strong>That's the real project.</strong></p>
+    </section>
+
+</main>
+
+<footer>
+    <p class="footer-quote">"The best time to plant a forest was 20 years ago. The second best time is now."</p>
+    <p>Build the home you want to live in. Use the trees that shouldn't be there. Heal the land beneath your feet.</p>
+    <p style="margin-top: 2rem; font-size: 0.85rem; opacity: 0.6;">Version 1.0 — January 2026 — Creative Commons BY-SA 4.0</p>
+</footer>
+
+</body>
+</html>

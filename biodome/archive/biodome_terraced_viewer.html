@@ -1,0 +1,1064 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terraced BioDome - 3D Viewer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #1a1a2e;
+            overflow: hidden;
+        }
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            background: rgba(0,0,0,0.7);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            z-index: 100;
+        }
+        #toggleBtn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: #7cb342;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 100;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        #toggleBtn:hover {
+            background: #689f38;
+        }
+        #legend {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.85);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            z-index: 100;
+            max-width: 340px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+        #legend h2 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #7cb342;
+            border-bottom: 1px solid #444;
+            padding-bottom: 8px;
+        }
+        #legend h3 {
+            font-size: 13px;
+            margin-top: 14px;
+            margin-bottom: 8px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333;
+        }
+        .legend-item:last-child {
+            border-bottom: none;
+        }
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .legend-details {
+            flex: 1;
+        }
+        .legend-name {
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+        .legend-desc {
+            color: #999;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+        .legend-spec {
+            color: #7cb342;
+            font-size: 10px;
+            margin-top: 3px;
+            font-family: monospace;
+        }
+        #legendToggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            z-index: 99;
+            display: none;
+        }
+        #legend.hidden {
+            display: none;
+        }
+        #legend.hidden + #legendToggle {
+            display: block;
+        }
+        #stats {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            background: rgba(0,0,0,0.7);
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            z-index: 100;
+        }
+        #stats div {
+            margin: 4px 0;
+        }
+        #stats span {
+            color: #7cb342;
+            font-weight: 600;
+        }
+        canvas { display: block; }
+    </style>
+</head>
+<body>
+    <div id="legend">
+        <h2>Terraced BioDome Materials</h2>
+
+        <h3>Terrain</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #6b7b6b;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Dry Stone Terrace Wall</div>
+                <div class="legend-desc">Existing granite dry stone wall. Slightly battered for stability. Forms the back wall of the BioDome.</div>
+                <div class="legend-spec">3m tall x 0.8m thick x ~10m wide</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #4a6b4a;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Lower Terrace</div>
+                <div class="legend-desc">Flat ground plane at Y=0. BioDome sits on this level.</div>
+                <div class="legend-spec">Extends ~15m from wall</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #3d5c3d;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Upper Terrace</div>
+                <div class="legend-desc">Flat ground plane at Y=3.0m behind the wall.</div>
+                <div class="legend-spec">Extends ~10m behind wall</div>
+            </div>
+        </div>
+
+        <h3>Foundation</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #8b8b83;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Semi-circular Gabion Foundation</div>
+                <div class="legend-desc">Local granite rocks in galvanized wire mesh cages. Ties into wall base at both ends.</div>
+                <div class="legend-spec">180° arc x 0.6m wide x 0.5m high</div>
+            </div>
+        </div>
+
+        <h3>Wall System</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #f5f0e6;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Lime Render (Curved Wall)</div>
+                <div class="legend-desc">3-coat lime render over cob on the semicircular front wall only.</div>
+                <div class="legend-spec">Base 15mm + Finish 5mm + limewash</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #c4a574;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Cob Wall Infill</div>
+                <div class="legend-desc">Clay, sand, and straw mixture filling the curved wall.</div>
+                <div class="legend-spec">50cm thick on curved face only</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #8b5a2b;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Eucalyptus Vertical Posts</div>
+                <div class="legend-desc">~14 posts on semicircular arc + 2 against wall ends.</div>
+                <div class="legend-spec">14 posts x 15-20cm x 2.5-3.0m</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #b8860b;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Horizontal Wattle Poles</div>
+                <div class="legend-desc">Woven between verticals on curved wall only.</div>
+                <div class="legend-spec">7 levels x ~14 spans</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #8b5a2b;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Central Support Pillar</div>
+                <div class="legend-desc">Strong vertical post against terrace wall center. Carries roof peak load down to foundation.</div>
+                <div class="legend-spec">1 post x 24-30cm x ~4.7m tall</div>
+            </div>
+        </div>
+
+        <h3>Ring Beam</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #8b4513;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Half-arc Ring Beam</div>
+                <div class="legend-desc">Semicircular beam anchored into terrace wall at both ends. Steel plates or through-stones at connections.</div>
+                <div class="legend-spec">180° arc x 12-14cm</div>
+            </div>
+        </div>
+
+        <h3>Lean-to Roof Structure</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #cd853f;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Straight Rafters</div>
+                <div class="legend-desc">Simple straight poles from ring beam to wall top. Not reciprocal - simpler construction.</div>
+                <div class="legend-spec">~14 rafters x 15-18cm</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #daa520;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Roof Purlins</div>
+                <div class="legend-desc">Semicircular arcs parallel to wall face, supporting roof sheathing.</div>
+                <div class="legend-spec">4 purlins at varied heights</div>
+            </div>
+        </div>
+
+        <h3>Living Roof</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #5d8a3e;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Green Roof Surface</div>
+                <div class="legend-desc">Single slope for drainage away from wall. Sedums and drought-tolerant plants.</div>
+                <div class="legend-spec">High at wall (5.0m) to low at eaves (~3.0m)</div>
+            </div>
+        </div>
+
+        <h3>Clerestory</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #88ccee;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Clerestory Window</div>
+                <div class="legend-desc">Single triangular glazed panel where roof meets wall. Brings natural light deep into the space.</div>
+                <div class="legend-spec">Triangle fitting roof slope</div>
+            </div>
+        </div>
+
+        <h3>Floor</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #a67c52;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Earthen Floor</div>
+                <div class="legend-desc">D-shaped clay, sand, and linseed oil finish.</div>
+                <div class="legend-spec">~47m² floor area</div>
+            </div>
+        </div>
+
+        <h3>Openings</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #5c4033;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Entry Door</div>
+                <div class="legend-desc">Centered on curved face (south-facing).</div>
+                <div class="legend-spec">1.0m W x 2.1m H</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #88ccee;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Side Windows</div>
+                <div class="legend-desc">East and west windows on curved face.</div>
+                <div class="legend-spec">0.8m W x 1.0m H</div>
+            </div>
+        </div>
+
+        <button onclick="document.getElementById('legend').classList.add('hidden')" style="margin-top:12px;background:#444;border:none;color:#aaa;padding:6px 12px;border-radius:4px;cursor:pointer;width:100%;">Hide Legend</button>
+    </div>
+    <button id="legendToggle" onclick="document.getElementById('legend').classList.remove('hidden')">Show Legend</button>
+
+    <div id="stats">
+        <div>Width: <span>9m</span></div>
+        <div>Depth: <span>~5.5m</span></div>
+        <div>Floor Area: <span>~47m²</span></div>
+        <div>Wall Height: <span>2.5m (curved)</span></div>
+        <div>Ridge Height: <span>5.0m (at wall)</span></div>
+        <div>Eaves Height: <span>~3.0m</span></div>
+        <div>Terrace Wall: <span>3m tall</span></div>
+    </div>
+
+    <div id="controls">
+        Drag to rotate | Scroll to zoom | Right-drag to pan
+    </div>
+
+    <button id="toggleBtn" onclick="toggleTransparency()">Show Solid</button>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        // Note: viewer-enhancements.js can be added when serving from HTTP server (GitHub Pages)
+
+        // Scene setup
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x1a1a2e);
+
+        // Camera - positioned to view from the south-east (front of structure)
+        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(12, 8, 15);
+
+        // Renderer
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderer.domElement);
+
+        // Controls
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.target.set(0, 1.5, 3); // Focus on structure center
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+        scene.add(ambientLight);
+
+        const sunLight = new THREE.DirectionalLight(0xfff5e6, 1.2);
+        sunLight.position.set(10, 15, 10);
+        sunLight.castShadow = true;
+        sunLight.shadow.mapSize.width = 2048;
+        sunLight.shadow.mapSize.height = 2048;
+        sunLight.shadow.camera.near = 0.5;
+        sunLight.shadow.camera.far = 50;
+        sunLight.shadow.camera.left = -20;
+        sunLight.shadow.camera.right = 20;
+        sunLight.shadow.camera.top = 20;
+        sunLight.shadow.camera.bottom = -20;
+        scene.add(sunLight);
+
+        const fillLight = new THREE.DirectionalLight(0x87ceeb, 0.3);
+        fillLight.position.set(-5, 3, -5);
+        scene.add(fillLight);
+
+        // Materials
+        const materials = {
+            granite: new THREE.MeshStandardMaterial({
+                color: 0x6b7b6b,
+                roughness: 0.95,
+                metalness: 0.1
+            }),
+            foundation: new THREE.MeshStandardMaterial({
+                color: 0x7a7a72,
+                roughness: 0.9,
+                metalness: 0.1,
+                transparent: true,
+                opacity: 0.6,
+                side: THREE.DoubleSide
+            }),
+            cobWall: new THREE.MeshStandardMaterial({
+                color: 0xd4a574,
+                roughness: 0.95,
+                metalness: 0,
+                transparent: true,
+                opacity: 0.3,
+                side: THREE.DoubleSide
+            }),
+            limeRender: new THREE.MeshStandardMaterial({
+                color: 0xfaf5eb,
+                roughness: 0.8,
+                metalness: 0,
+                transparent: true,
+                opacity: 0.25,
+                side: THREE.DoubleSide
+            }),
+            eucalyptus: new THREE.MeshStandardMaterial({
+                color: 0xa67c3d,
+                roughness: 0.7,
+                metalness: 0.05
+            }),
+            eucalyptusVertical: new THREE.MeshStandardMaterial({
+                color: 0x8b5a2b,
+                roughness: 0.7,
+                metalness: 0.05
+            }),
+            eucalyptusHorizontal: new THREE.MeshStandardMaterial({
+                color: 0xb8860b,
+                roughness: 0.7,
+                metalness: 0.05
+            }),
+            rafters: new THREE.MeshStandardMaterial({
+                color: 0xcd853f,
+                roughness: 0.6,
+                metalness: 0.05
+            }),
+            purlins: new THREE.MeshStandardMaterial({
+                color: 0xdaa520,
+                roughness: 0.6,
+                metalness: 0.05
+            }),
+            ringBeam: new THREE.MeshStandardMaterial({
+                color: 0x8b4513,
+                roughness: 0.6,
+                metalness: 0.05
+            }),
+            livingRoof: new THREE.MeshStandardMaterial({
+                color: 0x4a7c3a,
+                roughness: 0.9,
+                metalness: 0,
+                transparent: true,
+                opacity: 0.4,
+                side: THREE.DoubleSide
+            }),
+            floor: new THREE.MeshStandardMaterial({
+                color: 0xb8734a,
+                roughness: 0.85,
+                metalness: 0,
+                transparent: true,
+                opacity: 0.5,
+                side: THREE.DoubleSide
+            }),
+            glass: new THREE.MeshPhysicalMaterial({
+                color: 0x88ccff, // Bright sky blue
+                roughness: 0.0,
+                metalness: 0.0,
+                transparent: true,
+                opacity: 0.5,
+                transmission: 0.6,
+                thickness: 0.1,
+                side: THREE.DoubleSide,
+                depthWrite: false
+            }),
+            door: new THREE.MeshStandardMaterial({
+                color: 0x5c4033,
+                roughness: 0.8,
+                metalness: 0
+            }),
+            groundLower: new THREE.MeshStandardMaterial({
+                color: 0x4a6b4a,
+                roughness: 1,
+                metalness: 0
+            }),
+            groundUpper: new THREE.MeshStandardMaterial({
+                color: 0x3d5c3d,
+                roughness: 1,
+                metalness: 0
+            })
+        };
+
+        // ==========================================
+        // TERRAIN: Two terraces with dry stone wall
+        // ==========================================
+
+        // Structure parameters
+        const structureRadius = 4.5; // Radius of the semicircle
+        const wallThickness = 0.8;   // Dry stone wall thickness
+        const terraceWallHeight = 3.0;
+        const wallBatter = 0.08;     // Slight inward lean (batter) per meter
+
+        // The terrace wall runs along X axis, centered at Z=0
+        // Wall front face is at Z = wallThickness/2
+        // Structure sits on lower terrace with flat back against wall front face
+        const structureOffset = wallThickness / 2 + 0.05; // Offset so flat back is just in front of wall
+
+        // Lower terrace (Y=0) - where the BioDome sits
+        const lowerTerraceGeometry = new THREE.PlaneGeometry(30, 20);
+        lowerTerraceGeometry.rotateX(-Math.PI / 2);
+        lowerTerraceGeometry.translate(0, 0, 8); // Centered south of wall
+        const lowerTerrace = new THREE.Mesh(lowerTerraceGeometry, materials.groundLower);
+        lowerTerrace.receiveShadow = true;
+        lowerTerrace.userData.component = 'ground';
+        scene.add(lowerTerrace);
+
+        // Upper terrace (Y=3.0) - behind the wall
+        const upperTerraceGeometry = new THREE.PlaneGeometry(30, 15);
+        upperTerraceGeometry.rotateX(-Math.PI / 2);
+        upperTerraceGeometry.translate(0, terraceWallHeight, -8); // Behind wall
+        const upperTerrace = new THREE.Mesh(upperTerraceGeometry, materials.groundUpper);
+        upperTerrace.receiveShadow = true;
+        upperTerrace.userData.component = 'ground';
+        scene.add(upperTerrace);
+
+        // Dry stone terrace wall
+        // Using a slightly trapezoidal shape for batter
+        const wallWidth = 14; // Wider than structure to show full wall
+        const wallBottomThickness = wallThickness;
+        const wallTopThickness = wallThickness - (terraceWallHeight * wallBatter);
+
+        const wallShape = new THREE.Shape();
+        wallShape.moveTo(-wallBottomThickness/2, 0);
+        wallShape.lineTo(wallBottomThickness/2, 0);
+        wallShape.lineTo(wallTopThickness/2, terraceWallHeight);
+        wallShape.lineTo(-wallTopThickness/2, terraceWallHeight);
+        wallShape.closePath();
+
+        const wallExtrudeSettings = { depth: wallWidth, bevelEnabled: false };
+        const wallGeometry = new THREE.ExtrudeGeometry(wallShape, wallExtrudeSettings);
+        wallGeometry.rotateY(Math.PI / 2);
+        wallGeometry.translate(-wallWidth/2, 0, 0);
+
+        const terraceWall = new THREE.Mesh(wallGeometry, materials.granite);
+        terraceWall.castShadow = true;
+        terraceWall.receiveShadow = true;
+        terraceWall.userData.component = 'ground';
+        scene.add(terraceWall);
+
+        // ==========================================
+        // D-SHAPED FOUNDATION (semicircular gabion)
+        // ==========================================
+
+        const foundationRadius = structureRadius + 0.5;
+        const foundationInnerRadius = foundationRadius - 0.6;
+        const foundationHeight = 0.5;
+
+        // Create semicircular foundation arc
+        const foundationShape = new THREE.Shape();
+        // Outer arc
+        foundationShape.absarc(0, 0, foundationRadius, 0, Math.PI, false);
+        // Line to inner arc start
+        foundationShape.lineTo(-foundationInnerRadius, 0);
+        // Inner arc (reversed)
+        foundationShape.absarc(0, 0, foundationInnerRadius, Math.PI, 0, true);
+        foundationShape.closePath();
+
+        const foundationExtrudeSettings = { depth: foundationHeight, bevelEnabled: false };
+        const foundationGeometry = new THREE.ExtrudeGeometry(foundationShape, foundationExtrudeSettings);
+        foundationGeometry.rotateX(Math.PI / 2);
+        foundationGeometry.translate(0, foundationHeight, structureOffset); // Offset from wall
+
+        const foundation = new THREE.Mesh(foundationGeometry, materials.foundation);
+        foundation.castShadow = true;
+        foundation.receiveShadow = true;
+        foundation.userData.component = 'foundation';
+        scene.add(foundation);
+
+        // ==========================================
+        // D-SHAPED WALLS (semicircular cob/lime render)
+        // ==========================================
+
+        const wallOuterRadius = structureRadius;
+        const wallInnerRadius = structureRadius - 0.5;
+        const curvedWallHeight = 2.5;
+
+        // Create semicircular wall
+        const wallArcShape = new THREE.Shape();
+        wallArcShape.absarc(0, 0, wallOuterRadius, 0, Math.PI, false);
+        wallArcShape.lineTo(-wallInnerRadius, 0);
+        wallArcShape.absarc(0, 0, wallInnerRadius, Math.PI, 0, true);
+        wallArcShape.closePath();
+
+        const wallArcExtrudeSettings = { depth: curvedWallHeight, bevelEnabled: false };
+        const wallArcGeometry = new THREE.ExtrudeGeometry(wallArcShape, wallArcExtrudeSettings);
+        wallArcGeometry.rotateX(Math.PI / 2);
+        wallArcGeometry.translate(0, foundationHeight + curvedWallHeight, structureOffset); // Offset from wall
+
+        const curvedWall = new THREE.Mesh(wallArcGeometry, materials.limeRender);
+        curvedWall.castShadow = true;
+        curvedWall.receiveShadow = true;
+        curvedWall.userData.component = 'walls';
+        scene.add(curvedWall);
+
+        // ==========================================
+        // VERTICAL POSTS (semicircular arrangement)
+        // ==========================================
+
+        const numPosts = 14; // Posts on the semicircle
+        const postRadius = structureRadius - 0.25; // Center of wall thickness
+
+        for (let i = 0; i <= numPosts; i++) {
+            const angle = (i / numPosts) * Math.PI;
+            const x = postRadius * Math.cos(angle);
+            const z = postRadius * Math.sin(angle);
+
+            // Posts are taller near the wall (i=0 and i=numPosts)
+            const isNearWall = (i <= 1 || i >= numPosts - 1);
+            const postHeight = isNearWall ? 2.8 : 2.6;
+
+            const postGeometry = new THREE.CylinderGeometry(0.08, 0.10, postHeight, 8);
+            const post = new THREE.Mesh(postGeometry, materials.eucalyptusVertical);
+            post.position.set(x, foundationHeight + postHeight/2, z + structureOffset);
+            post.castShadow = true;
+            post.userData.component = 'verticalPoles';
+            scene.add(post);
+        }
+
+        // Two posts against the wall at the ends
+        const wallPostHeight = 3.0;
+        const wallPostGeometry = new THREE.CylinderGeometry(0.10, 0.12, wallPostHeight, 8);
+
+        const leftWallPost = new THREE.Mesh(wallPostGeometry, materials.eucalyptusVertical);
+        leftWallPost.position.set(-structureRadius + 0.2, foundationHeight + wallPostHeight/2, structureOffset + 0.1);
+        leftWallPost.castShadow = true;
+        leftWallPost.userData.component = 'verticalPoles';
+        scene.add(leftWallPost);
+
+        const rightWallPost = new THREE.Mesh(wallPostGeometry, materials.eucalyptusVertical);
+        rightWallPost.position.set(structureRadius - 0.2, foundationHeight + wallPostHeight/2, structureOffset + 0.1);
+        rightWallPost.castShadow = true;
+        rightWallPost.userData.component = 'verticalPoles';
+        scene.add(rightWallPost);
+
+        // ==========================================
+        // HORIZONTAL WATTLE POLES (semicircular)
+        // ==========================================
+
+        const horizontalLevels = [0.8, 1.1, 1.4, 1.7, 2.0, 2.3, 2.6];
+
+        horizontalLevels.forEach(height => {
+            for (let i = 0; i < numPosts; i++) {
+                const angle1 = (i / numPosts) * Math.PI;
+                const angle2 = ((i + 1) / numPosts) * Math.PI;
+
+                const x1 = postRadius * Math.cos(angle1);
+                const z1 = postRadius * Math.sin(angle1);
+                const x2 = postRadius * Math.cos(angle2);
+                const z2 = postRadius * Math.sin(angle2);
+
+                const direction = new THREE.Vector3(x2 - x1, 0, z2 - z1);
+                const length = direction.length();
+                direction.normalize();
+
+                const midX = (x1 + x2) / 2;
+                const midZ = (z1 + z2) / 2;
+
+                const wattleGeometry = new THREE.CylinderGeometry(0.025, 0.03, length, 6);
+                const wattle = new THREE.Mesh(wattleGeometry, materials.eucalyptusHorizontal);
+                wattle.position.set(midX, foundationHeight + height, midZ + structureOffset);
+
+                const yAxis = new THREE.Vector3(0, 1, 0);
+                const quaternion = new THREE.Quaternion().setFromUnitVectors(yAxis, direction);
+                wattle.setRotationFromQuaternion(quaternion);
+
+                wattle.castShadow = true;
+                wattle.userData.component = 'horizontalPoles';
+                scene.add(wattle);
+            }
+        });
+
+        // ==========================================
+        // HALF-ARC RING BEAM
+        // ==========================================
+
+        const ringBeamRadius = structureRadius - 0.25;
+        const ringBeamHeight = foundationHeight + curvedWallHeight + 0.1;
+        const ringBeamSegments = 24;
+
+        // Create ring beam as a series of connected segments
+        for (let i = 0; i < ringBeamSegments; i++) {
+            const angle1 = (i / ringBeamSegments) * Math.PI;
+            const angle2 = ((i + 1) / ringBeamSegments) * Math.PI;
+
+            const x1 = ringBeamRadius * Math.cos(angle1);
+            const z1 = ringBeamRadius * Math.sin(angle1);
+            const x2 = ringBeamRadius * Math.cos(angle2);
+            const z2 = ringBeamRadius * Math.sin(angle2);
+
+            const direction = new THREE.Vector3(x2 - x1, 0, z2 - z1);
+            const length = direction.length();
+            direction.normalize();
+
+            const segmentGeometry = new THREE.CylinderGeometry(0.06, 0.07, length * 1.05, 8);
+            const segment = new THREE.Mesh(segmentGeometry, materials.ringBeam);
+            segment.position.set((x1 + x2) / 2, ringBeamHeight, (z1 + z2) / 2 + structureOffset);
+
+            const yAxis = new THREE.Vector3(0, 1, 0);
+            const quaternion = new THREE.Quaternion().setFromUnitVectors(yAxis, direction);
+            segment.setRotationFromQuaternion(quaternion);
+
+            segment.castShadow = true;
+            segment.userData.component = 'ringBeam';
+            scene.add(segment);
+        }
+
+        // Ring beam anchor plates into wall (visual indicators)
+        const anchorGeometry = new THREE.BoxGeometry(0.15, 0.25, 0.08);
+
+        const leftAnchor = new THREE.Mesh(anchorGeometry, materials.ringBeam);
+        leftAnchor.position.set(-ringBeamRadius, ringBeamHeight, structureOffset);
+        leftAnchor.userData.component = 'ringBeam';
+        scene.add(leftAnchor);
+
+        const rightAnchor = new THREE.Mesh(anchorGeometry, materials.ringBeam);
+        rightAnchor.position.set(ringBeamRadius, ringBeamHeight, structureOffset);
+        rightAnchor.userData.component = 'ringBeam';
+        scene.add(rightAnchor);
+
+        // ==========================================
+        // LEAN-TO ROOF STRUCTURE (rafters)
+        // ==========================================
+
+        const numRafters = 15;
+        const eavesHeight = foundationHeight + curvedWallHeight + 0.2; // ~3.2m
+        const ridgeHeight = terraceWallHeight + 2.0; // 5.0m (well above wall top for steeper pitch)
+        const overhang = 1.5; // Overhang beyond curved wall
+
+        for (let i = 0; i <= numRafters; i++) {
+            const angle = (i / numRafters) * Math.PI;
+
+            // Start point: beyond the curved wall (with overhang)
+            const outerRadius = structureRadius + overhang;
+            const startX = outerRadius * Math.cos(angle);
+            const startZ = outerRadius * Math.sin(angle) + structureOffset;
+            const startY = eavesHeight + 0.1; // Just above ring beam, below roof
+
+            // End point: at the terrace wall face
+            const endX = startX * 0.05; // Converge toward center at wall
+            const endZ = wallThickness * 0.6; // At wall face
+            const endY = ridgeHeight;
+
+            // Calculate rafter geometry
+            const direction = new THREE.Vector3(endX - startX, endY - startY, endZ - startZ);
+            const length = direction.length();
+            direction.normalize();
+
+            const rafterGeometry = new THREE.CylinderGeometry(0.06, 0.08, length, 8);
+            const rafter = new THREE.Mesh(rafterGeometry, materials.rafters);
+
+            rafter.position.set(
+                (startX + endX) / 2,
+                (startY + endY) / 2,
+                (startZ + endZ) / 2
+            );
+
+            const yAxis = new THREE.Vector3(0, 1, 0);
+            const quaternion = new THREE.Quaternion().setFromUnitVectors(yAxis, direction);
+            rafter.setRotationFromQuaternion(quaternion);
+
+            rafter.castShadow = true;
+            rafter.userData.component = 'rafters';
+            scene.add(rafter);
+        }
+
+        // ==========================================
+        // CENTRAL SUPPORT PILLAR (holds up roof peak)
+        // ==========================================
+
+        const centralPillarHeight = ridgeHeight - foundationHeight + 0.2; // From floor to ridge
+        const centralPillarGeometry = new THREE.CylinderGeometry(0.12, 0.15, centralPillarHeight, 12);
+        const centralPillar = new THREE.Mesh(centralPillarGeometry, materials.eucalyptusVertical);
+        centralPillar.position.set(0, foundationHeight + centralPillarHeight/2, wallThickness * 0.4); // Against wall face, centered
+        centralPillar.castShadow = true;
+        centralPillar.userData.component = 'centralPillar';
+        scene.add(centralPillar);
+
+        // Pillar capital/bracket where it meets roof (visual connection)
+        const capitalGeometry = new THREE.BoxGeometry(0.4, 0.15, 0.25);
+        const capital = new THREE.Mesh(capitalGeometry, materials.ringBeam);
+        capital.position.set(0, ridgeHeight + 0.1, wallThickness * 0.45);
+        capital.userData.component = 'centralPillar';
+        scene.add(capital);
+
+        // ==========================================
+        // ROOF PURLINS (semicircular arcs)
+        // ==========================================
+
+        const purlinPositions = [0.25, 0.45, 0.65, 0.85]; // Fraction from eaves to ridge
+
+        purlinPositions.forEach(t => {
+            const purlinY = eavesHeight + t * (ridgeHeight - eavesHeight);
+            const purlinRadius = (structureRadius + overhang) * (1 - t * 0.7);
+            // Offset decreases as we get closer to wall
+            const purlinOffset = structureOffset * (1 - t * 0.9);
+
+            // Create semicircular purlin
+            const purlinSegments = 20;
+            for (let i = 0; i < purlinSegments; i++) {
+                const angle1 = (i / purlinSegments) * Math.PI;
+                const angle2 = ((i + 1) / purlinSegments) * Math.PI;
+
+                // Purlin follows the roof slope
+                const x1 = purlinRadius * Math.cos(angle1);
+                const z1 = purlinRadius * Math.sin(angle1) * (1 - t * 0.7) + purlinOffset;
+                const x2 = purlinRadius * Math.cos(angle2);
+                const z2 = purlinRadius * Math.sin(angle2) * (1 - t * 0.7) + purlinOffset;
+
+                const direction = new THREE.Vector3(x2 - x1, 0, z2 - z1);
+                const length = direction.length();
+                direction.normalize();
+
+                const purlinGeometry = new THREE.CylinderGeometry(0.035, 0.04, length * 1.05, 6);
+                const purlin = new THREE.Mesh(purlinGeometry, materials.purlins);
+                purlin.position.set((x1 + x2) / 2, purlinY, (z1 + z2) / 2);
+
+                const yAxis = new THREE.Vector3(0, 1, 0);
+                const quaternion = new THREE.Quaternion().setFromUnitVectors(yAxis, direction);
+                purlin.setRotationFromQuaternion(quaternion);
+
+                purlin.castShadow = true;
+                purlin.userData.component = 'purlins';
+                scene.add(purlin);
+            }
+        });
+
+        // ==========================================
+        // LIVING ROOF SURFACE (lean-to shape)
+        // ==========================================
+
+        // Create a custom geometry for the D-shaped lean-to roof
+        const roofVertices = [];
+        const roofIndices = [];
+        const roofSegments = 32;
+
+        // Generate vertices for the roof surface
+        // Two rows: outer edge (eaves) and inner edge (at wall)
+        for (let i = 0; i <= roofSegments; i++) {
+            const angle = (i / roofSegments) * Math.PI;
+
+            // Outer edge (eaves with overhang) - raised above ring beam
+            const outerR = structureRadius + overhang + 0.1;
+            const outerX = outerR * Math.cos(angle);
+            const outerZ = outerR * Math.sin(angle) + structureOffset;
+            const outerY = eavesHeight + 0.2; // Raised to sit above ring beam
+            roofVertices.push(outerX, outerY, outerZ);
+
+            // Inner edge (at wall face)
+            const innerX = outerX * 0.05; // Converge toward center
+            const innerZ = wallThickness * 0.6; // At wall face
+            const innerY = ridgeHeight + 0.1;
+            roofVertices.push(innerX, innerY, innerZ);
+        }
+
+        // Generate faces
+        for (let i = 0; i < roofSegments; i++) {
+            const a = i * 2;
+            const b = i * 2 + 1;
+            const c = i * 2 + 2;
+            const d = i * 2 + 3;
+
+            roofIndices.push(a, b, c);
+            roofIndices.push(b, d, c);
+        }
+
+        const roofGeometry = new THREE.BufferGeometry();
+        roofGeometry.setAttribute('position', new THREE.Float32BufferAttribute(roofVertices, 3));
+        roofGeometry.setIndex(roofIndices);
+        roofGeometry.computeVertexNormals();
+
+        const roofSurface = new THREE.Mesh(roofGeometry, materials.livingRoof);
+        roofSurface.castShadow = true;
+        roofSurface.receiveShadow = true;
+        roofSurface.userData.component = 'roof';
+        scene.add(roofSurface);
+
+        // ==========================================
+        // CLERESTORY WINDOW (single triangle at wall-roof junction)
+        // ==========================================
+
+        const clerestoryBaseY = terraceWallHeight + 0.1; // Just above wall top
+        const clerestoryPeakY = ridgeHeight - 0.3; // Just below roof ridge
+        const clerestoryHalfWidth = structureRadius * 0.85; // Half-width of triangle base
+        const clerestoryZ = wallThickness * 0.55;
+
+        // Single large triangle: wide base at wall top, peak at ridge center
+        const triShape = new THREE.Shape();
+        triShape.moveTo(-clerestoryHalfWidth, clerestoryBaseY);
+        triShape.lineTo(clerestoryHalfWidth, clerestoryBaseY);
+        triShape.lineTo(0, clerestoryPeakY);
+        triShape.closePath();
+
+        const triGeometry = new THREE.ShapeGeometry(triShape);
+        triGeometry.translate(0, 0, clerestoryZ);
+        const clerestoryWindow = new THREE.Mesh(triGeometry, materials.glass);
+        clerestoryWindow.userData.component = 'clerestory';
+        scene.add(clerestoryWindow);
+
+        // Frame edges for the triangle
+        const framePoints = [
+            [-clerestoryHalfWidth, clerestoryBaseY],
+            [clerestoryHalfWidth, clerestoryBaseY],
+            [0, clerestoryPeakY],
+            [-clerestoryHalfWidth, clerestoryBaseY]
+        ];
+        for (let i = 0; i < framePoints.length - 1; i++) {
+            const [x1, y1] = framePoints[i];
+            const [x2, y2] = framePoints[i + 1];
+            const dx = x2 - x1;
+            const dy = y2 - y1;
+            const len = Math.sqrt(dx*dx + dy*dy);
+            const frameGeom = new THREE.BoxGeometry(len, 0.08, 0.08);
+            const frame = new THREE.Mesh(frameGeom, materials.eucalyptusVertical);
+            frame.position.set((x1+x2)/2, (y1+y2)/2, clerestoryZ);
+            frame.rotation.z = Math.atan2(dy, dx);
+            frame.userData.component = 'clerestory';
+            scene.add(frame);
+        }
+
+        // ==========================================
+        // D-SHAPED FLOOR
+        // ==========================================
+
+        const floorShape = new THREE.Shape();
+        floorShape.absarc(0, 0, wallInnerRadius - 0.1, 0, Math.PI, false);
+        floorShape.lineTo(-wallInnerRadius + 0.1, 0.1); // Extend to wall
+        floorShape.lineTo(wallInnerRadius - 0.1, 0.1);
+        floorShape.closePath();
+
+        const floorGeometry = new THREE.ShapeGeometry(floorShape);
+        floorGeometry.rotateX(Math.PI / 2);
+        floorGeometry.translate(0, foundationHeight + 0.01, structureOffset);
+
+        const floor = new THREE.Mesh(floorGeometry, materials.floor);
+        floor.receiveShadow = true;
+        floor.userData.component = 'floor';
+        scene.add(floor);
+
+        // ==========================================
+        // DOOR (centered on curved face)
+        // ==========================================
+
+        const doorWidth = 1.0;
+        const doorHeight = 2.1;
+        const doorAngle = Math.PI / 2; // Center of semicircle (south)
+        const doorRadius = structureRadius - 0.25;
+
+        const doorX = doorRadius * Math.cos(doorAngle);
+        const doorZ = doorRadius * Math.sin(doorAngle) + structureOffset;
+
+        // Door
+        const doorGeometry = new THREE.BoxGeometry(doorWidth, doorHeight, 0.5);
+        const doorMesh = new THREE.Mesh(doorGeometry, materials.door);
+        doorMesh.position.set(doorX, foundationHeight + doorHeight/2, doorZ);
+        doorMesh.castShadow = true;
+        doorMesh.userData.component = 'door';
+        scene.add(doorMesh);
+
+        // Door frame
+        const doorFrameGeometry = new THREE.BoxGeometry(doorWidth + 0.15, doorHeight + 0.1, 0.15);
+        const doorFrame = new THREE.Mesh(doorFrameGeometry, materials.eucalyptusVertical);
+        doorFrame.position.set(doorX, foundationHeight + doorHeight/2, doorZ + 0.35);
+        doorFrame.userData.component = 'door';
+        scene.add(doorFrame);
+
+        // ==========================================
+        // SIDE WINDOWS (east and west on curved face)
+        // ==========================================
+
+        const windowWidth = 0.8;
+        const windowHeight = 1.0;
+        const windowRadius = structureRadius + 0.1; // Outside the wall surface
+
+        // East window (angle = PI/4)
+        const eastAngle = Math.PI / 4;
+        const eastX = windowRadius * Math.cos(eastAngle);
+        const eastZ = windowRadius * Math.sin(eastAngle) + structureOffset;
+
+        const eastWindowGeometry = new THREE.BoxGeometry(windowWidth, windowHeight, 0.08);
+        const eastWindow = new THREE.Mesh(eastWindowGeometry, materials.glass);
+        eastWindow.position.set(eastX, foundationHeight + 1.5, eastZ);
+        eastWindow.rotation.y = -eastAngle + Math.PI/2;
+        eastWindow.renderOrder = 1; // Render after opaque objects
+        eastWindow.userData.component = 'windows';
+        scene.add(eastWindow);
+
+        const eastFrameGeometry = new THREE.BoxGeometry(windowWidth + 0.12, windowHeight + 0.12, 0.1);
+        const eastFrame = new THREE.Mesh(eastFrameGeometry, materials.eucalyptusVertical);
+        eastFrame.position.set(eastX * 1.01, foundationHeight + 1.5, eastZ * 1.01);
+        eastFrame.rotation.y = -eastAngle + Math.PI/2;
+        eastFrame.userData.component = 'windows';
+        scene.add(eastFrame);
+
+        // West window (angle = 3*PI/4)
+        const westAngle = 3 * Math.PI / 4;
+        const westX = windowRadius * Math.cos(westAngle);
+        const westZ = windowRadius * Math.sin(westAngle) + structureOffset;
+
+        const westWindowGeometry = new THREE.BoxGeometry(windowWidth, windowHeight, 0.08);
+        const westWindow = new THREE.Mesh(westWindowGeometry, materials.glass);
+        westWindow.position.set(westX, foundationHeight + 1.5, westZ);
+        westWindow.rotation.y = -westAngle + Math.PI/2;
+        westWindow.renderOrder = 1; // Render after opaque objects
+        westWindow.userData.component = 'windows';
+        scene.add(westWindow);
+
+        const westFrameGeometry = new THREE.BoxGeometry(windowWidth + 0.12, windowHeight + 0.12, 0.1);
+        const westFrame = new THREE.Mesh(westFrameGeometry, materials.eucalyptusVertical);
+        westFrame.position.set(westX * 1.01, foundationHeight + 1.5, westZ * 1.01);
+        westFrame.rotation.y = -westAngle + Math.PI/2;
+        westFrame.userData.component = 'windows';
+        scene.add(westFrame);
+
+        // ==========================================
+        // TRANSPARENCY TOGGLE
+        // ==========================================
+
+        let isTransparent = true;
+        window.toggleTransparency = function() {
+            isTransparent = !isTransparent;
+            const btn = document.getElementById('toggleBtn');
+
+            if (isTransparent) {
+                btn.textContent = 'Show Solid';
+                materials.foundation.opacity = 0.6;
+                materials.limeRender.opacity = 0.25;
+                materials.livingRoof.opacity = 0.4;
+                materials.floor.opacity = 0.5;
+                materials.glass.opacity = 0.5;
+            } else {
+                btn.textContent = 'Show Structure';
+                materials.foundation.opacity = 1.0;
+                materials.limeRender.opacity = 0.95; // Slightly transparent so windows show
+                materials.livingRoof.opacity = 1.0;
+                materials.floor.opacity = 1.0;
+                materials.glass.opacity = 0.6; // Keep glass visible
+            }
+        };
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>

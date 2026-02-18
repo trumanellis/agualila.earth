@@ -1,0 +1,1039 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete build guide for the Solar Pod: 29m² rectangular off-grid home with 3.2kW solar array, sleeping loft, and battery storage.">
+    <title>Solar Pod — Complete Build Guide (29m² Off-Grid)</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+    <style>
+        :root {
+            --forest-dark: #1a2e1a;
+            --forest-mid: #2d4a2d;
+            --earth-warm: #c9a227;
+            --cream: #faf8f5;
+            --cream-dark: #f0ebe3;
+            --text-dark: #2a2a2a;
+            --text-mid: #555;
+            --warning-bg: #fff8e6;
+            --warning-border: #e6c200;
+            --tip-bg: #e8f5e9;
+            --tip-border: #4caf50;
+            --danger-bg: #ffebee;
+            --danger-border: #ef5350;
+            --solar-accent: #ff6b6b;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--cream);
+        }
+
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--forest-dark) 0%, #2d3a2d 100%);
+            color: white;
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .header h1 { font-size: 2.5rem; margin-bottom: 16px; color: white; }
+        .header .tagline { color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto 32px; font-size: 1.2rem; }
+
+        .header-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.2); }
+        .stat { text-align: center; }
+        .stat-value { font-size: 2.5rem; font-weight: 700; display: block; }
+        .stat-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.6); }
+        .stat-solar .stat-value { color: var(--solar-accent); }
+
+        /* Navigation */
+        .nav { background: var(--forest-mid); position: sticky; top: 0; z-index: 100; padding: 0 20px; }
+        .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 24px; overflow-x: auto; }
+        .nav-brand { font-weight: 700; color: white; padding: 14px 0; font-size: 0.95rem; white-space: nowrap; text-decoration: none; }
+        .nav-links { display: flex; gap: 4px; }
+        .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; padding: 14px 12px; font-size: 0.85rem; white-space: nowrap; transition: color 0.2s; }
+        .nav-links a:hover { color: white; }
+
+        /* Main Content */
+        .container { max-width: 760px; margin: 0 auto; padding: 60px 24px; }
+
+        /* Typography */
+        h1, h2, h3, h4 { color: var(--forest-dark); line-height: 1.3; }
+        h1 { font-size: 2rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--forest-mid); }
+        h2 { font-size: 1.6rem; margin-top: 3rem; margin-bottom: 1rem; }
+        h3 { font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+        h4 { font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        p { margin-bottom: 1.25rem; }
+        strong { font-weight: 600; color: var(--forest-dark); }
+
+        ul, ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+        th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: var(--forest-dark); color: white; font-weight: 600; }
+        tr:nth-child(even) { background: var(--cream-dark); }
+
+        /* Callout Boxes */
+        .warning-box, .tip-box, .danger-box { padding: 20px 24px; border-radius: 6px; margin: 1.5rem 0; border-left: 4px solid; }
+        .warning-box { background: var(--warning-bg); border-color: var(--warning-border); }
+        .tip-box { background: var(--tip-bg); border-color: var(--tip-border); }
+        .danger-box { background: var(--danger-bg); border-color: var(--danger-border); }
+        .callout-title { font-weight: 700; margin-bottom: 8px; }
+
+        /* Process Steps */
+        .process-step { display: flex; gap: 20px; margin: 1.5rem 0; align-items: flex-start; }
+        .step-number { width: 36px; height: 36px; background: var(--forest-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+        .step-content h4 { margin-top: 0; margin-bottom: 0.5rem; }
+
+        /* Table of Contents */
+        .toc { background: var(--cream-dark); border: 1px solid #ddd; border-radius: 8px; padding: 24px 32px; margin: 2rem 0; }
+        .toc h3 { margin: 0 0 16px; font-size: 1.1rem; }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin-bottom: 8px; }
+        .toc a { color: var(--forest-dark); text-decoration: none; }
+        .toc a:hover { color: var(--earth-warm); }
+
+        /* Cross-links */
+        .cross-links { background: var(--forest-dark); color: white; padding: 24px 32px; border-radius: 8px; margin: 2rem 0; }
+        .cross-links h3 { color: white; margin: 0 0 12px; font-size: 1.1rem; }
+        .cross-links a { color: var(--earth-warm); text-decoration: none; }
+        .cross-links a:hover { text-decoration: underline; }
+        .cross-links ul { margin: 0; padding-left: 1.5rem; }
+        .cross-links li { margin-bottom: 6px; }
+
+        /* Download Button */
+        .download-btn { display: inline-block; padding: 14px 28px; background: var(--earth-warm); color: var(--forest-dark); text-decoration: none; font-weight: 600; border-radius: 6px; border: none; cursor: pointer; font-size: 1rem; transition: background 0.2s; }
+        .download-btn:hover { background: #d9b237; }
+
+        /* Section Group Header */
+        .section-group { background: var(--forest-mid); color: white; padding: 32px 24px; margin: 3rem -24px 2rem; text-align: center; }
+        .section-group h2 { color: white; margin: 0 0 8px; }
+        .section-group p { color: rgba(255,255,255,0.7); margin: 0; }
+        .section-group.solar { background: linear-gradient(135deg, var(--solar-accent) 0%, #d45a5a 100%); }
+
+        /* Stats Grid */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin: 2rem 0; }
+        .stat-card { background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .stat-card-value { font-size: 1.8rem; font-weight: 700; color: var(--forest-dark); }
+        .stat-card-label { font-size: 0.8rem; color: var(--text-mid); text-transform: uppercase; }
+        .stat-card.solar .stat-card-value { color: var(--solar-accent); }
+
+        /* Footer */
+        footer { background: var(--forest-dark); color: white; text-align: center; padding: 40px 24px; margin-top: 60px; }
+        footer p { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+        footer a { color: var(--earth-warm); text-decoration: none; }
+
+        /* Print Styles */
+        @media print {
+            .nav, .download-btn, .cross-links { display: none; }
+            .header { padding: 30px 0; }
+            .container { max-width: 100%; padding: 20px 0; }
+            h2 { page-break-before: always; }
+            h2:first-of-type { page-break-before: avoid; }
+            table { page-break-inside: avoid; font-size: 0.85rem; }
+            .process-step { page-break-inside: avoid; }
+            .section-group { margin: 2rem 0; page-break-before: always; }
+            a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #666; }
+            a[href^="#"]::after { content: ""; }
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 50px 20px; }
+            .header h1 { font-size: 2rem; }
+            .container { padding: 40px 20px; }
+            .nav-brand { display: none; }
+            .section-group { margin: 2rem -20px 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <h1>Solar Pod</h1>
+    <p class="tagline">29m² rectangular off-grid home with 3.2kW solar array and sleeping loft</p>
+    <div style="margin-bottom: 24px;">
+        <button class="download-btn" onclick="window.print()">Download as PDF</button>
+    </div>
+    <div class="header-stats">
+        <div class="stat">
+            <span class="stat-value">29m²</span>
+            <span class="stat-label">Total Area</span>
+        </div>
+        <div class="stat stat-solar">
+            <span class="stat-value">3.2kW</span>
+            <span class="stat-label">Solar Array</span>
+        </div>
+        <div class="stat">
+            <span class="stat-value">€8-18k</span>
+            <span class="stat-label">Budget</span>
+        </div>
+        <div class="stat">
+            <span class="stat-value">180-250</span>
+            <span class="stat-label">Trees Removed</span>
+        </div>
+    </div>
+</header>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-brand">← Back to Designs</a>
+        <div class="nav-links">
+            <a href="#overview">Overview</a>
+            <a href="#solar-system">Solar System</a>
+            <a href="#loft">Loft</a>
+            <a href="#bom">Materials</a>
+            <a href="#phases">Phases</a>
+            <a href="#floor-plan">Floor Plan</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container">
+
+    <nav class="toc">
+        <h3>Table of Contents</h3>
+        <ol>
+            <li><a href="#overview">Design Overview &amp; Key Specs</a></li>
+            <li><a href="#site">Site Selection Requirements</a></li>
+            <li><a href="#foundation">Foundation &amp; Wall Framework</a></li>
+            <li><a href="#loft">Sleeping Loft (11m²)</a></li>
+            <li><a href="#roof">Roof Structure (Solar-Optimized)</a></li>
+            <li><a href="#solar-system">The Solar System (Complete Guide)</a></li>
+            <li><a href="#bom">Bill of Materials &amp; Costs</a></li>
+            <li><a href="#phases">Construction Phases (22 weeks)</a></li>
+            <li><a href="#floor-plan">Floor Plan &amp; Spatial Organization</a></li>
+            <li><a href="#maintenance">Maintenance Schedule</a></li>
+        </ol>
+    </nav>
+
+    <div class="cross-links">
+        <h3>Universal Techniques Required</h3>
+        <p>Before starting construction, master these techniques from the <a href="shared-reference.html">Shared Reference Guide</a>:</p>
+        <ul>
+            <li><a href="shared-reference.html#harvesting">Eucalyptus Harvesting &amp; Eradication</a></li>
+            <li><a href="shared-reference.html#treatment">Pole Treatment Protocol</a></li>
+            <li><a href="shared-reference.html#walls">Light Straw-Clay Wall Infill</a></li>
+        </ul>
+    </div>
+
+    <!-- Overview -->
+    <section id="overview">
+        <h1>Design Overview</h1>
+
+        <p>The Solar Pod is a 29m² rectangular off-grid home with a sleeping loft and integrated 3.2kW solar array. It's the most technically complex design but offers complete energy independence.</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-value">18m²</div>
+                <div class="stat-card-label">Main Floor</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">11m²</div>
+                <div class="stat-card-label">Loft Level</div>
+            </div>
+            <div class="stat-card solar">
+                <div class="stat-card-value">8×400W</div>
+                <div class="stat-card-label">Solar Panels</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">5-10kWh</div>
+                <div class="stat-card-label">Battery Storage</div>
+            </div>
+        </div>
+
+        <h3>Key Specifications</h3>
+        <ul>
+            <li><strong>Main floor:</strong> 5.0m W × 4.1m D = 18m²</li>
+            <li><strong>Sleeping loft:</strong> ~11m² (two compartments)</li>
+            <li><strong>Eaves height:</strong> 3.0m (front, south-facing)</li>
+            <li><strong>Ridge height:</strong> 5.35m (back, north-facing)</li>
+            <li><strong>Roof pitch:</strong> 30° (optimal for solar in temperate climates)</li>
+            <li><strong>Annual generation:</strong> ~4,200 kWh</li>
+            <li><strong>Build time:</strong> 20-22 weeks (dedicated team)</li>
+        </ul>
+
+        <div class="tip-box">
+            <div class="callout-title">Best For</div>
+            <p>Those wanting complete off-grid capability. Projects with good solar access (6+ hours direct sun). Households comfortable with energy management. Sites where rectangular footprint works better than circular.</p>
+        </div>
+
+        <div class="warning-box">
+            <div class="callout-title">Professional Installation Required</div>
+            <p>The solar/electrical components (panel interconnection, inverter, battery) <strong>require a certified electrician</strong>. Budget €800-1,500 for professional installation of the electrical system.</p>
+        </div>
+    </section>
+
+    <!-- Site Selection -->
+    <section id="site">
+        <h1>Site Selection Requirements</h1>
+
+        <p>Solar access is critical for this design. Site selection is more constrained than the other BioDome variants.</p>
+
+        <ul>
+            <li><strong>South-facing slope:</strong> Ideally 5-20° natural slope</li>
+            <li><strong>Solar access:</strong> No shadows between 9am-3pm year-round (minimum 6 hours direct sun)</li>
+            <li><strong>Water source:</strong> Spring, well, or rainwater within 100m</li>
+            <li><strong>Level building platform:</strong> ~20m² relatively flat area</li>
+            <li><strong>Upper terrace:</strong> ~10m² elevated area for sleeping loft (can be partially dug)</li>
+            <li><strong>Drainage:</strong> Avoid low spots where water pools</li>
+        </ul>
+
+        <h3>Shadow Study</h3>
+        <p>Before committing to the site, conduct a shadow study:</p>
+        <ol>
+            <li>Visit site on multiple days across seasons if possible</li>
+            <li>Mark shadow positions at 9am, 12pm, and 3pm</li>
+            <li>Check for trees, buildings, or terrain that cast shadows</li>
+            <li>Remember: winter shadows are longer than summer shadows</li>
+        </ol>
+    </section>
+
+    <!-- Foundation -->
+    <section id="foundation">
+        <h1>Foundation &amp; Wall Framework</h1>
+
+        <h3>Rectangular Gabion Foundation</h3>
+        <ul>
+            <li><strong>Footprint:</strong> 5.0m × 4.1m rectangle</li>
+            <li><strong>Height:</strong> 50cm above grade, 30cm below</li>
+            <li><strong>Gabion mesh:</strong> Galvanized, 10×10cm openings, 3mm wire</li>
+            <li><strong>Fill:</strong> Local granite, 10-25cm pieces (12-15m³)</li>
+        </ul>
+
+        <h3>Wall Framework</h3>
+        <ul>
+            <li><strong>Vertical posts:</strong> ~16 posts total (6 front, 5 each side)</li>
+            <li><strong>Diameter:</strong> 15-20cm</li>
+            <li><strong>Height:</strong> Front wall 3.0m, back wall 5.35m (creates roof slope)</li>
+            <li><strong>Horizontal wattle:</strong> ~80 poles, 5-8cm diameter, 25-35cm spacing</li>
+            <li><strong>Wall infill:</strong> Light straw-clay (front and sides), compressed straw bales (back/north wall for R-30 insulation)</li>
+        </ul>
+    </section>
+
+    <!-- Loft -->
+    <section id="loft">
+        <h1>Sleeping Loft (11m²)</h1>
+
+        <p>The loft adds 11m² of usable space without increasing the building footprint. It's designed for sleeping and storage, accessed by ladders.</p>
+
+        <h3>Loft Specifications</h3>
+        <ul>
+            <li><strong>Floor area:</strong> 2 compartments × ~5.5m² each = ~11m² total</li>
+            <li><strong>Floor height:</strong> 3.0m above main floor</li>
+            <li><strong>Ceiling height:</strong> 2.0m (comfortable sitting/dressing)</li>
+            <li><strong>Depth:</strong> 2.5m (extends into upper terrace)</li>
+            <li><strong>Width per compartment:</strong> ~2.1m</li>
+        </ul>
+
+        <h3>Loft Structure</h3>
+        <ul>
+            <li><strong>Floor joists:</strong> 6 poles, 12-15cm diameter, spanning 4.1m front-to-back</li>
+            <li><strong>Decking:</strong> Rough planks or split poles</li>
+            <li><strong>Divider wall:</strong> Partial height (1.8m) between compartments for light sharing</li>
+            <li><strong>Ladder access:</strong> One per compartment, ~60° angle, 2.5m climb</li>
+        </ul>
+
+        <h3>Back Wall Insulation (R-30)</h3>
+        <p>The north-facing back wall uses compressed straw bales (450mm thick):</p>
+        <ul>
+            <li><strong>R-value:</strong> R-30 (excellent thermal performance)</li>
+            <li><strong>Fire resistance:</strong> Dense straw won't burn; clay plaster coating prevents flame spread</li>
+            <li><strong>Assembly:</strong> 1 bale high + 50mm lime plaster on both sides</li>
+        </ul>
+    </section>
+
+    <!-- Roof -->
+    <section id="roof">
+        <h1>Roof Structure (Solar-Optimized)</h1>
+
+        <h3>Main Rafters</h3>
+        <ul>
+            <li><strong>Quantity:</strong> 5 parallel rafters</li>
+            <li><strong>Diameter:</strong> 15-18cm eucalyptus</li>
+            <li><strong>Length:</strong> ~4.7m along slope</li>
+            <li><strong>Pitch:</strong> 30° (optimal for solar in Portugal)</li>
+            <li><strong>Spacing:</strong> ~1.25m apart (east-west)</li>
+        </ul>
+
+        <h3>Purlins (Solar Mount Support)</h3>
+        <ul>
+            <li><strong>Quantity:</strong> 3 purlins running east-west</li>
+            <li><strong>Diameter:</strong> 10-12cm eucalyptus</li>
+            <li><strong>Length:</strong> 5.0m (full building width)</li>
+            <li><strong>Purpose:</strong> Support roof sheathing AND solar panel rail attachment points</li>
+        </ul>
+
+        <h3>Roof Layers</h3>
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Sheathing</h4>
+                <p>Cork board or wood fiber insulation (30mm) creating R-1.2 insulation</p>
+            </div>
+        </div>
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Waterproof Membrane</h4>
+                <p>1mm EPDM pond liner fully lapped (30-40 year lifespan under solar panels)</p>
+            </div>
+        </div>
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Drainage Mat</h4>
+                <p>20-25mm HDPE dimpled mat (prevents pooling under panels)</p>
+            </div>
+        </div>
+
+        <div class="danger-box">
+            <div class="callout-title">Test Before Solar Installation</div>
+            <p>Do NOT install solar panels on a roof that hasn't been water-tested. A single leak will damage electrical components. Use a hose to simulate rain for 48 hours, inspect from inside for drips.</p>
+        </div>
+    </section>
+
+    <!-- Solar System -->
+    <div class="section-group solar" id="solar-system">
+        <h2>The Solar System</h2>
+        <p>Complete guide to off-grid power: panels, inverter, battery, wiring</p>
+    </div>
+
+    <section>
+        <h3>System Architecture (Sun to Light Switch)</h3>
+        <ol>
+            <li>Sun hits 8 × 400W panels (3.2kW array) → DC electricity</li>
+            <li>DC wiring (UV-resistant conduit) → routes to inverter</li>
+            <li>Hybrid inverter converts DC to AC (230V household voltage)</li>
+            <li>AC wiring → powers lights, refrigerator, etc. OR charges battery</li>
+            <li>Battery stores excess energy (5-10kWh LiFePO4)</li>
+            <li>Backup generator kicks in if battery depletes</li>
+        </ol>
+
+        <h3>8 Solar Panels (400W Each)</h3>
+        <ul>
+            <li><strong>Dimensions:</strong> 2382mm × 1134mm × 30mm (door-sized)</li>
+            <li><strong>Weight:</strong> ~22kg each (manageable by 2 people)</li>
+            <li><strong>Type:</strong> Monocrystalline (20-22% efficiency)</li>
+            <li><strong>Configuration:</strong> 2 strings of 4 panels in series</li>
+            <li><strong>Result:</strong> ~80V DC, ~25 amps</li>
+        </ul>
+
+        <h3>DC Wiring and Conduit Routing</h3>
+        <ul>
+            <li>Panels on roof → junction boxes → UV-resistant conduit down slope</li>
+            <li>Down north wall → into building to inverter location</li>
+            <li>Wire sizing: 4mm² solar-rated cable (for 25-amp system)</li>
+            <li>Grounding: Green/bare copper runs parallel</li>
+            <li>Conduit clips: Every 2-3 feet securing to roof structure</li>
+        </ul>
+
+        <h3>Hybrid Inverter (3.2kW)</h3>
+        <table>
+            <tr>
+                <th>Spec</th>
+                <th>Selection</th>
+                <th>Why</th>
+            </tr>
+            <tr>
+                <td>Power rating</td>
+                <td>3.2kW or larger</td>
+                <td>Matches array capacity</td>
+            </tr>
+            <tr>
+                <td>Voltage</td>
+                <td>48V DC input</td>
+                <td>Standard for this size; safer</td>
+            </tr>
+            <tr>
+                <td>Battery compatibility</td>
+                <td>LiFePO4</td>
+                <td>Long life (10,000+ cycles)</td>
+            </tr>
+            <tr>
+                <td>MPPT controller</td>
+                <td>Built-in (essential)</td>
+                <td>Optimizes charging</td>
+            </tr>
+            <tr>
+                <td>Monitoring</td>
+                <td>WiFi-enabled app</td>
+                <td>Real-time view of power</td>
+            </tr>
+        </table>
+
+        <h3>Battery Storage (5-10kWh LiFePO4)</h3>
+        <p><strong>How much battery?</strong> 2-3 days autonomy = 6kWh daily load × 2 days ÷ 0.8 safe discharge = 15kWh needed. Budget for 5-10kWh initially, expandable.</p>
+
+        <ul>
+            <li><strong>Chemistry:</strong> Lithium Iron Phosphate (10,000+ cycles, ~10-15 years)</li>
+            <li><strong>Efficiency:</strong> 96-98% round-trip</li>
+            <li><strong>Safety:</strong> More stable than other lithium chemistries</li>
+            <li><strong>Temperature:</strong> Works -10 to +55°C</li>
+        </ul>
+
+        <h3>Disconnects and Safety</h3>
+        <table>
+            <tr>
+                <th>Disconnect</th>
+                <th>Location</th>
+                <th>Purpose</th>
+            </tr>
+            <tr>
+                <td>DC disconnect</td>
+                <td>Between panels and inverter</td>
+                <td>Cuts DC power for maintenance</td>
+            </tr>
+            <tr>
+                <td>AC disconnect</td>
+                <td>Between inverter and house</td>
+                <td>Cuts AC power to home</td>
+            </tr>
+            <tr>
+                <td>Battery disconnect</td>
+                <td>Between battery and inverter</td>
+                <td>Isolates battery for service</td>
+            </tr>
+            <tr>
+                <td>Generator disconnect</td>
+                <td>Between generator and system</td>
+                <td>Isolates backup generator</td>
+            </tr>
+        </table>
+
+        <h3>Grounding (Earth Safety)</h3>
+        <ul>
+            <li><strong>Copper ground rod:</strong> 3m long, driven into moist earth</li>
+            <li><strong>Grounding conductor:</strong> 4mm² copper from rod to main panel and inverter</li>
+            <li><strong>Testing:</strong> Measure resistance (should be under 25 ohms)</li>
+        </ul>
+
+        <h3>Professional Installation Required</h3>
+        <div class="warning-box">
+            <div class="callout-title">Know Your Limits</div>
+            <table>
+                <tr>
+                    <th>Task</th>
+                    <th>DIY?</th>
+                    <th>Recommendation</th>
+                </tr>
+                <tr>
+                    <td>Plan the system</td>
+                    <td>Yes</td>
+                    <td>Absolutely DIY—learn it</td>
+                </tr>
+                <tr>
+                    <td>Install conduit on roof</td>
+                    <td>Yes</td>
+                    <td>DIY with supervision</td>
+                </tr>
+                <tr>
+                    <td>Panel interconnection</td>
+                    <td>No</td>
+                    <td><strong>Hire certified installer</strong></td>
+                </tr>
+                <tr>
+                    <td>Inverter installation</td>
+                    <td>No</td>
+                    <td><strong>Hire certified installer</strong></td>
+                </tr>
+                <tr>
+                    <td>Battery installation</td>
+                    <td>No</td>
+                    <td><strong>Hire certified installer</strong></td>
+                </tr>
+                <tr>
+                    <td>AC wiring (house loads)</td>
+                    <td>No</td>
+                    <td><strong>Hire licensed electrician</strong></td>
+                </tr>
+            </table>
+        </div>
+
+        <h3>Expected Power Generation</h3>
+        <ul>
+            <li><strong>Sunny day:</strong> 12-15kWh generation, 6kWh use, 6-9kWh stored in battery</li>
+            <li><strong>Cloudy day:</strong> 3-5kWh generation, battery covers deficit</li>
+            <li><strong>Multi-day rain:</strong> Battery depletes; generator kicks in</li>
+            <li><strong>Winter months:</strong> Shorter days, lower sun angle; battery stores less</li>
+        </ul>
+
+        <h3>Realistic Daily Load (6kWh)</h3>
+        <ul>
+            <li><strong>Refrigerator:</strong> ~2.5kWh/day (non-negotiable)</li>
+            <li><strong>Lighting (LED):</strong> ~0.5kWh/day</li>
+            <li><strong>Water heating (solar thermal + backup):</strong> ~2kWh/day</li>
+            <li><strong>Internet/devices:</strong> ~0.3kWh/day</li>
+            <li><strong>Cooking (induction, sunny hours):</strong> ~1kWh/day</li>
+        </ul>
+    </section>
+
+    <!-- Bill of Materials -->
+    <div class="section-group" id="bom">
+        <h2>Bill of Materials</h2>
+        <p>Complete materials list — solar system is 50-60% of total cost</p>
+    </div>
+
+    <section>
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Specifications</th>
+                <th>Cost Range</th>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Structural</td></tr>
+            <tr>
+                <td>Perimeter posts</td>
+                <td>16 pcs</td>
+                <td>15-20cm dia, 3-5.5m length</td>
+                <td>€0-80</td>
+            </tr>
+            <tr>
+                <td>Wattle poles</td>
+                <td>80 pcs</td>
+                <td>5-8cm dia, 4-5m length</td>
+                <td>€0-50</td>
+            </tr>
+            <tr>
+                <td>Roof rafters</td>
+                <td>5 pcs</td>
+                <td>15-18cm dia, 4.7m length</td>
+                <td>€0-25</td>
+            </tr>
+            <tr>
+                <td>Purlins</td>
+                <td>3 pcs</td>
+                <td>10-12cm dia, 5.0m length</td>
+                <td>€0-15</td>
+            </tr>
+            <tr>
+                <td>Loft joists</td>
+                <td>6 pcs</td>
+                <td>12-15cm dia, 4.1m length</td>
+                <td>€0-30</td>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Foundation</td></tr>
+            <tr>
+                <td>Gabion mesh</td>
+                <td>40m</td>
+                <td>3mm wire, 10×10cm openings</td>
+                <td>€120-200</td>
+            </tr>
+            <tr>
+                <td>Granite stone</td>
+                <td>12-15m³</td>
+                <td>10-25cm pieces</td>
+                <td>€0-600</td>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Wall Infill</td></tr>
+            <tr>
+                <td>Clay soil</td>
+                <td>12m³</td>
+                <td>High clay content</td>
+                <td>€0-300</td>
+            </tr>
+            <tr>
+                <td>Sharp sand</td>
+                <td>8m³</td>
+                <td>Washed, angular</td>
+                <td>€160-240</td>
+            </tr>
+            <tr>
+                <td>Straw (infill)</td>
+                <td>25 bales</td>
+                <td>Standard wheat straw</td>
+                <td>€75-125</td>
+            </tr>
+            <tr>
+                <td>Straw bales (insulation)</td>
+                <td>15 bales</td>
+                <td>450mm compressed, R-30</td>
+                <td>€45-75</td>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Roofing</td></tr>
+            <tr>
+                <td>Cork board</td>
+                <td>25m²</td>
+                <td>30mm thick</td>
+                <td>€200-375</td>
+            </tr>
+            <tr>
+                <td>EPDM membrane</td>
+                <td>30m²</td>
+                <td>1mm thick</td>
+                <td>€180-300</td>
+            </tr>
+            <tr>
+                <td>Drainage mat</td>
+                <td>25m²</td>
+                <td>20-25mm HDPE dimpled</td>
+                <td>€75-125</td>
+            </tr>
+            <tr><td colspan="4" style="background: var(--solar-accent); color: white; font-weight: 600;">Solar System (50-60% of Total)</td></tr>
+            <tr>
+                <td>Monocrystalline panels</td>
+                <td>8 pcs</td>
+                <td>400W each, 20-22% efficiency</td>
+                <td>€800-1,200</td>
+            </tr>
+            <tr>
+                <td>Mounting rails</td>
+                <td>16m</td>
+                <td>Aluminum + clamps</td>
+                <td>€200-350</td>
+            </tr>
+            <tr>
+                <td>Hybrid inverter</td>
+                <td>1 pc</td>
+                <td>3.2kW+, 48V, MPPT built-in</td>
+                <td>€800-1,500</td>
+            </tr>
+            <tr>
+                <td>Battery storage</td>
+                <td>1 pc</td>
+                <td>5-10kWh LiFePO4</td>
+                <td>€2,000-4,500</td>
+            </tr>
+            <tr>
+                <td>DC wiring</td>
+                <td>30m</td>
+                <td>4mm² solar-rated</td>
+                <td>€60-90</td>
+            </tr>
+            <tr>
+                <td>AC wiring</td>
+                <td>25m</td>
+                <td>2.5mm² household</td>
+                <td>€40-60</td>
+            </tr>
+            <tr>
+                <td>Conduit (UV-resistant)</td>
+                <td>30m</td>
+                <td>PVC or corrugated</td>
+                <td>€45-90</td>
+            </tr>
+            <tr>
+                <td>Disconnects &amp; safety</td>
+                <td>4 pcs</td>
+                <td>DC, AC, battery, generator</td>
+                <td>€150-250</td>
+            </tr>
+            <tr>
+                <td>Ground rod</td>
+                <td>1 pc</td>
+                <td>3m copper</td>
+                <td>€30-50</td>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Professional Labor</td></tr>
+            <tr>
+                <td>Electrician (solar + battery)</td>
+                <td>~16 hours</td>
+                <td>Certified installer</td>
+                <td>€800-1,500</td>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Finishing</td></tr>
+            <tr>
+                <td>Clerestory window</td>
+                <td>1 pc</td>
+                <td>5.0m × 2.3m custom</td>
+                <td>€800-1,500</td>
+            </tr>
+            <tr>
+                <td>Side windows</td>
+                <td>2 pcs</td>
+                <td>0.8m × 1.0m double-glazed</td>
+                <td>€200-400</td>
+            </tr>
+            <tr>
+                <td>Entry door</td>
+                <td>1 pc</td>
+                <td>1.0m × 2.1m insulated</td>
+                <td>€150-300</td>
+            </tr>
+        </table>
+
+        <h3>Budget Summary</h3>
+        <table>
+            <tr>
+                <th>Budget Level</th>
+                <th>Total Cost</th>
+                <th>Notes</th>
+            </tr>
+            <tr>
+                <td><strong>Minimal</strong></td>
+                <td>€4,500-5,500</td>
+                <td>Harvest poles, basic battery (5kWh)</td>
+            </tr>
+            <tr>
+                <td><strong>Realistic</strong></td>
+                <td>€8,000-12,000</td>
+                <td>Standard specs, good quality</td>
+            </tr>
+            <tr style="background: var(--solar-accent); color: white;">
+                <td><strong>Comfortable</strong></td>
+                <td>€14,000-18,000</td>
+                <td>Solar system = 50-60% of total</td>
+            </tr>
+        </table>
+
+        <div class="tip-box">
+            <div class="callout-title">Cost Allocation Insight</div>
+            <p>In the comfortable budget tier, the solar system (panels, inverter, battery, electrical) consumes €6,500-10,000 of the €14,000-18,000 total. Scaling to 10-15kWh battery adds €3,000-5,000 but enables true autonomy in poor weather.</p>
+        </div>
+    </section>
+
+    <!-- Construction Phases -->
+    <div class="section-group" id="phases">
+        <h2>Construction Phases</h2>
+        <p>22-week timeline with integrated solar installation</p>
+    </div>
+
+    <section>
+        <div class="process-step">
+            <div class="step-number">0</div>
+            <div class="step-content">
+                <h4>Site Selection &amp; Layout (Week 1)</h4>
+                <ul>
+                    <li>Confirm south-facing slope with compass</li>
+                    <li>Shadow study: Mark shadow positions at 9am, 12pm, 3pm</li>
+                    <li>Stake building corners (5.0m × 4.1m rectangle)</li>
+                    <li>Stake upper terrace area for loft</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Pole Harvest &amp; Treatment (Weeks 1-5)</h4>
+                <ul>
+                    <li>Fell ~130 eucalyptus trees</li>
+                    <li>Debark within 48 hours</li>
+                    <li>Prioritize posts (16 pcs) and rafters (5 pcs)</li>
+                    <li>Set up borax treatment tank, dry 2-3 weeks</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Earthworks &amp; Foundation (Weeks 3-6)</h4>
+                <ul>
+                    <li>Cut upper terrace platform for loft</li>
+                    <li>Excavate rectangular footprint (5.0m × 4.1m, 30cm deep)</li>
+                    <li>Assemble gabion mesh cages</li>
+                    <li>Fill with granite (12-15m³), level top course</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Wall Framework (Weeks 6-8)</h4>
+                <ul>
+                    <li>Char and oil 16 perimeter posts</li>
+                    <li>Set posts (back posts are taller: 5.35m vs 3.0m front)</li>
+                    <li>Weave horizontal wattle (~80 poles)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Loft Framing (Weeks 8-9)</h4>
+                <ul>
+                    <li>Install loft floor joists (6 pcs, spanning 4.1m)</li>
+                    <li>Deck loft with rough planks</li>
+                    <li>Frame loft compartment divider</li>
+                    <li>Install ladder access points</li>
+                    <li>Test load capacity before proceeding</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h4>Roof Structure (Weeks 9-10)</h4>
+                <ul>
+                    <li>Install 5 parallel rafters (30° pitch)</li>
+                    <li>Install 3 purlins for solar mount support</li>
+                    <li>Pre-plan solar panel mounting points</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">6</div>
+            <div class="step-content">
+                <h4>Roof Weatherproofing (Weeks 10-11)</h4>
+                <ul>
+                    <li>Install cork board sheathing</li>
+                    <li>Lay EPDM membrane (1mm), seal all seams</li>
+                    <li>Install drainage mat</li>
+                    <li><strong>Water test with hose for 48 hours</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">7</div>
+            <div class="step-content">
+                <h4>Solar Installation (Weeks 11-12) — Professional</h4>
+                <ul>
+                    <li>Mount aluminum rails to purlins</li>
+                    <li>Install 8 × 400W panels in 2 strings</li>
+                    <li>Run DC conduit from panels to interior</li>
+                    <li>Install disconnects and junction boxes</li>
+                    <li>Ground system with 3m copper rod</li>
+                    <li><strong>Must hire: Certified solar electrician</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">8</div>
+            <div class="step-content">
+                <h4>Electrical Completion (Weeks 12-13) — Professional</h4>
+                <ul>
+                    <li>Mount inverter in interior closet (north wall)</li>
+                    <li>Install battery (5-10kWh LiFePO4)</li>
+                    <li>Run AC distribution panel with breakers</li>
+                    <li>Test full system under load</li>
+                    <li><strong>Must hire: Licensed electrician</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">9</div>
+            <div class="step-content">
+                <h4>Wall Infill (Weeks 13-17)</h4>
+                <ul>
+                    <li>Light straw-clay infill on front and side walls</li>
+                    <li>Compressed straw bales on north back wall (R-30)</li>
+                    <li>Allow 4-6 weeks drying</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">10</div>
+            <div class="step-content">
+                <h4>Finishing (Weeks 17-22)</h4>
+                <ul>
+                    <li>Lime render (base coat, cure 2 weeks, finish coat)</li>
+                    <li>Install clerestory window (5.0m × 2.3m)</li>
+                    <li>Install side windows and entry door</li>
+                    <li>Floor construction</li>
+                    <li>Final electrical testing</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floor Plan -->
+    <section id="floor-plan">
+        <h1>Floor Plan &amp; Spatial Organization</h1>
+
+        <h3>Main Floor (18m²)</h3>
+        <ul>
+            <li><strong>Entry/mud room (2m²):</strong> East side, door location, coat hooks, shoe storage</li>
+            <li><strong>Kitchen (5m²):</strong> Along east wall adjacent to entry, counter runs north-south</li>
+            <li><strong>Living area (8m²):</strong> Center and west side, maximum window exposure</li>
+            <li><strong>Bathroom (3m²):</strong> Northeast corner under loft overhang</li>
+        </ul>
+
+        <h3>Loft Level (11m²)</h3>
+        <ul>
+            <li><strong>Sleeping compartment A (5.5m²):</strong> West side, fits 2 single or 1 double bed</li>
+            <li><strong>Sleeping compartment B (5.5m²):</strong> East side, mirror of Compartment A</li>
+            <li><strong>Divider wall:</strong> Partial height (1.8m) allows light sharing</li>
+        </ul>
+
+        <h3>Systems Integration</h3>
+        <ul>
+            <li><strong>Inverter &amp; Battery:</strong> Interior closet on north wall (~1.2m × 0.8m)</li>
+            <li><strong>DC conduit:</strong> Enters through north wall at ridge level</li>
+            <li><strong>Air circulation:</strong> Clerestory provides stack ventilation</li>
+        </ul>
+
+        <h3>Clerestory Window (5.0m × 2.3m)</h3>
+        <ul>
+            <li><strong>Location:</strong> Full-width north wall, where roof meets loft ceiling</li>
+            <li><strong>Purpose:</strong> Diffuse north light (no glare), stack-effect ventilation</li>
+            <li><strong>Design:</strong> Fixed panes with operable transoms</li>
+        </ul>
+
+        <div class="danger-box">
+            <div class="callout-title">Summer Ventilation Critical</div>
+            <p>Central Portugal routinely exceeds <strong>40°C in summer</strong>. Required ventilation features:</p>
+            <ul style="margin-bottom: 0;">
+                <li><strong>Cross-ventilation:</strong> Operable windows on both east and west walls</li>
+                <li><strong>Clerestory operation:</strong> Must be operable, not fixed glazing</li>
+                <li><strong>Loft vents:</strong> Add ventilated gable ends or soffit vents</li>
+                <li><strong>Thermal mass strategy:</strong> Open windows overnight, close by 10am</li>
+            </ul>
+        </div>
+    </section>
+
+    <!-- Maintenance -->
+    <section id="maintenance">
+        <h1>Maintenance Schedule</h1>
+
+        <h3>Solar System</h3>
+        <ul>
+            <li><strong>Monthly:</strong> Check inverter display for error codes</li>
+            <li><strong>Quarterly:</strong> Clean panels if dusty (soft brush, water)</li>
+            <li><strong>Annually:</strong> Inspect all wiring connections, check battery health</li>
+            <li><strong>Every 5 years:</strong> Professional electrical inspection</li>
+            <li><strong>At 10-15 years:</strong> Battery replacement likely needed</li>
+        </ul>
+
+        <h3>Structural</h3>
+        <ul>
+            <li><strong>Every 5-10 years:</strong> Reapply linseed oil to exposed timber</li>
+            <li><strong>At 15-20 years:</strong> Inspect wire lashings, replace if corroded</li>
+            <li><strong>At 30-40 years:</strong> Assess timber condition for replacement</li>
+        </ul>
+
+        <h3>Seasonal</h3>
+        <ul>
+            <li><strong>Spring:</strong> Full structural inspection, repair any winter damage</li>
+            <li><strong>Summer:</strong> Maintain defensible space, check ventilation</li>
+            <li><strong>Autumn:</strong> Clean gutters, prepare for rainy season</li>
+            <li><strong>Winter:</strong> Monitor for leaks, check drainage function</li>
+        </ul>
+
+        <p><em>See: <a href="shared-reference.html#fire">Fire Safety &amp; Defensible Space</a></em></p>
+    </section>
+
+    <div class="cross-links">
+        <h3>Other Designs</h3>
+        <ul>
+            <li><a href="standard-biodome-guide.html">Standard BioDome</a> — 55m² circular dome with reciprocal roof</li>
+            <li><a href="terraced-biodome-guide.html">Terraced BioDome</a> — 24m² half-dome using existing terrace wall</li>
+        </ul>
+        <p style="margin-top: 12px;"><a href="index.html">← Back to Design Selection</a></p>
+    </div>
+
+</main>
+
+<footer>
+    <p>Solar Pod — Complete Build Guide</p>
+    <p>Version 1.0 — January 2026 — <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons BY-SA 4.0</a></p>
+</footer>
+
+</body>
+</html>

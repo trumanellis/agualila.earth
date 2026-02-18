@@ -1,0 +1,1575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solar Pod - 3D Viewer</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #1a1a2e;
+            overflow: hidden;
+        }
+        #controls {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            background: rgba(0,0,0,0.7);
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-size: 12px;
+            z-index: 100;
+        }
+        #toggleBtn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: #7cb342;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
+            z-index: 100;
+            font-weight: 600;
+            transition: background 0.2s;
+        }
+        #toggleBtn:hover {
+            background: #689f38;
+        }
+        #legend {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.85);
+            color: white;
+            padding: 16px 20px;
+            border-radius: 8px;
+            font-size: 12px;
+            z-index: 100;
+            max-width: 340px;
+            max-height: calc(100vh - 100px);
+            overflow-y: auto;
+        }
+        #legend h2 {
+            font-size: 16px;
+            margin-bottom: 12px;
+            color: #7cb342;
+            border-bottom: 1px solid #444;
+            padding-bottom: 8px;
+        }
+        #legend h3 {
+            font-size: 13px;
+            margin-top: 14px;
+            margin-bottom: 8px;
+            color: #aaa;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .legend-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #333;
+        }
+        .legend-item:last-child {
+            border-bottom: none;
+        }
+        .legend-color {
+            width: 16px;
+            height: 16px;
+            border-radius: 3px;
+            margin-right: 10px;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+        .legend-details {
+            flex: 1;
+        }
+        .legend-name {
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+        .legend-desc {
+            color: #999;
+            font-size: 11px;
+            line-height: 1.4;
+        }
+        .legend-spec {
+            color: #7cb342;
+            font-size: 10px;
+            margin-top: 3px;
+            font-family: monospace;
+        }
+        #legendToggle {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-size: 12px;
+            cursor: pointer;
+            z-index: 99;
+            display: none;
+        }
+        #legend.hidden {
+            display: none;
+        }
+        #legend.hidden + #legendToggle {
+            display: block;
+        }
+        #stats {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            color: white;
+            background: rgba(0,0,0,0.7);
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            z-index: 100;
+        }
+        #stats div {
+            margin: 4px 0;
+        }
+        #stats span {
+            color: #7cb342;
+            font-weight: 600;
+        }
+        canvas { display: block; }
+        #info {
+            position: absolute;
+            top: 20px;
+            right: 220px;
+            color: white;
+            background: rgba(0,0,0,0.7);
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-size: 13px;
+            z-index: 100;
+            max-width: 280px;
+        }
+        #info h1 {
+            font-size: 16px;
+            margin-bottom: 8px;
+            color: #7cb342;
+        }
+        #info p {
+            line-height: 1.5;
+            color: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="info">
+        <h1>Solar Pod</h1>
+        <p>Rectangular lean-to structure optimized for solar panel mounting.
+        3.2kW array provides off-grid power while integrating with
+        regenerative building principles.</p>
+    </div>
+
+    <div id="legend">
+        <h2>Solar Pod Materials</h2>
+
+        <h3>Terrain</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #6b7b6b;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Dry Stone Terrace Wall</div>
+                <div class="legend-desc">Existing granite dry stone wall. Forms the back wall of the BioDome.</div>
+                <div class="legend-spec">3m tall x 0.8m thick x ~10m wide</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #4a6b4a;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Lower Terrace</div>
+                <div class="legend-desc">Flat ground plane at Y=0. BioDome sits on this level.</div>
+                <div class="legend-spec">Extends ~15m from wall</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #3d5c3d;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Upper Terrace</div>
+                <div class="legend-desc">Flat ground plane at Y=3.0m behind the wall.</div>
+                <div class="legend-spec">Extends ~10m behind wall</div>
+            </div>
+        </div>
+
+        <h3>Foundation</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #8b8b83;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Rectangular Gabion Foundation</div>
+                <div class="legend-desc">Local granite rocks in galvanized wire mesh cages. Rectangular footprint.</div>
+                <div class="legend-spec">5.0m x 4.1m x 0.5m high</div>
+            </div>
+        </div>
+
+        <h3>Wall System</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #f5f0e6;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Lime Render (Walls)</div>
+                <div class="legend-desc">3-coat lime render over light straw-clay on front and side walls.</div>
+                <div class="legend-spec">Base 15mm + Finish 5mm + limewash</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #8b5a2b;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Eucalyptus Vertical Posts</div>
+                <div class="legend-desc">Vertical posts on front and side walls forming structural frame.</div>
+                <div class="legend-spec">~16 posts x 15-20cm dia</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #b8860b;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Horizontal Wattle Poles</div>
+                <div class="legend-desc">Woven between verticals on front and side walls.</div>
+                <div class="legend-spec">7 levels x ~5cm dia</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #c4a574;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Light Straw-Clay Infill</div>
+                <div class="legend-desc">Clay-coated straw packed between wattle. Excellent insulation, flexible enough to accommodate frame movement.</div>
+                <div class="legend-spec">Clay slip + loose straw • 40cm thick</div>
+            </div>
+        </div>
+
+        <h3>Lean-to Roof Structure</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #cd853f;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Parallel Rafters</div>
+                <div class="legend-desc">5 straight rafters from eaves to ridge at 30-degree pitch.</div>
+                <div class="legend-spec">5 rafters x ~4.7m length @ 30&deg;</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #daa520;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Straight Purlins</div>
+                <div class="legend-desc">3 east-west purlins supporting panel mounting rails.</div>
+                <div class="legend-spec">3 purlins x 5.0m length</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #8b4513;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Wall Plate / Ring Beam</div>
+                <div class="legend-desc">Structural timber running along top of walls. Connects posts and supports rafters.</div>
+                <div class="legend-spec">120mm x 150mm eucalyptus</div>
+            </div>
+        </div>
+
+        <h3>Roof Weatherproofing</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #b8860b;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Woven Eucalyptus Roof Deck</div>
+                <div class="legend-desc">Woven eucalyptus poles form the roof substrate. Extends 50cm past walls on front and sides.</div>
+                <div class="legend-spec">40mm thick, 6m x 5.2m with eaves</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #1a1a1a;"></div>
+            <div class="legend-details">
+                <div class="legend-name">EPDM Waterproof Membrane</div>
+                <div class="legend-desc">Black rubber membrane over roof deck. 50cm eaves protect walls from rain.</div>
+                <div class="legend-spec">1mm EPDM, 50+ year lifespan</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #2c5f7c;"></div>
+            <div class="legend-details">
+                <div class="legend-name">rPET Marine Rope Lashings</div>
+                <div class="legend-desc">Recycled PET yacht rope secures structural joints. UV-stabilized, rot-proof, made from ocean plastic.</div>
+                <div class="legend-spec">8mm rPET rope, 30+ year lifespan</div>
+            </div>
+        </div>
+
+        <h3>Solar Array</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #1a1a3a;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Solar Panels (8 panels)</div>
+                <div class="legend-desc">High-efficiency monocrystalline silicon panels in 2x4 grid. True south orientation.</div>
+                <div class="legend-spec">2382 x 1134 x 30mm, 400W peak each</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #c0c0c0;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Aluminum Panel Frames</div>
+                <div class="legend-desc">Silver anodized frames. Rails mounted on purlins.</div>
+                <div class="legend-spec">50mm gap for ventilation</div>
+            </div>
+        </div>
+
+        <h3>Ventilation</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #88ccee;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Passive Ventilation</div>
+                <div class="legend-desc">North-facing clerestory enables stack-effect ventilation. Gaps between panels allow airflow.</div>
+                <div class="legend-spec">Cross-ventilation via windows</div>
+            </div>
+        </div>
+
+        <h3>Electrical System</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #2a2a4a;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Inverter Location</div>
+                <div class="legend-desc">Interior north wall, near clerestory for cooling.</div>
+                <div class="legend-spec">3.2kW hybrid inverter</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #444;"></div>
+            <div class="legend-details">
+                <div class="legend-name">DC Wiring</div>
+                <div class="legend-desc">Routed along purlins in UV-resistant conduit.</div>
+                <div class="legend-spec">4mm² solar cable</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #5a7a5a;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Battery Storage</div>
+                <div class="legend-desc">Optional LiFePO4 batteries for off-grid operation.</div>
+                <div class="legend-spec">5-10kWh capacity recommended</div>
+            </div>
+        </div>
+
+        <h3>Sleeping Loft (2 Compartments)</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #b8734a;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Loft Floor</div>
+                <div class="legend-desc">Wooden platform at upper terrace level. Two private compartments with center dividing wall.</div>
+                <div class="legend-spec">2 x (2.1m x 2.5m) = ~10.5m²</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #faf5eb;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Dividing Wall</div>
+                <div class="legend-desc">Center partition separating east and west sleeping compartments.</div>
+                <div class="legend-spec">Lime rendered, 150mm thick</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #d4b896;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Straw Bale Back Wall</div>
+                <div class="legend-desc">Compressed straw bales provide exceptional insulation. Lime plastered interior.</div>
+                <div class="legend-spec">450mm thick, R-30 insulation</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #3d5c3d;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Green Roof</div>
+                <div class="legend-desc">Earth-covered flat roof over loft. Blends with upper terrace landscape.</div>
+                <div class="legend-spec">~200mm soil depth</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #8b5a2b;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Access Ladders (2)</div>
+                <div class="legend-desc">Each compartment has its own eucalyptus ladder for private access.</div>
+                <div class="legend-spec">8 rungs each, ~2.5m climb</div>
+            </div>
+        </div>
+
+        <h3>Clerestory</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #88ccee;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Rectangular Clerestory Window</div>
+                <div class="legend-desc">Full-width glazed panel where roof meets wall. North-facing for diffuse light.</div>
+                <div class="legend-spec">~5.0m W x 2.3m H</div>
+            </div>
+        </div>
+
+        <h3>Floor</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #a67c52;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Earthen Floor</div>
+                <div class="legend-desc">Rectangular clay, sand, and linseed oil finish.</div>
+                <div class="legend-spec">~18m² floor area</div>
+            </div>
+        </div>
+
+        <h3>Openings</h3>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #5c4033;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Entry Door</div>
+                <div class="legend-desc">Centered on front (south) wall.</div>
+                <div class="legend-spec">1.0m W x 2.1m H</div>
+            </div>
+        </div>
+        <div class="legend-item">
+            <div class="legend-color" style="background: #88ccee;"></div>
+            <div class="legend-details">
+                <div class="legend-name">Side Windows</div>
+                <div class="legend-desc">East and west windows on side walls.</div>
+                <div class="legend-spec">0.8m W x 1.0m H</div>
+            </div>
+        </div>
+
+        <button onclick="document.getElementById('legend').classList.add('hidden')" style="margin-top:12px;background:#444;border:none;color:#aaa;padding:6px 12px;border-radius:4px;cursor:pointer;width:100%;">Hide Legend</button>
+    </div>
+    <button id="legendToggle" onclick="document.getElementById('legend').classList.remove('hidden')">Show Legend</button>
+
+    <div id="stats">
+        <div>Width: <span>5.0m</span></div>
+        <div>Depth: <span>4.1m + 2.5m loft</span></div>
+        <div>Main Floor: <span>~18m&sup2;</span></div>
+        <div>Sleeping Loft: <span>2 × ~5.3m&sup2;</span></div>
+        <div>Total Area: <span>~29m&sup2;</span></div>
+        <div style="border-top: 1px solid #444; margin-top: 8px; padding-top: 8px;">Eaves Height: <span>3.0m</span></div>
+        <div>Ridge Height: <span>5.35m</span></div>
+        <div>Loft Ceiling: <span>5.0m</span></div>
+        <div style="border-top: 1px solid #444; margin-top: 8px; padding-top: 8px;">Panels: <span>8 × 400W</span></div>
+        <div>Array Capacity: <span>3.2 kW</span></div>
+        <div>Annual Generation: <span>~4,200 kWh</span></div>
+    </div>
+
+    <div id="controls">
+        Drag to rotate | Scroll to zoom | Right-drag to pan
+    </div>
+
+    <button id="toggleBtn" onclick="toggleTransparency()">Show Solid</button>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+            "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+        import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+        // Note: viewer-enhancements.js can be added when serving from HTTP server (GitHub Pages)
+
+        // ==========================================
+        // CONFIGURATION
+        // ==========================================
+        const CONFIG = {
+            building: {
+                width: 5.0,        // East-west dimension
+                depth: 4.1,        // North-south dimension
+                eavesHeight: 3.0   // Front wall height
+            },
+            solar: {
+                pitch: 30,         // Degrees
+                panelWidth: 2.382, // Meters
+                panelHeight: 1.134,// Meters
+                rows: 4,
+                cols: 2
+            },
+            terrain: {
+                wallHeight: 3.0,
+                wallThickness: 0.8
+            }
+        };
+
+        // Scene setup
+        const scene = new THREE.Scene();
+        scene.background = new THREE.Color(0x1a1a2e);
+
+        // Camera - positioned to view from the south-east (front of structure)
+        const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+        camera.position.set(10, 8, 12);
+
+        // Renderer
+        const renderer = new THREE.WebGLRenderer({ antialias: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.shadowMap.enabled = true;
+        renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+        document.body.appendChild(renderer.domElement);
+
+        // Controls
+        const controls = new OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
+        controls.target.set(0, 2.5, 2.5); // Focus on structure center
+
+        // Lighting
+        const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
+        scene.add(ambientLight);
+
+        const sunLight = new THREE.DirectionalLight(0xfff5e6, 1.2);
+        sunLight.position.set(10, 15, 10);
+        sunLight.castShadow = true;
+        sunLight.shadow.mapSize.width = 2048;
+        sunLight.shadow.mapSize.height = 2048;
+        sunLight.shadow.camera.near = 0.5;
+        sunLight.shadow.camera.far = 50;
+        sunLight.shadow.camera.left = -20;
+        sunLight.shadow.camera.right = 20;
+        sunLight.shadow.camera.top = 20;
+        sunLight.shadow.camera.bottom = -20;
+        scene.add(sunLight);
+
+        const fillLight = new THREE.DirectionalLight(0x87ceeb, 0.3);
+        fillLight.position.set(-5, 3, -5);
+        scene.add(fillLight);
+
+        // ==========================================
+        // STRUCTURE CONSTANTS (Solar Version)
+        // ==========================================
+
+        // Building dimensions (optimized for 8 panels in 2x4 grid)
+        const buildingWidth = 5.0;        // ~5m wide (east-west)
+        const buildingDepth = 4.1;        // ~4.1m deep (north-south, horizontal)
+        const eavesHeight = 3.0;          // Front wall height
+        const solarPitch = 30 * Math.PI / 180;  // 30 degrees
+
+        // Roof dimensions
+        const roofSlopeLength = 4.7;      // ~4.7m along slope
+        const ridgeRise = roofSlopeLength * Math.sin(solarPitch);  // ~2.35m
+        const ridgeHeight = eavesHeight + ridgeRise;  // ~5.35m
+
+        // Panel dimensions (mm to m)
+        const panelWidth = 2.382;   // 2382mm
+        const panelHeight = 1.134;  // 1134mm (along slope)
+        const panelThickness = 0.03; // 30mm
+        const panelGap = 0.05;      // 50mm between panels
+
+        // Terrain
+        const wallThickness = 0.8;
+        const terraceWallHeight = 3.0;
+        const wallBatter = 0.08;
+
+        // Structure offset from wall
+        const structureOffset = wallThickness / 2 + 0.05;
+
+        // Foundation
+        const foundationHeight = 0.5;
+        const foundationOverhang = 0.3;
+
+        // ==========================================
+        // MATERIALS
+        // ==========================================
+
+        const materials = {
+            granite: new THREE.MeshStandardMaterial({
+                color: 0x6b7b6b,
+                roughness: 0.95,
+                metalness: 0.1
+            }),
+            foundation: new THREE.MeshStandardMaterial({
+                color: 0x7a7a72,
+                roughness: 0.9,
+                metalness: 0.1,
+                transparent: true,
+                opacity: 0.6,
+                side: THREE.DoubleSide
+            }),
+            limeRender: new THREE.MeshStandardMaterial({
+                color: 0xfaf5eb,
+                roughness: 0.8,
+                metalness: 0,
+                transparent: true,
+                opacity: 0.3,
+                side: THREE.DoubleSide
+            }),
+            eucalyptusVertical: new THREE.MeshStandardMaterial({
+                color: 0x8b5a2b,
+                roughness: 0.7,
+                metalness: 0.05
+            }),
+            eucalyptusHorizontal: new THREE.MeshStandardMaterial({
+                color: 0xb8860b,
+                roughness: 0.7,
+                metalness: 0.05,
+                transparent: true,
+                opacity: 0.4
+            }),
+            rafters: new THREE.MeshStandardMaterial({
+                color: 0xcd853f,
+                roughness: 0.6,
+                metalness: 0.05,
+                transparent: true,
+                opacity: 0.4
+            }),
+            purlins: new THREE.MeshStandardMaterial({
+                color: 0xdaa520,
+                roughness: 0.6,
+                metalness: 0.05,
+                transparent: true,
+                opacity: 0.4
+            }),
+            solarPanel: new THREE.MeshStandardMaterial({
+                color: 0x1a1a3a,  // Deep blue-black
+                roughness: 0.15,
+                metalness: 0.1,
+                transparent: true,
+                opacity: 0.4,
+                side: THREE.DoubleSide
+            }),
+            panelFrame: new THREE.MeshStandardMaterial({
+                color: 0xc0c0c0,  // Silver aluminum
+                roughness: 0.3,
+                metalness: 0.5
+            }),
+            floor: new THREE.MeshStandardMaterial({
+                color: 0xb8734a,
+                roughness: 0.85,
+                metalness: 0,
+                transparent: true,
+                opacity: 0.5,
+                side: THREE.DoubleSide
+            }),
+            glass: new THREE.MeshPhysicalMaterial({
+                color: 0x88ccff,
+                roughness: 0.0,
+                metalness: 0.0,
+                transparent: true,
+                opacity: 0.5,
+                transmission: 0.6,
+                thickness: 0.1,
+                side: THREE.DoubleSide,
+                depthWrite: false
+            }),
+            door: new THREE.MeshStandardMaterial({
+                color: 0x5c4033,
+                roughness: 0.8,
+                metalness: 0
+            }),
+            cobWall: new THREE.MeshStandardMaterial({
+                color: 0xd4a574,  // Warm terracotta (clay-sand-straw)
+                roughness: 0.95,
+                metalness: 0,
+                transparent: true,
+                opacity: 0.3,
+                side: THREE.DoubleSide
+            }),
+            ringBeam: new THREE.MeshStandardMaterial({
+                color: 0x8b4513,  // Saddle brown (structural timber)
+                roughness: 0.6,
+                metalness: 0.05
+            }),
+            roofSheathing: new THREE.MeshStandardMaterial({
+                color: 0xa08060,  // Cork/wood fiber board
+                roughness: 0.85,
+                metalness: 0
+            }),
+            membrane: new THREE.MeshStandardMaterial({
+                color: 0x1a1a1a,  // Black EPDM
+                roughness: 0.6,
+                metalness: 0,
+                transparent: true,
+                opacity: 0.35
+            }),
+            strawBale: new THREE.MeshStandardMaterial({
+                color: 0xd4b896,  // Golden straw color
+                roughness: 0.95,
+                metalness: 0
+            }),
+            groundLower: new THREE.MeshStandardMaterial({
+                color: 0x4a6b4a,
+                roughness: 1,
+                metalness: 0
+            }),
+            groundUpper: new THREE.MeshStandardMaterial({
+                color: 0x3d5c3d,
+                roughness: 1,
+                metalness: 0
+            })
+        };
+
+        // ==========================================
+        // TERRAIN: Two terraces with dry stone wall
+        // ==========================================
+
+        // Lower terrace (Y=0) - where the BioDome sits
+        const lowerTerraceGeometry = new THREE.PlaneGeometry(30, 20);
+        lowerTerraceGeometry.rotateX(-Math.PI / 2);
+        lowerTerraceGeometry.translate(0, 0, 8);
+        const lowerTerrace = new THREE.Mesh(lowerTerraceGeometry, materials.groundLower);
+        lowerTerrace.receiveShadow = true;
+        lowerTerrace.userData.component = 'ground';
+        scene.add(lowerTerrace);
+
+        // Upper terrace (Y=3.0) - behind the wall
+        const upperTerraceGeometry = new THREE.PlaneGeometry(30, 15);
+        upperTerraceGeometry.rotateX(-Math.PI / 2);
+        upperTerraceGeometry.translate(0, terraceWallHeight, -8);
+        const upperTerrace = new THREE.Mesh(upperTerraceGeometry, materials.groundUpper);
+        upperTerrace.receiveShadow = true;
+        upperTerrace.userData.component = 'ground';
+        scene.add(upperTerrace);
+
+        // Dry stone terrace wall (with batter)
+        const wallWidth = 14;
+        const wallBottomThickness = wallThickness;
+        const wallTopThickness = wallThickness - (terraceWallHeight * wallBatter);
+
+        const wallShape = new THREE.Shape();
+        wallShape.moveTo(-wallBottomThickness/2, 0);
+        wallShape.lineTo(wallBottomThickness/2, 0);
+        wallShape.lineTo(wallTopThickness/2, terraceWallHeight);
+        wallShape.lineTo(-wallTopThickness/2, terraceWallHeight);
+        wallShape.closePath();
+
+        const wallExtrudeSettings = { depth: wallWidth, bevelEnabled: false };
+        const wallGeometry = new THREE.ExtrudeGeometry(wallShape, wallExtrudeSettings);
+        wallGeometry.rotateY(Math.PI / 2);
+        wallGeometry.translate(-wallWidth/2, 0, 0);
+
+        const terraceWall = new THREE.Mesh(wallGeometry, materials.granite);
+        terraceWall.castShadow = true;
+        terraceWall.receiveShadow = true;
+        terraceWall.userData.component = 'ground';
+        scene.add(terraceWall);
+
+        // ==========================================
+        // RECTANGULAR FOUNDATION
+        // ==========================================
+
+        const foundationGeometry = new THREE.BoxGeometry(
+            buildingWidth + foundationOverhang * 2,
+            foundationHeight,
+            buildingDepth + foundationOverhang
+        );
+        const foundation = new THREE.Mesh(foundationGeometry, materials.foundation);
+        foundation.position.set(0, foundationHeight / 2, structureOffset + buildingDepth / 2);
+        foundation.castShadow = true;
+        foundation.receiveShadow = true;
+        foundation.userData.component = 'foundation';
+        scene.add(foundation);
+
+        // ==========================================
+        // RECTANGULAR WALLS (Front and Sides)
+        // ==========================================
+
+        const wallThicknessStructure = 0.15;
+
+        // Front wall (south-facing, at eaves height)
+        const frontWallGeometry = new THREE.BoxGeometry(buildingWidth, eavesHeight - foundationHeight, wallThicknessStructure);
+        const frontWall = new THREE.Mesh(frontWallGeometry, materials.limeRender);
+        frontWall.position.set(0, foundationHeight + (eavesHeight - foundationHeight) / 2, structureOffset + buildingDepth);
+        frontWall.castShadow = true;
+        frontWall.receiveShadow = true;
+        frontWall.userData.component = 'walls';
+        scene.add(frontWall);
+
+        // Side walls (east and west) - trapezoidal to follow roof pitch
+        function createSideWall(isEast) {
+            // Create trapezoidal wall directly in Z-Y plane
+            // Z: 0 = front (eaves), buildingDepth = back (ridge)
+            const sideShape = new THREE.Shape();
+            sideShape.moveTo(0, foundationHeight);              // front-bottom
+            sideShape.lineTo(0, eavesHeight);                   // front-top (eaves height)
+            sideShape.lineTo(buildingDepth, ridgeHeight);       // back-top (ridge height)
+            sideShape.lineTo(buildingDepth, foundationHeight);  // back-bottom
+            sideShape.closePath();
+
+            const sideExtrudeSettings = { depth: wallThicknessStructure, bevelEnabled: false };
+            const sideGeom = new THREE.ExtrudeGeometry(sideShape, sideExtrudeSettings);
+            // Rotate so the flat face is vertical (facing X direction)
+            sideGeom.rotateY(Math.PI / 2);
+
+            const sideWall = new THREE.Mesh(sideGeom, materials.limeRender);
+            // Position: X at wall edge, Z starting at front of building
+            const xPos = isEast ? buildingWidth / 2 : -buildingWidth / 2 - wallThicknessStructure;
+            sideWall.position.set(xPos, 0, structureOffset + buildingDepth);
+            sideWall.castShadow = true;
+            sideWall.receiveShadow = true;
+            sideWall.userData.component = 'walls';
+            return sideWall;
+        }
+
+        const eastWall = createSideWall(true);
+        scene.add(eastWall);
+
+        const westWall = createSideWall(false);
+        scene.add(westWall);
+
+        // ==========================================
+        // VERTICAL POSTS (Wall frame)
+        // ==========================================
+
+        const frontPostHeight = eavesHeight - foundationHeight;
+        const postRadius = 0.08;
+        const numFrontPosts = 6;  // Posts along front wall
+        const numSidePosts = 5;   // Posts along each side wall
+
+        // Front wall vertical posts (evenly spaced)
+        for (let i = 0; i < numFrontPosts; i++) {
+            const x = -buildingWidth / 2 + 0.15 + (i / (numFrontPosts - 1)) * (buildingWidth - 0.3);
+            const z = structureOffset + buildingDepth - 0.15;
+
+            const postGeometry = new THREE.CylinderGeometry(postRadius, postRadius * 1.1, frontPostHeight, 8);
+            const post = new THREE.Mesh(postGeometry, materials.eucalyptusVertical);
+            post.position.set(x, foundationHeight + frontPostHeight / 2, z);
+            post.castShadow = true;
+            post.userData.component = 'verticalPoles';
+            scene.add(post);
+        }
+
+        // Side wall vertical posts (following roof slope)
+        for (let side = 0; side < 2; side++) {
+            const xPos = side === 0 ? -buildingWidth / 2 + 0.15 : buildingWidth / 2 - 0.15;
+
+            for (let i = 0; i < numSidePosts; i++) {
+                const t = i / (numSidePosts - 1);
+                const z = structureOffset + buildingDepth - 0.15 - t * (buildingDepth - 0.3);
+                // Height increases from front (eaves) to back (ridge)
+                const postTopY = eavesHeight + t * (ridgeHeight - eavesHeight);
+                const height = postTopY - foundationHeight;
+
+                const postGeometry = new THREE.CylinderGeometry(postRadius, postRadius * 1.1, height, 8);
+                const post = new THREE.Mesh(postGeometry, materials.eucalyptusVertical);
+                post.position.set(xPos, foundationHeight + height / 2, z);
+                post.castShadow = true;
+                post.userData.component = 'verticalPoles';
+                scene.add(post);
+            }
+        }
+
+        // ==========================================
+        // HORIZONTAL WATTLE POLES (Wall weave)
+        // ==========================================
+
+        const horizontalLevels = [0.6, 0.9, 1.2, 1.5, 1.8, 2.1, 2.4];
+        const wattleRadius = 0.025;
+
+        // Front wall horizontal wattles
+        horizontalLevels.forEach(relHeight => {
+            const y = foundationHeight + relHeight;
+            if (y < eavesHeight - 0.1) {
+                for (let i = 0; i < numFrontPosts - 1; i++) {
+                    const x1 = -buildingWidth / 2 + 0.15 + (i / (numFrontPosts - 1)) * (buildingWidth - 0.3);
+                    const x2 = -buildingWidth / 2 + 0.15 + ((i + 1) / (numFrontPosts - 1)) * (buildingWidth - 0.3);
+                    const z = structureOffset + buildingDepth - 0.12;
+
+                    const length = x2 - x1;
+                    const wattleGeometry = new THREE.CylinderGeometry(wattleRadius, wattleRadius * 1.1, length, 6);
+                    const wattle = new THREE.Mesh(wattleGeometry, materials.eucalyptusHorizontal);
+                    wattle.position.set((x1 + x2) / 2, y, z);
+                    wattle.rotation.z = Math.PI / 2;
+                    wattle.castShadow = true;
+                    wattle.userData.component = 'horizontalPoles';
+                    scene.add(wattle);
+                }
+            }
+        });
+
+        // Side wall horizontal wattles (following roof slope)
+        for (let side = 0; side < 2; side++) {
+            const xPos = side === 0 ? -buildingWidth / 2 + 0.12 : buildingWidth / 2 - 0.12;
+
+            horizontalLevels.forEach(relHeight => {
+                const baseY = foundationHeight + relHeight;
+
+                for (let i = 0; i < numSidePosts - 1; i++) {
+                    const t1 = i / (numSidePosts - 1);
+                    const t2 = (i + 1) / (numSidePosts - 1);
+                    const z1 = structureOffset + buildingDepth - 0.15 - t1 * (buildingDepth - 0.3);
+                    const z2 = structureOffset + buildingDepth - 0.15 - t2 * (buildingDepth - 0.3);
+
+                    // Check if this wattle level is below the roof line at both ends
+                    const roofY1 = eavesHeight + t1 * (ridgeHeight - eavesHeight);
+                    const roofY2 = eavesHeight + t2 * (ridgeHeight - eavesHeight);
+
+                    if (baseY < roofY1 - 0.2 && baseY < roofY2 - 0.2) {
+                        const direction = new THREE.Vector3(0, 0, z2 - z1);
+                        const length = Math.abs(z2 - z1);
+
+                        const wattleGeometry = new THREE.CylinderGeometry(wattleRadius, wattleRadius * 1.1, length * 1.02, 6);
+                        const wattle = new THREE.Mesh(wattleGeometry, materials.eucalyptusHorizontal);
+                        wattle.position.set(xPos, baseY, (z1 + z2) / 2);
+                        wattle.rotation.x = Math.PI / 2;
+                        wattle.castShadow = true;
+                        wattle.userData.component = 'horizontalPoles';
+                        scene.add(wattle);
+                    }
+                }
+            });
+        }
+
+        // ==========================================
+        // PARALLEL RAFTERS (5 rafters at 30 degrees)
+        // ==========================================
+
+        const numRafters = 5;
+        const rafterRadius = 0.06;
+        const rafterOverhang = 0.3; // Small overhang at eaves
+
+        for (let i = 0; i < numRafters; i++) {
+            const x = -buildingWidth / 2 + 0.3 + (i / (numRafters - 1)) * (buildingWidth - 0.6);
+
+            // Start point: at front wall (eaves) with small overhang
+            // Rafters sit well below solar panels
+            const rafterDrop = 0.30;
+            const startZ = structureOffset + buildingDepth + rafterOverhang;
+            const startY = eavesHeight - rafterDrop;
+
+            // End point: at back wall (ridge)
+            const endZ = structureOffset - 0.1;
+            const endY = ridgeHeight - rafterDrop;
+
+            // Calculate rafter geometry
+            const direction = new THREE.Vector3(0, endY - startY, endZ - startZ);
+            const length = direction.length();
+            direction.normalize();
+
+            const rafterGeometry = new THREE.CylinderGeometry(rafterRadius * 0.9, rafterRadius, length, 8);
+            const rafter = new THREE.Mesh(rafterGeometry, materials.rafters);
+
+            rafter.position.set(
+                x,
+                (startY + endY) / 2,
+                (startZ + endZ) / 2
+            );
+
+            // Rotate to align with slope
+            const yAxis = new THREE.Vector3(0, 1, 0);
+            const quaternion = new THREE.Quaternion().setFromUnitVectors(yAxis, direction);
+            rafter.setRotationFromQuaternion(quaternion);
+
+            rafter.castShadow = true;
+            rafter.userData.component = 'rafters';
+            scene.add(rafter);
+        }
+
+        // ==========================================
+        // STRAIGHT PURLINS (3 east-west purlins)
+        // ==========================================
+
+        const numPurlins = 3;
+        const purlinRadius = 0.04;
+
+        for (let i = 0; i < numPurlins; i++) {
+            // Position along the roof slope (from eaves to ridge)
+            const t = (i + 1) / (numPurlins + 1);
+            const purlinZ = structureOffset + buildingDepth * (1 - t);
+            const purlinY = eavesHeight + t * (ridgeHeight - eavesHeight) - 0.25;
+
+            const purlinGeometry = new THREE.CylinderGeometry(purlinRadius, purlinRadius, buildingWidth + 0.4, 8);
+            const purlin = new THREE.Mesh(purlinGeometry, materials.purlins);
+            purlin.position.set(0, purlinY, purlinZ);
+            purlin.rotation.z = Math.PI / 2; // Rotate to run east-west
+            purlin.castShadow = true;
+            purlin.userData.component = 'purlins';
+            scene.add(purlin);
+        }
+
+        // ==========================================
+        // WALL PLATE / RING BEAM
+        // ==========================================
+
+        // Front wall plate (running along top of front wall)
+        const wallPlateGeometry = new THREE.BoxGeometry(buildingWidth + 0.1, 0.12, 0.15);
+        const frontWallPlate = new THREE.Mesh(wallPlateGeometry, materials.ringBeam);
+        frontWallPlate.position.set(0, eavesHeight - 0.06, structureOffset + buildingDepth);
+        frontWallPlate.castShadow = true;
+        frontWallPlate.userData.component = 'ringBeam';
+        scene.add(frontWallPlate);
+
+        // ==========================================
+        // WOVEN EUCALYPTUS ROOF DECK (with 50cm eaves)
+        // ==========================================
+
+        const eavesOverhang = 0.5;  // 50cm eaves
+        const roofDeckWidth = buildingWidth + eavesOverhang * 2;  // Extends 50cm each side
+        const roofDeckLength = roofSlopeLength + eavesOverhang;   // Extends 50cm at front
+        const roofDeckThickness = 0.04;
+
+        // Main roof deck (woven eucalyptus poles) - sits below solar panels
+        const roofDeckGeom = new THREE.BoxGeometry(roofDeckWidth, roofDeckThickness, roofDeckLength);
+        const roofDeck = new THREE.Mesh(roofDeckGeom, materials.eucalyptusHorizontal);
+        // Position at mid-point of roof slope, below panels
+        const deckCenterZ = structureOffset + buildingDepth / 2 + eavesOverhang / 2;
+        const deckCenterY = eavesHeight + (ridgeHeight - eavesHeight) / 2 - 0.10;
+        roofDeck.position.set(0, deckCenterY, deckCenterZ);
+        roofDeck.rotation.x = solarPitch;
+        roofDeck.receiveShadow = true;
+        roofDeck.castShadow = true;
+        scene.add(roofDeck);
+
+        // Woven pole detail (cross poles on deck) - positioned below solar panels
+        const wovenPoleRadius = 0.015;
+        const numWovenPoles = 12;
+        for (let i = 0; i < numWovenPoles; i++) {
+            const t = i / (numWovenPoles - 1);
+            const poleZ = structureOffset + buildingDepth + eavesOverhang - t * roofDeckLength;
+            const poleY = eavesHeight + t * (ridgeHeight - eavesHeight) - 0.05;
+
+            const wovenPoleGeom = new THREE.CylinderGeometry(wovenPoleRadius, wovenPoleRadius, roofDeckWidth, 6);
+            const wovenPole = new THREE.Mesh(wovenPoleGeom, materials.eucalyptusHorizontal);
+            wovenPole.position.set(0, poleY, poleZ);
+            wovenPole.rotation.z = Math.PI / 2;
+            wovenPole.castShadow = true;
+            scene.add(wovenPole);
+        }
+
+        // ==========================================
+        // WATERPROOF MEMBRANE (EPDM with 50cm eaves)
+        // ==========================================
+
+        const membraneThickness = 0.008;  // 8mm visible thickness
+        const membraneGeom = new THREE.BoxGeometry(roofDeckWidth + 0.02, membraneThickness, roofDeckLength + 0.02);
+        const membraneMesh = new THREE.Mesh(membraneGeom, materials.membrane);
+        membraneMesh.position.set(0, deckCenterY + 0.20, deckCenterZ);
+        membraneMesh.rotation.x = solarPitch;
+        membraneMesh.receiveShadow = true;
+        scene.add(membraneMesh);
+
+        // Membrane edge trim (visible eaves edge)
+        const trimGeom = new THREE.BoxGeometry(roofDeckWidth + 0.04, 0.02, 0.03);
+
+        // Front eaves trim
+        const frontTrimY = eavesHeight + 0.10;
+        const frontTrimZ = structureOffset + buildingDepth + eavesOverhang + 0.02;
+        const frontTrim = new THREE.Mesh(trimGeom, materials.membrane);
+        frontTrim.position.set(0, frontTrimY, frontTrimZ);
+        scene.add(frontTrim);
+
+        // ==========================================
+        // LASHINGS (securing roof poles to wall poles)
+        // ==========================================
+
+        const lashingMaterial = new THREE.MeshStandardMaterial({
+            color: 0x2c5f7c,  // Marine blue rPET rope
+            roughness: 0.7,
+            metalness: 0.1
+        });
+
+        // Lashings at front wall plate (where rafters meet front posts)
+        for (let i = 0; i < numRafters; i++) {
+            const x = -buildingWidth / 2 + 0.3 + (i / (numRafters - 1)) * (buildingWidth - 0.6);
+            const lashY = eavesHeight - 0.02;
+            const lashZ = structureOffset + buildingDepth - 0.1;
+
+            // Lashing wrap (torus shape to simulate wrapped cord)
+            const lashGeom = new THREE.TorusGeometry(0.08, 0.015, 8, 12);
+            const lashing = new THREE.Mesh(lashGeom, lashingMaterial);
+            lashing.position.set(x, lashY, lashZ);
+            lashing.rotation.y = Math.PI / 4;
+            lashing.castShadow = true;
+            scene.add(lashing);
+
+            // Cross lashing detail
+            const crossLashGeom = new THREE.TorusGeometry(0.06, 0.012, 6, 8);
+            const crossLash = new THREE.Mesh(crossLashGeom, lashingMaterial);
+            crossLash.position.set(x, lashY + 0.02, lashZ);
+            crossLash.rotation.x = Math.PI / 2;
+            crossLash.rotation.z = Math.PI / 4;
+            scene.add(crossLash);
+        }
+
+        // Lashings at ridge (where rafters meet terrace wall)
+        for (let i = 0; i < numRafters; i++) {
+            const x = -buildingWidth / 2 + 0.3 + (i / (numRafters - 1)) * (buildingWidth - 0.6);
+            const lashY = ridgeHeight - 0.1;
+            const lashZ = structureOffset + 0.1;
+
+            const lashGeom = new THREE.TorusGeometry(0.07, 0.012, 8, 10);
+            const lashing = new THREE.Mesh(lashGeom, lashingMaterial);
+            lashing.position.set(x, lashY, lashZ);
+            lashing.rotation.x = Math.PI / 3;
+            lashing.castShadow = true;
+            scene.add(lashing);
+        }
+
+        // Lashings at purlins (where purlins cross rafters)
+        for (let p = 0; p < numPurlins; p++) {
+            const t = (p + 1) / (numPurlins + 1);
+            const purlinZ = structureOffset + buildingDepth * (1 - t);
+            const purlinY = eavesHeight + t * (ridgeHeight - eavesHeight) - 0.25;
+
+            for (let r = 0; r < numRafters; r++) {
+                const x = -buildingWidth / 2 + 0.3 + (r / (numRafters - 1)) * (buildingWidth - 0.6);
+
+                const lashGeom = new THREE.TorusGeometry(0.05, 0.01, 6, 8);
+                const lashing = new THREE.Mesh(lashGeom, lashingMaterial);
+                lashing.position.set(x, purlinY + 0.02, purlinZ);
+                lashing.rotation.x = Math.PI / 2;
+                scene.add(lashing);
+            }
+        }
+
+        // ==========================================
+        // SOLAR PANELS (8 panels in 2x4 grid)
+        // ==========================================
+
+        // Array dimensions
+        const arrayCols = 2;
+        const arrayRows = 4;
+        const arrayWidth = arrayCols * panelWidth + (arrayCols - 1) * panelGap;
+        const arraySlopeLength = arrayRows * panelHeight + (arrayRows - 1) * panelGap;
+
+        // Calculate array position on roof (centered)
+        const arrayStartX = -arrayWidth / 2;
+        const arrayStartZ = structureOffset + buildingDepth - 0.2; // Start near eaves
+        const arrayStartY = eavesHeight + 0.55; // Well above rafters and purlins
+
+        // Panel offset in slope direction per row
+        const slopeStepZ = -panelHeight * Math.cos(solarPitch);
+        const slopeStepY = panelHeight * Math.sin(solarPitch);
+        const gapStepZ = -panelGap * Math.cos(solarPitch);
+        const gapStepY = panelGap * Math.sin(solarPitch);
+
+        // Create each panel
+        for (let row = 0; row < arrayRows; row++) {
+            for (let col = 0; col < arrayCols; col++) {
+                // Panel center position
+                const panelX = arrayStartX + col * (panelWidth + panelGap) + panelWidth / 2;
+                const panelZ = arrayStartZ + row * (slopeStepZ + gapStepZ) + slopeStepZ / 2;
+                const panelY = arrayStartY + row * (slopeStepY + gapStepY) + slopeStepY / 2;
+
+                // Panel surface (dark blue-black)
+                const panelGeometry = new THREE.BoxGeometry(panelWidth - 0.04, panelThickness, panelHeight - 0.04);
+                const panel = new THREE.Mesh(panelGeometry, materials.solarPanel);
+                panel.position.set(panelX, panelY, panelZ);
+                panel.rotation.x = solarPitch; // Tilt to 30 degrees
+                panel.castShadow = true;
+                panel.receiveShadow = true;
+                panel.userData.component = 'solarPanels';
+                scene.add(panel);
+
+                // Panel frame (silver aluminum)
+                const frameThickness = 0.02;
+
+                // Create frame as 4 edges
+                // Top edge
+                const topEdge = new THREE.Mesh(
+                    new THREE.BoxGeometry(panelWidth, frameThickness, 0.03),
+                    materials.panelFrame
+                );
+                topEdge.position.set(panelX, panelY + panelThickness/2, panelZ - panelHeight/2 * Math.cos(solarPitch));
+                topEdge.position.y += panelHeight/2 * Math.sin(solarPitch);
+                topEdge.rotation.x = solarPitch;
+                scene.add(topEdge);
+
+                // Bottom edge
+                const bottomEdge = new THREE.Mesh(
+                    new THREE.BoxGeometry(panelWidth, frameThickness, 0.03),
+                    materials.panelFrame
+                );
+                bottomEdge.position.set(panelX, panelY + panelThickness/2, panelZ + panelHeight/2 * Math.cos(solarPitch));
+                bottomEdge.position.y -= panelHeight/2 * Math.sin(solarPitch);
+                bottomEdge.rotation.x = solarPitch;
+                scene.add(bottomEdge);
+
+                // Left edge
+                const leftEdge = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.03, frameThickness, panelHeight),
+                    materials.panelFrame
+                );
+                leftEdge.position.set(panelX - panelWidth/2, panelY + panelThickness/2, panelZ);
+                leftEdge.rotation.x = solarPitch;
+                scene.add(leftEdge);
+
+                // Right edge
+                const rightEdge = new THREE.Mesh(
+                    new THREE.BoxGeometry(0.03, frameThickness, panelHeight),
+                    materials.panelFrame
+                );
+                rightEdge.position.set(panelX + panelWidth/2, panelY + panelThickness/2, panelZ);
+                rightEdge.rotation.x = solarPitch;
+                scene.add(rightEdge);
+            }
+        }
+
+        // ==========================================
+        // RECTANGULAR CLERESTORY WINDOW
+        // ==========================================
+
+        const clerestoryBaseY = terraceWallHeight + 0.1;
+        const clerestoryTopY = ridgeHeight - 0.15;
+        const clerestoryHeight = clerestoryTopY - clerestoryBaseY;
+        const clerestoryWidth = buildingWidth - 0.3;
+        const clerestoryZ = structureOffset + 0.1;
+
+        // Glass panel
+        const clerestoryGeometry = new THREE.PlaneGeometry(clerestoryWidth, clerestoryHeight);
+        const clerestoryWindow = new THREE.Mesh(clerestoryGeometry, materials.glass);
+        clerestoryWindow.position.set(0, clerestoryBaseY + clerestoryHeight / 2, clerestoryZ);
+        clerestoryWindow.renderOrder = 1;
+        clerestoryWindow.userData.component = 'clerestory';
+        scene.add(clerestoryWindow);
+
+        // Frame
+        const frameWidth = 0.08;
+
+        // Top frame
+        const topFrameGeom = new THREE.BoxGeometry(clerestoryWidth + frameWidth * 2, frameWidth, frameWidth);
+        const topFrame = new THREE.Mesh(topFrameGeom, materials.eucalyptusVertical);
+        topFrame.position.set(0, clerestoryTopY, clerestoryZ);
+        scene.add(topFrame);
+
+        // Bottom frame
+        const bottomFrameGeom = new THREE.BoxGeometry(clerestoryWidth + frameWidth * 2, frameWidth, frameWidth);
+        const bottomFrame = new THREE.Mesh(bottomFrameGeom, materials.eucalyptusVertical);
+        bottomFrame.position.set(0, clerestoryBaseY, clerestoryZ);
+        scene.add(bottomFrame);
+
+        // Left frame
+        const leftFrameGeom = new THREE.BoxGeometry(frameWidth, clerestoryHeight, frameWidth);
+        const leftFrame = new THREE.Mesh(leftFrameGeom, materials.eucalyptusVertical);
+        leftFrame.position.set(-clerestoryWidth / 2 - frameWidth / 2, clerestoryBaseY + clerestoryHeight / 2, clerestoryZ);
+        scene.add(leftFrame);
+
+        // Right frame
+        const rightFrameGeom = new THREE.BoxGeometry(frameWidth, clerestoryHeight, frameWidth);
+        const rightFrame = new THREE.Mesh(rightFrameGeom, materials.eucalyptusVertical);
+        rightFrame.position.set(clerestoryWidth / 2 + frameWidth / 2, clerestoryBaseY + clerestoryHeight / 2, clerestoryZ);
+        scene.add(rightFrame);
+
+        // Vertical mullions (2 dividers)
+        const mullionSpacing = clerestoryWidth / 3;
+        for (let i = 1; i < 3; i++) {
+            const mullionX = -clerestoryWidth / 2 + i * mullionSpacing;
+            const mullionGeom = new THREE.BoxGeometry(frameWidth * 0.6, clerestoryHeight, frameWidth * 0.6);
+            const mullion = new THREE.Mesh(mullionGeom, materials.eucalyptusVertical);
+            mullion.position.set(mullionX, clerestoryBaseY + clerestoryHeight / 2, clerestoryZ);
+            scene.add(mullion);
+        }
+
+        // ==========================================
+        // SLEEPING LOFT - TWO COMPARTMENTS
+        // ==========================================
+
+        const loftWidth = buildingWidth - 0.6;  // Slightly narrower than main building
+        const loftDepth = 2.5;                   // Extends 2.5m into upper terrace
+        const loftFloorY = terraceWallHeight;    // Floor at upper terrace level (3.0m)
+        const loftCeilingHeight = 2.0;           // 2m ceiling height
+        const loftCeilingY = loftFloorY + loftCeilingHeight;
+        const loftBackZ = -loftDepth;            // Extends behind the terrace wall
+        const compartmentWidth = (loftWidth - 0.15) / 2; // Width of each compartment
+
+        // Loft floor (wooden platform - full width)
+        const loftFloorGeom = new THREE.BoxGeometry(loftWidth, 0.1, loftDepth + 0.3);
+        const loftFloor = new THREE.Mesh(loftFloorGeom, materials.floor);
+        loftFloor.position.set(0, loftFloorY + 0.05, -loftDepth / 2 + 0.15);
+        loftFloor.receiveShadow = true;
+        loftFloor.userData.component = 'loft';
+        scene.add(loftFloor);
+
+        // Loft back wall (straw bale - best insulation, R-30)
+        const loftBackWallGeom = new THREE.BoxGeometry(loftWidth, loftCeilingHeight, 0.45);  // 450mm thick straw bale
+        const loftBackWall = new THREE.Mesh(loftBackWallGeom, materials.strawBale);
+        loftBackWall.position.set(0, loftFloorY + loftCeilingHeight / 2, loftBackZ);
+        loftBackWall.castShadow = true;
+        loftBackWall.userData.component = 'loft';
+        scene.add(loftBackWall);
+
+        // Loft side walls (extend from terrace wall into hillside)
+        const loftSideWallGeom = new THREE.BoxGeometry(0.15, loftCeilingHeight, loftDepth);
+
+        const loftEastWall = new THREE.Mesh(loftSideWallGeom, materials.limeRender);
+        loftEastWall.position.set(loftWidth / 2, loftFloorY + loftCeilingHeight / 2, -loftDepth / 2);
+        loftEastWall.castShadow = true;
+        loftEastWall.userData.component = 'loft';
+        scene.add(loftEastWall);
+
+        const loftWestWall = new THREE.Mesh(loftSideWallGeom, materials.limeRender);
+        loftWestWall.position.set(-loftWidth / 2, loftFloorY + loftCeilingHeight / 2, -loftDepth / 2);
+        loftWestWall.castShadow = true;
+        loftWestWall.userData.component = 'loft';
+        scene.add(loftWestWall);
+
+        // CENTER DIVIDING WALL (separates two compartments)
+        const dividerWallGeom = new THREE.BoxGeometry(0.15, loftCeilingHeight, loftDepth);
+        const dividerWall = new THREE.Mesh(dividerWallGeom, materials.limeRender);
+        dividerWall.position.set(0, loftFloorY + loftCeilingHeight / 2, -loftDepth / 2);
+        dividerWall.castShadow = true;
+        scene.add(dividerWall);
+
+        // LOFT WALL LATTICE STRUCTURE (eucalyptus posts and wattle)
+        const loftPostRadius = 0.06;
+        const loftWattleRadius = 0.02;
+        const loftPostsPerWall = 4;  // Posts per side wall
+        const loftWattleLevels = [0.4, 0.7, 1.0, 1.3, 1.6];  // Height levels for wattle
+
+        // Side wall vertical posts and wattle (east and west walls)
+        for (let side = 0; side < 2; side++) {
+            const xPos = side === 0 ? loftWidth / 2 - 0.08 : -loftWidth / 2 + 0.08;
+
+            // Vertical posts along each side wall
+            for (let i = 0; i < loftPostsPerWall; i++) {
+                const z = -0.1 - i * (loftDepth - 0.2) / (loftPostsPerWall - 1);
+                const postGeom = new THREE.CylinderGeometry(loftPostRadius, loftPostRadius * 1.1, loftCeilingHeight - 0.1, 8);
+                const post = new THREE.Mesh(postGeom, materials.eucalyptusVertical);
+                post.position.set(xPos, loftFloorY + loftCeilingHeight / 2, z);
+                post.castShadow = true;
+                scene.add(post);
+            }
+
+            // Horizontal wattle poles
+            loftWattleLevels.forEach(relHeight => {
+                const y = loftFloorY + relHeight;
+                for (let i = 0; i < loftPostsPerWall - 1; i++) {
+                    const z1 = -0.1 - i * (loftDepth - 0.2) / (loftPostsPerWall - 1);
+                    const z2 = -0.1 - (i + 1) * (loftDepth - 0.2) / (loftPostsPerWall - 1);
+                    const length = Math.abs(z2 - z1);
+
+                    const wattleGeom = new THREE.CylinderGeometry(loftWattleRadius, loftWattleRadius * 1.1, length, 6);
+                    const wattle = new THREE.Mesh(wattleGeom, materials.eucalyptusHorizontal);
+                    wattle.position.set(xPos, y, (z1 + z2) / 2);
+                    wattle.rotation.x = Math.PI / 2;
+                    wattle.castShadow = true;
+                    scene.add(wattle);
+                }
+            });
+        }
+
+        // Center divider wall posts and wattle
+        const dividerPostsCount = 4;
+        for (let i = 0; i < dividerPostsCount; i++) {
+            const z = -0.1 - i * (loftDepth - 0.2) / (dividerPostsCount - 1);
+            const postGeom = new THREE.CylinderGeometry(loftPostRadius, loftPostRadius * 1.1, loftCeilingHeight - 0.1, 8);
+            const post = new THREE.Mesh(postGeom, materials.eucalyptusVertical);
+            post.position.set(0, loftFloorY + loftCeilingHeight / 2, z);
+            post.castShadow = true;
+            scene.add(post);
+        }
+
+        // Divider wattle poles
+        loftWattleLevels.forEach(relHeight => {
+            const y = loftFloorY + relHeight;
+            for (let i = 0; i < dividerPostsCount - 1; i++) {
+                const z1 = -0.1 - i * (loftDepth - 0.2) / (dividerPostsCount - 1);
+                const z2 = -0.1 - (i + 1) * (loftDepth - 0.2) / (dividerPostsCount - 1);
+                const length = Math.abs(z2 - z1);
+
+                const wattleGeom = new THREE.CylinderGeometry(loftWattleRadius, loftWattleRadius * 1.1, length, 6);
+                const wattle = new THREE.Mesh(wattleGeom, materials.eucalyptusHorizontal);
+                wattle.position.set(0, y, (z1 + z2) / 2);
+                wattle.rotation.x = Math.PI / 2;
+                wattle.castShadow = true;
+                scene.add(wattle);
+            }
+        });
+
+        // Loft ceiling/roof (flat, earth-covered)
+        const loftCeilingGeom = new THREE.BoxGeometry(loftWidth + 0.3, 0.2, loftDepth + 0.3);
+        const loftCeiling = new THREE.Mesh(loftCeilingGeom, materials.groundUpper);
+        loftCeiling.position.set(0, loftCeilingY + 0.1, -loftDepth / 2 + 0.15);
+        loftCeiling.receiveShadow = true;
+        loftCeiling.castShadow = true;
+        scene.add(loftCeiling);
+
+        // Loft structural beams (support ceiling)
+        const loftBeamGeom = new THREE.BoxGeometry(0.12, 0.15, loftDepth + 0.2);
+        for (let i = 0; i < 4; i++) {
+            const beamX = -loftWidth / 2 + 0.3 + i * (loftWidth - 0.6) / 3;
+            const loftBeam = new THREE.Mesh(loftBeamGeom, materials.ringBeam);
+            loftBeam.position.set(beamX, loftCeilingY - 0.08, -loftDepth / 2);
+            loftBeam.castShadow = true;
+            scene.add(loftBeam);
+        }
+
+        // Windows - one for each compartment
+        const loftWindowGeom = new THREE.PlaneGeometry(0.6, 0.5);
+        const loftWinFrameGeom = new THREE.BoxGeometry(0.7, 0.6, 0.08);
+
+        // East compartment window
+        const loftWindowEast = new THREE.Mesh(loftWindowGeom, materials.glass);
+        loftWindowEast.position.set(compartmentWidth / 2 + 0.075, loftFloorY + 1.2, loftBackZ + 0.16);
+        loftWindowEast.renderOrder = 1;
+        scene.add(loftWindowEast);
+
+        const loftWinFrameEast = new THREE.Mesh(loftWinFrameGeom, materials.eucalyptusVertical);
+        loftWinFrameEast.position.set(compartmentWidth / 2 + 0.075, loftFloorY + 1.2, loftBackZ + 0.12);
+        scene.add(loftWinFrameEast);
+
+        // West compartment window
+        const loftWindowWest = new THREE.Mesh(loftWindowGeom, materials.glass);
+        loftWindowWest.position.set(-compartmentWidth / 2 - 0.075, loftFloorY + 1.2, loftBackZ + 0.16);
+        loftWindowWest.renderOrder = 1;
+        scene.add(loftWindowWest);
+
+        const loftWinFrameWest = new THREE.Mesh(loftWinFrameGeom, materials.eucalyptusVertical);
+        loftWinFrameWest.position.set(-compartmentWidth / 2 - 0.075, loftFloorY + 1.2, loftBackZ + 0.12);
+        scene.add(loftWinFrameWest);
+
+        // ACCESS LADDERS - one for each compartment
+        const ladderHeight = loftFloorY - foundationHeight;
+        const ladderGeom = new THREE.BoxGeometry(0.5, ladderHeight, 0.06);
+
+        // East ladder (right side)
+        const ladderEast = new THREE.Mesh(ladderGeom, materials.eucalyptusVertical);
+        ladderEast.position.set(1.5, foundationHeight + ladderHeight / 2, structureOffset + 0.3);
+        ladderEast.rotation.x = -0.15;
+        ladderEast.castShadow = true;
+        scene.add(ladderEast);
+
+        // West ladder (left side)
+        const ladderWest = new THREE.Mesh(ladderGeom, materials.eucalyptusVertical);
+        ladderWest.position.set(-1.5, foundationHeight + ladderHeight / 2, structureOffset + 0.3);
+        ladderWest.rotation.x = -0.15;
+        ladderWest.castShadow = true;
+        scene.add(ladderWest);
+
+        // Ladder rungs for both ladders
+        for (let i = 0; i < 8; i++) {
+            const rungY = foundationHeight + 0.3 + i * (ladderHeight - 0.5) / 7;
+            const rungGeom = new THREE.CylinderGeometry(0.02, 0.02, 0.4, 8);
+
+            // East ladder rungs
+            const rungEast = new THREE.Mesh(rungGeom, materials.eucalyptusHorizontal);
+            rungEast.position.set(1.5, rungY, structureOffset + 0.3 - (rungY - foundationHeight) * 0.04);
+            rungEast.rotation.z = Math.PI / 2;
+            scene.add(rungEast);
+
+            // West ladder rungs
+            const rungWest = new THREE.Mesh(rungGeom, materials.eucalyptusHorizontal);
+            rungWest.position.set(-1.5, rungY, structureOffset + 0.3 - (rungY - foundationHeight) * 0.04);
+            rungWest.rotation.z = Math.PI / 2;
+            scene.add(rungWest);
+        }
+
+        // ==========================================
+        // RECTANGULAR FLOOR
+        // ==========================================
+
+        const floorGeometry = new THREE.PlaneGeometry(buildingWidth - 0.3, buildingDepth - 0.3);
+        floorGeometry.rotateX(-Math.PI / 2);
+        const floor = new THREE.Mesh(floorGeometry, materials.floor);
+        floor.position.set(0, foundationHeight + 0.01, structureOffset + buildingDepth / 2);
+        floor.receiveShadow = true;
+        floor.userData.component = 'floor';
+        scene.add(floor);
+
+        // ==========================================
+        // DOOR (centered on front wall)
+        // ==========================================
+
+        const doorWidth = 1.0;
+        const doorHeight = 2.1;
+        const doorZ = structureOffset + buildingDepth + wallThicknessStructure / 2;
+
+        const doorGeometry = new THREE.BoxGeometry(doorWidth, doorHeight, wallThicknessStructure + 0.05);
+        const doorMesh = new THREE.Mesh(doorGeometry, materials.door);
+        doorMesh.position.set(0, foundationHeight + doorHeight / 2, doorZ);
+        doorMesh.castShadow = true;
+        doorMesh.userData.component = 'door';
+        scene.add(doorMesh);
+
+        // Door frame
+        const doorFrameGeometry = new THREE.BoxGeometry(doorWidth + 0.15, doorHeight + 0.1, 0.1);
+        const doorFrame = new THREE.Mesh(doorFrameGeometry, materials.eucalyptusVertical);
+        doorFrame.position.set(0, foundationHeight + doorHeight / 2, doorZ + 0.1);
+        doorFrame.userData.component = 'door';
+        scene.add(doorFrame);
+
+        // ==========================================
+        // SIDE WINDOWS (east and west walls)
+        // ==========================================
+
+        const windowWidth = 0.8;
+        const windowHeight = 1.0;
+        const windowY = foundationHeight + 1.5;
+
+        // East window
+        const eastWindowGeometry = new THREE.PlaneGeometry(windowHeight, windowWidth);
+        eastWindowGeometry.rotateY(Math.PI / 2);
+        const eastWindow = new THREE.Mesh(eastWindowGeometry, materials.glass);
+        eastWindow.position.set(buildingWidth / 2 + 0.05, windowY, structureOffset + buildingDepth / 2);
+        eastWindow.renderOrder = 1;
+        eastWindow.userData.component = 'windows';
+        scene.add(eastWindow);
+
+        // East window frame
+        const eastFrameGeometry = new THREE.BoxGeometry(0.08, windowHeight + 0.12, windowWidth + 0.12);
+        const eastFrame = new THREE.Mesh(eastFrameGeometry, materials.eucalyptusVertical);
+        eastFrame.position.set(buildingWidth / 2 + 0.08, windowY, structureOffset + buildingDepth / 2);
+        eastFrame.userData.component = 'windows';
+        scene.add(eastFrame);
+
+        // West window
+        const westWindowGeometry = new THREE.PlaneGeometry(windowHeight, windowWidth);
+        westWindowGeometry.rotateY(-Math.PI / 2);
+        const westWindow = new THREE.Mesh(westWindowGeometry, materials.glass);
+        westWindow.position.set(-buildingWidth / 2 - 0.05, windowY, structureOffset + buildingDepth / 2);
+        westWindow.renderOrder = 1;
+        westWindow.userData.component = 'windows';
+        scene.add(westWindow);
+
+        // West window frame
+        const westFrameGeometry = new THREE.BoxGeometry(0.08, windowHeight + 0.12, windowWidth + 0.12);
+        const westFrame = new THREE.Mesh(westFrameGeometry, materials.eucalyptusVertical);
+        westFrame.position.set(-buildingWidth / 2 - 0.08, windowY, structureOffset + buildingDepth / 2);
+        westFrame.userData.component = 'windows';
+        scene.add(westFrame);
+
+        // ==========================================
+        // TRANSPARENCY TOGGLE
+        // ==========================================
+
+        let isTransparent = true;
+        window.toggleTransparency = function() {
+            isTransparent = !isTransparent;
+            const btn = document.getElementById('toggleBtn');
+
+            if (isTransparent) {
+                btn.textContent = 'Show Solid';
+                materials.foundation.opacity = 0.4;
+                materials.limeRender.opacity = 0.25;
+                materials.solarPanel.opacity = 0.4;
+                materials.floor.opacity = 0.4;
+                materials.glass.opacity = 0.4;
+                materials.rafters.opacity = 0.4;
+                materials.purlins.opacity = 0.4;
+                materials.eucalyptusHorizontal.opacity = 0.4;
+                materials.membrane.opacity = 0.35;
+            } else {
+                btn.textContent = 'Show Structure';
+                materials.foundation.opacity = 1.0;
+                materials.limeRender.opacity = 0.95;
+                materials.solarPanel.opacity = 1.0;
+                materials.floor.opacity = 1.0;
+                materials.glass.opacity = 0.6;
+                materials.rafters.opacity = 1.0;
+                materials.purlins.opacity = 1.0;
+                materials.eucalyptusHorizontal.opacity = 1.0;
+                materials.membrane.opacity = 1.0;
+            }
+        };
+
+        // Animation loop
+        function animate() {
+            requestAnimationFrame(animate);
+            controls.update();
+            renderer.render(scene, camera);
+        }
+
+        // Handle resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        animate();
+    </script>
+</body>
+</html>

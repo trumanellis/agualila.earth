@@ -1,0 +1,1498 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete build guide for the Standard BioDome: 28m² wattle dome with EPDM roof. A two-person build using full-span eucalyptus poles.">
+    <title>Standard BioDome — Complete Build Guide (28m²)</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+    <link rel="stylesheet" href="guide.css">
+    <style>body { margin-left: 260px; }</style>
+</head>
+<body>
+
+<button class="sidebar-toggle" aria-label="Toggle navigation">
+    <span></span><span></span><span></span>
+</button>
+<div class="sidebar-overlay"></div>
+
+<nav class="sidebar" id="sidebar">
+    <a href="index.html" class="sidebar-brand">&larr; Back to Designs</a>
+    <div class="sidebar-label">Standard BioDome</div>
+    <div class="sidebar-outline">
+        <details open>
+            <summary data-href="#overview">Overview</summary>
+            <ul class="sidebar-sub">
+                <li><a href="#key-specs">Key Specifications</a></li>
+                <li><a href="#headroom">Headroom by Zone</a></li>
+            </ul>
+        </details>
+
+        <details>
+            <summary data-href="#foundation">Foundation</summary>
+            <ul class="sidebar-sub">
+                <li><a href="#found-specs">Specifications</a></li>
+                <li><a href="#drainage">Drainage</a></li>
+                <li><a href="#found-sequence">Construction Sequence</a></li>
+            </ul>
+        </details>
+
+        <details>
+            <summary data-href="#frame">Dome Frame</summary>
+            <ul class="sidebar-sub">
+                <li><a href="#pole-specs">Pole Specifications</a></li>
+                <li><a href="#preparing-poles">Preparing the Poles</a></li>
+                <li><a href="#raising-arches">Raising the Arches</a></li>
+            </ul>
+        </details>
+
+        <details>
+            <summary data-href="#weave">Wattle Weave</summary>
+            <ul class="sidebar-sub">
+                <li><a href="#horizontal-rings">Horizontal Rings</a></li>
+                <li><a href="#vertical-infill">Vertical Infill</a></li>
+                <li><a href="#density-check">Density Check</a></li>
+            </ul>
+        </details>
+
+        <details>
+            <summary data-href="#shell">Shell</summary>
+            <ul class="sidebar-sub">
+                <li><a href="#straw-clay">Straw-Clay Insulation</a></li>
+                <li><a href="#burlap">Burlap Protection</a></li>
+                <li><a href="#epdm">EPDM Waterproofing</a></li>
+                <li><a href="#base-flashing">Base Flashing</a></li>
+            </ul>
+        </details>
+
+        <details>
+            <summary data-href="#exterior">Exterior Finish</summary>
+            <ul class="sidebar-sub">
+                <li><a href="#stone-skirt">Stone Skirt</a></li>
+                <li><a href="#lime-render">Lime-Earth Render</a></li>
+                <li><a href="#climbing-plants">Climbing Plants</a></li>
+            </ul>
+        </details>
+
+        <details>
+            <summary data-href="#openings">Openings</summary>
+            <ul class="sidebar-sub">
+                <li><a href="#arch-door">Arch Door</a></li>
+                <li><a href="#wind-porch">Wind Porch</a></li>
+                <li><a href="#arch-windows">Arch Windows</a></li>
+                <li><a href="#apex-vent">Apex Vent</a></li>
+            </ul>
+        </details>
+
+        <details>
+            <summary data-href="#interior">Interior</summary>
+            <ul class="sidebar-sub">
+                <li><a href="#lime-plaster">Lime Plaster Walls</a></li>
+                <li><a href="#floor">Floor</a></li>
+            </ul>
+        </details>
+
+        <a href="#bom" class="sidebar-link">Bill of Materials</a>
+        <a href="#phases" class="sidebar-link">Construction Phases</a>
+
+        <details>
+            <summary data-href="#floor-plan">Floor Plan</summary>
+            <ul class="sidebar-sub">
+                <li><a href="#suggested-layout">Suggested Layout</a></li>
+                <li><a href="#design-principles">Design Principles</a></li>
+            </ul>
+        </details>
+
+        <details>
+            <summary data-href="#maintenance">Maintenance</summary>
+            <ul class="sidebar-sub">
+                <li><a href="#first-year">First Year</a></li>
+                <li><a href="#seasonal">Seasonal</a></li>
+                <li><a href="#long-term">Long-Term</a></li>
+            </ul>
+        </details>
+    </div>
+
+    <div class="sidebar-footer">
+        <a href="shared-reference.html">Shared Reference</a>
+        <a href="earth-sheltered-solarpod-guide.html">Earth Sheltered SolarPod</a>
+    </div>
+</nav>
+
+<header class="header">
+    <h1>Standard BioDome</h1>
+    <p class="tagline">28m² wattle dome — a simple, honest, two-person build</p>
+    <div style="margin-bottom: 24px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <a href="biodome_viewer.html" class="download-btn" style="text-decoration: none;">Explore 3D Model</a>
+        <button class="download-btn" onclick="window.print()" style="background: transparent; color: rgba(255,255,255,0.7); border: 2px solid rgba(255,255,255,0.3);">Download as PDF</button>
+    </div>
+    <div class="header-stats">
+        <div class="stat">
+            <span class="stat-value">28m²</span>
+            <span class="stat-label">Floor Area</span>
+        </div>
+        <div class="stat">
+            <span class="stat-value">6m</span>
+            <span class="stat-label">Diameter</span>
+        </div>
+        <div class="stat">
+            <span class="stat-value">2-3</span>
+            <span class="stat-label">Person Crew</span>
+        </div>
+        <div class="stat">
+            <span class="stat-value">50-100</span>
+            <span class="stat-label">Trees Removed</span>
+        </div>
+    </div>
+</header>
+
+
+<div class="viewer-embed-wrapper">
+    <iframe class="viewer-embed" src="biodome_viewer.html" loading="lazy" title="Interactive 3D model of the Standard BioDome"></iframe>
+    <a href="biodome_viewer.html" class="viewer-fullscreen">Open Fullscreen</a>
+</div>
+
+<main class="container">
+
+    <div class="cross-links">
+        <h3>Read First</h3>
+        <p>Before starting, master these techniques from the <a href="shared-reference.html">Shared Reference Guide</a>:</p>
+        <ul>
+            <li><a href="shared-reference.html#harvesting">Eucalyptus Harvesting &amp; Eradication</a></li>
+            <li><a href="shared-reference.html#treatment">Pole Treatment Protocol</a></li>
+            <li><a href="shared-reference.html#structural">Structural Design Values</a></li>
+        </ul>
+    </div>
+
+    <!-- Overview -->
+    <section id="overview">
+        <h1>Design Overview</h1>
+
+        <p>The Standard BioDome is a 6-meter wattle dome. Sixteen full-length eucalyptus poles, paired into eight arches, span the full dome diameter and cross at the apex. Seven pairs cross straight across; the eighth pair fans from two sockets opposite the door to frame the entrance. Wattle weave fills the gaps. Straw-clay insulates the outside. EPDM keeps the rain out. Two or three people can build the whole thing.</p>
+
+        <p>There is no ring beam, no complex rafter assembly. The dome is one continuous structure from foundation to apex. The shape approximates a catenary — the natural curve a hanging chain makes, inverted. The poles are not forced into a mathematically precise shape; they find their own curve under gravity. This keeps the structure predominantly in compression, which is what timber does best.</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-value">6m</div>
+                <div class="stat-card-label">Outer Diameter</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">5.2m</div>
+                <div class="stat-card-label">Inner Diameter</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">4m</div>
+                <div class="stat-card-label">Apex Height</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">28m²</div>
+                <div class="stat-card-label">Floor Area</div>
+            </div>
+        </div>
+
+        <figure class="figure">
+            <img src="assets/fig-dome-cross-section.svg" alt="Cross-section of the dome showing 6m diameter, 4m apex height, wall thickness, and headroom zones." loading="lazy">
+            <figcaption>Fig. 1 — Dome cross-section with headroom zones and key dimensions</figcaption>
+        </figure>
+
+        <h3 id="key-specs">Key Specifications</h3>
+        <ul>
+            <li><strong>Shape:</strong> Approximately catenary (stays predominantly in compression — no outward thrust)</li>
+            <li><strong>Floor area:</strong> 28m² (comparable to a Mongolian ger)</li>
+            <li><strong>Standing area:</strong> ~20m² where headroom exceeds 1.8m</li>
+            <li><strong>Roof:</strong> EPDM membrane over straw-clay insulation</li>
+            <li><strong>Exterior:</strong> Stone skirt, lime-earth render, climbing plants — no visible membrane</li>
+            <li><strong>Crew:</strong> 2-3 people for entire build</li>
+            <li><strong>Trees removed:</strong> 50-100 eucalyptus saplings and young trees</li>
+            <li><strong>Build time:</strong> ~4-5 weeks in summer (longer in winter)</li>
+            <li><strong>Lifespan:</strong> 25-35 years with maintenance</li>
+        </ul>
+
+        <h3 id="headroom">Headroom by Zone</h3>
+        <p>A dome is not a box. Headroom varies from center to edge. This is a feature, not a limitation — the edges create natural zones for sitting, sleeping, and storage.</p>
+
+        <table>
+            <tr>
+                <th>Distance from Center</th>
+                <th>Approximate Height</th>
+                <th>Suitable For</th>
+            </tr>
+            <tr>
+                <td>0-1m</td>
+                <td>3.8-4.0m</td>
+                <td>Full standing, central hearth</td>
+            </tr>
+            <tr>
+                <td>1-2m</td>
+                <td>2.5-3.8m</td>
+                <td>Standing, kitchen, workspace</td>
+            </tr>
+            <tr>
+                <td>2-2.5m</td>
+                <td>1.8-2.5m</td>
+                <td>Standing (edge), shelving</td>
+            </tr>
+            <tr>
+                <td>2.5-3m</td>
+                <td>0.8-1.8m</td>
+                <td>Sleeping platforms, seating, storage</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Foundation -->
+    <section id="foundation">
+        <h1>Foundation: Gabion Ring</h1>
+
+        <p>The foundation is a 6m diameter ring of gabion baskets filled with local stone. It does four things: keeps the pole bases off wet ground, anchors the dome against wind, provides a level starting surface, and drains subsurface water away from the structure. The gabion ring doubles as a French drain — a geotextile-lined trench with a perforated pipe at the bottom collects groundwater and carries it to daylight downhill.</p>
+
+        <h3 id="found-specs">Specifications</h3>
+        <ul>
+            <li><strong>Outer diameter:</strong> 6m</li>
+            <li><strong>Ring width:</strong> 40cm</li>
+            <li><strong>Height:</strong> 30cm above grade, 35cm below (65cm total)</li>
+            <li><strong>Fill:</strong> Local granite or schist, 10-20cm pieces</li>
+            <li><strong>Top surface:</strong> Flat stones creating level bearing for pole bases</li>
+        </ul>
+
+        <h3 id="drainage">Drainage Specifications</h3>
+        <ul>
+            <li><strong>Geotextile:</strong> Non-woven, 150–200 g/m², full wrap including fold-over top</li>
+            <li><strong>Drain pipe:</strong> 100mm perforated HDPE (corrugated preferred), on 50mm gravel bed</li>
+            <li><strong>Slope:</strong> 1–2% continuous fall toward outlet (~10cm total drop around circumference)</li>
+            <li><strong>Outlet:</strong> 100mm solid pipe, ≥2m to daylight downhill</li>
+            <li><strong>Gravel:</strong> 20mm washed, 50mm deep under and around pipe</li>
+        </ul>
+
+        <figure class="figure">
+            <img src="assets/fig-foundation-plan.svg" alt="Top-down plan view of the 6m gabion ring with pole sockets and door opening." loading="lazy">
+            <figcaption>Fig. 2 — Foundation plan view: 17 sockets (1 skipped for door = 16 active), drain pipe route, and outlet</figcaption>
+        </figure>
+
+        <h3 id="found-sequence">Construction Sequence</h3>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Mark the Circle</h4>
+                <p>Drive a stake at center. Attach a 3m string and scribe the outer perimeter. Then scribe the inner edge at 2.6m.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Identify the Outlet Point</h4>
+                <p>Walk the perimeter with a spirit level. Find the lowest grade point — this is where the drain will exit. Mark it clearly. The trench bottom will slope toward this point from both directions around the ring.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Excavate Ring Trench</h4>
+                <p>Dig 35cm deep at the outlet point, ~25cm deep at the opposite point. 50cm wide. This gives a 1–2% continuous slope from the high side to the outlet. Compact the bottom — errors here propagate through the entire build.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Line with Geotextile and Lay Pipe</h4>
+                <p>Lay 160cm-wide non-woven geotextile strips along the trench, overlapping strips by 30cm. Spread a 50mm gravel bed (20mm washed gravel) on top of the geotextile at the bottom. Lay 100mm perforated HDPE pipe on the gravel bed with perforations facing down. At the outlet point, connect to a 100mm solid pipe that exits the ring and runs ≥2m to daylight downhill.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h4>Assemble Gabion Cages</h4>
+                <p>3mm galvanized wire mesh, 10x10cm openings. Form into cages 40cm wide, 65cm tall. Wire-tie every 15cm. Lower cages into the lined trench. The geotextile wraps up between the cage and the trench wall on both sides.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">6</div>
+            <div class="step-content">
+                <h4>Fill and Level</h4>
+                <p>Pack gravel around the pipe first — 50mm cover above the pipe. Then fill with stone, compacting every 10cm. Fold the geotextile over the top of the fill before placing the final flat bearing stones. Check level around the entire perimeter with a long straight edge and spirit level.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">7</div>
+            <div class="step-content">
+                <h4>Pole Sockets</h4>
+                <p>At 16 equally-spaced points around the ring (every ~1.18m), leave a 12cm-wide gap in the top stones. These are the sockets for the main dome poles. At the position directly opposite the door, add a second socket right next to the first (15cm apart, center to center) — the fanning pair needs one socket per butt end. That gives 17 sockets total. Mark them clearly. Skip one socket where the door will go — you will install a door frame here instead.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">8</div>
+            <div class="step-content">
+                <h4>Wind Porch Gabion Extension</h4>
+                <p>At the door opening, build a U-shaped gabion extension for the wind porch foundation. Two arms project 1.2m outward from the main ring at each edge of the door opening, connected by a cross piece at the outer end. Same specs as the main ring: 40cm wide, 65cm deep, geotextile-lined, stone-filled, flat bearing stones on top. The U-shaped extension creates a level footing for the four porch corner posts and defines the porch floor area.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">9</div>
+            <div class="step-content">
+                <h4>Test the Drain</h4>
+                <p>Pour a bucket of water into the gabion fill at the point farthest from the outlet. Verify that water flows out at the daylight end within minutes. If flow is slow or absent, check the pipe slope and connections before proceeding.</p>
+            </div>
+        </div>
+
+        <figure class="figure">
+            <img src="assets/fig-gabion-section.svg" alt="Cross-section of gabion foundation showing stone fill, wire mesh, flat bearing stones, pole socket with gravel packing." loading="lazy">
+            <figcaption>Fig. 3 — Gabion ring cross-section: geotextile liner, drain pipe on gravel bed, stone fill, and pole socket</figcaption>
+        </figure>
+
+        <div class="tip-box">
+            <div class="callout-title">Protect the Outlet</div>
+            <p>Fit a mesh cap on the daylight end of the outlet pipe to block rodents and debris. Keep the area around the outlet clear of soil buildup and vegetation so water can discharge freely.</p>
+        </div>
+
+        <div class="warning-box">
+            <div class="callout-title">Let It Settle</div>
+            <p>Wait 3-5 days before loading the foundation. Stone settling under weight is normal and better to happen before the poles go up.</p>
+        </div>
+    </section>
+
+    <!-- Frame -->
+    <div class="section-group" id="frame">
+        <h2>Dome Frame</h2>
+        <p>Sixteen full-span poles paired into eight arches</p>
+    </div>
+
+    <section>
+        <p>The dome frame is the skeleton of the structure. Sixteen full-span eucalyptus poles — each running the entire diameter of the dome — are paired into eight arches. Seven pairs cross diametrically. The eighth pair — the door-framing pair — starts at the two sockets opposite the door (one butt end each), crosses at the crown, and fans out on the door side so its thin ends land at the two sockets flanking the entrance. Each pole is bent by hand during installation: no bending forms, no weeks of drying on jigs. The poles are scored, soaked if needed, and walked up into position. Once lashed together at the crown, all eight pairs support each other and the wattle weave fills the spaces between them.</p>
+
+        <h3 id="pole-specs">Pole Specifications</h3>
+        <ul>
+            <li><strong>Quantity:</strong> 16 main poles (plus 2 spares)</li>
+            <li><strong>Diameter:</strong> 8-10cm at butt end</li>
+            <li><strong>Length:</strong> ~11.6m (two 40cm embedments + 10.8m visible arc)</li>
+            <li><strong>Species:</strong> <em>E. globulus</em> (blue gum / eucalipto-comum) — this is the eucalyptus in Portugal. It covers over 800,000 hectares and is almost certainly what you will be clearing. Denser and stiffer than some eucalypts, but bends well when green and properly scored. In highland areas (Beira Alta, Trás-os-Montes), you may also find <em>E. nitens</em> (shining gum), which bends slightly more easily.</li>
+            <li><strong>Condition:</strong> Must be green — harvest within 2 weeks of use. Must be flexible enough to bend by hand during raising.</li>
+        </ul>
+
+        <div class="danger-box">
+            <div class="callout-title">Green Poles Only</div>
+            <p>Dry eucalyptus is brittle and will snap during installation. The poles must be green — harvest within 2 weeks of use. <em>E. globulus</em> is denser than many eucalypts (~550 kg/m³ basic density), so select the youngest, straightest trees with the thinnest bark. Fast-growing saplings at 5-8 years old (8-10cm diameter) bend far better than slow-grown or older wood. Score the outer face thoroughly — this is not optional with <em>E. globulus</em>. If poles have been cut more than 2 weeks ago, soak in a water trough for 48-72 hours before installation.</p>
+        </div>
+
+        <h3 id="preparing-poles">Preparing the Poles</h3>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Select and Pair</h4>
+                <p>Sort all 16 poles by butt-end diameter. Pair them so that each arch has two poles of similar size. Within each pair, mark the poles so their butt ends will be installed on opposite sides of the dome — this balances the taper across the arch. Number each pair (1-8) with a marking crayon or wire tag. Pair 8 is the door-framing pair — each butt end goes into its own socket at the back of the dome (the two sockets directly opposite the door).</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Score the Outer Face</h4>
+                <p>Using a draw knife or machete, score shallow cuts (1-2mm deep) every 15cm along the outer face — the face that will be on the outside of the curve when the pole is bent. Concentrate scoring on the middle third of the pole, where the bend is tightest. This relieves tension in the outer fibers and prevents cracking during live bending.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Soak If Needed</h4>
+                <p>If poles have been cut more than 3 days ago or feel stiff when flexed by hand, soak in a water trough for 48-72 hours before raising. Freshly cut poles (within 2-3 days) typically have enough moisture to bend without soaking.</p>
+            </div>
+        </div>
+
+        <figure class="figure">
+            <img src="assets/fig-bending-form.svg" alt="Full-span pole showing score marks concentrated on the middle third of the outer face, with butt and thin ends labeled." loading="lazy">
+            <figcaption>Fig. 4 — Pole scoring detail: shallow cuts every 15cm on outer face, concentrated in the middle third</figcaption>
+        </figure>
+
+        <div class="tip-box">
+            <div class="callout-title">Pair Butt Ends Opposite</div>
+            <p>Each pole tapers from butt (8–10 cm) to thin end. In the seven standard pairs, the two butt ends go into sockets on opposite sides of the dome. At each foundation point the thick butt of one pole sits alongside the thin tip of the other — evening out the cross-section on both sides. At the crown, both poles pass through at mid-diameter, keeping the apex light. (The fanning pair is the exception: both butts sit side by side at the back, and both thin ends sit side by side at the door flanks.)</p>
+        </div>
+
+        <h3 id="raising-arches">Raising the Arches</h3>
+
+        <p>With all poles scored and paired, assemble the dome frame. This is a two-person job.</p>
+
+        <figure class="figure">
+            <img src="assets/fig-arch-sequence.svg" alt="Four-panel diagram: first arch pair with center post, second pair perpendicular, all eight arches, and crown crossing detail." loading="lazy">
+            <figcaption>Fig. 5 — Arch raising sequence: first pair, second at 90°, all eight, and crown detail</figcaption>
+        </figure>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>First Pair</h4>
+                <p>Erect a temporary center post — a straight pole, 4m tall, braced upright at the dome center. Take the first pole of Pair 1. Set its butt end into a foundation socket, then two people walk the pole up and over the center post, bending it live, until the thin end reaches the opposing socket across the diameter. Wire-lash the pole to the center post at the apex. Now install the second pole of Pair 1 from the opposite side — its butt end goes into the socket next to where the first pole's thin end landed, and its thin end reaches the socket next to the first pole's butt. Lash both poles together at the crown.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Second Pair (Perpendicular)</h4>
+                <p>Install the second pair at 90 degrees to the first. Walk each pole up and over center the same way. Where the four poles cross at the apex, lash them together with galvanized wire. The two pairs now stabilize each other. You can remove the temporary center post after this second pair is secure.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Remaining Standard Pairs</h4>
+                <p>Install five more standard pairs (10 poles) at equal spacing (every 22.5 degrees), skipping the door position. Each new pair is walked up, bent live, and lashed to the existing poles where they cross at the crown. The structure gets more rigid with each pair added.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Door-Framing Pair</h4>
+                <p>Install the eighth pair — the door-framing pair. Each butt end goes into its own socket — the two sockets side by side directly opposite the door. Walk the first pole up and over the crown, but instead of landing in the skipped door socket, angle its thin end to the flanking socket on one side of the door opening. Walk the second pole from the adjacent back socket, over the crown, and angle its thin end to the flanking socket on the other side. The two poles fan apart on the door side, naturally forming an arch over the entrance. Lash both to the crown crossing with the other 14 poles.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h4>Wind Porch Frame</h4>
+                <p>Install the wind porch frame immediately after the door-framing pair. Set four treated chestnut or pine corner posts (10cm diameter) plumb vertical into the U-shaped gabion extension: two inner posts at the dome face on each side of the door opening, two outer posts at the far end of the gabion arms. Posts rise to 1.5m — the arch spring line. Connect each side's inner and outer posts with a horizontal eave pole at 1.5m. Bend an arch frame from the left post top, over the peak, to the right post top — one arch at the inner end (peak at 2.2m, matching the dome door arch) and one at the outer end (peak at 2.0m, slightly lower for drainage). Install 5 arch rafters curving from the inner arch to the outer arch, forming a barrel-vault roof. The result is an arched tunnel projecting 1.2m outward from the dome, with a profile matching the door.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">6</div>
+            <div class="step-content">
+                <h4>Secure the Crown</h4>
+                <p>Once all 8 pairs are up, wrap the entire crown crossing with galvanized wire in a tight spiral. This zone — roughly 30cm across, where all 16 poles (8 pairs) overlap — becomes the structural keystone of the dome.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">7</div>
+            <div class="step-content">
+                <h4>Lock Pole Bases</h4>
+                <p>Pack each foundation socket tightly with gravel around the pole base. Then wire-lash each pole to the gabion mesh below it for uplift resistance in high winds.</p>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <div class="callout-title">Check the Shape</div>
+            <p>Before proceeding, stand back and look at the dome from all sides. It should be symmetrical. Measure the height at center — it should be close to 4m. Adjust pole positions in their sockets if needed. Once you start weaving, adjustments become difficult.</p>
+        </div>
+    </section>
+
+    <!-- Wattle Weave -->
+    <section id="weave">
+        <h1>Wattle Weave</h1>
+
+        <p>Wattle is the oldest building technique in the world. Thin flexible poles woven between structural members to create a dense lattice. On this dome, horizontal rings and vertical infill turn the arch skeleton into a solid surface ready for straw-clay.</p>
+
+        <h3 id="horizontal-rings">Horizontal Rings</h3>
+
+        <p>Install 7 horizontal rings at roughly 50cm vertical spacing up the dome. Each ring is a continuous circle of wattle poles woven in and out of the 16 main arch poles.</p>
+
+        <ul>
+            <li><strong>Poles:</strong> 5-7cm diameter, green eucalyptus</li>
+            <li><strong>Ring 1 (lowest):</strong> ~50cm above foundation, circumference ~18m</li>
+            <li><strong>Ring 7 (highest):</strong> ~3.5m up, circumference ~5m</li>
+            <li><strong>Pattern:</strong> Weave in front of one arch pole, behind the next, alternating</li>
+            <li><strong>Joining:</strong> Where pole ends meet, overlap by 30cm and wire-lash</li>
+            <li><strong>Alternation:</strong> Each ring reverses the in/out pattern of the one below it</li>
+        </ul>
+
+        <p>The lower rings are long — you may need 2-3 poles spliced end-to-end to complete one ring. Upper rings may need only one pole bent into a circle.</p>
+
+        <figure class="figure">
+            <img src="assets/fig-wattle-weave.svg" alt="Detail of wattle weave pattern showing arch poles, horizontal rings weaving in/out, and vertical infill poles." loading="lazy">
+            <figcaption>Fig. 6 — Wattle weave pattern: horizontal rings alternate in/out, vertical infill fills gaps</figcaption>
+        </figure>
+
+        <h3 id="vertical-infill">Vertical Infill</h3>
+
+        <p>Between each pair of horizontal rings, weave vertical wattle poles to fill the gaps.</p>
+
+        <ul>
+            <li><strong>Poles:</strong> 3-5cm diameter, 1-1.5m length</li>
+            <li><strong>Spacing:</strong> Every 10-15cm around the dome</li>
+            <li><strong>Pattern:</strong> Weave behind one horizontal ring, in front of the next</li>
+            <li><strong>Quantity:</strong> Approximately 150-200 poles total</li>
+        </ul>
+
+        <p>Work from the bottom up. The lower sections have wider spacing between arch poles (more infill needed). The upper sections converge and need less infill.</p>
+
+        <div class="tip-box">
+            <div class="callout-title">Leave the Door Opening Clear</div>
+            <p>The arch door spans two pole bays. Do not weave across this double-wide opening — weave up to the door frame posts on each side and stop. Above the arch peak (2.2m), the structure closes normally.</p>
+        </div>
+
+        <h3 id="density-check">Density Check</h3>
+        <p>When the weave is complete, you should not be able to push your fist through any gap in the lattice. If you can, add more infill poles. The straw-clay needs a tight matrix to key into.</p>
+    </section>
+
+    <!-- Shell -->
+    <div class="section-group" id="shell">
+        <h2>Shell: Insulation &amp; Weatherproofing</h2>
+        <p>Three layers that keep you warm and dry</p>
+    </div>
+
+    <section>
+        <p>The shell turns the wattle skeleton into a weatherproof home. It goes on the outside of the dome in three layers: straw-clay for insulation, burlap for protection, and EPDM for waterproofing.</p>
+
+        <figure class="figure">
+            <img src="assets/fig-shell-layers.svg" alt="Cut-away wall section showing five layers: lime plaster, wattle, straw-clay (100mm), burlap, and EPDM (1.5mm)." loading="lazy">
+            <figcaption>Fig. 7 — Wall section showing all five layers (inside to outside)</figcaption>
+        </figure>
+
+        <h3 id="straw-clay">Layer 1: Straw-Clay Insulation (100mm)</h3>
+
+        <p>Light straw-clay is a mix of loose straw coated in clay slip. It provides insulation (approximately R-7 at 100mm thickness), thermal mass, and fire resistance. Applied to the exterior of the wattle.</p>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Mix Clay Slip</h4>
+                <p>Soak clay soil in water overnight. Stir to a thick cream consistency (your hand dipped in and pulled out should be evenly coated, with no bare spots).</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Coat Straw</h4>
+                <p>Toss loose straw into the clay slip. Turn and squeeze until every strand is coated. The straw should be damp and sticky, not dripping wet.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Apply from Bottom Up</h4>
+                <p>Press handfuls of coated straw onto the outside of the wattle, working it into the gaps. Build up in 25mm layers. Let each layer firm up (1-2 days in Portuguese summer, longer in winter) before adding the next. Four layers reaches 100mm.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Upper Dome Application</h4>
+                <p>Above the dome's midpoint, gravity works against you. Apply thinner layers (15-20mm) and let each one dry fully. If material slumps, pin strips of burlap to the wattle with galvanized staples to hold the straw-clay in place while it dries.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h4>Final Surface</h4>
+                <p>Smooth the outer surface with a flat trowel or wet hands. Fill any cracks. The surface does not need to be perfect — it just needs to be smooth enough that the burlap layer sits flat against it.</p>
+            </div>
+        </div>
+
+        <div class="warning-box">
+            <div class="callout-title">Drying Time</div>
+            <p>Allow 2-4 weeks for the straw-clay to dry completely before applying the burlap and EPDM. In a Portuguese summer, 2 weeks is usually sufficient. In autumn or winter, allow 4 weeks or more. Tap the surface — it should sound hollow when dry.</p>
+        </div>
+
+        <h3 id="burlap">Layer 2: Burlap Protection</h3>
+
+        <p>A single layer of burlap (hessian) fabric draped over the dried straw-clay. This prevents the rough clay surface from puncturing the EPDM membrane.</p>
+
+        <ul>
+            <li>Drape from apex downward in overlapping strips</li>
+            <li>Overlap each strip by 15cm</li>
+            <li>Pin to the straw-clay with galvanized staples at 30cm intervals</li>
+            <li>Pull smooth — no wrinkles or bunches</li>
+        </ul>
+
+        <h3 id="epdm">Layer 3: EPDM Waterproofing</h3>
+
+        <p>EPDM (ethylene propylene diene monomer) rubber membrane is the waterproof skin of the dome. Use 1.5mm pond-grade EPDM.</p>
+
+        <h4>Application Method: Horizontal Bands</h4>
+        <p>Apply EPDM in horizontal bands, starting from the bottom and working up. Each band overlaps the one below it so water sheds over the seams, never under them.</p>
+
+        <ol>
+            <li>Cut EPDM into bands roughly 60-80cm wide</li>
+            <li>Start at the base of the dome, just above the foundation</li>
+            <li>Wrap the first band around the full circumference, overlapping the starting end by 15cm</li>
+            <li>Apply EPDM primer to all overlap zones (both horizontal and vertical seams)</li>
+            <li>Press EPDM seam tape firmly onto primed overlaps. Roll with a wallpaper seam roller</li>
+            <li>Next band overlaps the top edge of the previous band by 15cm</li>
+            <li>Continue to the crown. The final piece is a circular cap over the apex vent collar</li>
+        </ol>
+
+        <figure class="figure">
+            <img src="assets/fig-epdm-banding.svg" alt="Side view of dome with EPDM membrane in horizontal bands, overlap direction, base flashing, and apex rain cap." loading="lazy">
+            <figcaption>Fig. 8 — EPDM horizontal bands: apply bottom-up, upper band always overlaps lower</figcaption>
+        </figure>
+
+        <div class="danger-box">
+            <div class="callout-title">Test Before You Finish</div>
+            <p>After all EPDM is applied and seams are sealed, spray the entire dome with a garden hose for 30 minutes. Go inside. Inspect every seam. Fix any leaks immediately — they will only get worse. This test is not optional.</p>
+        </div>
+
+        <h3 id="base-flashing">Base Flashing</h3>
+        <p>Where the EPDM meets the gabion foundation, lap the membrane 10cm over the outer face of the gabion and secure with a stainless steel termination bar screwed into a treated timber batten embedded in the gabion top. This prevents wind uplift and directs water away from the foundation.</p>
+
+        <p>The geotextile fold-over on top of the gabion prevents surface water from entering the stone fill. Between the EPDM directing rainwater outward and the geotextile cap sealing the top, the stone fill stays clean and the perforated pipe handles only subsurface water as intended.</p>
+
+        <p>The exposed EPDM membrane is fully covered by the <a href="#exterior">exterior finish system</a> — stone, lime render, and climbing plants — described in the next section.</p>
+
+        <figure class="figure">
+            <img src="assets/fig-base-flashing-detail.svg" alt="Cross-section through the dome base showing French drain trench, gabion foundation, EPDM base flashing lapped over the gabion outer face, termination bar, and stone skirt." loading="lazy">
+            <figcaption>Fig. 8b — Base flashing detail: EPDM laps over gabion, secured by termination bar, with French drain below</figcaption>
+        </figure>
+    </section>
+
+    <!-- Exterior Finish -->
+    <div class="section-group" id="exterior">
+        <h2>Exterior Finish</h2>
+        <p>Stone, lime render, and climbing plants — no visible membrane</p>
+    </div>
+
+    <section>
+        <p>The EPDM membrane is waterproof and durable, but it is black, industrial-looking, and degrades under prolonged UV exposure. The exterior finish system covers the entire membrane with natural materials: a stone skirt at the base, lime-earth render above, and climbing plants over both. The result is a dome that looks like it grew from the landscape.</p>
+
+        <figure class="figure">
+            <img src="assets/fig-exterior-finish.svg" alt="Front view of the dome showing three exterior finish zones: stone skirt at base, lime-earth render above, and climbing plants growing over both." loading="lazy">
+            <figcaption>Fig. 9 — Exterior finish: stone skirt (base), lime-earth render (upper), climbing plants</figcaption>
+        </figure>
+
+        <h3 id="stone-skirt">Zone 1: Stone Skirt (0–80cm above gabion)</h3>
+
+        <p>Dry-stack local stone directly against the EPDM surface, from the gabion top to a height of 60–80cm. The EPDM prevents any moisture reaching the straw-clay beneath, so no air gap is needed.</p>
+
+        <ul>
+            <li><strong>Stone:</strong> Local granite or schist, 10–25cm pieces, flat faces outward</li>
+            <li><strong>Thickness:</strong> 15–25cm (one stone depth)</li>
+            <li><strong>Height:</strong> 60–80cm above the gabion top (90–110cm above grade)</li>
+            <li><strong>Method:</strong> Dry-stack with no mortar. Lean slightly into the dome — the dome's inward curve naturally provides this. Stagger joints between courses.</li>
+            <li><strong>Top course:</strong> Flat capstones to shed water outward, away from the render zone above</li>
+        </ul>
+
+        <div class="tip-box">
+            <div class="callout-title">Why 80cm Maximum?</div>
+            <p>Above ~80cm, the dome wall curves inward steeply enough that stone begins to bear outward rather than pressing into the dome. Higher than this requires mortar or mechanical ties — more work for diminishing returns. At 80cm, the stone skirt protects the most vulnerable zone (ground splash, ember attack, UV at eye level) without added complexity.</p>
+        </div>
+
+        <h3 id="lime-render">Zone 2: Lime-Earth Render (80cm to apex)</h3>
+
+        <p>Above the stone skirt, apply a lime-earth render directly over the EPDM. This covers the membrane from the top of the stone to the apex vent collar.</p>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Key the Surface</h4>
+                <p>Drape galvanized wire mesh (25mm chicken wire) over the EPDM from the apex vent collar downward. Tuck the top edge under the collar flashing. At the bottom, tuck the lower edge behind the stone skirt — the weight of the stacked stone pins it in place. No screws through the membrane are needed: the dome's inward curve holds the mesh against the surface by gravity, and the render locks it permanently once applied. Overlap adjacent mesh strips by 10cm and twist-tie the edges together with short lengths of galvanized wire.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Scratch Coat</h4>
+                <p>1 part hydraulic lime : 1 part clay soil : 4 parts sharp sand. Apply 8–10mm thick, pressing firmly into the mesh. Score with a comb while wet. Allow to cure for 5–7 days, misting daily to prevent too-rapid drying.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Finish Coat</h4>
+                <p>1 part hydraulic lime : 0.5 parts clay soil : 3 parts fine sand. Apply 5–8mm over the cured scratch coat. Trowel to a smooth but not polished finish — some texture helps climbing plants grip.</p>
+            </div>
+        </div>
+
+        <div class="tip-box">
+            <div class="callout-title">Zero Penetrations</div>
+            <p>This method keeps the EPDM membrane completely intact — no screws, no sealant, no potential leak points. The dome's inward curve, gravity, and the stone skirt do all the work of holding the mesh in place.</p>
+        </div>
+
+        <h3 id="climbing-plants">Zone 3: Climbing Plants</h3>
+
+        <p>Plant fire-resistant climbing species at the base of the stone skirt. As they grow, they cover both the stone and the render, creating a living green exterior. The plants are rooted in the ground — they add no structural load to the dome.</p>
+
+        <ul>
+            <li><strong>Grape vine (<em>Vitis vinifera</em>):</strong> Deep-rooted, fire-resistant, deciduous. Provides summer shade and winter solar gain. Produces fruit.</li>
+            <li><strong>Fig (<em>Ficus carica</em>):</strong> Can be trained as a wall climber. Very fire-resistant. Deciduous.</li>
+            <li><strong>Virginia creeper (<em>Parthenocissus quinquefolia</em>):</strong> Self-clinging, fast coverage. Spectacular autumn colour. Deciduous — reveals the stone and render in winter.</li>
+        </ul>
+
+        <p>Plant 6–8 plants evenly spaced around the dome base. Train shoots upward using small galvanized hooks set into the stone skirt joints. Within 2–3 growing seasons, the plants will cover most of the dome surface.</p>
+
+        <div class="danger-box">
+            <div class="callout-title">Fire Season Protocol</div>
+            <p>Before fire season begins (June in Portugal):</p>
+            <ol>
+                <li><strong>Remove all dead and dry growth</strong> — strip any brown, dried, or dormant material from the dome surface. This is the actual ignition risk.</li>
+                <li><strong>Prune green growth back to the stone skirt line</strong> (~80cm above gabion). Green grape vine and fig have very high moisture content and resist ignition, but above the stone zone they sit against lime render that can crack under intense radiant heat. Keep living growth on the stone skirt only.</li>
+                <li><strong>Clear the 5m defensible space</strong> — no dead wood, brush, or dry grass within 5m of the dome.</li>
+            </ol>
+            <p>The stone skirt and lime render are non-combustible and protect the dome even without plant cover. Living, green growth on the stone zone adds no meaningful fire risk — but anything dead or dry must go.</p>
+        </div>
+
+        <h3>Benefits</h3>
+        <ul>
+            <li><strong>UV protection:</strong> Covering the EPDM extends its lifespan from ~20 years to 30+ years</li>
+            <li><strong>Fire resistance:</strong> Stone and lime render are non-combustible. The lower dome — most exposed to ground fire and embers — has the thickest protection.</li>
+            <li><strong>Thermal mass:</strong> The stone skirt adds thermal mass at the base, stabilizing interior temperatures</li>
+            <li><strong>Appearance:</strong> The dome blends into the landscape — stone base, earth-toned walls, green canopy</li>
+            <li><strong>No visible EPDM:</strong> The entire membrane is hidden behind natural materials</li>
+        </ul>
+    </section>
+
+    <!-- Openings -->
+    <section id="openings">
+        <h1>Door, Wind Porch, Windows &amp; Apex Vent</h1>
+
+        <h3 id="arch-door">Arch Door (Double Bay)</h3>
+
+        <p>The door spans a double bay — two pole spacings wide, created by skipping one socket. The eighth arch pair — the door-framing pair — fans from the two sockets opposite the door, and its thin ends land at the two sockets flanking the opening, forming a natural arch over the entrance. This gives a generous ~2m-wide doorway.</p>
+
+        <ul>
+            <li><strong>Width:</strong> ~2m (spanning two pole bays)</li>
+            <li><strong>Shape:</strong> The fanning pair curves apart as it descends from the crown, creating a pointed arch that separates at roughly 2.2m height. Below that, two treated chestnut or pine posts (10cm diameter) stiffen the straight sides down to the foundation.</li>
+            <li><strong>Frame:</strong> Two treated chestnut or pine posts set into the gabion, rising to 1.5m. Above 1.5m, the fanning pair's descending thin ends provide the arch.</li>
+            <li><strong>Threshold:</strong> Treated timber sill beam across the foundation at the base of the opening</li>
+            <li><strong>Door itself:</strong> Double ledge-and-brace timber doors (each leaf ~1m wide), or a heavy curtain for warm months</li>
+        </ul>
+
+        <p>Install the door frame posts during the dome frame phase, before weaving. The door-framing pair is installed after the seven standard pairs (see <a href="#frame">Raising the Arches, Step 4</a>). The wattle weave terminates at the door edges on each side.</p>
+
+        <h3 id="wind-porch">Wind Porch (Katak)</h3>
+
+        <p>The 6m catenary dome wall leans roughly 15 degrees inward from vertical at the base. A door frame mounted directly on this slanted surface will not hang plumb, the sill will slope inward, and rain drives straight in. The wind porch solves all three problems: a short arched tunnel projecting outward from the dome at the door, inspired by the igloo katak (entrance tunnel). The porch arch profile matches the door — straight walls up to 1.5m, then a curved arch to the peak — so the two read as one continuous opening.</p>
+
+        <figure class="figure">
+            <img src="assets/fig-wind-porch-plan.svg" alt="Top-down plan view showing U-shaped gabion extension, corner posts, and porch floor area projecting from the dome at the door opening." loading="lazy">
+            <figcaption>Fig. 10a — Wind porch plan view: U-shaped gabion arms, corner posts, and clear floor area</figcaption>
+        </figure>
+
+        <h4>Dimensions</h4>
+        <ul>
+            <li><strong>Projection:</strong> 1.2m outward from dome face</li>
+            <li><strong>Width:</strong> 2m (matches double-bay door opening)</li>
+            <li><strong>Height:</strong> 2.2m at inner end (dome arch), 2.0m at outer door frame</li>
+            <li><strong>Internal clear depth:</strong> ~1.0m (after wall thickness)</li>
+        </ul>
+
+        <h4>Structure</h4>
+        <ul>
+            <li>4 corner posts (10cm treated chestnut/pine, plumb vertical) in gabion footings — posts rise to 1.5m (where the arch begins)</li>
+            <li>2 side eave poles connecting inner to outer posts at 1.5m (arch spring line)</li>
+            <li>Inner arch frame matching the dome door arch profile (peak at 2.2m)</li>
+            <li>Outer arch frame matching the same profile (peak at 2.0m — slightly lower for roof drainage)</li>
+            <li>5 arch rafters curving from inner arch to outer arch, forming a barrel-vault roof</li>
+            <li>Wattle-weave sidewalls below the arch spring line and infill between rafters</li>
+            <li>Same layer stack as dome: straw-clay (100mm), burlap, EPDM, stone skirt + lime render</li>
+        </ul>
+
+        <h4>Foundation</h4>
+        <p>U-shaped gabion extension: two 1.2m arms projecting from the main ring at the door edges, connected by a cross piece. Same specs as the main ring (40cm wide, 65cm deep, geotextile-lined). See <a href="#foundation">Foundation, Step 8</a>.</p>
+
+        <figure class="figure">
+            <img src="assets/fig-wind-porch-section.svg" alt="Side cross-section through door center showing porch structure, layer stack, EPDM junction detail, and roof slope." loading="lazy">
+            <figcaption>Fig. 10b — Wind porch cross-section: layer stack, EPDM junction, and roof drainage slope</figcaption>
+        </figure>
+
+        <div class="danger-box">
+            <div class="callout-title">EPDM Junction — Critical Detail</div>
+            <p>The junction between the dome EPDM and the porch EPDM is the single most leak-prone point on the structure. Follow this order exactly:</p>
+            <ol>
+                <li><strong>Apply porch EPDM first</strong> at the junction zone — roof and sidewalls of the porch.</li>
+                <li><strong>Apply dome EPDM lapping OVER the porch EPDM</strong> — water flows dome, then porch, then outward. The upper layer always overlaps the lower.</li>
+                <li><strong>All junctions:</strong> 15cm overlap, EPDM primer on both surfaces, seam tape rolled firmly.</li>
+            </ol>
+            <p>Include this junction in every hose test and every seasonal inspection.</p>
+        </div>
+
+        <div class="tip-box">
+            <div class="callout-title">What the Porch Gives You</div>
+            <p>A plumb outer door frame (doors hang straight, sills are level). A thermal airlock (interior stays warm when you open the outer door). A rain and wind buffer (no direct weather exposure). A place to hang coats and remove boots. All built from the same materials as the dome.</p>
+        </div>
+
+        <h3 id="arch-windows">Arch Windows &amp; Window Boxes</h3>
+
+        <p>Install 2-3 arch-topped windows in the natural bays between adjacent arch poles. The poles act as the window jambs, so you only need to add a sill beam, two short vertical stiles, and a curved arch frame at the top.</p>
+
+        <p>Like the door, each window sits on a dome wall that leans inward. A 20cm-deep window box projects outward from each opening, giving a plumb outer frame for the glazing.</p>
+
+        <ul>
+            <li><strong>Shape:</strong> Rectangular below, arch-topped above — following the natural curve between two poles</li>
+            <li><strong>Size:</strong> ~95cm wide (the natural pole spacing) &times; ~110cm from sill to arch peak</li>
+            <li><strong>Sill height:</strong> 70cm above foundation (comfortable seated eye level)</li>
+            <li><strong>Inner frame:</strong> Treated chestnut or pine: horizontal sill beam, two short stiles up to where the arch begins (~1.3m), then a curved arch frame to the peak (~1.8m). Install during the dome frame phase, before weaving.</li>
+            <li><strong>Window box:</strong> 4 short treated frame members (20cm long) at each corner project outward from the dome EPDM surface. Small-scale wattle and straw-clay cheek walls fill between the dome surface and the outer frame.</li>
+            <li><strong>Outer frame:</strong> Plumb frame at the outer end of the box, with rebate for glazing.</li>
+            <li><strong>Glazing:</strong> Fixed polycarbonate sheet (6mm), mounted in the plumb outer frame with butyl tape seal. The polycarbonate sits in the rebate of the outer frame — plumb, not leaning.</li>
+            <li><strong>Sill slope:</strong> 5 degrees outward for drainage, with an EPDM drip edge extending 5cm past the outer face.</li>
+            <li><strong>Placement:</strong> At least one window opposite the door for cross-ventilation. Orient the largest window south for passive solar gain in winter.</li>
+        </ul>
+
+        <h4>Window Box EPDM Detail</h4>
+        <p>Cut the dome EPDM in a picture-frame pattern at each window opening. Fold the four flaps into the box sides and seal to the frame members with primer and seam tape. The sill flashing is a separate EPDM piece that covers the sill, slopes outward at 5 degrees, laps over the dome EPDM below the window, and extends 5cm past the outer face as a drip edge.</p>
+
+        <figure class="figure">
+            <img src="assets/fig-window-box-section.svg" alt="Horizontal section through window showing projecting box frame, EPDM picture-frame flaps, sill flashing with drip edge, and polycarbonate glazing in plumb outer frame." loading="lazy">
+            <figcaption>Fig. 10c — Window box horizontal section: EPDM flaps, sill flashing, glazing in plumb frame</figcaption>
+        </figure>
+
+        <div class="tip-box">
+            <div class="callout-title">Keep It Simple</div>
+            <p>In a Portuguese climate, you can get away with fewer windows than you think. The apex vent and door provide substantial airflow. Three arch windows — one south, one on the side, and one opposite the door — give good light and cross-ventilation.</p>
+        </div>
+
+        <figure class="figure">
+            <img src="assets/fig-door-window.svg" alt="Front view details: door with curved lintel spanning double bay, and arch window with polycarbonate glazing." loading="lazy">
+            <figcaption>Fig. 10 — Door with curved lintel (left) and arch window with polycarbonate glazing (right)</figcaption>
+        </figure>
+
+        <h3 id="apex-vent">Apex Vent</h3>
+
+        <p>The 30-40cm opening at the crown of the dome serves as the primary ventilation. Hot air rises and exits here, drawing fresh air in through the door and windows.</p>
+
+        <ul>
+            <li><strong>Opening:</strong> 30-40cm diameter, formed at the center of the crown crossing where all 16 poles (8 pairs) overlap</li>
+            <li><strong>Rain cap:</strong> A conical cap on a short post (like a chimney cowl), mounted 15-20cm above the opening. Allows air flow while deflecting rain.</li>
+            <li><strong>Construction:</strong> Bend 4 thin poles into a cone, cover with a small piece of EPDM. Mount on a 20cm post anchored to the crown crossing.</li>
+            <li><strong>Closure:</strong> For cold nights, stuff the opening with a removable cushion or plug from inside.</li>
+        </ul>
+
+        <figure class="figure">
+            <img src="assets/fig-apex-vent.svg" alt="Cross-section of the apex vent showing crown crossing, vent opening, conical rain cap on post, and airflow arrows." loading="lazy">
+            <figcaption>Fig. 11 — Apex vent with rain cap: hot air exits, rain deflected</figcaption>
+        </figure>
+    </section>
+
+    <!-- Interior -->
+    <section id="interior">
+        <h1>Interior Finish</h1>
+
+        <h3 id="lime-plaster">Lime Plaster Walls</h3>
+        <p>The interior of the wattle dome receives two coats of lime plaster. This seals the structure, reflects light, and provides fire resistance.</p>
+
+        <ol>
+            <li><strong>Scratch coat:</strong> 1 part hydraulic lime : 3 parts sharp sand. Press firmly into the wattle gaps. Score the surface with a comb while wet.</li>
+            <li><strong>Finish coat:</strong> 1 part lime putty : 2.5 parts fine sand. Apply 3-5mm thick over the cured scratch coat. Trowel smooth.</li>
+            <li><strong>Limewash:</strong> Thin lime putty diluted with water. Apply 3-4 coats by brush. This brightens the interior considerably — important in a dome where natural light is limited.</li>
+        </ol>
+
+        <div class="warning-box">
+            <div class="callout-title">Lime Burns Skin</div>
+            <p>Wear gloves and eye protection when working with lime. Wash splashes immediately with water and vinegar.</p>
+        </div>
+
+        <h3 id="floor">Floor</h3>
+        <p>Three practical options:</p>
+
+        <ul>
+            <li><strong>Earthen floor (simplest):</strong> Compacted earth base, lime-stabilized top layer (1 part lime : 4 parts earth), sealed with linseed oil. Cool in summer, can be cold in winter — use rugs.</li>
+            <li><strong>Lime concrete:</strong> 1 part hydraulic lime : 2 parts sand : 3 parts gravel, 10cm thick over compacted gravel base. More durable than earthen, warmer underfoot.</li>
+            <li><strong>Timber deck:</strong> Raised timber floor on eucalyptus sleepers. Creates an air gap for insulation and moisture management. Most comfortable but most expensive.</li>
+        </ul>
+    </section>
+
+    <!-- Bill of Materials -->
+    <div class="section-group" id="bom">
+        <h2>Bill of Materials</h2>
+        <p>Everything you need</p>
+    </div>
+
+    <section>
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Specifications</th>
+                <th>Cost Range</th>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Structural Poles</td></tr>
+            <tr>
+                <td>Main arch poles</td>
+                <td>18 pcs</td>
+                <td>8-10cm dia, ~11.6m length, green (16 + 2 spares)</td>
+                <td>€0-50</td>
+            </tr>
+            <tr>
+                <td>Horizontal ring poles</td>
+                <td>~20 pcs</td>
+                <td>5-7cm dia, 2-4m length</td>
+                <td>€0-30</td>
+            </tr>
+            <tr>
+                <td>Wattle infill poles</td>
+                <td>~200 pcs</td>
+                <td>3-5cm dia, 1-1.5m length</td>
+                <td>€0-30</td>
+            </tr>
+            <tr>
+                <td>Door &amp; window frames</td>
+                <td>6 pcs</td>
+                <td>10cm dia, 2m length, treated</td>
+                <td>€0-20</td>
+            </tr>
+            <tr>
+                <td>Wind porch corner posts</td>
+                <td>4 pcs</td>
+                <td>10cm dia, 2.2m length, treated chestnut/pine</td>
+                <td>€0-15</td>
+            </tr>
+            <tr>
+                <td>Porch ridge poles &amp; rafters</td>
+                <td>7 pcs</td>
+                <td>6-8cm dia, 1.2-2m length (2 ridge, 4 rafters, 1 lintel)</td>
+                <td>€0-10</td>
+            </tr>
+            <tr>
+                <td>Window box frame members</td>
+                <td>12 pcs</td>
+                <td>5cm &times; 5cm &times; 20cm, treated (4 per window &times; 3 windows)</td>
+                <td>€0-10</td>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Foundation</td></tr>
+            <tr>
+                <td>Gabion mesh</td>
+                <td>30 linear m</td>
+                <td>3mm wire, 10x10cm openings (includes porch U-extension)</td>
+                <td>€90-150</td>
+            </tr>
+            <tr>
+                <td>Stone fill</td>
+                <td>4-5m³</td>
+                <td>Local granite or schist, 10-20cm</td>
+                <td>€0-250</td>
+            </tr>
+            <tr>
+                <td>Geotextile fabric</td>
+                <td>~30 linear m</td>
+                <td>Non-woven 150–200 g/m², 160cm wide</td>
+                <td>€40-70</td>
+            </tr>
+            <tr>
+                <td>Perforated drain pipe</td>
+                <td>~20m</td>
+                <td>100mm HDPE corrugated</td>
+                <td>€25-40</td>
+            </tr>
+            <tr>
+                <td>Drain fittings + outlet pipe</td>
+                <td>1 set</td>
+                <td>100mm elbow/tee, 3m solid pipe, mesh cap</td>
+                <td>€15-25</td>
+            </tr>
+            <tr>
+                <td>Washed gravel (drainage)</td>
+                <td>~0.5m³</td>
+                <td>20mm washed</td>
+                <td>€20-35</td>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Shell</td></tr>
+            <tr>
+                <td>Clay soil</td>
+                <td>~3m³</td>
+                <td>High clay content</td>
+                <td>€0-75</td>
+            </tr>
+            <tr>
+                <td>Straw</td>
+                <td>~15 bales</td>
+                <td>Standard rectangular</td>
+                <td>€45-75</td>
+            </tr>
+            <tr>
+                <td>Burlap fabric</td>
+                <td>~70m²</td>
+                <td>Natural hessian</td>
+                <td>€70-140</td>
+            </tr>
+            <tr>
+                <td>EPDM membrane</td>
+                <td>~75m²</td>
+                <td>1.5mm, pond-grade (includes porch roof, sidewalls, window sill flashing)</td>
+                <td>€450-750</td>
+            </tr>
+            <tr>
+                <td>EPDM primer + tape</td>
+                <td>1 kit</td>
+                <td>Seam kit for ~50 linear m of seams</td>
+                <td>€80-120</td>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Exterior Finish</td></tr>
+            <tr>
+                <td>Stone (skirt)</td>
+                <td>2-3m³</td>
+                <td>Local granite or schist, 10-25cm pieces</td>
+                <td>€0-200</td>
+            </tr>
+            <tr>
+                <td>Hydraulic lime (exterior)</td>
+                <td>75kg</td>
+                <td>NHL 3.5 or NHL 5, for render</td>
+                <td>€30-45</td>
+            </tr>
+            <tr>
+                <td>Sharp sand (exterior)</td>
+                <td>~1m³</td>
+                <td>Washed, angular, for render</td>
+                <td>€20-30</td>
+            </tr>
+            <tr>
+                <td>Wire mesh (render key)</td>
+                <td>~50m²</td>
+                <td>25mm galvanized chicken wire</td>
+                <td>€40-70</td>
+            </tr>
+            <tr>
+                <td>EPDM lap sealant</td>
+                <td>1 tube</td>
+                <td>For base flashing and apex collar only</td>
+                <td>€10-15</td>
+            </tr>
+            <tr>
+                <td>Climbing plants</td>
+                <td>6-8 pcs</td>
+                <td>Grape vine, fig, Virginia creeper</td>
+                <td>€30-60</td>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Interior</td></tr>
+            <tr>
+                <td>Hydraulic lime</td>
+                <td>150kg</td>
+                <td>NHL 3.5 or NHL 5</td>
+                <td>€60-90</td>
+            </tr>
+            <tr>
+                <td>Sharp sand</td>
+                <td>~3m³</td>
+                <td>Washed, angular</td>
+                <td>€60-90</td>
+            </tr>
+            <tr>
+                <td>Lime putty</td>
+                <td>25kg</td>
+                <td>For finish coat &amp; limewash</td>
+                <td>€20-30</td>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Treatment &amp; Hardware</td></tr>
+            <tr>
+                <td>Borax + boric acid</td>
+                <td>15kg total</td>
+                <td>Technical grade</td>
+                <td>€20-35</td>
+            </tr>
+            <tr>
+                <td>Linseed oil</td>
+                <td>10L</td>
+                <td>Raw, cold-pressed</td>
+                <td>€50-80</td>
+            </tr>
+            <tr>
+                <td>Galvanized wire</td>
+                <td>100m</td>
+                <td>3mm diameter</td>
+                <td>€50</td>
+            </tr>
+            <tr>
+                <td>Galvanized staples</td>
+                <td>500 pcs</td>
+                <td>30mm</td>
+                <td>€15</td>
+            </tr>
+            <tr>
+                <td>Polycarbonate sheet</td>
+                <td>~1m²</td>
+                <td>6mm clear, for windows</td>
+                <td>€25-40</td>
+            </tr>
+        </table>
+
+        <h3>Budget Summary</h3>
+        <table>
+            <tr>
+                <th>Budget Level</th>
+                <th>Total Cost</th>
+                <th>Notes</th>
+            </tr>
+            <tr>
+                <td><strong>Minimal</strong></td>
+                <td>€1,600-2,850</td>
+                <td>Harvest all poles, on-site stone and clay, maximum self-sourcing</td>
+            </tr>
+            <tr>
+                <td><strong>Realistic</strong></td>
+                <td>€3,300-5,150</td>
+                <td>Some purchased materials, tools already owned</td>
+            </tr>
+            <tr>
+                <td><strong>Comfortable</strong></td>
+                <td>€5,600-7,650</td>
+                <td>All purchased materials, quality EPDM, good lime, exterior finish</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Construction Phases -->
+    <div class="section-group" id="phases">
+        <h2>Construction Phases</h2>
+        <p>Foundation to finished home</p>
+    </div>
+
+    <section>
+        <p>This timeline assumes 2-3 people working most days. Drying periods are not idle time — use them to prepare materials for the next phase.</p>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Site Prep &amp; Pole Harvest (Week 1)</h4>
+                <ul>
+                    <li>Clear eucalyptus from building footprint + 3m buffer (including porch area)</li>
+                    <li>Mark center point and 3m radius</li>
+                    <li>Harvest 18 arch poles (8-10cm, ~11.6m) — green (16 needed + 2 spares)</li>
+                    <li>Harvest ring and wattle poles (extra for porch sidewalls)</li>
+                    <li>Score and pair arch poles (8 pairs, including door-framing pair)</li>
+                    <li>Treat door, window frame, and wind porch corner posts (borax soak)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Foundation (Weeks 1-2)</h4>
+                <ul>
+                    <li>Identify outlet point (lowest grade)</li>
+                    <li>Excavate ring trench (35cm deep at outlet, sloped 1–2%)</li>
+                    <li>Line with geotextile, lay gravel bed and perforated pipe</li>
+                    <li>Connect outlet pipe to daylight downhill</li>
+                    <li>Assemble gabion cages, fill with stone over pipe</li>
+                    <li>Fold geotextile over top, level bearing surface, mark sockets</li>
+                    <li>Build wind porch U-shaped gabion extension at door opening</li>
+                    <li>Test drain, allow foundation to settle (3–5 days)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Dome Frame (Week 2-3)</h4>
+                <ul>
+                    <li>Erect temporary center post (4m)</li>
+                    <li>Raise all 8 arch pairs (7 standard + 1 door-framing) — bend poles live</li>
+                    <li>Install wind porch frame: 4 corner posts, ridge poles, rafters, outer lintel</li>
+                    <li>Wire-lash crown crossing (all 16 poles)</li>
+                    <li>Lock pole bases into foundation</li>
+                    <li>Install door frame at porch outer end</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Wattle Weave (Weeks 3-4)</h4>
+                <ul>
+                    <li>Install 7 horizontal rings from bottom up</li>
+                    <li>Weave vertical infill between rings</li>
+                    <li>Weave wind porch sidewalls and roof infill</li>
+                    <li>Install window frames and window box frame members</li>
+                    <li>Density check — no gaps larger than a fist</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h4>Straw-Clay Shell (Weeks 4-5 + 2-4 weeks drying)</h4>
+                <ul>
+                    <li>Mix clay slip, coat straw</li>
+                    <li>Apply to exterior in 25mm layers, bottom up</li>
+                    <li>Apply straw-clay to wind porch sidewalls (same 100mm build-up)</li>
+                    <li>Fill window box cheek walls with small-scale wattle and straw-clay</li>
+                    <li>Pin burlap strips on upper dome to hold material</li>
+                    <li>Smooth final surface</li>
+                    <li>Allow 2-4 weeks to dry completely</li>
+                </ul>
+                <p><em>Use drying time to prepare interior: compact floor base, mix lime plaster, build furniture.</em></p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">6</div>
+            <div class="step-content">
+                <h4>Weatherproofing (Weeks 5-6)</h4>
+                <ul>
+                    <li>Drape burlap over dried straw-clay, staple in place</li>
+                    <li>Apply porch EPDM first (roof, sidewalls) at the dome junction zone</li>
+                    <li>Apply dome EPDM in horizontal bands, bottom up — lap OVER porch EPDM at junction</li>
+                    <li>Cut EPDM picture-frame at each window, fold flaps into box, seal</li>
+                    <li>Install window sill flashing with 5-degree outward slope and drip edge</li>
+                    <li>Seal all seams with primer + tape (15cm overlap minimum)</li>
+                    <li>Install base flashing at gabion</li>
+                    <li>Build and install apex rain cap</li>
+                    <li><strong>Hose test for 30 minutes — fix all leaks, especially porch junction and window sills</strong></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">7</div>
+            <div class="step-content">
+                <h4>Exterior Finish (Weeks 6-7)</h4>
+                <ul>
+                    <li>Stack stone skirt against EPDM from gabion top to 60-80cm — extend across porch sidewalls</li>
+                    <li>Drape wire mesh over EPDM above stone zone, tuck under collar and behind stone skirt</li>
+                    <li>Apply lime-earth render scratch coat (8-10mm) to dome and porch upper walls, allow to cure 5-7 days</li>
+                    <li>Apply lime-earth render finish coat (5-8mm)</li>
+                    <li>Plant climbing vines at base of stone skirt</li>
+                </ul>
+                <p><em>The stone skirt can begin as soon as the EPDM hose test passes. Render and interior plaster can proceed in parallel.</em></p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">8</div>
+            <div class="step-content">
+                <h4>Interior Finish (Weeks 7-9)</h4>
+                <ul>
+                    <li>Apply lime plaster scratch coat to interior (including porch interior)</li>
+                    <li>Install floor (earthen, lime concrete, or timber)</li>
+                    <li>Apply lime plaster finish coat</li>
+                    <li>Apply 3-4 coats of limewash</li>
+                    <li>Install door at porch outer frame, glaze windows in outer box frames</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="tip-box">
+            <div class="callout-title">Real Timeline</div>
+            <p>The active work takes about 20-25 days spread over 4-9 weeks, depending on drying conditions. In a Portuguese summer, drying is fast and you can finish in 4-5 weeks. In winter, allow 8-10 weeks for straw-clay, exterior render, and interior plaster to cure properly.</p>
+        </div>
+    </section>
+
+    <!-- Floor Plan -->
+    <section id="floor-plan">
+        <h1>Floor Plan</h1>
+
+        <p>28m² in a circle. The dome shape naturally creates zones: the center is for standing and activity, the edges are for resting and storage. Work with the shape, not against it.</p>
+
+        <h3 id="suggested-layout">Suggested Layout</h3>
+        <ul>
+            <li><strong>Center zone (0-1.5m from center, ~7m²):</strong> Living space. Table, chairs, central heating if used (rocket mass heater or wood stove). Full headroom.</li>
+            <li><strong>South arc (kitchen, ~5m²):</strong> Kitchen counter along the south wall near a window. Passive solar gain warms this zone in winter.</li>
+            <li><strong>Sleeping platform (north arc, ~6m²):</strong> Low platform (30-40cm high) built against the north wall where the ceiling slopes down. The low ceiling over the platform is comfortable for lying down.</li>
+            <li><strong>Entry zone (at door + wind porch, ~5m²):</strong> The wind porch provides ~2m² of enclosed airlock space for coats, boots, and weather transition. Inside the dome, a further ~3m² serves as the entry landing.</li>
+            <li><strong>Storage perimeter (~7m²):</strong> Shelving and hooks around the lower walls where headroom is 1-1.8m. This ring of storage defines the interior zones without needing partition walls.</li>
+        </ul>
+
+        <figure class="figure">
+            <img src="assets/fig-floor-plan.svg" alt="Circular floor plan showing zones: center living, north sleeping, south kitchen, east entry, and storage perimeter." loading="lazy">
+            <figcaption>Fig. 12 — Floor plan with suggested zones: sleeping (north), kitchen (south), entry (east)</figcaption>
+        </figure>
+
+        <h3 id="design-principles">Design Principles</h3>
+        <ul>
+            <li><strong>Door orientation:</strong> Face east or southeast. Morning sun warms the entry. Away from prevailing winter rain (which comes from the west/southwest in Portugal).</li>
+            <li><strong>South window:</strong> Largest window on the south side for winter solar gain.</li>
+            <li><strong>North side:</strong> No windows needed. Use this wall for the sleeping platform.</li>
+            <li><strong>Built-in furniture:</strong> Benches and platforms following the curve are more space-efficient than freestanding furniture.</li>
+            <li><strong>Heating:</strong> A small wood stove with chimney exiting through the dome wall (not the apex vent) is the most practical. Size it for the space — 28m² needs a very small stove.</li>
+        </ul>
+
+        <div class="tip-box">
+            <div class="callout-title">Bathroom</div>
+            <p>At 28m², an internal bathroom is possible but tight. A separate outdoor composting toilet and simple outdoor shower (solar-heated bag) is a better use of space. If you need an enclosed bathroom, consider a small attached structure outside the dome with its own roof.</p>
+        </div>
+    </section>
+
+    <!-- Maintenance -->
+    <section id="maintenance">
+        <h1>Maintenance</h1>
+
+        <h3 id="first-year">First Year (Monthly)</h3>
+        <ul>
+            <li>Check eucalyptus stumps for regrowth — treat immediately</li>
+            <li>Inspect EPDM seams after heavy rain — especially the wind porch junction and window sill flashing</li>
+            <li>Check lime plaster for cracks as poles continue to dry and shrink (fill with lime putty)</li>
+        </ul>
+
+        <h3 id="seasonal">Seasonal</h3>
+
+        <h4>Spring</h4>
+        <ul>
+            <li>Inspect EPDM at base flashing, apex vent collar, wind porch junction, and window sill flashing — the covered portions are UV-protected</li>
+            <li>Touch up interior lime plaster cracks and exterior lime-earth render cracks (including porch walls)</li>
+            <li>Re-stack any frost-shifted stones in the stone skirt (dome and porch)</li>
+            <li>Train new climbing plant growth onto dome surface</li>
+        </ul>
+
+        <h4>Summer</h4>
+        <ul>
+            <li>Fire season vigilance — maintain 5m defensible space</li>
+            <li>Strip all dead and dry plant growth from dome surface</li>
+            <li>Prune green growth back to stone skirt line (~80cm) — living green growth on stone zone is acceptable</li>
+            <li>Check apex vent rain cap, ensure airflow is clear</li>
+        </ul>
+
+        <h4>Autumn</h4>
+        <ul>
+            <li>Apply limewash touch-up to interior</li>
+            <li>Test foundation drain — pour water into gabion, verify flow at outlet within minutes</li>
+            <li>Clear outlet pipe daylight end — remove leaves, soil, vegetation</li>
+            <li>Check outlet mesh cap — replace if corroded</li>
+            <li>Check stone skirt drainage — clear any soil buildup trapping water against stone</li>
+            <li>Prepare for wet season: verify EPDM seams at base flashing and apex are sound</li>
+        </ul>
+
+        <h4>Winter</h4>
+        <ul>
+            <li>Monitor for leaks during heavy rain — fix immediately</li>
+            <li>Check base flashing where EPDM meets gabion</li>
+            <li>Ensure apex vent plug is available for cold nights</li>
+        </ul>
+
+        <h3 id="long-term">Long-Term</h3>
+        <ul>
+            <li><strong>Every 3-5 years:</strong> Reapply limewash to interior (2-3 coats). Patch exterior lime-earth render where cracked or thinned.</li>
+            <li><strong>Every 5-10 years:</strong> Inspect EPDM at base flashing and apex vent collar (the only exposed sections). The covered portions are UV-protected and should outlast exposed EPDM significantly.</li>
+            <li><strong>Every 10-15 years:</strong> Inspect wire lashings at crown and base. Replace if corroded. Re-render exterior if erosion has thinned it below 10mm. Flush drain pipe with a garden hose from the outlet end; rod if flow is significantly reduced.</li>
+            <li><strong>At 25-30 years:</strong> EPDM replacement may be needed. The exterior finish extends membrane life well beyond the typical 20-year exposed lifespan. Remove render and stone, replace membrane, re-apply finish.</li>
+            <li><strong>At 25-35 years:</strong> Assess pole condition. Well-maintained straw-clay keeps poles dry and functional for decades.</li>
+        </ul>
+
+        <p><em>See: <a href="shared-reference.html#fire">Fire Safety &amp; Defensible Space</a></em></p>
+    </section>
+
+    <div class="cross-links">
+        <h3>Other Designs</h3>
+        <ul>
+            <li><a href="earth-sheltered-solarpod-guide.html">Earth Sheltered SolarPod</a> — 30m² earth-sheltered structure with Da Vinci bridge rafters</li>
+        </ul>
+        <p style="margin-top: 12px;"><a href="index.html">&larr; Back to Design Selection</a></p>
+    </div>
+
+</main>
+
+<footer>
+    <p>Standard BioDome — Complete Build Guide</p>
+    <p>Version 2.0 — January 2026 — <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons BY-SA 4.0</a></p>
+</footer>
+
+<script>
+(function() {
+    var sidebar = document.getElementById('sidebar');
+    var toggle = document.querySelector('.sidebar-toggle');
+    var overlay = document.querySelector('.sidebar-overlay');
+
+    function closeSidebar() {
+        sidebar.classList.remove('open');
+        toggle.classList.remove('open');
+        overlay.classList.remove('open');
+    }
+    toggle.addEventListener('click', function() {
+        sidebar.classList.toggle('open');
+        toggle.classList.toggle('open');
+        overlay.classList.toggle('open');
+    });
+    overlay.addEventListener('click', closeSidebar);
+
+    document.querySelectorAll('.sidebar-outline summary[data-href]').forEach(function(s) {
+        s.addEventListener('click', function(e) {
+            var href = s.getAttribute('data-href');
+            if (href) {
+                var el = document.querySelector(href);
+                if (el) {
+                    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    closeSidebar();
+                }
+            }
+        });
+    });
+
+    document.querySelectorAll('.sidebar-sub a, .sidebar-link').forEach(function(a) {
+        a.addEventListener('click', function() { closeSidebar(); });
+    });
+
+    var sections = [];
+    document.querySelectorAll('[id]').forEach(function(el) {
+        if (el.tagName === 'H1' || el.tagName === 'H2' || el.tagName === 'H3' || el.tagName === 'SECTION' || el.tagName === 'DIV') {
+            sections.push({ id: el.id, el: el });
+        }
+    });
+
+    var summaries = document.querySelectorAll('.sidebar-outline summary[data-href]');
+    var subLinks = document.querySelectorAll('.sidebar-sub a, .sidebar-link');
+    var allLinks = document.querySelectorAll('.sidebar-sub a, .sidebar-link, .sidebar-outline summary[data-href]');
+
+    function clearActive() {
+        allLinks.forEach(function(l) { l.classList.remove('active'); });
+        summaries.forEach(function(s) { s.classList.remove('active'); });
+    }
+
+    function onScroll() {
+        var scrollY = window.scrollY + 120;
+        var current = null;
+
+        for (var i = sections.length - 1; i >= 0; i--) {
+            if (sections[i].el.offsetTop <= scrollY) {
+                current = sections[i].id;
+                break;
+            }
+        }
+
+        if (!current) return;
+        clearActive();
+
+        subLinks.forEach(function(a) {
+            if (a.getAttribute('href') === '#' + current) {
+                a.classList.add('active');
+            }
+        });
+
+        summaries.forEach(function(s) {
+            var href = s.getAttribute('data-href');
+            if (!href) return;
+            var sectionId = href.slice(1);
+            var details = s.parentElement;
+            var subAnchors = details.querySelectorAll('.sidebar-sub a');
+            var match = sectionId === current;
+            if (!match) {
+                subAnchors.forEach(function(a) {
+                    if (a.getAttribute('href') === '#' + current) match = true;
+                });
+            }
+            if (match) {
+                s.classList.add('active');
+                details.open = true;
+            }
+        });
+
+        document.querySelectorAll('.sidebar-link[href]').forEach(function(a) {
+            if (a.getAttribute('href') === '#' + current) {
+                a.classList.add('active');
+            }
+        });
+    }
+
+    var ticking = false;
+    window.addEventListener('scroll', function() {
+        if (!ticking) {
+            requestAnimationFrame(function() { onScroll(); ticking = false; });
+            ticking = true;
+        }
+    });
+    onScroll();
+})();
+</script>
+
+</body>
+</html>

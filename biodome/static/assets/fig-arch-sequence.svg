@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 580">
+  <defs>
+    <style>
+      .label { font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 11px; }
+      .label-sm { font-family: -apple-system, system-ui, sans-serif; fill: #555; font-size: 10px; }
+      .title { font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 15px; font-weight: 700; }
+      .panel-title { font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 12px; font-weight: 700; }
+      .step-num { font-family: -apple-system, system-ui, sans-serif; fill: white; font-size: 12px; font-weight: 700; }
+      .arch1 { stroke: #1a2e1a; stroke-width: 3; fill: none; }
+      .arch2 { stroke: #2d4a2d; stroke-width: 3; fill: none; }
+      .arch3 { stroke: #4a7a4a; stroke-width: 2; fill: none; }
+      .arch4 { stroke: #6a9a6a; stroke-width: 2; fill: none; }
+      .support { stroke: #8b6914; stroke-width: 3; fill: none; stroke-dasharray: 8,4; }
+      .ground { stroke: #1a2e1a; stroke-width: 1; }
+      .ground-fill { fill: #f0ebe3; }
+      .gabion { fill: #d5cfc5; stroke: #1a2e1a; stroke-width: 1; }
+      .crown { fill: none; stroke: #c9a227; stroke-width: 2; }
+      .wire { stroke: #c9a227; stroke-width: 1.5; }
+      .plan-circle { fill: none; stroke: #d5cfc5; stroke-width: 8; }
+      .plan-line { stroke-width: 2.5; fill: none; }
+    </style>
+  </defs>
+
+  <!-- Title -->
+  <text x="380" y="24" text-anchor="middle" class="title">Raising the Arches — Four Steps</text>
+
+  <!-- ===== PANEL 1: First Arch (side view) ===== -->
+  <!-- Panel bounds: x=20-370, y=40-280 -->
+  <rect x="20" y="40" width="350" height="240" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <circle cx="40" cy="60" r="12" fill="#1a2e1a"/>
+  <text x="40" y="64" text-anchor="middle" class="step-num">1</text>
+  <text x="58" y="64" class="panel-title">First Arch + Center Post</text>
+
+  <!-- Ground -->
+  <rect x="30" y="240" width="330" height="30" class="ground-fill"/>
+  <line x1="30" y1="240" x2="360" y2="240" class="ground"/>
+
+  <!-- Gabion bases -->
+  <rect x="68" y="230" width="25" height="15" class="gabion" rx="1"/>
+  <rect x="278" y="230" width="25" height="15" class="gabion" rx="1"/>
+
+  <!-- First arch pair — natural arch y≈4−1.52·(cosh(x/1.52)−1), scale 35px/m -->
+  <!-- Steep sides, broad flat crown. 6m span (210px), 4m height (140px). -->
+  <path d="M80,240 C86,219 92,208 98,193 C104,179 109,164 115,154 C121,144 127,135 133,128 C139,122 144,116 150,112 C156,108 162,105 168,103 C174,101 179,100 185,100" class="arch1"/>
+  <path d="M290,240 C284,219 278,208 272,193 C266,179 261,164 255,154 C249,144 243,135 237,128 C231,122 226,116 220,112 C214,108 208,105 202,103 C196,101 191,100 185,100" class="arch1"/>
+
+  <!-- Temporary center post -->
+  <line x1="185" y1="240" x2="185" y2="100" class="support"/>
+  <text x="195" y="170" class="label-sm" style="fill:#8b6914;">temp post</text>
+
+  <!-- Wire lash to temp post at crown -->
+  <line x1="178" y1="97" x2="192" y2="97" stroke="#c9a227" stroke-width="2"/>
+  <line x1="178" y1="103" x2="192" y2="103" stroke="#c9a227" stroke-width="2"/>
+  <text x="210" y="94" class="label-sm" style="fill:#c9a227;">wire lash</text>
+  <text x="210" y="106" class="label-sm" style="fill:#c9a227;">to post</text>
+
+  <!-- ===== PANEL 2: Second Arch (plan view, top-down) ===== -->
+  <!-- Panel bounds: x=390-740, y=40-280 -->
+  <rect x="390" y="40" width="350" height="240" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <circle cx="410" cy="60" r="12" fill="#1a2e1a"/>
+  <text x="410" y="64" text-anchor="middle" class="step-num">2</text>
+  <text x="428" y="64" class="panel-title">Second Arch at 90° (plan view)</text>
+
+  <!-- Gabion ring (plan) -->
+  <circle cx="565" cy="170" r="95" class="plan-circle"/>
+
+  <!-- First arch (horizontal line through center) -->
+  <line x1="470" y1="170" x2="660" y2="170" class="plan-line" stroke="#1a2e1a"/>
+  <text x="670" y="174" class="label-sm">Arch 1</text>
+
+  <!-- Second arch (vertical line through center) -->
+  <line x1="565" y1="75" x2="565" y2="265" class="plan-line" stroke="#2d4a2d"/>
+  <text x="575" y="85" class="label-sm" style="fill:#2d4a2d;">Arch 2</text>
+
+  <!-- Crown point -->
+  <circle cx="565" cy="170" r="6" fill="#c9a227"/>
+  <text x="580" y="158" class="label-sm" style="fill:#c9a227;">crown</text>
+
+  <!-- Remove center post note -->
+  <text x="565" y="260" text-anchor="middle" class="label-sm" style="font-style:italic;">Two arches stabilize</text>
+  <text x="565" y="272" text-anchor="middle" class="label-sm" style="font-style:italic;">each other — remove post</text>
+
+  <!-- ===== PANEL 3: All 8 Arches (side view) ===== -->
+  <!-- Panel bounds: x=20-370, y=300-540 -->
+  <rect x="20" y="300" width="350" height="240" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <circle cx="40" cy="320" r="12" fill="#1a2e1a"/>
+  <text x="40" y="324" text-anchor="middle" class="step-num">3</text>
+  <text x="58" y="324" class="panel-title">All Eight Arches (side view)</text>
+
+  <!-- Ground -->
+  <rect x="30" y="500" width="330" height="30" class="ground-fill"/>
+  <line x1="30" y1="500" x2="360" y2="500" class="ground"/>
+
+  <!-- Gabion ring -->
+  <rect x="55" y="490" width="260" height="14" class="gabion" rx="1"/>
+
+  <!-- 8 arch pairs from side — natural arch y≈4−1.52·(cosh(x/1.52)−1), scale 39.3px/m -->
+  <!-- Receding arches use horizontal scale transform around x=185 -->
+  <!-- Front arch (θ=0°) -->
+  <path d="M67,500 C74,477 80,463 87,447 C94,431 99,414 106,403 C113,392 119,382 126,374 C133,367 139,361 146,356 C153,351 158,348 165,346 C172,344 178,343 185,343 C192,343 198,344 205,346 C212,348 217,351 224,356 C231,361 237,367 244,374 C251,382 257,392 264,403 C271,414 276,431 283,447 C290,463 296,477 303,500" class="arch1"/>
+  <!-- θ≈32° -->
+  <g transform="translate(185 0) scale(0.85 1) translate(-185 0)">
+    <path d="M67,500 C74,477 80,463 87,447 C94,431 99,414 106,403 C113,392 119,382 126,374 C133,367 139,361 146,356 C153,351 158,348 165,346 C172,344 178,343 185,343 C192,343 198,344 205,346 C212,348 217,351 224,356 C231,361 237,367 244,374 C251,382 257,392 264,403 C271,414 276,431 283,447 C290,463 296,477 303,500" class="arch3" opacity="0.6"/>
+  </g>
+  <!-- θ≈49° -->
+  <g transform="translate(185 0) scale(0.65 1) translate(-185 0)">
+    <path d="M67,500 C74,477 80,463 87,447 C94,431 99,414 106,403 C113,392 119,382 126,374 C133,367 139,361 146,356 C153,351 158,348 165,346 C172,344 178,343 185,343 C192,343 198,344 205,346 C212,348 217,351 224,356 C231,361 237,367 244,374 C251,382 257,392 264,403 C271,414 276,431 283,447 C290,463 296,477 303,500" class="arch4" opacity="0.4"/>
+  </g>
+  <!-- θ≈67° -->
+  <g transform="translate(185 0) scale(0.40 1) translate(-185 0)">
+    <path d="M67,500 C74,477 80,463 87,447 C94,431 99,414 106,403 C113,392 119,382 126,374 C133,367 139,361 146,356 C153,351 158,348 165,346 C172,344 178,343 185,343 C192,343 198,344 205,346 C212,348 217,351 224,356 C231,361 237,367 244,374 C251,382 257,392 264,403 C271,414 276,431 283,447 C290,463 296,477 303,500" class="arch4" opacity="0.25"/>
+  </g>
+
+  <!-- Crown crossing — wire lash where all 16 poles (8 pairs) cross -->
+  <line x1="178" y1="340" x2="192" y2="340" stroke="#c9a227" stroke-width="2"/>
+  <line x1="178" y1="346" x2="192" y2="346" stroke="#c9a227" stroke-width="2"/>
+
+  <text x="185" y="545" text-anchor="middle" class="label-sm" style="font-style:italic;">Structure becomes more rigid with each arch</text>
+
+  <!-- ===== PANEL 4: Crown Crossing Detail ===== -->
+  <!-- Panel bounds: x=390-740, y=300-540 -->
+  <rect x="390" y="300" width="350" height="240" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <circle cx="410" cy="320" r="12" fill="#1a2e1a"/>
+  <text x="410" y="324" text-anchor="middle" class="step-num">4</text>
+  <text x="428" y="324" class="panel-title">Crown Crossing (top view)</text>
+
+  <!-- 16 poles (8 pairs) crossing through center at 22.5° intervals -->
+  <!-- Each pole is a full-span arch passing through the apex at its midpoint -->
+  <line x1="510" y1="430" x2="620" y2="430" stroke="#8b6914" stroke-width="7" stroke-linecap="round"/>
+  <line x1="514" y1="451" x2="616" y2="409" stroke="#8b6914" stroke-width="7" stroke-linecap="round"/>
+  <line x1="526" y1="469" x2="604" y2="391" stroke="#8b6914" stroke-width="7" stroke-linecap="round"/>
+  <line x1="544" y1="481" x2="586" y2="379" stroke="#8b6914" stroke-width="7" stroke-linecap="round"/>
+  <line x1="565" y1="485" x2="565" y2="375" stroke="#8b6914" stroke-width="7" stroke-linecap="round"/>
+  <line x1="586" y1="481" x2="544" y2="379" stroke="#8b6914" stroke-width="7" stroke-linecap="round"/>
+  <line x1="604" y1="469" x2="526" y2="391" stroke="#8b6914" stroke-width="7" stroke-linecap="round"/>
+  <line x1="616" y1="451" x2="514" y2="409" stroke="#8b6914" stroke-width="7" stroke-linecap="round"/>
+
+  <!-- Wire wrap zone — binds all 16 poles (8 pairs) at crossing -->
+  <circle cx="565" cy="430" r="30" fill="none" stroke="#c9a227" stroke-width="3"/>
+  <circle cx="565" cy="430" r="25" fill="none" stroke="#c9a227" stroke-width="1.5" opacity="0.5"/>
+
+  <!-- Labels -->
+  <text x="565" y="350" text-anchor="middle" class="label">16 poles (8 pairs) crossing at apex</text>
+
+  <text x="690" y="420" class="label-sm" style="fill:#c9a227;">galv. wire</text>
+  <text x="690" y="433" class="label-sm" style="fill:#c9a227;">spiral wrap</text>
+  <line x1="686" y1="425" x2="598" y2="430" stroke="#c9a227" stroke-width="0.8" opacity="0.5"/>
+
+  <text x="565" y="525" text-anchor="middle" class="label-sm">Crossing zone ~30cm across</text>
+  <text x="565" y="538" text-anchor="middle" class="label-sm">Wire-wrap binds all 16 poles at their midpoints</text>
+</svg>

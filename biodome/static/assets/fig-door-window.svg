@@ -1,0 +1,140 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 440">
+  <defs>
+    <style>
+      .label { font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 12px; }
+      .label-sm { font-family: -apple-system, system-ui, sans-serif; fill: #555; font-size: 11px; }
+      .dim { font-family: -apple-system, system-ui, sans-serif; fill: #c9a227; font-size: 11px; font-weight: 600; }
+      .title { font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 15px; font-weight: 700; }
+      .panel-title { font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 13px; font-weight: 700; }
+      .dim-line { stroke: #c9a227; stroke-width: 1; fill: none; }
+      .arch-pole { fill: #8b6914; stroke: #5a4510; stroke-width: 2; }
+      .frame { fill: #a08030; stroke: #705820; stroke-width: 2; }
+      .frame-light { fill: #c0a050; stroke: #8a7030; stroke-width: 1.5; }
+      .glazing { fill: #d0e8f8; stroke: #80b0d0; stroke-width: 1; opacity: 0.7; }
+      .gabion { fill: #d5cfc5; stroke: #1a2e1a; stroke-width: 1.5; }
+      .ground-fill { fill: #f0ebe3; }
+      .wattle-bg { fill: #e8dcc0; stroke: #1a2e1a; stroke-width: 1; opacity: 0.3; }
+    </style>
+    <marker id="a-s" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6" stroke="#c9a227" fill="none" stroke-width="1"/>
+    </marker>
+    <marker id="a-e" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" stroke="#c9a227" fill="none" stroke-width="1"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="380" y="24" text-anchor="middle" class="title">Door and Arch Window — Front View Details</text>
+
+  <!-- ===== LEFT PANEL: DOOR ===== -->
+  <rect x="20" y="40" width="350" height="390" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="195" y="64" text-anchor="middle" class="panel-title">Door Opening</text>
+
+  <!-- Ground + gabion -->
+  <rect x="30" y="370" width="330" height="50" class="ground-fill"/>
+  <line x1="30" y1="370" x2="360" y2="370" stroke="#1a2e1a" stroke-width="1"/>
+  <rect x="90" y="350" width="220" height="30" class="gabion" rx="1"/>
+
+  <!-- Wattle wall background (either side of door) -->
+  <rect x="40" y="85" width="85" height="265" class="wattle-bg" rx="3"/>
+  <rect x="275" y="85" width="85" height="265" class="wattle-bg" rx="3"/>
+
+  <!-- Left arch pole (curving inward) -->
+  <path d="M125,370 C125,340 123,280 118,230 C113,180 105,140 90,85" class="arch-pole" fill="none" stroke-width="10" stroke-linecap="round"/>
+  <!-- Right arch pole -->
+  <path d="M275,370 C275,340 277,280 282,230 C287,180 295,140 310,85" class="arch-pole" fill="none" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Door frame posts -->
+  <rect x="136" y="112" width="12" height="258" class="frame" rx="2"/>
+  <rect x="252" y="112" width="12" height="258" class="frame" rx="2"/>
+
+  <!-- Curved lintel -->
+  <path d="M136,112 Q200,80 264,112" fill="none" stroke="#705820" stroke-width="10" stroke-linecap="round"/>
+  <path d="M140,112 Q200,84 260,112" fill="none" stroke="#a08030" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Door opening (clear space) -->
+  <rect x="148" y="112" width="104" height="258" fill="#faf8f5" stroke="none" rx="1"/>
+  <path d="M148,112 Q200,85 252,112" fill="#faf8f5" stroke="none"/>
+
+  <!-- Double doors (two leaves) -->
+  <!-- Left leaf -->
+  <rect x="152" y="118" width="46" height="248" fill="#c0a060" stroke="#8a7030" stroke-width="1" rx="2" opacity="0.35"/>
+  <!-- Right leaf -->
+  <rect x="202" y="118" width="46" height="248" fill="#c0a060" stroke="#8a7030" stroke-width="1" rx="2" opacity="0.35"/>
+  <!-- Center gap between leaves -->
+  <line x1="200" y1="118" x2="200" y2="366" stroke="#705820" stroke-width="1.5" opacity="0.5"/>
+  <!-- Handles -->
+  <circle cx="192" cy="250" r="3" fill="#705820" opacity="0.5"/>
+  <circle cx="208" cy="250" r="3" fill="#705820" opacity="0.5"/>
+
+  <!-- DIMENSIONS -->
+  <!-- Width: 85-90cm -->
+  <line x1="148" y1="390" x2="252" y2="390" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="200" y="388" text-anchor="middle" class="dim">~2m</text>
+
+  <!-- Height: 1.9m -->
+  <line x1="55" y1="100" x2="55" y2="370" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="52" y="240" text-anchor="end" class="dim" transform="rotate(-90 52 240)">1.9m</text>
+
+  <!-- Labels -->
+  <text x="200" y="418" text-anchor="middle" class="label-sm" style="font-style:italic;">Double doors under curved lintel</text>
+
+  <!-- ===== RIGHT PANEL: ARCH WINDOW ===== -->
+  <rect x="390" y="40" width="350" height="390" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="565" y="64" text-anchor="middle" class="panel-title">Arch Window</text>
+
+  <!-- Ground + gabion -->
+  <rect x="400" y="370" width="330" height="50" class="ground-fill"/>
+  <line x1="400" y1="370" x2="730" y2="370" stroke="#1a2e1a" stroke-width="1"/>
+  <rect x="440" y="350" width="250" height="30" class="gabion" rx="1"/>
+
+  <!-- Wattle wall background -->
+  <rect x="410" y="85" width="85" height="265" class="wattle-bg" rx="3"/>
+  <rect x="635" y="85" width="85" height="265" class="wattle-bg" rx="3"/>
+
+  <!-- Left arch pole (acts as window jamb) -->
+  <path d="M495,370 C495,340 493,280 488,230 C483,180 475,140 460,85" class="arch-pole" fill="none" stroke-width="10" stroke-linecap="round"/>
+  <!-- Right arch pole (acts as window jamb) -->
+  <path d="M635,370 C635,340 637,280 642,230 C647,180 655,140 670,85" class="arch-pole" fill="none" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Window frame components -->
+  <!-- Sill beam (horizontal, at 70cm above foundation = y=280) -->
+  <rect x="505" y="275" width="120" height="10" class="frame" rx="2"/>
+
+  <!-- Short stiles (from sill up to arch start) -->
+  <rect x="505" y="190" width="8" height="85" class="frame-light" rx="1"/>
+  <rect x="617" y="190" width="8" height="85" class="frame-light" rx="1"/>
+
+  <!-- Arch frame at top -->
+  <path d="M505,190 Q565,148 625,190" fill="none" stroke="#8a7030" stroke-width="8" stroke-linecap="round"/>
+  <path d="M508,190 Q565,152 622,190" fill="none" stroke="#c0a050" stroke-width="5" stroke-linecap="round"/>
+
+  <!-- Polycarbonate glazing -->
+  <rect x="513" y="190" width="104" height="85" class="glazing" rx="1"/>
+  <path d="M513,190 Q565,155 617,190" class="glazing"/>
+  <!-- Glare highlight -->
+  <line x1="530" y1="200" x2="545" y2="240" stroke="white" stroke-width="2" opacity="0.5"/>
+  <line x1="540" y1="195" x2="555" y2="235" stroke="white" stroke-width="1.5" opacity="0.3"/>
+
+  <!-- DIMENSIONS -->
+  <!-- Width: ~95cm -->
+  <line x1="500" y1="300" x2="630" y2="300" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="565" y="297" text-anchor="middle" class="dim">~95cm</text>
+
+  <!-- Height: sill to arch peak ~110cm -->
+  <line x1="425" y1="155" x2="425" y2="275" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="422" y="220" text-anchor="end" class="dim" style="font-size:10px;" transform="rotate(-90 422 220)">~110cm</text>
+
+  <!-- Sill height: 70cm above foundation -->
+  <line x1="735" y1="275" x2="735" y2="350" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="728" y="316" text-anchor="end" class="dim" style="font-size:10px;">70cm</text>
+  <text x="728" y="328" text-anchor="end" class="label-sm" style="font-size:9px;">sill height</text>
+
+  <!-- Labels -->
+  <text x="565" y="250" text-anchor="middle" class="label-sm" style="fill:#80b0d0;">polycarbonate</text>
+  <text x="565" y="262" text-anchor="middle" class="label-sm" style="fill:#80b0d0;">glazing</text>
+
+  <text x="565" y="340" text-anchor="middle" class="label-sm">sill beam</text>
+
+  <text x="565" y="418" text-anchor="middle" class="label-sm" style="font-style:italic;">Arch poles serve as natural window jambs</text>
+</svg>

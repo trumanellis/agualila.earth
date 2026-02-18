@@ -1,0 +1,160 @@
+<svg viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Gradient for aluminum flashing -->
+    <linearGradient id="aluminumGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#C8C8C8;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#A8A8A8;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#888888;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Gradient for EPDM membrane -->
+    <linearGradient id="epdmGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#3a3a3a;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#2a2a2a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1a1a1a;stop-opacity:1" />
+    </linearGradient>
+
+    <!-- Wood grain pattern -->
+    <pattern id="woodGrain" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+      <rect width="40" height="40" fill="#8B7355"/>
+      <path d="M0,10 Q10,8 20,10 T40,10" stroke="#7a6345" stroke-width="0.5" fill="none" opacity="0.3"/>
+      <path d="M0,25 Q10,23 20,25 T40,25" stroke="#7a6345" stroke-width="0.5" fill="none" opacity="0.3"/>
+    </pattern>
+
+    <!-- Dome glass pattern (dashed) -->
+    <pattern id="glassPattern" x="0" y="0" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="4" cy="4" r="0.5" fill="#4A90A4" opacity="0.15"/>
+    </pattern>
+  </defs>
+
+  <!-- Title -->
+  <text x="200" y="25" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2a2a2a" text-anchor="middle">Central Opening Waterproofing</text>
+
+  <!-- Background -->
+  <rect x="0" y="40" width="400" height="310" fill="#f8f8f8"/>
+
+  <!-- Roof deck base (plywood) -->
+  <rect x="50" y="220" width="140" height="18" fill="#D4A76A" stroke="#8B7355" stroke-width="1"/>
+  <rect x="210" y="220" width="140" height="18" fill="#D4A76A" stroke="#8B7355" stroke-width="1"/>
+
+  <!-- Left rafter end -->
+  <rect x="35" y="210" width="30" height="40" fill="url(#woodGrain)" stroke="#6a5335" stroke-width="1.5"/>
+  <text x="50" y="270" font-family="Arial, sans-serif" font-size="9" fill="#6a5335" text-anchor="middle">Rafter</text>
+
+  <!-- Right rafter end -->
+  <rect x="335" y="210" width="30" height="40" fill="url(#woodGrain)" stroke="#6a5335" stroke-width="1.5"/>
+  <text x="350" y="270" font-family="Arial, sans-serif" font-size="9" fill="#6a5335" text-anchor="middle">Rafter</text>
+
+  <!-- EPDM membrane on left deck -->
+  <path d="M 50,218 L 190,218 L 190,168 L 178,168 L 178,188 L 50,188"
+        fill="url(#epdmGrad)" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- EPDM membrane on right deck -->
+  <path d="M 210,218 L 350,218 L 350,188 L 222,188 L 222,168 L 210,168"
+        fill="url(#epdmGrad)" stroke="#1a1a1a" stroke-width="1.5"/>
+
+  <!-- Central raised curb (plywood structure) -->
+  <rect x="178" y="168" width="44" height="70" fill="#D4A76A" stroke="#8B7355" stroke-width="1.5"/>
+
+  <!-- Drainage notch in curb (left side shown in section) -->
+  <rect x="166" y="228" width="12" height="10" fill="#f8f8f8" stroke="#8B7355" stroke-width="1"/>
+  <line x1="166" y1="233" x2="178" y2="233" stroke="#8B7355" stroke-width="0.5" stroke-dasharray="2,1"/>
+
+  <!-- EPDM wrapping up curb (left side) -->
+  <rect x="173" y="168" width="5" height="70" fill="url(#epdmGrad)" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- EPDM wrapping up curb (right side) -->
+  <rect x="222" y="168" width="5" height="70" fill="url(#epdmGrad)" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- EPDM top wrapping over curb -->
+  <ellipse cx="200" cy="168" rx="22" ry="4" fill="url(#epdmGrad)" stroke="#1a1a1a" stroke-width="1"/>
+
+  <!-- Aluminum flashing collar base -->
+  <ellipse cx="200" cy="175" rx="65" ry="8" fill="url(#aluminumGrad)" stroke="#888888" stroke-width="1.5"/>
+
+  <!-- Aluminum flashing vertical section -->
+  <path d="M 135,175 L 138,165 L 145,158 M 265,175 L 262,165 L 255,158"
+        stroke="url(#aluminumGrad)" stroke-width="8" fill="none"/>
+
+  <!-- Aluminum flashing 45° drip lip (left) -->
+  <path d="M 145,158 L 120,145" stroke="url(#aluminumGrad)" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Aluminum flashing 45° drip lip (right) -->
+  <path d="M 255,158 L 280,145" stroke="url(#aluminumGrad)" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- Drip edge detail lines -->
+  <line x1="120" y1="145" x2="118" y2="150" stroke="#888888" stroke-width="1.5" stroke-linecap="round"/>
+  <line x1="280" y1="145" x2="282" y2="150" stroke="#888888" stroke-width="1.5" stroke-linecap="round"/>
+
+  <!-- Glazed dome cover (ghosted/dashed above) -->
+  <ellipse cx="200" cy="165" rx="85" ry="12" fill="none" stroke="#4A90A4" stroke-width="2" stroke-dasharray="4,3" opacity="0.6"/>
+  <path d="M 115,165 Q 200,85 285,165" fill="url(#glassPattern)" stroke="#4A90A4" stroke-width="2" stroke-dasharray="4,3" opacity="0.4"/>
+  <ellipse cx="200" cy="95" rx="40" ry="8" fill="none" stroke="#4A90A4" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.5"/>
+
+  <!-- Central opening hole -->
+  <ellipse cx="200" cy="175" rx="28" ry="6" fill="#e8e8e8" stroke="#888888" stroke-width="1"/>
+
+  <!-- Dimension line: Curb height (150mm) -->
+  <line x1="160" y1="168" x2="160" y2="238" stroke="#CC4444" stroke-width="1" marker-start="url(#arrowRed)" marker-end="url(#arrowRed)"/>
+  <text x="148" y="205" font-family="Arial, sans-serif" font-size="10" fill="#CC4444" text-anchor="end">150mm</text>
+  <text x="148" y="216" font-family="Arial, sans-serif" font-size="9" fill="#CC4444" text-anchor="end">curb</text>
+
+  <!-- Dimension line: Drainage notch (25mm × 10mm) -->
+  <line x1="166" y1="245" x2="178" y2="245" stroke="#2a7a2a" stroke-width="1" marker-start="url(#arrowGreen)" marker-end="url(#arrowGreen)"/>
+  <text x="172" y="258" font-family="Arial, sans-serif" font-size="9" fill="#2a7a2a" text-anchor="middle">25mm</text>
+
+  <line x1="156" y1="228" x2="156" y2="238" stroke="#2a7a2a" stroke-width="1" marker-start="url(#arrowGreen)" marker-end="url(#arrowGreen)"/>
+  <text x="145" y="235" font-family="Arial, sans-serif" font-size="9" fill="#2a7a2a" text-anchor="end">10mm</text>
+
+  <!-- Dimension line: Flashing collar outer diameter (1.2m) -->
+  <line x1="135" y1="195" x2="265" y2="195" stroke="#4A6FA5" stroke-width="1" marker-start="url(#arrowBlue)" marker-end="url(#arrowBlue)"/>
+  <text x="200" y="208" font-family="Arial, sans-serif" font-size="10" fill="#4A6FA5" text-anchor="middle">1.2m flashing collar (outer dia.)</text>
+
+  <!-- Arrow markers -->
+  <defs>
+    <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <polygon points="0,4 8,0 8,8" fill="#CC4444"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <polygon points="0,4 8,0 8,8" fill="#2a7a2a"/>
+    </marker>
+    <marker id="arrowBlue" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+      <polygon points="0,4 8,0 8,8" fill="#4A6FA5"/>
+    </marker>
+  </defs>
+
+  <!-- Labels -->
+  <text x="200" y="148" font-family="Arial, sans-serif" font-size="9" fill="#4A90A4" text-anchor="middle" opacity="0.8">Glazed Dome Cover</text>
+  <text x="200" y="157" font-family="Arial, sans-serif" font-size="9" fill="#4A90A4" text-anchor="middle" opacity="0.8">(shown ghosted)</text>
+
+  <text x="105" y="152" font-family="Arial, sans-serif" font-size="9" fill="#888888" text-anchor="middle">45° Drip Lip</text>
+  <line x1="115" y1="153" x2="120" y2="148" stroke="#888888" stroke-width="0.5"/>
+
+  <text x="295" y="152" font-family="Arial, sans-serif" font-size="9" fill="#888888" text-anchor="middle">45° Drip Lip</text>
+  <line x1="285" y1="153" x2="280" y2="148" stroke="#888888" stroke-width="0.5"/>
+
+  <text x="65" y="204" font-family="Arial, sans-serif" font-size="9" fill="#2a2a2a" text-anchor="start">EPDM</text>
+  <text x="65" y="214" font-family="Arial, sans-serif" font-size="9" fill="#2a2a2a" text-anchor="start">Membrane</text>
+  <line x1="95" y1="208" x2="173" y2="200" stroke="#2a2a2a" stroke-width="0.5"/>
+
+  <text x="245" y="185" font-family="Arial, sans-serif" font-size="9" fill="#A8A8A8" text-anchor="start">Aluminum</text>
+  <text x="245" y="195" font-family="Arial, sans-serif" font-size="9" fill="#A8A8A8" text-anchor="start">Flashing</text>
+
+  <text x="200" y="183" font-family="Arial, sans-serif" font-size="9" fill="#666666" text-anchor="middle">Opening</text>
+
+  <text x="115" y="233" font-family="Arial, sans-serif" font-size="9" fill="#8B7355" text-anchor="start">Plywood</text>
+  <text x="115" y="243" font-family="Arial, sans-serif" font-size="9" fill="#8B7355" text-anchor="start">Roof Deck</text>
+
+  <text x="150" y="253" font-family="Arial, sans-serif" font-size="8" fill="#2a7a2a" text-anchor="middle">Drainage</text>
+  <text x="150" y="262" font-family="Arial, sans-serif" font-size="8" fill="#2a7a2a" text-anchor="middle">Notch</text>
+  <line x1="158" y1="255" x2="170" y2="235" stroke="#2a7a2a" stroke-width="0.5"/>
+
+  <text x="200" y="203" font-family="Arial, sans-serif" font-size="9" fill="#8B7355" text-anchor="middle">Raised Curb</text>
+
+  <!-- Note box -->
+  <rect x="10" y="290" width="380" height="50" fill="#fffef0" stroke="#D4A76A" stroke-width="1" rx="3"/>
+  <text x="20" y="305" font-family="Arial, sans-serif" font-size="9" fill="#2a2a2a" font-weight="bold">Construction Notes:</text>
+  <text x="20" y="317" font-family="Arial, sans-serif" font-size="8.5" fill="#2a2a2a">• EPDM wraps up and over 150mm curb, creating waterproof barrier</text>
+  <text x="20" y="328" font-family="Arial, sans-serif" font-size="8.5" fill="#2a2a2a">• Aluminum flashing collar with 45° drip lip prevents water entry</text>
+  <text x="20" y="339" font-family="Arial, sans-serif" font-size="8.5" fill="#2a2a2a">• Four 25mm×10mm drainage notches (one shown) allow water escape if needed</text>
+</svg>

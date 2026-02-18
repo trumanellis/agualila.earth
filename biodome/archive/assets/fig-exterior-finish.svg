@@ -1,0 +1,158 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 540">
+  <defs>
+    <style>
+      .label { font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 12px; }
+      .label-sm { font-family: -apple-system, system-ui, sans-serif; fill: #555; font-size: 11px; }
+      .label-bold { font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 13px; font-weight: 700; }
+      .dim { font-family: -apple-system, system-ui, sans-serif; fill: #c9a227; font-size: 11px; font-weight: 600; }
+      .title { font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 15px; font-weight: 700; }
+      .dim-line { stroke: #c9a227; stroke-width: 1; fill: none; }
+    </style>
+    <marker id="a-s" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6" stroke="#c9a227" fill="none" stroke-width="1"/>
+    </marker>
+    <marker id="a-e" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" stroke="#c9a227" fill="none" stroke-width="1"/>
+    </marker>
+    <clipPath id="dome-clip">
+      <path d="M130,420 C130,305 168,228 215,178 C262,128 325,90 380,65
+               C435,90 498,128 545,178 C592,228 630,305 630,420 Z"/>
+    </clipPath>
+  </defs>
+
+  <!-- Title -->
+  <text x="380" y="24" text-anchor="middle" class="title">Exterior Finish — Three-Zone System</text>
+  <text x="380" y="42" text-anchor="middle" class="label-sm">Stone skirt + lime-earth render + climbing plants. No visible membrane.</text>
+
+  <!-- Ground -->
+  <rect x="50" y="420" width="660" height="40" fill="#f0ebe3"/>
+  <line x1="50" y1="420" x2="710" y2="420" stroke="#1a2e1a" stroke-width="1"/>
+
+  <!-- Gabion visible at base -->
+  <rect x="130" y="408" width="500" height="16" fill="#d5cfc5" stroke="#1a2e1a" stroke-width="1" rx="1" clip-path="url(#dome-clip)"/>
+
+  <!-- ZONE 2: Lime-earth render (full dome fill, drawn first) -->
+  <rect x="100" y="55" width="560" height="370" fill="#e8dfc8" clip-path="url(#dome-clip)"/>
+
+  <!-- ZONE 1: Stone skirt (bottom band, ~80cm above gabion) -->
+  <rect x="100" y="350" width="560" height="74" fill="#b8a888" clip-path="url(#dome-clip)"/>
+
+  <!-- Stone coursing lines (horizontal) -->
+  <line x1="100" y1="362" x2="660" y2="362" stroke="#9a8e78" stroke-width="0.6" clip-path="url(#dome-clip)" opacity="0.7"/>
+  <line x1="100" y1="374" x2="660" y2="374" stroke="#9a8e78" stroke-width="0.6" clip-path="url(#dome-clip)" opacity="0.7"/>
+  <line x1="100" y1="386" x2="660" y2="386" stroke="#9a8e78" stroke-width="0.6" clip-path="url(#dome-clip)" opacity="0.7"/>
+  <line x1="100" y1="398" x2="660" y2="398" stroke="#9a8e78" stroke-width="0.6" clip-path="url(#dome-clip)" opacity="0.7"/>
+  <line x1="100" y1="410" x2="660" y2="410" stroke="#9a8e78" stroke-width="0.6" clip-path="url(#dome-clip)" opacity="0.5"/>
+
+  <!-- Stone vertical joints (staggered rows) -->
+  <line x1="200" y1="350" x2="200" y2="362" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="260" y1="350" x2="260" y2="362" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="320" y1="350" x2="320" y2="362" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="440" y1="350" x2="440" y2="362" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="500" y1="350" x2="500" y2="362" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="560" y1="350" x2="560" y2="362" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="170" y1="362" x2="170" y2="374" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="230" y1="362" x2="230" y2="374" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="290" y1="362" x2="290" y2="374" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="470" y1="362" x2="470" y2="374" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="530" y1="362" x2="530" y2="374" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="590" y1="362" x2="590" y2="374" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="195" y1="374" x2="195" y2="386" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="255" y1="374" x2="255" y2="386" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="315" y1="374" x2="315" y2="386" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="445" y1="374" x2="445" y2="386" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="505" y1="374" x2="505" y2="386" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+  <line x1="565" y1="374" x2="565" y2="386" stroke="#9a8e78" stroke-width="0.5" clip-path="url(#dome-clip)" opacity="0.5"/>
+
+  <!-- Zone boundary line (stone top) -->
+  <path d="M142,350 C190,346 280,342 380,340 C480,342 570,346 618,350" fill="none" stroke="#8a7e68" stroke-width="1.5" stroke-dasharray="6,3"/>
+
+  <!-- Dome outline -->
+  <path d="M130,420 C130,305 168,228 215,178 C262,128 325,90 380,65
+           C435,90 498,128 545,178 C592,228 630,305 630,420" fill="none" stroke="#1a2e1a" stroke-width="2"/>
+
+  <!-- Door opening -->
+  <rect x="315" y="225" width="130" height="195" fill="#faf8f5" rx="1"/>
+  <path d="M315,225 Q380,175 445,225" fill="#faf8f5" stroke="none"/>
+  <rect x="315" y="225" width="130" height="195" fill="none" stroke="#8b6914" stroke-width="3" rx="1"/>
+  <path d="M315,225 Q380,175 445,225" fill="none" stroke="#8b6914" stroke-width="3"/>
+  <text x="380" y="340" text-anchor="middle" class="label-sm" style="fill:#8b6914;">DOOR</text>
+
+  <!-- Apex vent / rain cap -->
+  <path d="M365,68 L380,50 L395,68" fill="#555" stroke="#333" stroke-width="1.5"/>
+  <line x1="380" y1="68" x2="380" y2="58" stroke="#8b6914" stroke-width="2"/>
+
+  <!-- ===== CLIMBING PLANTS ===== -->
+  <!-- Left vine -->
+  <path d="M185,420 C180,390 190,370 192,350 C194,330 185,310 190,290
+           C195,270 188,250 195,230 C202,210 196,190 205,170 C214,150 208,130 220,110"
+        stroke="#4a7a2e" stroke-width="2" fill="none" opacity="0.8"/>
+  <ellipse cx="190" cy="360" rx="12" ry="7" fill="#5a9a3e" opacity="0.6" transform="rotate(-25 190 360)"/>
+  <ellipse cx="188" cy="320" rx="11" ry="6" fill="#6aaa4e" opacity="0.6" transform="rotate(20 188 320)"/>
+  <ellipse cx="192" cy="280" rx="12" ry="7" fill="#5a9a3e" opacity="0.55" transform="rotate(-15 192 280)"/>
+  <ellipse cx="195" cy="240" rx="10" ry="6" fill="#6aaa4e" opacity="0.5" transform="rotate(25 195 240)"/>
+  <ellipse cx="200" cy="200" rx="9" ry="5" fill="#5a9a3e" opacity="0.45" transform="rotate(-20 200 200)"/>
+  <ellipse cx="208" cy="160" rx="8" ry="5" fill="#6aaa4e" opacity="0.4" transform="rotate(15 208 160)"/>
+  <ellipse cx="215" cy="125" rx="7" ry="4" fill="#5a9a3e" opacity="0.3" transform="rotate(-10 215 125)"/>
+  <!-- Left vine branch -->
+  <path d="M190,310 C200,295 210,290 225,280" stroke="#4a7a2e" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <ellipse cx="225" cy="280" rx="9" ry="5" fill="#5a9a3e" opacity="0.4" transform="rotate(30 225 280)"/>
+
+  <!-- Right vine -->
+  <path d="M575,420 C580,390 570,370 568,350 C566,330 575,310 570,290
+           C565,270 572,250 565,230 C558,210 564,190 555,170 C546,150 552,130 540,110"
+        stroke="#4a7a2e" stroke-width="2" fill="none" opacity="0.8"/>
+  <ellipse cx="570" cy="360" rx="12" ry="7" fill="#5a9a3e" opacity="0.6" transform="rotate(25 570 360)"/>
+  <ellipse cx="572" cy="320" rx="11" ry="6" fill="#6aaa4e" opacity="0.6" transform="rotate(-20 572 320)"/>
+  <ellipse cx="568" cy="280" rx="12" ry="7" fill="#5a9a3e" opacity="0.55" transform="rotate(15 568 280)"/>
+  <ellipse cx="565" cy="240" rx="10" ry="6" fill="#6aaa4e" opacity="0.5" transform="rotate(-25 565 240)"/>
+  <ellipse cx="560" cy="200" rx="9" ry="5" fill="#5a9a3e" opacity="0.45" transform="rotate(20 560 200)"/>
+  <ellipse cx="552" cy="160" rx="8" ry="5" fill="#6aaa4e" opacity="0.4" transform="rotate(-15 552 160)"/>
+  <ellipse cx="545" cy="125" rx="7" ry="4" fill="#5a9a3e" opacity="0.3" transform="rotate(10 545 125)"/>
+  <!-- Right vine branch -->
+  <path d="M570,310 C560,295 550,290 535,280" stroke="#4a7a2e" stroke-width="1.5" fill="none" opacity="0.6"/>
+  <ellipse cx="535" cy="280" rx="9" ry="5" fill="#5a9a3e" opacity="0.4" transform="rotate(-30 535 280)"/>
+
+  <!-- ===== ZONE LABELS (right side) ===== -->
+  <line x1="630" y1="420" x2="655" y2="420" stroke="#c9a227" stroke-width="0.5" stroke-dasharray="2,3"/>
+  <line x1="618" y1="350" x2="655" y2="350" stroke="#c9a227" stroke-width="0.5" stroke-dasharray="2,3"/>
+  <line x1="380" y1="65" x2="655" y2="65" stroke="#c9a227" stroke-width="0.5" stroke-dasharray="2,3"/>
+
+  <!-- Stone zone bracket -->
+  <line x1="660" y1="420" x2="660" y2="350" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="670" y="378" class="label-bold" style="font-size:11px;">STONE</text>
+  <text x="670" y="392" class="label-bold" style="font-size:11px;">SKIRT</text>
+  <text x="670" y="406" class="dim">60-80cm</text>
+
+  <!-- Render zone bracket -->
+  <line x1="695" y1="345" x2="695" y2="65" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="705" y="195" class="label-bold" style="font-size:11px;">LIME-EARTH</text>
+  <text x="705" y="209" class="label-bold" style="font-size:11px;">RENDER</text>
+  <text x="705" y="223" class="dim">15-20mm over</text>
+  <text x="705" y="237" class="dim">EPDM</text>
+
+  <!-- Plants label (left side) -->
+  <line x1="130" y1="240" x2="95" y2="240" stroke="#2e7d32" stroke-width="0.5" stroke-dasharray="2,3"/>
+  <text x="90" y="210" text-anchor="end" class="label-bold" style="fill:#2e7d32; font-size:11px;">CLIMBING</text>
+  <text x="90" y="224" text-anchor="end" class="label-bold" style="fill:#2e7d32; font-size:11px;">PLANTS</text>
+  <text x="90" y="242" text-anchor="end" class="label-sm" style="fill:#2e7d32; font-size:10px;">Grape vine, fig,</text>
+  <text x="90" y="256" text-anchor="end" class="label-sm" style="fill:#2e7d32; font-size:10px;">Parthenocissus</text>
+  <text x="90" y="278" text-anchor="end" class="label-sm" style="fill:#2e7d32; font-size:10px;">Rooted in ground,</text>
+  <text x="90" y="292" text-anchor="end" class="label-sm" style="fill:#2e7d32; font-size:10px;">no load on dome</text>
+
+  <!-- View label -->
+  <text x="380" y="448" text-anchor="middle" class="label-sm">View from east (looking at door)</text>
+
+  <!-- ===== NOTES BOXES ===== -->
+  <rect x="55" y="468" width="310" height="64" rx="4" fill="#fff8e6" stroke="#e6c200" stroke-width="1"/>
+  <text x="210" y="486" text-anchor="middle" class="label" style="font-weight:600; font-size:11px;">Fire Season Protocol</text>
+  <text x="210" y="500" text-anchor="middle" class="label-sm" style="font-size:10px;">Cut plants to stumps before June.</text>
+  <text x="210" y="514" text-anchor="middle" class="label-sm" style="font-size:10px;">Stone + render = non-combustible exterior.</text>
+  <text x="210" y="528" text-anchor="middle" class="label-sm" style="font-size:10px;">Plants regrow each spring from rootstock.</text>
+
+  <rect x="380" y="468" width="320" height="64" rx="4" fill="#e8f5e9" stroke="#4caf50" stroke-width="1"/>
+  <text x="540" y="486" text-anchor="middle" class="label" style="font-weight:600; font-size:11px;">Benefits</text>
+  <text x="540" y="500" text-anchor="middle" class="label-sm" style="font-size:10px;">UV protection extends EPDM lifespan 50%+</text>
+  <text x="540" y="514" text-anchor="middle" class="label-sm" style="font-size:10px;">Additional thermal mass at base (stone)</text>
+  <text x="540" y="528" text-anchor="middle" class="label-sm" style="font-size:10px;">Blends dome into landscape naturally</text>
+</svg>

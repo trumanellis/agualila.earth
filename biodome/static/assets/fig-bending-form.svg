@@ -1,0 +1,122 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 470">
+  <defs>
+    <style>
+      .label { font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 12px; }
+      .label-sm { font-family: -apple-system, system-ui, sans-serif; fill: #555; font-size: 11px; }
+      .dim { font-family: -apple-system, system-ui, sans-serif; fill: #c9a227; font-size: 12px; font-weight: 600; }
+      .dim-line { stroke: #c9a227; stroke-width: 1; fill: none; }
+      .ground-fill { fill: #f0ebe3; }
+    </style>
+    <marker id="a-s" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6" stroke="#c9a227" fill="none" stroke-width="1"/>
+    </marker>
+    <marker id="a-e" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" stroke="#c9a227" fill="none" stroke-width="1"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="380" y="22" text-anchor="middle" style="font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 15px; font-weight: 700;">Pole Scoring — Outer Face Detail</text>
+  <text x="380" y="38" text-anchor="middle" class="label-sm">Score marks on outer face, concentrated in the middle third. Scale: 85px = 1m.</text>
+
+  <!-- Ground -->
+  <rect x="30" y="395" width="700" height="75" class="ground-fill"/>
+  <line x1="30" y1="395" x2="730" y2="395" stroke="#1a2e1a" stroke-width="1.5"/>
+
+  <!--
+    Catenary math: y(x) = 4 - 1.52·(cosh(x/1.52) - 1) metres
+    6m base span, 4m apex height. Scale: 85px/m. Center at x=380, ground at y=395.
+    SVG: x_svg = 380 + x·85,  y_svg = 395 - y·85
+  -->
+
+  <!-- === POLE (no stakes, no ties — poles bent live during installation) === -->
+  <!-- Natural arch curve approximated by y = 4 - 1.52·(cosh(x/1.52) - 1) -->
+
+  <path d="M125,395
+           C129,381 163,291 168,278
+           C173,265 203,198 210,186
+           C217,174 244,134 253,123
+           C262,113 284,92 295,84
+           C306,76 325,66 338,62
+           C351,58 366,55 380,55
+           C394,55 409,58 423,62
+           C436,66 455,76 465,84
+           C476,92 498,113 508,123
+           C517,134 543,174 550,186
+           C558,198 587,265 593,278
+           C598,291 632,381 635,395"
+        stroke="#1a2e1a" stroke-width="10" stroke-linecap="round" fill="none"/>
+  <path d="M125,395
+           C129,381 163,291 168,278
+           C173,265 203,198 210,186
+           C217,174 244,134 253,123
+           C262,113 284,92 295,84
+           C306,76 325,66 338,62
+           C351,58 366,55 380,55
+           C394,55 409,58 423,62
+           C436,66 455,76 465,84
+           C476,92 498,113 508,123
+           C517,134 543,174 550,186
+           C558,198 587,265 593,278
+           C598,291 632,381 635,395"
+        stroke="#a0842a" stroke-width="7" stroke-linecap="round" fill="none"/>
+
+  <!-- === SCORE MARKS === -->
+  <!-- Ticks on outer face, pointing radially outward from arch center (380,395) -->
+
+  <!-- Left side (steep base → flattening toward apex) -->
+  <line x1="136" y1="366" x2="130" y2="363" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="157" y1="308" x2="150" y2="303" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="178" y1="253" x2="171" y2="246" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="197" y1="210" x2="191" y2="202" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="231" y1="151" x2="226" y2="142" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="253" y1="123" x2="249" y2="113" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="295" y1="84" x2="292" y2="74" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="316" y1="71" x2="314" y2="61" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="359" y1="57" x2="358" y2="47" stroke="#ef5350" stroke-width="1.5"/>
+  <!-- Apex -->
+  <line x1="380" y1="53" x2="380" y2="43" stroke="#ef5350" stroke-width="1.5"/>
+  <!-- Right side (mirror) -->
+  <line x1="401" y1="57" x2="402" y2="47" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="444" y1="71" x2="446" y2="61" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="465" y1="84" x2="468" y2="74" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="508" y1="123" x2="511" y2="113" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="529" y1="151" x2="534" y2="142" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="563" y1="210" x2="569" y2="202" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="582" y1="253" x2="589" y2="246" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="603" y1="308" x2="610" y2="303" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="624" y1="366" x2="630" y2="363" stroke="#ef5350" stroke-width="1.5"/>
+
+  <!-- === MIDDLE THIRD BRACKET === -->
+  <!-- Middle third runs from ~1/3 to ~2/3 of the arc (~3.9m arc from each end) -->
+  <!-- Approximate bracket at x≈215 to x≈545 -->
+  <line x1="215" y1="175" x2="215" y2="195" stroke="#ef5350" stroke-width="1.5"/>
+  <line x1="215" y1="195" x2="545" y2="195" stroke="#ef5350" stroke-width="1" stroke-dasharray="4,3"/>
+  <line x1="545" y1="175" x2="545" y2="195" stroke="#ef5350" stroke-width="1.5"/>
+  <text x="380" y="210" text-anchor="middle" class="label-sm" style="fill:#ef5350; font-weight:600;">Middle third — concentrate scoring here</text>
+
+  <!-- === LABELS === -->
+
+  <!-- Butt end -->
+  <text x="125" y="418" text-anchor="middle" style="font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 12px; font-weight: 700;">Butt end</text>
+  <text x="125" y="432" text-anchor="middle" class="label-sm">8-10cm dia</text>
+
+  <!-- Thin end -->
+  <text x="635" y="418" text-anchor="middle" style="font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 12px; font-weight: 700;">Thin end</text>
+
+  <!-- Score marks label -->
+  <text x="470" y="132" class="label-sm" style="fill:#ef5350;">Score marks every 15cm</text>
+  <text x="470" y="146" class="label-sm" style="fill:#ef5350;">on outer face (1-2mm deep)</text>
+  <line x1="467" y1="127" x2="465" y2="86" stroke="#ef5350" stroke-width="0.8" opacity="0.5"/>
+
+  <!-- Apex height dimension (left side) -->
+  <line x1="65" y1="55" x2="65" y2="395" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="62" y="230" text-anchor="end" class="dim" transform="rotate(-90 62 230)">4m apex height</text>
+
+  <!-- Base span dimension -->
+  <line x1="125" y1="450" x2="635" y2="450" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="380" y="448" text-anchor="middle" class="dim">6m base span (~11.6m total pole length)</text>
+
+  <!-- Instruction note -->
+  <text x="380" y="466" text-anchor="middle" class="label-sm" style="font-style:italic;">Poles are bent live during installation — no bending form required.</text>
+</svg>

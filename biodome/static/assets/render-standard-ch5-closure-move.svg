@@ -1,0 +1,154 @@
+<svg viewBox="0 0 450 350" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <!-- Grain texture for depth -->
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="4" seed="5"/>
+      <feColorMatrix type="saturate" values="0"/>
+      <feBlend mode="multiply" in="SourceGraphic"/>
+    </filter>
+
+    <!-- Shadow for depth -->
+    <filter id="shadow">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+      <feOffset dx="2" dy="2" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+
+    <!-- Arrow marker -->
+    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+      <polygon points="0 0, 10 3, 0 6" fill="#C9A227"/>
+    </marker>
+
+    <!-- Dashed arrow marker for movement -->
+    <marker id="arrowhead-move" markerWidth="12" markerHeight="12" refX="10" refY="3.5" orient="auto">
+      <polygon points="0 0, 12 3.5, 0 7" fill="#ef5350"/>
+    </marker>
+  </defs>
+
+  <!-- Background -->
+  <rect width="450" height="350" fill="#faf9f7"/>
+
+  <!-- Title -->
+  <text x="225" y="30" font-family="Arial, sans-serif" font-size="14" font-weight="bold" fill="#2c2c2c" text-anchor="middle">The Closure Move (Rafter 12)</text>
+
+  <!-- Ground plane reference (subtle) -->
+  <ellipse cx="225" cy="280" rx="180" ry="40" fill="#e8e6e1" opacity="0.5"/>
+
+  <!-- Support block (temporary) - shown under Rafter 1 -->
+  <g filter="url(#shadow)">
+    <!-- Block shape in isometric -->
+    <path d="M 200,190 L 220,180 L 240,190 L 220,200 Z" fill="#7d6e5f" opacity="0.7"/>
+    <path d="M 200,190 L 200,210 L 220,220 L 220,200 Z" fill="#6b5e50" opacity="0.7"/>
+    <path d="M 220,200 L 240,190 L 240,210 L 220,220 Z" fill="#8f8070" opacity="0.7"/>
+    <text x="220" y="208" font-family="Arial, sans-serif" font-size="9" fill="#fff" text-anchor="middle">BLOCK</text>
+  </g>
+
+  <!-- Rafter 11 (bottom layer - reference rafter) -->
+  <g filter="url(#shadow)">
+    <!-- Top face -->
+    <path d="M 80,200 L 280,180 L 285,185 L 85,205 Z" fill="#9d856b" stroke="#7d6e5f" stroke-width="1"/>
+    <!-- Side face -->
+    <path d="M 280,180 L 285,185 L 285,195 L 280,190 Z" fill="#8B7355" stroke="#7d6e5f" stroke-width="1"/>
+    <!-- Front face -->
+    <path d="M 80,200 L 85,205 L 85,215 L 80,210 Z" fill="#7a6650" stroke="#7d6e5f" stroke-width="1"/>
+    <!-- Bottom edge -->
+    <path d="M 80,210 L 280,190 L 280,180 L 80,200 Z" fill="#6b5e50" stroke="#7d6e5f" stroke-width="1"/>
+
+    <!-- Label -->
+    <circle cx="180" cy="190" r="14" fill="#2c2c2c" opacity="0.8"/>
+    <text x="180" y="195" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">11</text>
+  </g>
+
+  <!-- Rafter 1 (lifted by block - middle layer) -->
+  <g filter="url(#shadow)">
+    <!-- Top face - diagonal, lifted -->
+    <path d="M 150,140 L 320,160 L 325,165 L 155,145 Z" fill="#a89178" stroke="#7d6e5f" stroke-width="1.5"/>
+    <!-- Side face -->
+    <path d="M 320,160 L 325,165 L 325,175 L 320,170 Z" fill="#8B7355" stroke="#7d6e5f" stroke-width="1"/>
+    <!-- Front face -->
+    <path d="M 150,140 L 155,145 L 155,155 L 150,150 Z" fill="#7a6650" stroke="#7d6e5f" stroke-width="1"/>
+    <!-- Bottom edge -->
+    <path d="M 150,150 L 320,170 L 320,160 L 150,140 Z" fill="#6b5e50" stroke="#7d6e5f" stroke-width="1"/>
+
+    <!-- Notch detail on Rafter 1 -->
+    <path d="M 195,147 L 205,148 L 205,152 L 195,151 Z" fill="#5a4d40" opacity="0.6"/>
+
+    <!-- Label -->
+    <circle cx="235" cy="153" r="14" fill="#2c2c2c" opacity="0.8"/>
+    <text x="235" y="158" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">1</text>
+  </g>
+
+  <!-- Rafter 12 (the critical one - top layer, threading) -->
+  <g filter="url(#shadow)">
+    <!-- Main body - diagonal crossing -->
+    <!-- Top face -->
+    <path d="M 100,120 L 290,220 L 295,215 L 105,115 Z" fill="#b5a08a" stroke="#ef5350" stroke-width="2"/>
+    <!-- Side face -->
+    <path d="M 290,220 L 295,215 L 295,225 L 290,230 Z" fill="#8B7355" stroke="#ef5350" stroke-width="1.5"/>
+    <!-- Front face -->
+    <path d="M 100,120 L 105,115 L 105,125 L 100,130 Z" fill="#7a6650" stroke="#ef5350" stroke-width="1.5"/>
+    <!-- Bottom edge -->
+    <path d="M 100,130 L 290,230 L 290,220 L 100,120 Z" fill="#6b5e50" stroke="#ef5350" stroke-width="1.5"/>
+
+    <!-- Notch where it rests on R11 -->
+    <path d="M 190,175 L 200,178 L 200,182 L 190,179 Z" fill="#ef5350" opacity="0.4"/>
+
+    <!-- Label -->
+    <circle cx="195" cy="165" r="14" fill="#ef5350" opacity="0.9"/>
+    <text x="195" y="170" font-family="Arial, sans-serif" font-size="11" font-weight="bold" fill="#fff" text-anchor="middle">12</text>
+  </g>
+
+  <!-- Movement arrows showing the threading action -->
+  <!-- Arrow showing R12 sliding under R1 -->
+  <g opacity="0.9">
+    <path d="M 120,105 Q 160,110 200,135" fill="none" stroke="#ef5350" stroke-width="2.5" stroke-dasharray="5,3" marker-end="url(#arrowhead-move)"/>
+    <text x="145" y="100" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#ef5350">Slide under R1</text>
+  </g>
+
+  <!-- Arrow showing R12 resting on R11 -->
+  <g opacity="0.9">
+    <line x1="190" y1="195" x2="190" y2="175" stroke="#C9A227" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+    <text x="205" y="188" font-family="Arial, sans-serif" font-size="10" fill="#C9A227">Rests on R11</text>
+  </g>
+
+  <!-- Vertical arrow showing block lifting R1 -->
+  <g opacity="0.8">
+    <line x1="220" y1="210" x2="220" y2="178" stroke="#C9A227" stroke-width="2" stroke-dasharray="3,2" marker-end="url(#arrowhead)"/>
+    <text x="250" y="195" font-family="Arial, sans-serif" font-size="9" fill="#7d6e5f">10-15cm lift</text>
+  </g>
+
+  <!-- Callout box -->
+  <g>
+    <rect x="20" y="250" width="200" height="45" rx="4" fill="#fff" stroke="#ef5350" stroke-width="2" opacity="0.95"/>
+    <text x="30" y="268" font-family="Arial, sans-serif" font-size="10" font-weight="bold" fill="#ef5350">Critical Sequence:</text>
+    <text x="30" y="282" font-family="Arial, sans-serif" font-size="9" fill="#2c2c2c">R12 slides UNDER R1,</text>
+    <text x="30" y="294" font-family="Arial, sans-serif" font-size="9" fill="#2c2c2c">while resting ON TOP OF R11</text>
+  </g>
+
+  <!-- Legend box -->
+  <g>
+    <rect x="260" y="250" width="170" height="60" rx="4" fill="#fff" stroke="#8B7355" stroke-width="1.5" opacity="0.95"/>
+    <text x="270" y="268" font-family="Arial, sans-serif" font-size="9" font-weight="bold" fill="#2c2c2c">Threading Pattern:</text>
+
+    <!-- Mini diagram lines -->
+    <line x1="270" y1="278" x2="300" y2="278" stroke="#8B7355" stroke-width="3"/>
+    <text x="305" y="281" font-family="Arial, sans-serif" font-size="9" fill="#2c2c2c">R11 (base)</text>
+
+    <line x1="270" y1="290" x2="300" y2="290" stroke="#8B7355" stroke-width="3"/>
+    <text x="305" y="293" font-family="Arial, sans-serif" font-size="9" fill="#2c2c2c">R1 (lifted)</text>
+
+    <line x1="270" y1="302" x2="300" y2="302" stroke="#ef5350" stroke-width="3"/>
+    <text x="305" y="305" font-family="Arial, sans-serif" font-size="9" fill="#2c2c2c">R12 (threading)</text>
+  </g>
+
+  <!-- Notch detail callout -->
+  <circle cx="195" cy="147" r="3" fill="#C9A227" opacity="0.7"/>
+  <line x1="195" y1="147" x2="170" y2="120" stroke="#C9A227" stroke-width="1" opacity="0.6"/>
+  <text x="140" y="118" font-family="Arial, sans-serif" font-size="8" fill="#7d6e5f">Notch detail</text>
+</svg>

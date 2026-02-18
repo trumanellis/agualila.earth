@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="600" height="600">
+  <!-- Background -->
+  <rect width="600" height="600" fill="white"/>
+
+  <!-- Title -->
+  <text x="300" y="40" font-family="Arial, sans-serif" font-size="24" font-weight="bold" text-anchor="middle" fill="#333">Reciprocal Roof - Assembly Sequence</text>
+
+  <!-- Ring beam (outer circle) -->
+  <circle cx="300" cy="320" r="250" fill="none" stroke="#6B5344" stroke-width="12"/>
+
+  <!-- Central opening -->
+  <circle cx="300" cy="320" r="50" fill="#FAF8F5" stroke="#6B5344" stroke-width="2"/>
+
+  <!-- Rafters - 12 rafters in spiral pattern -->
+  <!-- Each rafter starts from ring beam and goes toward center, overlapping the next -->
+
+  <!-- Rafter 1 -->
+  <line x1="300" y1="70" x2="270" y2="275" stroke="#8B7355" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Rafter 2 -->
+  <line x1="415" y1="90" x2="320" y2="260" stroke="#8B7355" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Rafter 3 -->
+  <line x1="510" y1="155" x2="345" y2="280" stroke="#8B7355" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Rafter 4 -->
+  <line x1="550" y1="255" x2="350" y2="310" stroke="#8B7355" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Rafter 5 -->
+  <line x1="535" y1="370" x2="345" y2="345" stroke="#8B7355" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Rafter 6 -->
+  <line x1="475" y1="475" x2="330" y2="365" stroke="#8B7355" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Rafter 7 -->
+  <line x1="385" y1="545" x2="295" y2="370" stroke="#8B7355" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Rafter 8 -->
+  <line x1="270" y1="565" x2="265" y2="365" stroke="#8B7355" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Rafter 9 -->
+  <line x1="160" y1="530" x2="250" y2="355" stroke="#8B7355" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Rafter 10 -->
+  <line x1="80" y1="445" x2="250" y2="335" stroke="#8B7355" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Rafter 11 -->
+  <line x1="55" y1="335" x2="250" y2="305" stroke="#8B7355" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Rafter 12 -->
+  <line x1="85" y1="225" x2="255" y2="280" stroke="#8B7355" stroke-width="10" stroke-linecap="round"/>
+
+  <!-- Overlap indicators (small circles at connection points) -->
+  <circle cx="270" cy="275" r="8" fill="#6B5344"/>
+  <circle cx="320" cy="260" r="8" fill="#6B5344"/>
+  <circle cx="345" cy="280" r="8" fill="#6B5344"/>
+  <circle cx="350" cy="310" r="8" fill="#6B5344"/>
+  <circle cx="345" cy="345" r="8" fill="#6B5344"/>
+  <circle cx="330" cy="365" r="8" fill="#6B5344"/>
+  <circle cx="295" cy="370" r="8" fill="#6B5344"/>
+  <circle cx="265" cy="365" r="8" fill="#6B5344"/>
+  <circle cx="250" cy="355" r="8" fill="#6B5344"/>
+  <circle cx="250" cy="335" r="8" fill="#6B5344"/>
+  <circle cx="250" cy="305" r="8" fill="#6B5344"/>
+  <circle cx="255" cy="280" r="8" fill="#6B5344"/>
+
+  <!-- Numbered labels for assembly order -->
+  <!-- Label backgrounds and numbers -->
+
+  <!-- Label 1 -->
+  <circle cx="300" cy="55" r="14" fill="#8B7355"/>
+  <text x="300" y="60" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">1</text>
+
+  <!-- Label 2 -->
+  <circle cx="428" cy="78" r="14" fill="#8B7355"/>
+  <text x="428" y="83" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">2</text>
+
+  <!-- Label 3 -->
+  <circle cx="525" cy="145" r="14" fill="#8B7355"/>
+  <text x="525" y="150" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">3</text>
+
+  <!-- Label 4 -->
+  <circle cx="562" cy="255" r="14" fill="#8B7355"/>
+  <text x="562" y="260" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">4</text>
+
+  <!-- Label 5 -->
+  <circle cx="548" cy="380" r="14" fill="#8B7355"/>
+  <text x="548" y="385" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">5</text>
+
+  <!-- Label 6 -->
+  <circle cx="488" cy="488" r="14" fill="#8B7355"/>
+  <text x="488" y="493" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">6</text>
+
+  <!-- Label 7 -->
+  <circle cx="392" cy="558" r="14" fill="#8B7355"/>
+  <text x="392" y="563" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">7</text>
+
+  <!-- Label 8 -->
+  <circle cx="268" cy="578" r="14" fill="#8B7355"/>
+  <text x="268" y="583" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">8</text>
+
+  <!-- Label 9 -->
+  <circle cx="148" cy="542" r="14" fill="#8B7355"/>
+  <text x="148" y="547" font-family="Arial, sans-serif" font-size="12" font-weight="bold" text-anchor="middle" fill="white">9</text>
+
+  <!-- Label 10 -->
+  <circle cx="65" cy="455" r="14" fill="#8B7355"/>
+  <text x="65" y="460" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="white">10</text>
+
+  <!-- Label 11 -->
+  <circle cx="40" cy="335" r="14" fill="#8B7355"/>
+  <text x="40" y="340" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="white">11</text>
+
+  <!-- Label 12 -->
+  <circle cx="72" cy="212" r="14" fill="#8B7355"/>
+  <text x="72" y="217" font-family="Arial, sans-serif" font-size="10" font-weight="bold" text-anchor="middle" fill="white">12</text>
+
+  <!-- Legend -->
+  <text x="300" y="590" font-family="Arial, sans-serif" font-size="11" text-anchor="middle" fill="#666">Central opening: 1m diameter | Each rafter rests on the previous one</text>
+</svg>

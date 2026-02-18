@@ -1,0 +1,2612 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Earth Sheltered SolarPod — 3D Model</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d1a0d; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+        canvas { display: block; }
+
+        #back-link {
+            position: fixed; top: 16px; left: 16px; z-index: 100;
+            color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px;
+            padding: 8px 14px; background: rgba(0,0,0,0.5); border-radius: 6px;
+            transition: all 0.2s;
+        }
+        #back-link:hover { color: #c9a227; background: rgba(0,0,0,0.7); }
+
+        #title-bar {
+            position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 100;
+            text-align: center; pointer-events: none;
+        }
+        #title-bar h1 { color: white; font-size: 18px; font-weight: 600; margin-bottom: 2px; }
+        #title-bar p { color: rgba(255,255,255,0.5); font-size: 12px; }
+
+        #legend {
+            position: fixed; bottom: 20px; left: 20px; z-index: 100;
+            background: rgba(0,0,0,0.75); border-radius: 10px; padding: 16px 20px;
+            color: white; min-width: 200px; backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        #legend h3 { font-size: 13px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+
+        .legend-item {
+            display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+            cursor: pointer; padding: 4px 6px; border-radius: 4px;
+            transition: background 0.15s; user-select: none;
+        }
+        .legend-item:hover { background: rgba(255,255,255,0.08); }
+        .legend-item.disabled { opacity: 0.35; }
+        .legend-swatch { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+        .legend-label { font-size: 13px; color: rgba(255,255,255,0.85); }
+        .legend-group { font-size: 10px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em; margin: 10px 0 4px 0; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .legend-group:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+
+        #controls-hint {
+            position: fixed; bottom: 20px; right: 20px; z-index: 100;
+            background: rgba(0,0,0,0.5); border-radius: 8px; padding: 12px 16px;
+            color: rgba(255,255,255,0.4); font-size: 11px; line-height: 1.6;
+            backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        #stats-panel {
+            position: fixed; top: 16px; right: 16px; z-index: 100;
+            background: rgba(0,0,0,0.6); border-radius: 8px; padding: 14px 18px;
+            color: white; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);
+        }
+        .stat-row { display: flex; justify-content: space-between; gap: 24px; margin-bottom: 4px; }
+        .stat-label { font-size: 11px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.05em; }
+        .stat-value { font-size: 13px; font-weight: 600; color: #c9a227; }
+    </style>
+</head>
+<body>
+
+<a id="back-link" href="index.html">&larr; Designs</a>
+
+<div id="title-bar">
+    <h1>Earth Sheltered SolarPod &mdash; Terrace Wall Design</h1>
+    <p>5&times;6.5m rectangular structure &mdash; A-frame gable roof &mdash; Da Vinci bridge rafters</p>
+</div>
+
+<div id="stats-panel">
+    <div class="stat-row"><span class="stat-label">Footprint</span><span class="stat-value">5m &times; 6.5m</span></div>
+    <div class="stat-row"><span class="stat-label">Sheltered Area</span><span class="stat-value">32.5 m&sup2;</span></div>
+    <div class="stat-row"><span class="stat-label">Earth-Contact Walls</span><span class="stat-value">22 m&sup2;</span></div>
+    <div class="stat-row"><span class="stat-label">Cut Depth</span><span class="stat-value">3m into hillside</span></div>
+    <div class="stat-row"><span class="stat-label">Cut Height</span><span class="stat-value">2m</span></div>
+</div>
+
+<div id="legend">
+    <h3>Components</h3>
+
+    <div class="legend-group">Site</div>
+    <div class="legend-item" data-layer="terrain">
+        <div class="legend-swatch" style="background: #4a6b3a;"></div>
+        <span class="legend-label">Terrain</span>
+    </div>
+    <div class="legend-item" data-layer="floor">
+        <div class="legend-swatch" style="background: #7a5a2a;"></div>
+        <span class="legend-label">Raised Floor <span style="opacity:0.45; font-size:11px;">(eucalyptus wattle)</span></span>
+    </div>
+
+    <div class="legend-group">Walls</div>
+    <div class="legend-item" data-layer="gabion">
+        <div class="legend-swatch" style="background: #7a7a7a;"></div>
+        <span class="legend-label">Gabion Perimeter &amp; Drain</span>
+    </div>
+    <div class="legend-item" data-layer="wattle">
+        <div class="legend-swatch" style="background: #8b6914;"></div>
+        <span class="legend-label">Wattle Basket <span style="opacity:0.45; font-size:11px;">(eucalyptus)</span></span>
+    </div>
+    <div class="legend-item" data-layer="strawclay">
+        <div class="legend-swatch" style="background: #d4c4a0;"></div>
+        <span class="legend-label">Light Straw-Clay <span style="opacity:0.45; font-size:11px;">(interior)</span></span>
+    </div>
+    <div class="legend-item" data-layer="extcladding">
+        <div class="legend-swatch" style="background: #c8a84e;"></div>
+        <span class="legend-label">Ext. Straw-Clay <span style="opacity:0.45; font-size:11px;">(100mm)</span></span>
+    </div>
+    <div class="legend-item" data-layer="burlap">
+        <div class="legend-swatch" style="background: #8a7a5a;"></div>
+        <span class="legend-label">Burlap Mesh</span>
+    </div>
+    <div class="legend-item" data-layer="limerender">
+        <div class="legend-swatch" style="background: #e8dcc8;"></div>
+        <span class="legend-label">Lime-Earth Render</span>
+    </div>
+
+    <div class="legend-group">Openings</div>
+    <div class="legend-item" data-layer="door">
+        <div class="legend-swatch" style="background: #5c4033;"></div>
+        <span class="legend-label">West Door <span style="opacity:0.45; font-size:11px;">(glazed French)</span></span>
+    </div>
+    <div class="legend-item" data-layer="window">
+        <div class="legend-swatch" style="background: #88bbdd;"></div>
+        <span class="legend-label">Windows <span style="opacity:0.45; font-size:11px;">(pine frames)</span></span>
+    </div>
+
+    <div class="legend-group">Roof</div>
+    <div class="legend-item" data-layer="roof">
+        <div class="legend-swatch" style="background: #4a4a4a;"></div>
+        <span class="legend-label">Roof Structure <span style="opacity:0.45; font-size:11px;">(eucalyptus)</span></span>
+    </div>
+    <div class="legend-item" data-layer="epdm">
+        <div class="legend-swatch" style="background: #1a1a1a;"></div>
+        <span class="legend-label">EPDM Membrane</span>
+    </div>
+    <div class="legend-item" data-layer="livingroof">
+        <div class="legend-swatch" style="background: #4a7a3a;"></div>
+        <span class="legend-label">Living Roof</span>
+    </div>
+    <div class="legend-item" data-layer="solar">
+        <div class="legend-swatch" style="background: #1a2844;"></div>
+        <span class="legend-label">Solar Panels</span>
+    </div>
+</div>
+
+<div id="controls-hint">
+    Drag &mdash; Rotate<br>
+    Scroll &mdash; Zoom<br>
+    Right-drag &mdash; Pan<br>
+    Click legend &mdash; Toggle
+</div>
+
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ─── Constants ───────────────────────────────────────────────────────
+// U-shaped terrace cut
+const CUT_DEPTH  = 3;     // how far into hillside (Z direction)
+const CUT_WIDTH  = 5;     // width of the cut (X direction)
+const CUT_HEIGHT = 2;     // height of the cut walls
+
+// Extension forward
+const EXT_DEPTH  = 3.5;   // extends outward from the cut face
+const TOTAL_DEPTH = CUT_DEPTH + EXT_DEPTH; // 6.5m total
+
+// Retaining wall
+const WALL_THICK = 0.30;  // 30cm rammed earth
+
+// Gabion french drain
+const GABION_W = 0.40;
+const GABION_H = 0.40;
+
+// Front foundation
+const FRONT_FOUND_W = 0.40;
+const FRONT_FOUND_H = 0.50;
+
+// Roof wall plate lift — raises the eave (wall plate) above the
+// retaining wall tops. The A-frame gable peaks at RIDGE_Y ≈ 4.52m.
+// South eave at CUT_HEIGHT + ROOF_LIFT = 2.50m; north side has a
+// short cap past the ridge (earth sheltering covers the rest).
+const ROOF_LIFT = 0.50;
+
+// Floor
+const FLOOR_THICK = 0.10;
+
+// Roof angle — each slope of the A-frame gable (shared by buildRoof, buildSolarPanels, buildWattleWalls)
+const ROOF_ANGLE = Math.PI / 6; // 30 degrees
+
+// ── A-frame gable roof: peak at building center (z=0), slopes down both ways ──
+const RIDGE_Z = 0;  // center of full 6.5m building (where U-cut meets extension)
+const RIDGE_Y = CUT_HEIGHT + ROOF_LIFT + EXT_DEPTH * Math.tan(ROOF_ANGLE);
+// ≈ 2.0 + 0.5 + 3.5 × tan(30°) ≈ 4.52m
+
+function roofY(z) {
+    // Symmetric A-frame: both slopes at ROOF_ANGLE from the ridge
+    return RIDGE_Y - Math.abs(z - RIDGE_Z) * Math.tan(ROOF_ANGLE);
+}
+
+// Terrain
+const TERRAIN_SIZE = 16;       // terrain extends this far on each side
+const TERRAIN_RISE = 4.5;      // total height rise of the hillside
+const SLOPE_START_Z = 0;       // slope begins here (front of cut)
+const HILL_SEGS = 80;
+
+// ─── Scene Setup ─────────────────────────────────────────────────────
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0d1a0d);
+scene.fog = new THREE.FogExp2(0x0d1a0d, 0.022);
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(8, 6, -8);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.1;
+document.body.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 1.0, -1.5);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.minDistance = 3;
+controls.maxDistance = 30;
+controls.maxPolarAngle = Math.PI / 2 + 0.15;
+controls.update();
+
+// ─── Lighting ────────────────────────────────────────────────────────
+const ambientLight = new THREE.AmbientLight(0x404050, 0.6);
+scene.add(ambientLight);
+
+const sunLight = new THREE.DirectionalLight(0xfff5e6, 1.8);
+// Winter solstice noon at 38.5°N: altitude ≈ 28°, due south (+Z)
+sunLight.position.set(0, 7.0, 13.2);
+sunLight.castShadow = true;
+sunLight.shadow.mapSize.set(2048, 2048);
+sunLight.shadow.camera.left = -12;
+sunLight.shadow.camera.right = 12;
+sunLight.shadow.camera.top = 12;
+sunLight.shadow.camera.bottom = -12;
+sunLight.shadow.camera.near = 1;
+sunLight.shadow.camera.far = 35;
+sunLight.shadow.bias = -0.001;
+scene.add(sunLight);
+
+const fillLight = new THREE.DirectionalLight(0x8090b0, 0.4);
+fillLight.position.set(-5, 3, 4);
+scene.add(fillLight);
+
+const rimLight = new THREE.DirectionalLight(0xc9a227, 0.3);
+rimLight.position.set(-3, 6, -8);
+scene.add(rimLight);
+
+const eastFill = new THREE.DirectionalLight(0x8090b0, 0.3);
+eastFill.position.set(6, 4, 2);
+scene.add(eastFill);
+
+// ─── Materials ───────────────────────────────────────────────────────
+const matGround = new THREE.MeshStandardMaterial({ color: 0x4a6b3a, roughness: 1.0, metalness: 0.0 });
+
+// Procedural terrain texture with grass and earth variation
+const matTerrain = (() => {
+    const sz = 512;
+    const canvas = document.createElement('canvas');
+    canvas.width = sz; canvas.height = sz;
+    const ctx = canvas.getContext('2d');
+
+    // Base earth-green
+    ctx.fillStyle = '#4a6b3a';
+    ctx.fillRect(0, 0, sz, sz);
+
+    // Grass patches
+    for (let i = 0; i < 8000; i++) {
+        const x = Math.random() * sz;
+        const y = Math.random() * sz;
+        const r = Math.random() * 4 + 1;
+        const hue = 80 + Math.random() * 50;
+        const lum = 25 + Math.random() * 25;
+        ctx.fillStyle = `hsl(${hue}, 40%, ${lum}%)`;
+        ctx.globalAlpha = 0.15 + Math.random() * 0.2;
+        ctx.beginPath();
+        ctx.ellipse(x, y, r, r * 0.6, Math.random() * Math.PI, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Dirt patches
+    for (let i = 0; i < 2000; i++) {
+        const x = Math.random() * sz;
+        const y = Math.random() * sz;
+        const r = Math.random() * 5 + 1;
+        const hue = 25 + Math.random() * 15;
+        const lum = 20 + Math.random() * 15;
+        ctx.fillStyle = `hsl(${hue}, 35%, ${lum}%)`;
+        ctx.globalAlpha = 0.1 + Math.random() * 0.15;
+        ctx.beginPath();
+        ctx.ellipse(x, y, r, r * 0.7, Math.random() * Math.PI, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    ctx.globalAlpha = 1;
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(6, 6);
+
+    return new THREE.MeshStandardMaterial({
+        map: tex,
+        roughness: 1.0,
+        metalness: 0.0,
+        side: THREE.DoubleSide
+    });
+})();
+
+// Exposed earth face inside the cut (brown/clay)
+const matCutEarth = (() => {
+    const sz = 256;
+    const canvas = document.createElement('canvas');
+    canvas.width = sz; canvas.height = sz;
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = '#6b4f3a';
+    ctx.fillRect(0, 0, sz, sz);
+
+    for (let i = 0; i < 4000; i++) {
+        const x = Math.random() * sz;
+        const y = Math.random() * sz;
+        const r = Math.random() * 3 + 0.5;
+        const hue = 20 + Math.random() * 20;
+        const lum = 20 + Math.random() * 20;
+        ctx.fillStyle = `hsl(${hue}, 40%, ${lum}%)`;
+        ctx.globalAlpha = 0.2 + Math.random() * 0.2;
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Small root/stone details
+    for (let i = 0; i < 500; i++) {
+        const x = Math.random() * sz;
+        const y = Math.random() * sz;
+        const len = 3 + Math.random() * 10;
+        const angle = Math.random() * Math.PI;
+        ctx.strokeStyle = `hsl(${15 + Math.random() * 15}, 30%, ${15 + Math.random() * 15}%)`;
+        ctx.lineWidth = 0.5 + Math.random() * 1;
+        ctx.globalAlpha = 0.15;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + Math.cos(angle) * len, y + Math.sin(angle) * len);
+        ctx.stroke();
+    }
+
+    ctx.globalAlpha = 1;
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(3, 3);
+
+    return new THREE.MeshStandardMaterial({
+        map: tex,
+        roughness: 1.0,
+        metalness: 0.0,
+        side: THREE.DoubleSide
+    });
+})();
+
+const matEPDM = new THREE.MeshStandardMaterial({
+    color: 0x1a1a1a, roughness: 0.55, metalness: 0.05, side: THREE.DoubleSide,
+    transparent: true, opacity: 0.44
+});
+
+// Gabion stone fill texture
+const matGabion = (() => {
+    const sz = 256;
+    const canvas = document.createElement('canvas');
+    canvas.width = sz; canvas.height = sz;
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = '#6a6a6a';
+    ctx.fillRect(0, 0, sz, sz);
+
+    // Individual stones
+    for (let i = 0; i < 200; i++) {
+        const x = Math.random() * sz;
+        const y = Math.random() * sz;
+        const rx = 4 + Math.random() * 10;
+        const ry = 3 + Math.random() * 8;
+        const hue = 0;
+        const sat = 0;
+        const lum = 30 + Math.random() * 35;
+        ctx.fillStyle = `hsl(${hue}, ${sat}%, ${lum}%)`;
+        ctx.globalAlpha = 0.6 + Math.random() * 0.4;
+        ctx.beginPath();
+        ctx.ellipse(x, y, rx, ry, Math.random() * Math.PI, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = `hsl(0, 0%, ${lum - 10}%)`;
+        ctx.lineWidth = 0.5;
+        ctx.globalAlpha = 0.5;
+        ctx.stroke();
+    }
+
+    // Wire mesh overlay
+    ctx.globalAlpha = 0.15;
+    ctx.strokeStyle = '#888';
+    ctx.lineWidth = 0.5;
+    for (let x = 0; x < sz; x += 16) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, sz); ctx.stroke();
+    }
+    for (let y = 0; y < sz; y += 16) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(sz, y); ctx.stroke();
+    }
+
+    ctx.globalAlpha = 1;
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(3, 1);
+
+    return new THREE.MeshStandardMaterial({
+        map: tex,
+        roughness: 0.95,
+        metalness: 0.1,
+        side: THREE.DoubleSide
+    });
+})();
+
+// Procedural eucalyptus wattle floor texture (matches biodome)
+const matFloor = (() => {
+    const sz = 512;
+    const canvas = document.createElement('canvas');
+    canvas.width = sz; canvas.height = sz;
+    const ctx = canvas.getContext('2d');
+    // Base brown
+    ctx.fillStyle = '#7a5a2a';
+    ctx.fillRect(0, 0, sz, sz);
+    // Woven eucalyptus strips — alternating direction per row
+    const stripH = 8;
+    for (let y = 0; y < sz; y += stripH) {
+        const row = Math.floor(y / stripH);
+        const angle = (row % 2 === 0) ? 0.05 : -0.05;
+        const lum = 35 + Math.random() * 20;
+        const hue = 28 + Math.random() * 12;
+        ctx.fillStyle = `hsl(${hue}, 45%, ${lum}%)`;
+        ctx.globalAlpha = 0.7 + Math.random() * 0.3;
+        ctx.save();
+        ctx.translate(0, y);
+        ctx.rotate(angle);
+        ctx.fillRect(-10, 0, sz + 20, stripH - 1);
+        ctx.restore();
+        // Gap line between strips
+        ctx.globalAlpha = 0.3;
+        ctx.strokeStyle = '#3a2a10';
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(0, y + stripH);
+        ctx.lineTo(sz, y + stripH);
+        ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(4, 4);
+    return new THREE.MeshStandardMaterial({
+        map: tex, roughness: 0.9, metalness: 0.0, side: THREE.DoubleSide
+    });
+})();
+const matDoor = new THREE.MeshStandardMaterial({ color: 0x5c4033, roughness: 0.75, metalness: 0.05 });
+const matDoorFrame = new THREE.MeshStandardMaterial({ color: 0x4a3528, roughness: 0.8, metalness: 0.05 });
+const matGlass = new THREE.MeshPhysicalMaterial({
+    color: 0x88bbdd, roughness: 0.05, metalness: 0.0,
+    transmission: 0.85, thickness: 0.02, transparent: true, opacity: 0.35,
+    side: THREE.DoubleSide
+});
+const matRoof = new THREE.MeshStandardMaterial({ color: 0x4a4a4a, roughness: 0.8, metalness: 0.15, side: THREE.DoubleSide });
+const matLivingRoof = (() => {
+    const sz = 512;
+    const canvas = document.createElement('canvas');
+    canvas.width = sz; canvas.height = sz;
+    const ctx = canvas.getContext('2d');
+
+    // Base green — lusher than terrain
+    ctx.fillStyle = '#3d6b2a';
+    ctx.fillRect(0, 0, sz, sz);
+
+    // Dense sedum/moss clusters
+    for (let i = 0; i < 12000; i++) {
+        const x = Math.random() * sz;
+        const y = Math.random() * sz;
+        const r = Math.random() * 5 + 1;
+        const hue = 85 + Math.random() * 55;       // green–yellow range
+        const sat = 35 + Math.random() * 30;
+        const lum = 22 + Math.random() * 28;
+        ctx.fillStyle = `hsl(${hue}, ${sat}%, ${lum}%)`;
+        ctx.globalAlpha = 0.12 + Math.random() * 0.22;
+        ctx.beginPath();
+        ctx.ellipse(x, y, r, r * 0.7, Math.random() * Math.PI, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Succulent rosette accents (lighter round patches)
+    for (let i = 0; i < 800; i++) {
+        const x = Math.random() * sz;
+        const y = Math.random() * sz;
+        const r = Math.random() * 6 + 2;
+        const hue = 100 + Math.random() * 40;
+        ctx.fillStyle = `hsl(${hue}, 45%, ${35 + Math.random() * 15}%)`;
+        ctx.globalAlpha = 0.15 + Math.random() * 0.12;
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Sparse earth/substrate showing through
+    for (let i = 0; i < 1200; i++) {
+        const x = Math.random() * sz;
+        const y = Math.random() * sz;
+        const r = Math.random() * 3 + 0.5;
+        const hue = 25 + Math.random() * 20;
+        ctx.fillStyle = `hsl(${hue}, 30%, ${18 + Math.random() * 14}%)`;
+        ctx.globalAlpha = 0.08 + Math.random() * 0.1;
+        ctx.beginPath();
+        ctx.ellipse(x, y, r, r * 0.6, Math.random() * Math.PI, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    ctx.globalAlpha = 1;
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(3, 3);
+
+    // Bump map — subtle height variation for vegetation clumps
+    const bSz = 256;
+    const bCanvas = document.createElement('canvas');
+    bCanvas.width = bSz; bCanvas.height = bSz;
+    const bCtx = bCanvas.getContext('2d');
+    bCtx.fillStyle = '#808080';
+    bCtx.fillRect(0, 0, bSz, bSz);
+    for (let i = 0; i < 4000; i++) {
+        const x = Math.random() * bSz;
+        const y = Math.random() * bSz;
+        const r = Math.random() * 5 + 1;
+        const v = Math.floor(110 + Math.random() * 80);
+        bCtx.fillStyle = `rgb(${v},${v},${v})`;
+        bCtx.globalAlpha = 0.15 + Math.random() * 0.2;
+        bCtx.beginPath();
+        bCtx.ellipse(x, y, r, r * 0.7, Math.random() * Math.PI, 0, Math.PI * 2);
+        bCtx.fill();
+    }
+    bCtx.globalAlpha = 1;
+    const bTex = new THREE.CanvasTexture(bCanvas);
+    bTex.wrapS = bTex.wrapT = THREE.RepeatWrapping;
+    bTex.repeat.set(3, 3);
+
+    return new THREE.MeshStandardMaterial({
+        map: tex,
+        bumpMap: bTex,
+        bumpScale: 0.04,
+        roughness: 1.0,
+        metalness: 0.0,
+        side: THREE.DoubleSide
+    });
+})();
+const matRafter = new THREE.MeshStandardMaterial({ color: 0x5c4a38, roughness: 0.85, metalness: 0.05 });
+const matSolar = new THREE.MeshStandardMaterial({ color: 0x1a2844, roughness: 0.15, metalness: 0.6 });
+const matSolarFrame = new THREE.MeshStandardMaterial({ color: 0x888888, roughness: 0.4, metalness: 0.7 });
+const matWattlePost = new THREE.MeshStandardMaterial({ color: 0x8b6914, roughness: 0.85, metalness: 0.05 });
+const matWattleRing = new THREE.MeshStandardMaterial({ color: 0x5a7040, roughness: 0.9, metalness: 0.0 });
+const matWattleInfill = new THREE.MeshStandardMaterial({ color: 0x7a9060, roughness: 0.9, metalness: 0.0 });
+// Procedural straw-clay texture: fibrous straw + clay variation (matches biodome)
+const matStrawClay = (() => {
+    const sz = 512;
+    const canvas = document.createElement('canvas');
+    canvas.width = sz; canvas.height = sz;
+    const ctx = canvas.getContext('2d');
+
+    // Base clay colour
+    ctx.fillStyle = '#b89848';
+    ctx.fillRect(0, 0, sz, sz);
+
+    // Noise: irregular clay patches
+    for (let i = 0; i < 6000; i++) {
+        const x = Math.random() * sz;
+        const y = Math.random() * sz;
+        const r = Math.random() * 6 + 1;
+        const lum = 140 + Math.random() * 60;
+        const hue = 30 + Math.random() * 15;
+        ctx.fillStyle = `hsl(${hue}, 50%, ${lum / 2.55}%)`;
+        ctx.globalAlpha = 0.15 + Math.random() * 0.15;
+        ctx.beginPath();
+        ctx.ellipse(x, y, r, r * 0.5, Math.random() * Math.PI, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Straw fibres: many short angled strokes
+    ctx.globalAlpha = 1;
+    for (let i = 0; i < 3000; i++) {
+        const x = Math.random() * sz;
+        const y = Math.random() * sz;
+        const len = 8 + Math.random() * 20;
+        const angle = Math.random() * Math.PI;
+        const lum = 180 + Math.random() * 50;
+        ctx.strokeStyle = `hsl(${42 + Math.random() * 10}, ${50 + Math.random() * 20}%, ${lum / 2.55}%)`;
+        ctx.lineWidth = 0.5 + Math.random() * 1.2;
+        ctx.globalAlpha = 0.25 + Math.random() * 0.35;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + Math.cos(angle) * len, y + Math.sin(angle) * len);
+        ctx.stroke();
+    }
+
+    ctx.globalAlpha = 1;
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(4, 4);
+
+    // Bump map from same canvas for surface relief
+    const bump = new THREE.CanvasTexture(canvas);
+    bump.wrapS = bump.wrapT = THREE.RepeatWrapping;
+    bump.repeat.set(4, 4);
+
+    return new THREE.MeshStandardMaterial({
+        map: tex,
+        bumpMap: bump,
+        bumpScale: 0.6,
+        roughness: 1.0,
+        metalness: 0.0,
+        side: THREE.DoubleSide
+    });
+})();
+const matExtStrawClay = new THREE.MeshStandardMaterial({ color: 0xc8a84e, roughness: 0.95, metalness: 0.0, side: THREE.DoubleSide });
+const matBurlap = new THREE.MeshStandardMaterial({ color: 0x8a7a5a, roughness: 1.0, metalness: 0.0, side: THREE.DoubleSide });
+const matLimeRender = new THREE.MeshStandardMaterial({ color: 0xe8dcc8, roughness: 0.7, metalness: 0.0, side: THREE.DoubleSide });
+
+// Exploded view gaps — each exterior layer is offset outward from the wall face
+const EXPLODE_GAP = 0.015; // realistic layer spacing (~15mm between cladding layers)
+
+// ─── Layer Groups ────────────────────────────────────────────────────
+const layers = {
+    terrain:    new THREE.Group(),
+    epdm:       new THREE.Group(),
+    gabion:     new THREE.Group(),
+    wattle:     new THREE.Group(),
+    strawclay:  new THREE.Group(),
+    extcladding: new THREE.Group(),
+    burlap:     new THREE.Group(),
+    limerender: new THREE.Group(),
+    door:       new THREE.Group(),
+    window:     new THREE.Group(),
+    roof:       new THREE.Group(),
+    livingroof: new THREE.Group(),
+    solar:      new THREE.Group(),
+    floor:      new THREE.Group()
+};
+
+Object.values(layers).forEach(g => scene.add(g));
+
+// ─── Coordinate System ──────────────────────────────────────────────
+// X = width (left-right), centered at 0
+// Y = height (up)
+// Z = depth: negative Z goes INTO the hillside
+//   Z=0 is the front face of the U-cut (where the cut meets natural grade)
+//   Z=-3 is the back wall (3m into the hill)
+//   Z=+3 is the front of the extension (3m outward)
+//
+// The hillside rises from front (Z>0) toward back (Z<0).
+
+// ─── Helper: terrain height at (x, z) ──────────────────────────────
+// Terrace profile: flat at the front, steep near-vertical rise at the
+// cut face (z=0), then a flat plateau behind the terrace wall.
+// This models a real agricultural terrace — not a gentle slope.
+function terrainHeight(x, z) {
+    if (z >= 0) {
+        // In front of the terrace — flat or very slight downward slope
+        return Math.max(0, -z * 0.03);
+    }
+    // Behind the cut face: steep terrace wall then flat plateau
+    const depth = -z; // positive value, distance into hillside
+
+    // The terrace wall rises steeply over a short horizontal distance (~0.5m)
+    // from grade (y=0) at z=0 to full terrace height at z ≈ -0.5
+    const wallZone = 0.5; // horizontal distance for the steep rise
+    if (depth <= wallZone) {
+        // Steep S-curve rise (smoothstep) over the wall zone
+        const t = depth / wallZone;
+        const s = t * t * (3 - 2 * t); // smoothstep
+        return s * CUT_HEIGHT;
+    }
+    // Beyond the wall zone: flat plateau with very gentle continued rise
+    const extra = depth - wallZone;
+    return CUT_HEIGHT + extra * 0.08;
+}
+
+// ─── Terrain with U-Cut Excavation ──────────────────────────────────
+function buildTerrain() {
+    const segs = HILL_SEGS;
+    const halfSize = TERRAIN_SIZE / 2;
+    const halfW = CUT_WIDTH / 2;
+
+    // The terrain is a grid. Vertices inside the U-cut are dropped to
+    // the cut floor level, and the walls of the cut are created separately.
+
+    const vertices = [];
+    const indices = [];
+    const uvs = [];
+
+    for (let iz = 0; iz <= segs; iz++) {
+        for (let ix = 0; ix <= segs; ix++) {
+            const x = -halfSize + (ix / segs) * TERRAIN_SIZE;
+            const z = halfSize - (iz / segs) * TERRAIN_SIZE;  // +z is front
+
+            let y = terrainHeight(x, z);
+
+            // Check if this point is inside the U-cut footprint
+            const inCutX = Math.abs(x) <= halfW;
+            const inCutZ = z <= 0 && z >= -CUT_DEPTH;
+
+            if (inCutX && inCutZ) {
+                // Inside the excavation — drop to floor level
+                y = 0;
+            }
+
+            vertices.push(x, y, z);
+            uvs.push(ix / segs, iz / segs);
+        }
+    }
+
+    for (let iz = 0; iz < segs; iz++) {
+        for (let ix = 0; ix < segs; ix++) {
+            const a = iz * (segs + 1) + ix;
+            const b = a + 1;
+            const c = a + segs + 1;
+            const d = c + 1;
+            indices.push(a, c, b);
+            indices.push(b, c, d);
+        }
+    }
+
+    const geo = new THREE.BufferGeometry();
+    geo.setIndex(indices);
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvs, 2));
+    geo.computeVertexNormals();
+
+    const mesh = new THREE.Mesh(geo, matTerrain);
+    mesh.receiveShadow = true;
+    mesh.castShadow = true;
+    layers.terrain.add(mesh);
+
+    // ── Cut walls: exposed earth faces ──
+    // Back wall: at z = -CUT_DEPTH, from x = -halfW to +halfW, y = 0 to CUT_HEIGHT
+    buildCutWallFace(
+        new THREE.Vector3(-halfW, 0, -CUT_DEPTH),
+        new THREE.Vector3(halfW, 0, -CUT_DEPTH),
+        new THREE.Vector3(halfW, CUT_HEIGHT, -CUT_DEPTH),
+        new THREE.Vector3(-halfW, CUT_HEIGHT, -CUT_DEPTH)
+    );
+
+    // Left (west) side wall: continuous (door is in the front extension, not U-cut)
+    buildCutSideWall(-halfW, -1);
+
+    // Right side wall: no door
+    buildCutSideWall(halfW, 1);
+}
+
+function buildCutWallFace(bl, br, tr, tl) {
+    const geo = new THREE.BufferGeometry();
+    const verts = [
+        bl.x, bl.y, bl.z,
+        br.x, br.y, br.z,
+        tr.x, tr.y, tr.z,
+        tl.x, tl.y, tl.z
+    ];
+    const idx = [0, 1, 2, 0, 2, 3];
+    const uvArr = [0, 0, 1, 0, 1, 1, 0, 1];
+    geo.setIndex(idx);
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+    geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvArr, 2));
+    geo.computeVertexNormals();
+    const mesh = new THREE.Mesh(geo, matCutEarth);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    layers.terrain.add(mesh);
+}
+
+function buildCutSideWall(x, normalDir, doorOpts) {
+    // Side wall runs from z=0 to z=-CUT_DEPTH
+    // Height varies: at z=0 the cut height is 0 (meets grade),
+    // at z=-CUT_DEPTH the cut height is CUT_HEIGHT
+    // doorOpts: { doorZStart, doorZEnd, doorHeight } — optional cutout
+    const segsZ = 20;
+    const segsY = 10;
+    const verts = [];
+    const idx = [];
+    const uvArr = [];
+    const skip = [];
+
+    for (let iz = 0; iz <= segsZ; iz++) {
+        const z = -(iz / segsZ) * CUT_DEPTH;
+        const maxH = terrainHeight(x + normalDir * 0.01, z); // height of terrain just outside cut
+
+        for (let iy = 0; iy <= segsY; iy++) {
+            const y = (iy / segsY) * maxH;
+            verts.push(x, y, z);
+            uvArr.push(iz / segsZ, iy / segsY);
+
+            // Check if this vertex is inside the door cutout
+            let inDoor = false;
+            if (doorOpts && z >= doorOpts.doorZStart && z <= doorOpts.doorZEnd && y <= doorOpts.doorHeight) {
+                inDoor = true;
+            }
+            skip.push(inDoor);
+        }
+    }
+
+    for (let iz = 0; iz < segsZ; iz++) {
+        for (let iy = 0; iy < segsY; iy++) {
+            const a = iz * (segsY + 1) + iy;
+            const b = a + 1;
+            const c = a + segsY + 1;
+            const d = c + 1;
+            // Skip faces where any vertex is in the door cutout
+            if (skip[a] && skip[b] && skip[c] && skip[d]) continue;
+            if (normalDir > 0) {
+                // Right wall — normal points +X
+                idx.push(a, b, c);
+                idx.push(b, d, c);
+            } else {
+                // Left wall — normal points -X
+                idx.push(a, c, b);
+                idx.push(b, c, d);
+            }
+        }
+    }
+
+    const geo = new THREE.BufferGeometry();
+    geo.setIndex(idx);
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+    geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvArr, 2));
+    geo.computeVertexNormals();
+    const mesh = new THREE.Mesh(geo, matCutEarth);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    layers.terrain.add(mesh);
+}
+
+// ─── EPDM Membrane ─────────────────────────────────────────────────
+// Continuous interior liner: lines the inside of the gabion cage walls
+// (between stone fill and building), then wraps up and over both roof
+// slopes on top of the eucalyptus rafters.
+function buildEPDM() {
+    const gabionOffset = 0.03;
+    const anchorZ = -(CUT_DEPTH - gabionOffset - WALL_THICK);   // ≈ -2.67
+    const gabionXLo = -CUT_WIDTH / 2 + gabionOffset + WALL_THICK; // ≈ -2.17
+    const gabionXHi =  CUT_WIDTH / 2 - gabionOffset - WALL_THICK; // ≈  2.17
+    const wallTopY = CUT_HEIGHT; // 2.0
+
+    const inset = 0.01; // offset inward from gabion inner face to avoid z-fighting
+
+    // ── A. Gabion interior walls (3 vertical planes) ──
+
+    // A1 — Back wall (inside face)
+    addPlane(
+        layers.epdm, matEPDM,
+        new THREE.Vector3(gabionXLo, 0, anchorZ + inset),
+        new THREE.Vector3(gabionXHi, 0, anchorZ + inset),
+        new THREE.Vector3(gabionXHi, wallTopY, anchorZ + inset),
+        new THREE.Vector3(gabionXLo, wallTopY, anchorZ + inset)
+    );
+
+    // A2 — West wall (inside face)
+    addPlane(
+        layers.epdm, matEPDM,
+        new THREE.Vector3(gabionXLo - inset, 0, 0),
+        new THREE.Vector3(gabionXLo - inset, 0, anchorZ),
+        new THREE.Vector3(gabionXLo - inset, wallTopY, anchorZ),
+        new THREE.Vector3(gabionXLo - inset, wallTopY, 0)
+    );
+
+    // A3 — East wall (inside face)
+    addPlane(
+        layers.epdm, matEPDM,
+        new THREE.Vector3(gabionXHi + inset, 0, anchorZ),
+        new THREE.Vector3(gabionXHi + inset, 0, 0),
+        new THREE.Vector3(gabionXHi + inset, wallTopY, 0),
+        new THREE.Vector3(gabionXHi + inset, wallTopY, anchorZ)
+    );
+
+    // ── B & C. Roof slope EPDM (above rafters) ──
+    const roofOff = 0.01; // realistic: EPDM membrane sits ~10mm above rafter surface
+    const cosA = Math.cos(ROOF_ANGLE);
+    const sinA = Math.sin(ROOF_ANGLE);
+    const offY = roofOff * cosA;
+    const offZn = -roofOff * sinA; // north slope: normal points up+south
+    const offZs =  roofOff * sinA; // south slope: normal points up+north
+
+    // Roof extents (match buildRoof overhangs)
+    const OH_SOUTH = 0.45;
+    const OH_EAST  = 0.30;
+    const OH_WEST  = 0.30;
+    const xLo = -CUT_WIDTH / 2 - OH_WEST;
+    const xHi =  CUT_WIDTH / 2 + OH_EAST;
+    const zHi = EXT_DEPTH + OH_SOUTH;
+
+    // B — North roof slope (gabion wall top → ridge)
+    // Winding: normals face outward (up + north, away from rafters)
+    addPlane(
+        layers.epdm, matEPDM,
+        new THREE.Vector3(xHi, wallTopY + offY, anchorZ + offZn),
+        new THREE.Vector3(xLo, wallTopY + offY, anchorZ + offZn),
+        new THREE.Vector3(xLo, RIDGE_Y + offY, RIDGE_Z + offZn),
+        new THREE.Vector3(xHi, RIDGE_Y + offY, RIDGE_Z + offZn)
+    );
+
+    // C — South roof slope (ridge → south eave)
+    // Winding: normals face outward (up + south, away from rafters)
+    addPlane(
+        layers.epdm, matEPDM,
+        new THREE.Vector3(xHi, RIDGE_Y + offY, RIDGE_Z + offZs),
+        new THREE.Vector3(xLo, RIDGE_Y + offY, RIDGE_Z + offZs),
+        new THREE.Vector3(xLo, roofY(zHi) + offY, zHi + offZs),
+        new THREE.Vector3(xHi, roofY(zHi) + offY, zHi + offZs)
+    );
+}
+
+function addPlane(group, material, bl, br, tr, tl) {
+    const geo = new THREE.BufferGeometry();
+    const verts = [
+        bl.x, bl.y, bl.z,
+        br.x, br.y, br.z,
+        tr.x, tr.y, tr.z,
+        tl.x, tl.y, tl.z
+    ];
+    const idx = [0, 1, 2, 0, 2, 3];
+    const uvArr = [0, 0, 1, 0, 1, 1, 0, 1];
+    geo.setIndex(idx);
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+    geo.setAttribute('uv', new THREE.Float32BufferAttribute(uvArr, 2));
+    geo.computeVertexNormals();
+    const mesh = new THREE.Mesh(geo, material);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    group.add(mesh);
+}
+
+// Helper: create a cylinder (beam/pole) between two 3D points
+function addBeam(group, mat, radius, p1, p2) {
+    const dir = new THREE.Vector3().subVectors(p2, p1);
+    const len = dir.length();
+    if (len < 0.001) return;
+    const geo = new THREE.CylinderGeometry(radius, radius, len, 8);
+    const mesh = new THREE.Mesh(geo, mat);
+    // Position at midpoint
+    mesh.position.set(
+        (p1.x + p2.x) / 2,
+        (p1.y + p2.y) / 2,
+        (p1.z + p2.z) / 2
+    );
+    // Align cylinder (Y-axis) to direction vector
+    const up = new THREE.Vector3(0, 1, 0);
+    const quat = new THREE.Quaternion().setFromUnitVectors(up, dir.clone().normalize());
+    mesh.quaternion.copy(quat);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    group.add(mesh);
+}
+
+// ─── Gabion Retaining Wall & French Drain ───────────────────────────
+// The gabion cage IS the retaining wall. Full-height (floor to CUT_HEIGHT)
+// stone-filled wire cages line the back and both sides of the U-cut.
+// The stone mass maximizes thermal conductivity from the surrounding earth.
+// A perforated drain pipe runs along the base inside each wall run.
+function buildGabionWalls() {
+    const halfW = CUT_WIDTH / 2;
+    const offset = 0.03; // gap between EPDM and gabion outer face
+
+    // Back wall: full width, full height
+    buildGabionWallSection(
+        -halfW + offset, halfW - offset,  // x range
+        -CUT_DEPTH + offset,              // z position (outer face)
+        -CUT_DEPTH + offset + WALL_THICK, // z position (inner face)
+        'x'
+    );
+
+    // Left (west) side wall in U-cut: full depth, full height (continuous)
+    buildGabionWallSection(
+        -CUT_DEPTH + offset + WALL_THICK, 0,  // z range
+        -halfW + offset,                        // x position (outer face)
+        -halfW + offset + WALL_THICK,           // x position (inner face)
+        'z'
+    );
+
+    // Right side wall: full depth, full height
+    buildGabionWallSection(
+        -CUT_DEPTH + offset + WALL_THICK, 0,  // z range
+        halfW - offset - WALL_THICK,            // x position (inner face)
+        halfW - offset,                          // x position (outer face)
+        'z'
+    );
+
+    // ── Front extension: left (west) side with door entrance ──
+    // Door moved one cage north: 1.2m wide, from z = 0.3 to z = 1.5
+    // Full-height (2m) gabion stacks flank both sides of the door
+    const DOOR_Z_START = 0.3;
+    const DOOR_Z_END   = 1.5;
+
+    // North flank: full-height gabion from cut face to door (connects to U-cut wall)
+    buildGabionWallSection(
+        0, DOOR_Z_START,                        // z range
+        -halfW,                                  // x outer
+        -halfW + WALL_THICK,                     // x inner
+        'z', CUT_HEIGHT                          // full 2m height
+    );
+
+    // Gabion step under the door opening (foundation-height course = 0.4m step)
+    buildGabionWallSection(
+        DOOR_Z_START, DOOR_Z_END,               // z range (door gap)
+        -halfW,                                  // x outer
+        -halfW + WALL_THICK,                     // x inner
+        'z', FRONT_FOUND_H
+    );
+
+    // South flank: one full-height gabion column after the door (~0.6m)
+    buildGabionWallSection(
+        DOOR_Z_END, DOOR_Z_END + 0.6,          // z range (one cage)
+        -halfW,                                  // x outer
+        -halfW + WALL_THICK,                     // x inner
+        'z', CUT_HEIGHT                          // full 2m height
+    );
+
+    // Remaining south section: foundation height to front wall
+    buildGabionWallSection(
+        DOOR_Z_END + 0.6, EXT_DEPTH,           // z range
+        -halfW,                                  // x outer
+        -halfW + WALL_THICK,                     // x inner
+        'z', FRONT_FOUND_H
+    );
+
+    // ── Right (east) side: split for window opening (mirrors door layout) ──
+    const WIN_Z_START = DOOR_Z_START;  // 0.3
+    const WIN_Z_END   = DOOR_Z_END;    // 1.5
+
+    // North flank: full-height gabion from cut face to window
+    buildGabionWallSection(
+        0, WIN_Z_START,                          // z range
+        halfW - WALL_THICK,                      // x inner
+        halfW,                                   // x outer
+        'z', CUT_HEIGHT                          // full 2m height
+    );
+
+    // Sill-height gabion under the window opening (foundation course = 0.4m sill)
+    buildGabionWallSection(
+        WIN_Z_START, WIN_Z_END,                  // z range (window gap)
+        halfW - WALL_THICK,                      // x inner
+        halfW,                                   // x outer
+        'z', FRONT_FOUND_H
+    );
+
+    // South flank: one full-height gabion column after the window
+    buildGabionWallSection(
+        WIN_Z_END, WIN_Z_END + 0.6,             // z range (one cage)
+        halfW - WALL_THICK,                      // x inner
+        halfW,                                   // x outer
+        'z', CUT_HEIGHT                          // full 2m height
+    );
+
+    // Remaining south section: foundation height to front wall
+    buildGabionWallSection(
+        WIN_Z_END + 0.6, EXT_DEPTH,             // z range
+        halfW - WALL_THICK,                      // x inner
+        halfW,                                   // x outer
+        'z', FRONT_FOUND_H
+    );
+
+    // Front cross piece: from x=-halfW to x=+halfW at z=+EXT_DEPTH
+    buildGabionWallSection(
+        -halfW, halfW,                           // x range
+        EXT_DEPTH,                               // z outer
+        EXT_DEPTH - WALL_THICK,                  // z inner
+        'x', FRONT_FOUND_H
+    );
+
+    // ── Drain pipes at the base of the U-cut walls ──
+    const pipeR = 0.06;
+    const pipeMat = new THREE.MeshStandardMaterial({ color: 0x333333, roughness: 0.6, metalness: 0.3 });
+
+    // Back pipe
+    const backLen = (halfW - offset) * 2 - WALL_THICK * 2;
+    const backPipeGeo = new THREE.CylinderGeometry(pipeR, pipeR, backLen, 8);
+    backPipeGeo.rotateZ(Math.PI / 2);
+    const backPipe = new THREE.Mesh(backPipeGeo, pipeMat);
+    backPipe.position.set(0, pipeR + 0.02, -CUT_DEPTH + offset + WALL_THICK / 2);
+    layers.gabion.add(backPipe);
+
+    // Left pipe — runs full length from back wall to front
+    const fullSideLen = CUT_DEPTH - offset - WALL_THICK + EXT_DEPTH;
+    const leftPipeGeo = new THREE.CylinderGeometry(pipeR, pipeR, fullSideLen, 8);
+    leftPipeGeo.rotateX(Math.PI / 2);
+    const leftPipe = new THREE.Mesh(leftPipeGeo, pipeMat);
+    leftPipe.position.set(-halfW + WALL_THICK / 2, pipeR + 0.02, (-CUT_DEPTH + offset + WALL_THICK + EXT_DEPTH) / 2);
+    layers.gabion.add(leftPipe);
+
+    // Right pipe — runs full length from back wall to front
+    const rightPipeGeo = new THREE.CylinderGeometry(pipeR, pipeR, fullSideLen, 8);
+    rightPipeGeo.rotateX(Math.PI / 2);
+    const rightPipe = new THREE.Mesh(rightPipeGeo, pipeMat);
+    rightPipe.position.set(halfW - WALL_THICK / 2, pipeR + 0.02, (-CUT_DEPTH + offset + WALL_THICK + EXT_DEPTH) / 2);
+    layers.gabion.add(rightPipe);
+
+    // Front pipe
+    const frontPipeGeo = new THREE.CylinderGeometry(pipeR, pipeR, CUT_WIDTH - WALL_THICK * 2, 8);
+    frontPipeGeo.rotateZ(Math.PI / 2);
+    const frontPipe = new THREE.Mesh(frontPipeGeo, pipeMat);
+    frontPipe.position.set(0, pipeR + 0.02, EXT_DEPTH - WALL_THICK / 2);
+    layers.gabion.add(frontPipe);
+}
+
+// ─── West Door ──────────────────────────────────────────────────────
+// French-style glazed double door in the west wall of the front extension.
+// Opening: 1.2m wide × 2m tall, sitting on the gabion foundation.
+function buildDoor() {
+    const halfW = CUT_WIDTH / 2;
+    const DOOR_Z_START = 0.3;   // back edge (closer to terrace)
+    const DOOR_Z_END   = 1.5;   // front edge (closer to front wall)
+    const DOOR_WIDTH = DOOR_Z_END - DOOR_Z_START; // 1.2m
+    const DOOR_HEIGHT = 2.0;
+    const DOOR_CENTER_Z = (DOOR_Z_START + DOOR_Z_END) / 2;
+
+    // Wall x positions (west extension wall)
+    const xOuter = -halfW;
+    const xInner = -halfW + WALL_THICK;
+    const xCenter = (xOuter + xInner) / 2;
+
+    const frameR = 0.035; // frame member radius
+    const frameW = frameR * 2; // frame member visual width
+
+    // ── Outer frame: posts, lintel, threshold ──
+    // Back post (closer to terrace)
+    const postH = DOOR_HEIGHT - FRONT_FOUND_H;
+    const postGeo = new THREE.CylinderGeometry(frameR, frameR, postH, 8);
+    const backPost = new THREE.Mesh(postGeo, matDoorFrame);
+    backPost.position.set(xCenter, FRONT_FOUND_H + postH / 2, DOOR_Z_START);
+    backPost.castShadow = true;
+    layers.door.add(backPost);
+
+    // Front post (closer to front wall)
+    const frontPost = new THREE.Mesh(postGeo.clone(), matDoorFrame);
+    frontPost.position.set(xCenter, FRONT_FOUND_H + postH / 2, DOOR_Z_END);
+    frontPost.castShadow = true;
+    layers.door.add(frontPost);
+
+    // Lintel beam across the top
+    const lintelGeo = new THREE.CylinderGeometry(frameR, frameR, DOOR_WIDTH + frameR * 2, 8);
+    lintelGeo.rotateX(Math.PI / 2);
+    const lintel = new THREE.Mesh(lintelGeo, matDoorFrame);
+    lintel.position.set(xCenter, DOOR_HEIGHT, DOOR_CENTER_Z);
+    lintel.castShadow = true;
+    layers.door.add(lintel);
+
+    // Threshold sill beam
+    const threshGeo = new THREE.BoxGeometry(WALL_THICK, 0.06, DOOR_WIDTH);
+    const thresh = new THREE.Mesh(threshGeo, matDoorFrame);
+    thresh.position.set(xCenter, FRONT_FOUND_H + 0.03, DOOR_CENTER_Z);
+    thresh.receiveShadow = true;
+    layers.door.add(thresh);
+
+    // ── Center mullion (divides into two leaves) ──
+    const mullionGeo = new THREE.CylinderGeometry(frameR * 0.7, frameR * 0.7, postH - 0.06, 8);
+    const mullion = new THREE.Mesh(mullionGeo, matDoorFrame);
+    mullion.position.set(xCenter, FRONT_FOUND_H + (postH - 0.06) / 2 + 0.06, DOOR_CENTER_Z);
+    mullion.castShadow = true;
+    layers.door.add(mullion);
+
+    // ── Horizontal transom bar (at ~1.3m above foundation, creates upper lights) ──
+    const transomY = FRONT_FOUND_H + postH * 0.65;
+    const transomGeo = new THREE.CylinderGeometry(frameR * 0.7, frameR * 0.7, DOOR_WIDTH, 8);
+    transomGeo.rotateX(Math.PI / 2);
+    const transom = new THREE.Mesh(transomGeo, matDoorFrame);
+    transom.position.set(xCenter, transomY, DOOR_CENTER_Z);
+    transom.castShadow = true;
+    layers.door.add(transom);
+
+    // ── Glass panes (4 panes: 2 lower, 2 upper) ──
+    const glassThick = 0.01;
+    const paneInset = frameR + 0.01; // inset from frame members
+    const leafW = (DOOR_WIDTH - frameW) / 2 - 0.01; // each leaf width
+    const lowerH = transomY - FRONT_FOUND_H - frameW - 0.02;
+    const upperH = DOOR_HEIGHT - transomY - frameW - 0.01;
+
+    for (const side of [-1, 1]) {
+        const paneZ = DOOR_CENTER_Z + side * (leafW / 2 + 0.005);
+
+        // Lower pane
+        if (lowerH > 0.05) {
+            const lGeo = new THREE.BoxGeometry(glassThick, lowerH, leafW - 0.02);
+            const lPane = new THREE.Mesh(lGeo, matGlass);
+            lPane.position.set(xCenter, FRONT_FOUND_H + frameW + lowerH / 2, paneZ);
+            layers.door.add(lPane);
+        }
+
+        // Upper pane
+        if (upperH > 0.05) {
+            const uGeo = new THREE.BoxGeometry(glassThick, upperH, leafW - 0.02);
+            const uPane = new THREE.Mesh(uGeo, matGlass);
+            uPane.position.set(xCenter, transomY + frameW / 2 + upperH / 2, paneZ);
+            layers.door.add(uPane);
+        }
+    }
+
+    // ── Door handle detail (small cylinder on each leaf) ──
+    const handleR = 0.012;
+    const handleLen = 0.12;
+    const handleY = transomY - 0.15;
+    for (const side of [-1, 1]) {
+        const hz = DOOR_CENTER_Z + side * 0.04;
+        const hGeo = new THREE.CylinderGeometry(handleR, handleR, handleLen, 6);
+        const handle = new THREE.Mesh(hGeo, matDoorFrame);
+        handle.position.set(xCenter - WALL_THICK / 4, handleY, hz);
+        layers.door.add(handle);
+    }
+}
+
+// ─── East Window ─────────────────────────────────────────────────────
+// Large window on the east (right) wall of the front extension,
+// mirroring the door position. Sits on the gabion sill course (0.4m),
+// rises to match the flanking full-height gabion (2m).
+function buildWindow() {
+    const halfW = CUT_WIDTH / 2;
+    const WIN_Z_START = 0.3;
+    const WIN_Z_END   = 1.5;
+    const WIN_WIDTH   = WIN_Z_END - WIN_Z_START; // 1.2m
+    const WIN_CENTER_Z = (WIN_Z_START + WIN_Z_END) / 2;
+
+    const SILL_Y  = FRONT_FOUND_H;       // 0.4m — top of gabion sill course
+    const HEAD_Y  = CUT_HEIGHT - 0.1;    // 1.9m — just below full wall height
+    const WIN_H   = HEAD_Y - SILL_Y;     // 1.5m clear glazing height
+
+    const xOuter = halfW;
+    const xInner = halfW - WALL_THICK;
+    const xCenter = (xOuter + xInner) / 2;
+    const frameR = 0.04;
+
+    // ── Timber frame ──
+    // Back post (north, closer to terrace)
+    const postGeo = new THREE.CylinderGeometry(frameR, frameR, WIN_H, 8);
+    const backPost = new THREE.Mesh(postGeo, matDoorFrame);
+    backPost.position.set(xCenter, SILL_Y + WIN_H / 2, WIN_Z_START);
+    backPost.castShadow = true;
+    layers.window.add(backPost);
+
+    // Front post (south)
+    const frontPost = new THREE.Mesh(postGeo.clone(), matDoorFrame);
+    frontPost.position.set(xCenter, SILL_Y + WIN_H / 2, WIN_Z_END);
+    frontPost.castShadow = true;
+    layers.window.add(frontPost);
+
+    // Header beam
+    const headerGeo = new THREE.CylinderGeometry(frameR, frameR, WIN_WIDTH + frameR * 2, 8);
+    headerGeo.rotateX(Math.PI / 2);
+    const header = new THREE.Mesh(headerGeo, matDoorFrame);
+    header.position.set(xCenter, HEAD_Y, WIN_CENTER_Z);
+    header.castShadow = true;
+    layers.window.add(header);
+
+    // Sill beam (sits on gabion sill course)
+    const sillGeo = new THREE.BoxGeometry(WALL_THICK, 0.06, WIN_WIDTH);
+    const sill = new THREE.Mesh(sillGeo, matDoorFrame);
+    sill.position.set(xCenter, SILL_Y + 0.03, WIN_CENTER_Z);
+    sill.receiveShadow = true;
+    layers.window.add(sill);
+
+    // Center mullion (vertical divider)
+    const mullionGeo = new THREE.CylinderGeometry(frameR * 0.6, frameR * 0.6, WIN_H - 0.08, 8);
+    const mullion = new THREE.Mesh(mullionGeo, matDoorFrame);
+    mullion.position.set(xCenter, SILL_Y + WIN_H / 2, WIN_CENTER_Z);
+    mullion.castShadow = true;
+    layers.window.add(mullion);
+
+    // Horizontal transom bar at mid-height
+    const transomGeo = new THREE.CylinderGeometry(frameR * 0.6, frameR * 0.6, WIN_WIDTH - 0.08, 8);
+    transomGeo.rotateX(Math.PI / 2);
+    const transom = new THREE.Mesh(transomGeo, matDoorFrame);
+    transom.position.set(xCenter, SILL_Y + WIN_H * 0.55, WIN_CENTER_Z);
+    transom.castShadow = true;
+    layers.window.add(transom);
+
+    // ── Glass pane ──
+    const glassGeo = new THREE.PlaneGeometry(WIN_H - 0.06, WIN_WIDTH - 0.06);
+    glassGeo.rotateY(Math.PI / 2);
+    const glass = new THREE.Mesh(glassGeo, matGlass);
+    glass.position.set(xCenter, SILL_Y + WIN_H / 2, WIN_CENTER_Z);
+    layers.window.add(glass);
+}
+
+// ─── South-Facing Solar Window ───────────────────────────────────────
+// Large glazed opening on the south wall (z = EXT_DEPTH), sized to
+// maximize passive solar gain during the heating season.
+//
+// ── Passive Solar Geometry (Portugal, 38.5°N) ──
+// Roof raised 0.50m (wall plate) so the south eave clears the window.
+// Eave tip: z=3.90m, y=1.98m (0.90m overhang on 30° slope from 2.50m)
+// Window header at 1.90m — 0.08m below eave tip.
+//
+// Shadow line on south wall at sun altitude α:
+//   shadow_y = 1.98 − 0.90 / tan(α)
+//
+// Window: sill y=0.40m, head y=1.90m (height 1.50m, area 6.60 m²)
+//
+//   Date          α noon   shadow_y   Window in sun
+//   ─────────────────────────────────────────────────
+//   Dec solstice   28.0°    +0.29     100%  ← peak heating
+//   Jan/Nov        32.0°    +0.54      91%
+//   Feb/Oct        40.0°    +0.91      66%
+//   Equinox        51.5°    +1.26      43%  ← equinox cutoff
+//   Apr/Aug        63.0°    +1.52      25%
+//   May/Jul        70.0°    +1.65      17%
+//   Jun solstice   75.0°    +1.74      11%  ← mostly shaded
+//
+// Full winter sun (100%) at solstice. Heating season (Oct–Feb)
+// averages 66–100% direct sun. Summer effectively blocked.
+//
+function buildSouthWindow() {
+    const halfW = CUT_WIDTH / 2;
+
+    // Window header set BELOW the eave tip (1.98m) so all glazing
+    // can receive direct sun — no dead zone behind the sloped eave.
+    const SILL_Y  = FRONT_FOUND_H;               // 0.40m — top of gabion sill
+    const HEAD_Y  = 1.90;                          // below eave tip at 1.98m
+    const WIN_H   = HEAD_Y - SILL_Y;              // 1.50m clear height
+    const WIN_LEFT  = -halfW + WALL_THICK;         // inner face of left wall
+    const WIN_RIGHT = halfW - WALL_THICK;          // inner face of right wall
+    const WIN_W   = WIN_RIGHT - WIN_LEFT;          // 4.40m total width
+    const WIN_Z   = EXT_DEPTH;                     // south wall position
+
+    const frameR = 0.04;    // frame member radius
+    const mullionR = 0.03;  // mullion radius
+    const numPanes = 4;     // 4 panes across
+    const paneW = (WIN_W - (numPanes - 1) * mullionR * 2) / numPanes;
+
+    // ── Header beam (structural timber across the top) ──
+    const headerGeo = new THREE.BoxGeometry(WIN_W + 0.10, 0.10, WALL_THICK);
+    const header = new THREE.Mesh(headerGeo, matDoorFrame);
+    header.position.set(0, HEAD_Y + 0.05, WIN_Z - WALL_THICK / 2);
+    header.castShadow = true;
+    layers.window.add(header);
+
+    // ── Sill beam (sits on gabion foundation) ──
+    const sillGeo = new THREE.BoxGeometry(WIN_W + 0.10, 0.06, WALL_THICK);
+    const sillBeam = new THREE.Mesh(sillGeo, matDoorFrame);
+    sillBeam.position.set(0, SILL_Y + 0.03, WIN_Z - WALL_THICK / 2);
+    sillBeam.receiveShadow = true;
+    layers.window.add(sillBeam);
+
+    // ── Corner posts (left and right edges) ──
+    const postGeo = new THREE.CylinderGeometry(frameR, frameR, WIN_H, 8);
+    const leftPost = new THREE.Mesh(postGeo, matDoorFrame);
+    leftPost.position.set(WIN_LEFT, SILL_Y + WIN_H / 2, WIN_Z - WALL_THICK / 2);
+    leftPost.castShadow = true;
+    layers.window.add(leftPost);
+
+    const rightPost = new THREE.Mesh(postGeo.clone(), matDoorFrame);
+    rightPost.position.set(WIN_RIGHT, SILL_Y + WIN_H / 2, WIN_Z - WALL_THICK / 2);
+    rightPost.castShadow = true;
+    layers.window.add(rightPost);
+
+    // ── Vertical mullions dividing panes ──
+    const mullionGeo = new THREE.CylinderGeometry(mullionR, mullionR, WIN_H - 0.06, 8);
+    for (let i = 1; i < numPanes; i++) {
+        const x = WIN_LEFT + i * (WIN_W / numPanes);
+        const mullion = new THREE.Mesh(mullionGeo, matDoorFrame);
+        mullion.position.set(x, SILL_Y + WIN_H / 2, WIN_Z - WALL_THICK / 2);
+        mullion.castShadow = true;
+        layers.window.add(mullion);
+    }
+
+    // ── Horizontal transom bar at mid-height ──
+    const transomGeo = new THREE.CylinderGeometry(mullionR, mullionR, WIN_W - 0.06, 8);
+    transomGeo.rotateZ(Math.PI / 2);
+    const transom = new THREE.Mesh(transomGeo, matDoorFrame);
+    transom.position.set(0, SILL_Y + WIN_H * 0.55, WIN_Z - WALL_THICK / 2);
+    transom.castShadow = true;
+    layers.window.add(transom);
+
+    // ── Glass panes (4 panes, each with upper and lower lights) ──
+    for (let i = 0; i < numPanes; i++) {
+        const paneX = WIN_LEFT + (i + 0.5) * (WIN_W / numPanes);
+
+        // Lower light (below transom)
+        const lowerH = WIN_H * 0.55 - 0.04;
+        const lowerGeo = new THREE.PlaneGeometry(paneW - 0.04, lowerH);
+        const lowerGlass = new THREE.Mesh(lowerGeo, matGlass);
+        lowerGlass.position.set(paneX, SILL_Y + lowerH / 2 + 0.02, WIN_Z - WALL_THICK / 2);
+        layers.window.add(lowerGlass);
+
+        // Upper light (above transom)
+        const upperH = WIN_H * 0.45 - 0.04;
+        const upperGeo = new THREE.PlaneGeometry(paneW - 0.04, upperH);
+        const upperGlass = new THREE.Mesh(upperGeo, matGlass);
+        upperGlass.position.set(paneX, SILL_Y + WIN_H * 0.55 + upperH / 2 + 0.02, WIN_Z - WALL_THICK / 2);
+        layers.window.add(upperGlass);
+    }
+
+}
+
+// ─── Roof Structure ──────────────────────────────────────────────────
+// 30-degree shed roof over the front extension (z=0 to z=EXT_DEPTH).
+// The U-cut section is earth-sheltered by the terrace above.
+// HIGH edge at the back (north, z=0) — slopes DOWN toward front (south).
+// South-facing slope catches solar energy.
+//
+// ── Passive Solar Overhang Geometry (Portugal, ~38.5°N) ──
+// Sun noon altitudes:
+//   Winter solstice:  28.0°  (low southern sun — maximize penetration)
+//   Equinox:          51.5°  (moderate)
+//   Summer solstice:  75.0°  (high sun — maximize shading)
+//
+// Roof raised 0.50m above wall tops (wall plate / knee wall).
+// With the 30° slope, the eave drops as it extends south:
+//   eave_y(d) = 2.50 − d × tan(30°) = 2.50 − 0.577d
+//
+// Shadow on south wall at sun altitude α, overhang depth d:
+//   shadow_y = (2.50 − 0.577d) − d / tan(α)
+//
+// South overhang d = 0.90m:
+//   Winter  (28°): shadow_y = +0.29  → full sun on window (sill 0.40m) ✓
+//   Equinox (51.5°): shadow_y = 1.26 → lower 57% of window lit ✓
+//   Summer  (75°): shadow_y = 1.74   → only 11% lit ✓
+//   Eave tip height: 1.98m — clears window header (1.90m)
+//
+// Optimal panel tilt for 38.5°N ≈ 35°. The 30° roof is within
+// 5° of optimum — ~98% of peak annual yield.
+//
+function buildRoof() {
+    const halfW = CUT_WIDTH / 2;
+
+    // Overhangs — full A-frame: south slope has solar panels,
+    // north slope is a living roof that blends into the hillside.
+    const OH_SOUTH = 0.45;  // south eave overhang for passive solar
+    const OH_NORTH = 0.30;  // overhang past back wall of U-cut
+    const OH_EAST  = 0.30;  // standard weather protection
+    const OH_WEST  = 0.30;  // standard weather protection
+
+    const zLo = -(CUT_DEPTH + OH_NORTH); // north eave (past back of U-cut)
+    const zHi = EXT_DEPTH + OH_SOUTH;    // south eave (extended for solar)
+    const xLo = -halfW - OH_WEST;
+    const xHi = halfW + OH_EAST;
+
+    // ── Da Vinci bridge A-frame rafters (eucalyptus poles) ──
+    const RAFTER_R = 0.05;  // 10cm dia eucalyptus poles
+    const rAfterSpacing = 0.60;
+    const numPairs = Math.ceil((xHi - xLo) / rAfterSpacing) + 1;
+
+    // North rafters: vertical inside gabion wall, then angled to ridge
+    const gabionOffset = 0.03;  // gap between EPDM and gabion
+    const anchorZ = -(CUT_DEPTH - gabionOffset - WALL_THICK);  // inner face of back gabion wall
+    const anchorY = 0;           // ground level (base of vertical segment)
+    const wallTopY = CUT_HEIGHT; // top of gabion wall (knee where angle starts)
+
+    // Gabion interior X limits (north structure must be inside the cage)
+    const gabionXLo = -halfW + gabionOffset + WALL_THICK;  // west inner face
+    const gabionXHi =  halfW - gabionOffset - WALL_THICK;  // east inner face
+
+    for (let i = 0; i < numPairs; i++) {
+        const x = xLo + i * rAfterSpacing;
+        if (x > xHi + 0.01) break;
+
+        // North rafter segments only inside the gabion cage walls
+        if (x >= gabionXLo - 0.01 && x <= gabionXHi + 0.01) {
+            // Segment 1: vertical inside gabion (floor → wall top)
+            addBeam(layers.roof, matRafter, RAFTER_R,
+                new THREE.Vector3(x, anchorY, anchorZ),
+                new THREE.Vector3(x, wallTopY, anchorZ)
+            );
+            // Segment 2: angled from wall top to ridge
+            addBeam(layers.roof, matRafter, RAFTER_R,
+                new THREE.Vector3(x, wallTopY, anchorZ),
+                new THREE.Vector3(x, roofY(RIDGE_Z), RIDGE_Z)
+            );
+        }
+        // South rafter: from ridge down to south eave (all positions)
+        addBeam(layers.roof, matRafter, RAFTER_R,
+            new THREE.Vector3(x, roofY(RIDGE_Z), RIDGE_Z),
+            new THREE.Vector3(x, roofY(zHi), zHi)
+        );
+    }
+
+    // Purlins (horizontal E-W ties connecting the A-frame pairs)
+    // North angled segment: interpolate from wall top to ridge.
+    // South side follows roofY as normal.
+    function purlinY(z) {
+        if (z <= RIDGE_Z) {
+            // Interpolate along angled north segment: wallTop → ridge
+            const t = (z - anchorZ) / (RIDGE_Z - anchorZ);
+            return wallTopY + t * (RIDGE_Y - wallTopY);
+        }
+        return roofY(z);
+    }
+    const purlinZs = [-2.0, -1.0, 0.5, 1.5, 2.5];
+    for (const z of purlinZs) {
+        // North purlins stay inside gabion walls; south purlins use full width
+        const pxLo = (z <= RIDGE_Z) ? gabionXLo : xLo;
+        const pxHi = (z <= RIDGE_Z) ? gabionXHi : xHi;
+        addBeam(layers.roof, matRafter, RAFTER_R * 0.7,
+            new THREE.Vector3(pxLo, purlinY(z), z),
+            new THREE.Vector3(pxHi, purlinY(z), z)
+        );
+    }
+
+    // Ridge purlin along the peak
+    addBeam(layers.roof, matRafter, RAFTER_R * 0.8,
+        new THREE.Vector3(xLo, roofY(RIDGE_Z), RIDGE_Z),
+        new THREE.Vector3(xHi, roofY(RIDGE_Z), RIDGE_Z)
+    );
+
+    // ── Roofing surface (two planes for gable) ──
+    // North slope — living roof from gabion wall top to ridge
+    // Offset 4cm along slope normal so it sits above the EPDM membrane
+    const lrOff = 0.04; // realistic: living roof substrate ~30mm above EPDM
+    const lrOffY = lrOff * Math.cos(ROOF_ANGLE);
+    const lrOffZn = -lrOff * Math.sin(ROOF_ANGLE);
+    addPlane(
+        layers.livingroof, matLivingRoof,
+        new THREE.Vector3(xHi, wallTopY + lrOffY, anchorZ + lrOffZn),
+        new THREE.Vector3(xLo, wallTopY + lrOffY, anchorZ + lrOffZn),
+        new THREE.Vector3(xLo, roofY(RIDGE_Z) + lrOffY, RIDGE_Z + lrOffZn),
+        new THREE.Vector3(xHi, roofY(RIDGE_Z) + lrOffY, RIDGE_Z + lrOffZn)
+    );
+    // South slope surface omitted — structural frame (rafters/purlins) only.
+    // Solar panels provide the visual cover on this side.
+
+    // ── Fascia boards on exposed edges ──
+    const fasciaH = 0.15;
+
+    // Front (south) fascia — the deep eave
+    addPlane(
+        layers.roof, matRafter,
+        new THREE.Vector3(xLo, roofY(zHi), zHi),
+        new THREE.Vector3(xHi, roofY(zHi), zHi),
+        new THREE.Vector3(xHi, roofY(zHi) - fasciaH, zHi),
+        new THREE.Vector3(xLo, roofY(zHi) - fasciaH, zHi)
+    );
+
+    // North fascia — at gabion back wall (no exposed eave, anchored in gabion)
+    // (omitted: living roof meets gabion wall directly)
+
+    // Left (west) fascia — north slope segment
+    addPlane(
+        layers.roof, matRafter,
+        new THREE.Vector3(xLo, wallTopY, anchorZ),
+        new THREE.Vector3(xLo, roofY(RIDGE_Z), RIDGE_Z),
+        new THREE.Vector3(xLo, roofY(RIDGE_Z) - fasciaH, RIDGE_Z),
+        new THREE.Vector3(xLo, wallTopY - fasciaH, anchorZ)
+    );
+    // Left (west) fascia — south slope segment
+    addPlane(
+        layers.roof, matRafter,
+        new THREE.Vector3(xLo, roofY(RIDGE_Z), RIDGE_Z),
+        new THREE.Vector3(xLo, roofY(zHi), zHi),
+        new THREE.Vector3(xLo, roofY(zHi) - fasciaH, zHi),
+        new THREE.Vector3(xLo, roofY(RIDGE_Z) - fasciaH, RIDGE_Z)
+    );
+
+    // Right (east) fascia — north slope segment
+    addPlane(
+        layers.roof, matRafter,
+        new THREE.Vector3(xHi, roofY(RIDGE_Z), RIDGE_Z),
+        new THREE.Vector3(xHi, wallTopY, anchorZ),
+        new THREE.Vector3(xHi, wallTopY - fasciaH, anchorZ),
+        new THREE.Vector3(xHi, roofY(RIDGE_Z) - fasciaH, RIDGE_Z)
+    );
+    // Right (east) fascia — south slope segment
+    addPlane(
+        layers.roof, matRafter,
+        new THREE.Vector3(xHi, roofY(zHi), zHi),
+        new THREE.Vector3(xHi, roofY(RIDGE_Z), RIDGE_Z),
+        new THREE.Vector3(xHi, roofY(RIDGE_Z) - fasciaH, RIDGE_Z),
+        new THREE.Vector3(xHi, roofY(zHi) - fasciaH, zHi)
+    );
+
+    // ── Soffit underside (visible from below the south eave) ──
+    addPlane(
+        layers.roof, matRafter,
+        new THREE.Vector3(xLo, roofY(EXT_DEPTH), EXT_DEPTH),
+        new THREE.Vector3(xHi, roofY(EXT_DEPTH), EXT_DEPTH),
+        new THREE.Vector3(xHi, roofY(zHi), zHi),
+        new THREE.Vector3(xLo, roofY(zHi), zHi)
+    );
+}
+
+// ─── Solar Panels ────────────────────────────────────────────────────
+// 8 panels (2 columns × 4 rows) on the south-facing slope of the A-frame gable.
+// Matching biodome solar design: 2.382m × 1.134m panels.
+function buildSolarPanels() {
+    const cosA = Math.cos(ROOF_ANGLE);
+
+    const panelW = 2.382;  // width (X) — matches biodome solar design
+    const panelL = 1.134;  // length (along slope) — matches biodome solar design
+    const panelThick = 0.05;
+    const frameW = 0.03;   // frame border width
+
+    const cols = 2;         // 2 columns across 5m width
+    const rows = 4;         // 4 rows down the south slope (incl. overhang)
+    const gapX = 0.10;
+    const gapSlope = 0.08;  // gap between rows along the slope
+
+    // Panel projected Z length
+    const panelZProj = panelL * cosA;
+
+    // Use the full south roof surface (ridge to south eave incl. overhang)
+    const OH_SOUTH = 0.45;
+    const southSlopeZ = (EXT_DEPTH + OH_SOUTH) - RIDGE_Z;  // 3.95m of south slope
+    const totalZProj = rows * panelZProj + (rows - 1) * gapSlope * cosA;
+    const zOffset = RIDGE_Z + (southSlopeZ - totalZProj) / 2;
+
+    const totalXW = cols * panelW + (cols - 1) * gapX;
+    const xOffset = -totalXW / 2 + panelW / 2;
+
+    // Normal offset to sit panels just above roof surface
+    // South slope: roof normal points upward and toward +z (south)
+    const solarOff = 0.05; // realistic: panels on mounting rails ~50mm above EPDM
+    const liftY = solarOff * Math.cos(ROOF_ANGLE);
+    const liftZ = solarOff * Math.sin(ROOF_ANGLE);
+
+    for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+            const x = xOffset + c * (panelW + gapX);
+            const zCenter = zOffset + panelZProj / 2 + r * (panelZProj + gapSlope * cosA);
+            const y = roofY(zCenter) + liftY;
+            const z = zCenter + liftZ;
+
+            // Panel body (dark blue)
+            const panelGeo = new THREE.BoxGeometry(panelW - frameW * 2, panelThick, panelL - frameW * 2);
+            const panel = new THREE.Mesh(panelGeo, matSolar);
+            panel.position.set(x, y, z);
+            panel.rotation.x = ROOF_ANGLE;  // tilt to match south-facing slope
+            panel.castShadow = true;
+            panel.receiveShadow = true;
+            layers.solar.add(panel);
+
+            // Frame (aluminium border)
+            const frameGeo = new THREE.BoxGeometry(panelW, panelThick + 0.005, panelL);
+            const frameEdges = new THREE.EdgesGeometry(frameGeo);
+            const frame = new THREE.LineSegments(frameEdges,
+                new THREE.LineBasicMaterial({ color: 0xaaaaaa, transparent: true, opacity: 0.7 }));
+            frame.position.set(x, y, z);
+            frame.rotation.x = ROOF_ANGLE;
+            layers.solar.add(frame);
+
+            // Frame solid border
+            const frameSolid = new THREE.Mesh(frameGeo, matSolarFrame);
+            frameSolid.position.set(x, y, z);
+            frameSolid.rotation.x = ROOF_ANGLE;
+            frameSolid.scale.set(1, 0.3, 1);
+            layers.solar.add(frameSolid);
+        }
+    }
+}
+
+// Build a gabion wall section with stacked cage visual
+// wallHeight defaults to CUT_HEIGHT for the U-cut walls, or can be overridden
+function buildGabionWallSection(rangeStart, rangeEnd, posOuter, posInner, axis, wallHeight) {
+    wallHeight = wallHeight || CUT_HEIGHT;
+    // Stack gabion cages in courses (each cage ~40cm tall)
+    const numCourses = Math.ceil(wallHeight / GABION_H);
+    const length = Math.abs(rangeEnd - rangeStart);
+    const thickness = Math.abs(posInner - posOuter);
+
+    for (let course = 0; course < numCourses; course++) {
+        const yBase = course * GABION_H;
+        const cageH = Math.min(GABION_H, wallHeight - yBase);
+        if (cageH < 0.05) continue;
+
+        // Each course is subdivided into individual cage segments (~60cm long)
+        const cageLen = 0.6;
+        const numCages = Math.max(1, Math.round(length / cageLen));
+        const actualLen = length / numCages;
+
+        for (let ci = 0; ci < numCages; ci++) {
+            const t = (ci + 0.5) / numCages;
+            const along = rangeStart + t * (rangeEnd - rangeStart);
+            const center = (posOuter + posInner) / 2;
+
+            let cx, cz, geoW, geoD;
+            if (axis === 'x') {
+                cx = along;
+                cz = center;
+                geoW = actualLen - 0.01; // tiny gap between cages
+                geoD = thickness;
+            } else {
+                cx = center;
+                cz = along;
+                geoW = thickness;
+                geoD = actualLen - 0.01;
+            }
+
+            const geo = new THREE.BoxGeometry(geoW, cageH - 0.01, geoD);
+            const mesh = new THREE.Mesh(geo, matGabion);
+            mesh.position.set(cx, yBase + cageH / 2, cz);
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            layers.gabion.add(mesh);
+
+            // Wire cage edges
+            const edgeGeo = new THREE.EdgesGeometry(geo);
+            const edgeMat = new THREE.LineBasicMaterial({ color: 0x999999, transparent: true, opacity: 0.6 });
+            const edges = new THREE.LineSegments(edgeGeo, edgeMat);
+            edges.position.copy(mesh.position);
+            layers.gabion.add(edges);
+        }
+    }
+
+    // Cross-wire pattern on the inner face (visible from interior)
+    const wireMat = new THREE.LineBasicMaterial({ color: 0x888888, transparent: true, opacity: 0.3 });
+    const cellSize = 0.10; // 10cm wire mesh cells
+
+    if (axis === 'x') {
+        // Inner face is at posInner (z), facing +z
+        for (let x = rangeStart; x <= rangeEnd; x += cellSize) {
+            const pts = [
+                new THREE.Vector3(x, 0, posInner + 0.005),
+                new THREE.Vector3(x, wallHeight, posInner + 0.005)
+            ];
+            layers.gabion.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), wireMat));
+        }
+        for (let y = 0; y <= wallHeight; y += cellSize) {
+            const pts = [
+                new THREE.Vector3(rangeStart, y, posInner + 0.005),
+                new THREE.Vector3(rangeEnd, y, posInner + 0.005)
+            ];
+            layers.gabion.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), wireMat));
+        }
+    } else {
+        // Determine which face is inner (toward center of room, i.e. toward x=0)
+        const innerX = Math.abs(posInner) < Math.abs(posOuter) ? posInner : posOuter;
+        const sign = innerX > 0 ? -1 : 1;
+        for (let z = Math.min(rangeStart, rangeEnd); z <= Math.max(rangeStart, rangeEnd); z += cellSize) {
+            const pts = [
+                new THREE.Vector3(innerX + sign * 0.005, 0, z),
+                new THREE.Vector3(innerX + sign * 0.005, wallHeight, z)
+            ];
+            layers.gabion.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), wireMat));
+        }
+        for (let y = 0; y <= wallHeight; y += cellSize) {
+            const pts = [
+                new THREE.Vector3(innerX + sign * 0.005, y, Math.min(rangeStart, rangeEnd)),
+                new THREE.Vector3(innerX + sign * 0.005, y, Math.max(rangeStart, rangeEnd))
+            ];
+            layers.gabion.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts), wireMat));
+        }
+    }
+}
+
+// ─── Wattle Basket System ───────────────────────────────────────────
+// One continuous woven basket: wall wattle and ceiling wattle all
+// interwoven. Structural posts, plate beams, knee braces, wattle
+// infill on all walls (front extension + U-cut interior), and a
+// pitched wattle ceiling that climbs from the retaining wall top
+// up to the A-frame gable ridge, then follows both slopes to the eaves.
+// Adapted from the standard biodome's catenary arch + wattle weave.
+function buildWattleWalls() {
+    const halfW = CUT_WIDTH / 2;
+    const POST_R = 0.05;   // 10cm diameter structural posts
+    const RING_R = 0.03;   // 5-7cm horizontal rings
+    const INFILL_R = 0.02; // 3-5cm vertical infill sticks
+    const BRACE_R = 0.04;  // 8cm knee braces
+    const PLATE_R = 0.06;  // wall plate beams (12cm dia)
+
+    // Gabion midline positions — poles sit in the center of the gabion cage
+    const westMidX = -(halfW - WALL_THICK / 2);       // -2.35 (front extension)
+    const eastMidX =  (halfW - WALL_THICK / 2);        // +2.35 (front extension)
+
+    // ── Post positions ──
+    // West wall (x = westMidX), posts sit on gabion top or foundation
+    const westPosts = [
+        { id: 'W1', x: westMidX, z: 0.00, baseY: 2.00, topY: roofY(0.00) },
+        { id: 'W2', x: westMidX, z: 0.30, baseY: 2.00, topY: roofY(0.30) },
+        { id: 'W3', x: westMidX, z: 1.50, baseY: 2.00, topY: roofY(1.50) },
+        { id: 'W4', x: westMidX, z: 2.10, baseY: 2.00, topY: roofY(2.10) },
+        { id: 'W5', x: westMidX, z: 2.55, baseY: FRONT_FOUND_H, topY: roofY(2.55) },
+        { id: 'W6', x: westMidX, z: EXT_DEPTH, baseY: FRONT_FOUND_H, topY: roofY(EXT_DEPTH) },
+    ];
+
+    // East wall (x = eastMidX), mirror of west
+    const eastPosts = westPosts.map(p => ({
+        id: p.id.replace('W', 'E'),
+        x: eastMidX,
+        z: p.z,
+        baseY: p.baseY,
+        topY: p.topY
+    }));
+
+    // North gable posts removed — the pitched ceiling flows continuously
+    // through z=0, so no vertical posts are needed at the apex.
+
+    // South wall (z = EXT_DEPTH), window jamb posts
+    const southTop = roofY(EXT_DEPTH);
+    const southPosts = [
+        { id: 'S2', x: -2.20, z: EXT_DEPTH, baseY: FRONT_FOUND_H, topY: southTop },
+        { id: 'S3', x:  2.20, z: EXT_DEPTH, baseY: FRONT_FOUND_H, topY: southTop },
+    ];
+
+    // Draw all posts
+    const allPosts = [...westPosts, ...eastPosts, ...southPosts];
+    for (const p of allPosts) {
+        const base = new THREE.Vector3(p.x, p.baseY, p.z);
+        const top = new THREE.Vector3(p.x, p.topY, p.z);
+        addBeam(layers.wattle, matWattlePost, POST_R, base, top);
+    }
+
+    // ── Wall Plate Beams ──
+    // Ridge is at z=0, so side plates slope from ridge down to south wall
+    // West plate: W1 → W6 (ridge to south)
+    addBeam(layers.wattle, matWattlePost, PLATE_R,
+        new THREE.Vector3(westMidX, roofY(0.00), 0.00),
+        new THREE.Vector3(westMidX, roofY(EXT_DEPTH), EXT_DEPTH)
+    );
+    // East plate: E1 → E6 (ridge to south)
+    addBeam(layers.wattle, matWattlePost, PLATE_R,
+        new THREE.Vector3(eastMidX, roofY(0.00), 0.00),
+        new THREE.Vector3(eastMidX, roofY(EXT_DEPTH), EXT_DEPTH)
+    );
+    // Ridge/North plate: W1 → E1 (horizontal at roofY(0) — the peak)
+    addBeam(layers.wattle, matWattlePost, PLATE_R,
+        new THREE.Vector3(westMidX, roofY(0.00), 0.00),
+        new THREE.Vector3(eastMidX, roofY(0.00), 0.00)
+    );
+    // South plate: W6 → E6 (horizontal at roofY(EXT_DEPTH))
+    addBeam(layers.wattle, matWattlePost, PLATE_R,
+        new THREE.Vector3(westMidX, roofY(EXT_DEPTH), EXT_DEPTH),
+        new THREE.Vector3(eastMidX, roofY(EXT_DEPTH), EXT_DEPTH)
+    );
+
+    // ── Knee Braces (45° diagonal stiffeners) ──
+    const BRACE_LEN = 0.85;
+    const BRACE_DIAG = BRACE_LEN / Math.sqrt(2); // horizontal and vertical components
+
+    function addKneeBrace(postX, postZ, dirZ, dirX) {
+        // Brace goes from near the top of the post diagonally down along the wall plate
+        const topY = roofY(postZ);
+        const braceTopY = topY - 0.10;
+        const braceBottomY = braceTopY - BRACE_DIAG;
+        const braceEndZ = postZ + dirZ * BRACE_DIAG;
+        const braceEndX = postX + dirX * BRACE_DIAG;
+        addBeam(layers.wattle, matWattlePost, BRACE_R,
+            new THREE.Vector3(postX, braceTopY, postZ),
+            new THREE.Vector3(braceEndX, braceBottomY, braceEndZ)
+        );
+    }
+
+    // NW corner (W1): brace along west plate (south) and north plate (east)
+    addKneeBrace(westMidX, 0.00, 1, 0);    // along west plate (toward south)
+    addKneeBrace(westMidX, 0.00, 0, 1);    // along north plate (toward east)
+
+    // NE corner (E1): brace along east plate (south) and north plate (west)
+    addKneeBrace(eastMidX, 0.00, 1, 0);     // along east plate (toward south)
+    addKneeBrace(eastMidX, 0.00, 0, -1);    // along north plate (toward west)
+
+    // SW corner (W6): brace along west plate (north) and south plate (east)
+    addKneeBrace(westMidX, EXT_DEPTH, -1, 0);   // along west plate (toward north)
+    addKneeBrace(westMidX, EXT_DEPTH, 0, 1);    // along south plate (toward east)
+
+    // SE corner (E6): brace along east plate (north) and south plate (west)
+    addKneeBrace(eastMidX, EXT_DEPTH, -1, 0);    // along east plate (toward north)
+    addKneeBrace(eastMidX, EXT_DEPTH, 0, -1);    // along south plate (toward west)
+
+    // Tallest freestanding posts W5, E5
+    addKneeBrace(westMidX, 2.55, -1, 0);   // W5 brace toward north
+    addKneeBrace(westMidX, 2.55, 1, 0);    // W5 brace toward south
+    addKneeBrace(eastMidX, 2.55, -1, 0);    // E5 brace toward north
+    addKneeBrace(eastMidX, 2.55, 1, 0);     // E5 brace toward south
+
+    // ── Wattle Infill Panels ──
+    // Weave horizontal rings and vertical infill between adjacent posts
+
+    function addWattlePanel(x, z1, z2, baseY1, baseY2, topY1, topY2, wallAxis) {
+        // wallAxis: 'z' means the panel runs along Z (x is fixed),
+        //           'x' means the panel runs along X (z is fixed)
+        const ringSpacing = 0.45;  // ~45cm vertical spacing for horizontal rings
+        const infillSpacing = 0.12; // ~12cm horizontal spacing for vertical sticks
+
+        const baseY = Math.max(baseY1, baseY2);
+        const maxTopY = Math.max(topY1, topY2);
+        const panelH = maxTopY - baseY;
+        if (panelH < 0.2) return;
+
+        const numRings = Math.max(1, Math.floor(panelH / ringSpacing));
+
+        if (wallAxis === 'z') {
+            // Panel runs along Z at fixed x
+            // Sloped rings follow the roof line (each end at its own height)
+            for (let i = 0; i < numRings; i++) {
+                const frac = (i + 1) / (numRings + 1);
+                const ringY1 = baseY + frac * (topY1 - baseY);
+                const ringY2 = baseY + frac * (topY2 - baseY);
+                addBeam(layers.wattle, matWattleRing, RING_R,
+                    new THREE.Vector3(x, ringY1, z1),
+                    new THREE.Vector3(x, ringY2, z2)
+                );
+            }
+            // Vertical infill sticks — each reaches the roof at its z
+            const span = Math.abs(z2 - z1);
+            const numSticks = Math.max(2, Math.round(span / infillSpacing));
+            for (let i = 0; i <= numSticks; i++) {
+                const frac = i / numSticks;
+                const z = z1 + frac * (z2 - z1);
+                const stickTopY = topY1 + frac * (topY2 - topY1);
+                const stickBaseY = baseY;
+                // Alternate slight offset for weave appearance
+                const offset = (i % 2 === 0) ? 0.01 : -0.01;
+                addBeam(layers.wattle, matWattleInfill, INFILL_R,
+                    new THREE.Vector3(x + offset, stickBaseY, z),
+                    new THREE.Vector3(x + offset, stickTopY, z)
+                );
+            }
+        } else {
+            // Panel runs along X at fixed z
+            const z = z1;
+            // Horizontal rings (same topY at both ends for x-axis panels)
+            for (let i = 0; i < numRings; i++) {
+                const frac = (i + 1) / (numRings + 1);
+                const ringY = baseY + frac * panelH;
+                addBeam(layers.wattle, matWattleRing, RING_R,
+                    new THREE.Vector3(baseY1, ringY, z),  // baseY1 repurposed as x1
+                    new THREE.Vector3(baseY2, ringY, z)   // baseY2 repurposed as x2
+                );
+            }
+            // Vertical infill
+            const span = Math.abs(baseY2 - baseY1); // x span
+            const numSticks = Math.max(2, Math.round(span / infillSpacing));
+            for (let i = 0; i <= numSticks; i++) {
+                const frac = i / numSticks;
+                const xPos = baseY1 + frac * (baseY2 - baseY1);
+                const offset = (i % 2 === 0) ? 0.01 : -0.01;
+                addBeam(layers.wattle, matWattleInfill, INFILL_R,
+                    new THREE.Vector3(xPos, baseY + offset, z + offset),
+                    new THREE.Vector3(xPos, maxTopY, z + offset)
+                );
+            }
+        }
+    }
+
+    // West wall panels (5 panels between 6 posts, along Z axis, at x=westMidX)
+    // Panel W-1: W1 to W2 (z=0.00 to z=0.30) — narrow, above full gabion
+    addWattlePanel(westMidX, 0.00, 0.30, 2.00, 2.00, roofY(0.00), roofY(0.30), 'z');
+
+    // Panel W-2: W2 to W3 (z=0.30 to z=1.50) — this is above the door, so
+    // only fill from the door lintel (2.0m) up to the roof
+    // The door opening is z=0.30 to z=1.50, and door height is 2.0m
+    // So the gabion base here is 2.0m — panel from 2.0m to roof
+    addWattlePanel(westMidX, 0.30, 1.50, 2.00, 2.00, roofY(0.30), roofY(1.50), 'z');
+
+    // Panel W-3: W3 to W4 (z=1.50 to z=2.10) — above south door pillar
+    addWattlePanel(westMidX, 1.50, 2.10, 2.00, 2.00, roofY(1.50), roofY(2.10), 'z');
+
+    // Panel W-4: W4 to W5 (z=2.10 to z=2.55) — tall panel on foundation
+    addWattlePanel(westMidX, 2.10, 2.55, FRONT_FOUND_H, FRONT_FOUND_H, roofY(2.10), roofY(2.55), 'z');
+
+    // Panel W-5: W5 to W6 (z=2.55 to z=EXT_DEPTH) — tall panel to SW corner
+    addWattlePanel(westMidX, 2.55, EXT_DEPTH, FRONT_FOUND_H, FRONT_FOUND_H, roofY(2.55), roofY(EXT_DEPTH), 'z');
+
+    // East wall panels (mirror of west, at x=eastMidX)
+    addWattlePanel(eastMidX, 0.00, 0.30, 2.00, 2.00, roofY(0.00), roofY(0.30), 'z');
+    addWattlePanel(eastMidX, 0.30, 1.50, 2.00, 2.00, roofY(0.30), roofY(1.50), 'z');
+    addWattlePanel(eastMidX, 1.50, 2.10, 2.00, 2.00, roofY(1.50), roofY(2.10), 'z');
+    addWattlePanel(eastMidX, 2.10, 2.55, FRONT_FOUND_H, FRONT_FOUND_H, roofY(2.10), roofY(2.55), 'z');
+    addWattlePanel(eastMidX, 2.55, EXT_DEPTH, FRONT_FOUND_H, FRONT_FOUND_H, roofY(2.55), roofY(EXT_DEPTH), 'z');
+
+    // North gable: structural posts N2, N3, N4 remain but no infill panels —
+    // the pitched ceiling now flows continuously through z=0.
+
+    // South wall wattle above window (z=EXT_DEPTH)
+    // From window header (1.90m) to roof (roofY(EXT_DEPTH))
+    // Between posts S2 (x=-2.20) and S3 (x=+2.20)
+    const southWinHeaderY = 1.90;
+    const southRoofY = roofY(EXT_DEPTH);
+    const southPanelH = southRoofY - southWinHeaderY;
+
+    if (southPanelH > 0.1) {
+        // One horizontal ring at mid-height
+        const midY = southWinHeaderY + southPanelH / 2;
+        addBeam(layers.wattle, matWattleRing, RING_R,
+            new THREE.Vector3(-2.20, midY, EXT_DEPTH),
+            new THREE.Vector3(2.20, midY, EXT_DEPTH)
+        );
+        // Vertical infill at 12cm spacing
+        const southSpan = 4.40; // from -2.20 to +2.20
+        const numSouthSticks = Math.round(southSpan / 0.12);
+        for (let i = 0; i <= numSouthSticks; i++) {
+            const frac = i / numSouthSticks;
+            const xPos = -2.20 + frac * 4.40;
+            const offset = (i % 2 === 0) ? 0.01 : -0.01;
+            addBeam(layers.wattle, matWattleInfill, INFILL_R,
+                new THREE.Vector3(xPos, southWinHeaderY, EXT_DEPTH + offset),
+                new THREE.Vector3(xPos, southRoofY, EXT_DEPTH + offset)
+            );
+        }
+    }
+
+    // ═══════════════════════════════════════════════════════════════════
+    // UNIFIED BASKET: U-cut interior walls + ceiling + living roof
+    // The entire structure reads as one continuous woven basket —
+    // walls flow into ceiling, front extension meets earth-sheltered.
+    // ═══════════════════════════════════════════════════════════════════
+
+    // Gabion midline positions (U-cut interior)
+    const gabOffset = 0.03;
+    const backInnerZ  = -CUT_DEPTH + gabOffset + WALL_THICK;   // ≈ -2.67
+    const westInnerX  = -(halfW - gabOffset - WALL_THICK / 2);   // ≈ -2.32 (gabion midline)
+    const eastInnerX  =  (halfW - gabOffset - WALL_THICK / 2);   // ≈ +2.32 (gabion midline)
+
+    // ── U-cut interior posts ──
+    // Back wall interior (along x at z = backInnerZ)
+    const backInteriorPosts = [
+        { x: westInnerX, z: backInnerZ },
+        { x: -1.50,      z: backInnerZ },
+        { x:  0.00,      z: backInnerZ },
+        { x:  1.50,      z: backInnerZ },
+        { x: eastInnerX,  z: backInnerZ },
+    ];
+    for (const p of backInteriorPosts) {
+        addBeam(layers.wattle, matWattlePost, POST_R,
+            new THREE.Vector3(p.x, 0, p.z),
+            new THREE.Vector3(p.x, CUT_HEIGHT, p.z)
+        );
+    }
+
+    // ── Pitched ceiling height function (defined early for posts/panels) ──
+    // Smooth quadratic from back wall (CUT_HEIGHT) to ridge peak,
+    // then follows south roof slope. Eliminates the kink at z=0 so
+    // the north-side ceiling reads as one continuous upward curve.
+    const roofOffset = 0.20;
+    function ceilY(z) {
+        if (z <= RIDGE_Z) {
+            // Quadratic: starts nearly flat at back wall, curves up to
+            // match roof slope at the ridge for a smooth A-frame peak
+            const dz = RIDGE_Z - backInnerZ;
+            const t = (z - backInnerZ) / dz;        // 0 at back wall, 1 at ridge
+            const dy = (RIDGE_Y - roofOffset) - CUT_HEIGHT;
+            const slopeAtRidge = Math.tan(ROOF_ANGLE);
+            const b = slopeAtRidge * dz - dy;       // quadratic coefficient
+            const a = dy - b;                        // linear coefficient
+            return CUT_HEIGHT + a * t + b * t * t;
+        }
+        return roofY(z) - roofOffset;
+    }
+
+    // West side interior posts — each reaches the pitched ceiling
+    const westInteriorZs = [-0.67, -1.33, -2.00];
+    for (const z of westInteriorZs) {
+        addBeam(layers.wattle, matWattlePost, POST_R,
+            new THREE.Vector3(westInnerX, 0, z),
+            new THREE.Vector3(westInnerX, ceilY(z), z)
+        );
+    }
+    // Corner post at NW interior (ceiling = CUT_HEIGHT at back wall)
+    addBeam(layers.wattle, matWattlePost, POST_R,
+        new THREE.Vector3(westInnerX, 0, backInnerZ),
+        new THREE.Vector3(westInnerX, CUT_HEIGHT, backInnerZ)
+    );
+
+    // East side interior (mirror)
+    const eastInteriorZs = [-0.67, -1.33, -2.00];
+    for (const z of eastInteriorZs) {
+        addBeam(layers.wattle, matWattlePost, POST_R,
+            new THREE.Vector3(eastInnerX, 0, z),
+            new THREE.Vector3(eastInnerX, ceilY(z), z)
+        );
+    }
+    // Corner post at NE interior
+    addBeam(layers.wattle, matWattlePost, POST_R,
+        new THREE.Vector3(eastInnerX, 0, backInnerZ),
+        new THREE.Vector3(eastInnerX, CUT_HEIGHT, backInnerZ)
+    );
+
+    // Transition posts at z=0 — reach from floor to ceiling
+    addBeam(layers.wattle, matWattlePost, POST_R,
+        new THREE.Vector3(westInnerX, 0, 0),
+        new THREE.Vector3(westInnerX, ceilY(0), 0)
+    );
+    addBeam(layers.wattle, matWattlePost, POST_R,
+        new THREE.Vector3(eastInnerX, 0, 0),
+        new THREE.Vector3(eastInnerX, ceilY(0), 0)
+    );
+
+    // ── U-cut interior plate beams — follow the pitched ceiling ──
+    // Back wall plate (ceiling meets CUT_HEIGHT here)
+    addBeam(layers.wattle, matWattlePost, PLATE_R,
+        new THREE.Vector3(westInnerX, CUT_HEIGHT, backInnerZ),
+        new THREE.Vector3(eastInnerX, CUT_HEIGHT, backInnerZ)
+    );
+    // West side plate (sloped, following ceiling)
+    addBeam(layers.wattle, matWattlePost, PLATE_R,
+        new THREE.Vector3(westInnerX, ceilY(0), 0),
+        new THREE.Vector3(westInnerX, CUT_HEIGHT, backInnerZ)
+    );
+    // East side plate (sloped, following ceiling)
+    addBeam(layers.wattle, matWattlePost, PLATE_R,
+        new THREE.Vector3(eastInnerX, ceilY(0), 0),
+        new THREE.Vector3(eastInnerX, CUT_HEIGHT, backInnerZ)
+    );
+
+    // ── U-cut interior wattle panels ──
+    // Back wall: floor to CUT_HEIGHT (ceiling touches here)
+    function addInteriorBackPanel(fixedZ, x1, x2) {
+        const span = Math.abs(x2 - x1);
+        const panelH = CUT_HEIGHT;
+        const numRings = Math.max(1, Math.floor(panelH / 0.45));
+        const numSticks = Math.max(2, Math.round(span / 0.12));
+        for (let r = 0; r < numRings; r++) {
+            const frac = (r + 1) / (numRings + 1);
+            addBeam(layers.wattle, matWattleRing, RING_R,
+                new THREE.Vector3(x1, frac * panelH, fixedZ),
+                new THREE.Vector3(x2, frac * panelH, fixedZ)
+            );
+        }
+        for (let s = 0; s <= numSticks; s++) {
+            const frac = s / numSticks;
+            const xPos = x1 + frac * (x2 - x1);
+            const offset = (s % 2 === 0) ? 0.01 : -0.01;
+            addBeam(layers.wattle, matWattleInfill, INFILL_R,
+                new THREE.Vector3(xPos, 0, fixedZ + offset),
+                new THREE.Vector3(xPos, panelH, fixedZ + offset)
+            );
+        }
+    }
+
+    const backXPosts = [westInnerX, -1.50, 0.00, 1.50, eastInnerX];
+    for (let i = 0; i < backXPosts.length - 1; i++) {
+        addInteriorBackPanel(backInnerZ, backXPosts[i], backXPosts[i + 1]);
+    }
+
+    // Side walls: floor to pitched ceiling (reuse addWattlePanel with ceilY tops)
+    const sideZPosts = [0, -0.67, -1.33, -2.00, backInnerZ];
+    for (let i = 0; i < sideZPosts.length - 1; i++) {
+        const z1 = sideZPosts[i];
+        const z2 = sideZPosts[i + 1];
+        addWattlePanel(westInnerX, z1, z2, 0, 0, ceilY(z1), ceilY(z2), 'z');
+        addWattlePanel(eastInnerX, z1, z2, 0, 0, ceilY(z1), ceilY(z2), 'z');
+    }
+
+    // ── Basket Ceiling: continuous pitched wattle from back wall to south eave ──
+    const ceilRibSpacing = 0.30;
+    const ceilRingSpacing = 0.45;
+
+    const fullZStart = backInnerZ;
+    const fullZEnd = EXT_DEPTH;
+    const ceilXStart = westInnerX;
+    const ceilXEnd = eastInnerX;
+
+    // Longitudinal ribs running N-S (full length, back wall to south eave)
+    const numCeilRibs = Math.round((ceilXEnd - ceilXStart) / ceilRibSpacing) + 1;
+    // North side: polyline segments following the smooth ceilY curve
+    const northRibPts = 6; // 6 points = 5 segments from back wall to ridge
+    for (let i = 0; i < numCeilRibs; i++) {
+        const x = ceilXStart + i * ceilRibSpacing;
+        if (x > ceilXEnd + 0.01) break;
+        // North side: smooth curve from back wall up to ridge peak
+        for (let s = 0; s < northRibPts - 1; s++) {
+            const z1 = fullZStart + s * (RIDGE_Z - fullZStart) / (northRibPts - 1);
+            const z2 = fullZStart + (s + 1) * (RIDGE_Z - fullZStart) / (northRibPts - 1);
+            addBeam(layers.wattle, matWattleRing, RING_R,
+                new THREE.Vector3(x, ceilY(z1), z1),
+                new THREE.Vector3(x, ceilY(z2), z2)
+            );
+        }
+        // South slope: from ridge peak down to south eave
+        addBeam(layers.wattle, matWattleRing, RING_R,
+            new THREE.Vector3(x, ceilY(RIDGE_Z), RIDGE_Z),
+            new THREE.Vector3(x, ceilY(fullZEnd), fullZEnd)
+        );
+    }
+
+    // Cross rings E-W at regular intervals along the full length
+    const fullDepth = Math.abs(fullZEnd - fullZStart);
+    const numCeilRings = Math.round(fullDepth / ceilRingSpacing) + 1;
+    for (let i = 0; i < numCeilRings; i++) {
+        const z = fullZStart + i * ceilRingSpacing;
+        if (z > fullZEnd + 0.01) break;
+        const y = ceilY(z);
+        addBeam(layers.wattle, matWattleRing, RING_R,
+            new THREE.Vector3(ceilXStart, y, z),
+            new THREE.Vector3(ceilXEnd, y, z)
+        );
+    }
+
+    // Ceiling uses ribs + rings only (no infill sticks) for a clean
+    // open-frame look — avoids visual clutter hanging in the interior.
+}
+
+
+// ─── Light Straw-Clay ───────────────────────────────────────────────
+// Interior plaster applied to the inside face of the wattle basket walls.
+// Provides thermal mass, air-tightness, and a smooth interior finish.
+function buildStrawClay() {
+    const halfW = CUT_WIDTH / 2;
+    const inset = 0.06; // 6cm inward from wattle centerline (post radius + clay thickness)
+
+    // ═══════════════════════════════════════════════════════════════════
+    // SOUTH SIDE — front extension walls (z = 0 → 3)
+    // ═══════════════════════════════════════════════════════════════════
+
+    // Wattle post centerline positions (from buildWattleWalls)
+    const westMidX = -(halfW - WALL_THICK / 2);   // -2.35
+    const eastMidX =  (halfW - WALL_THICK / 2);    //  2.35
+
+    // ── West wall interior ──
+    const westX = westMidX + inset; // interior face
+    const roofInset = 0.20; // match roofOffset used for interior ceiling
+    const backFaceZ = -(CUT_DEPTH - 0.03 - WALL_THICK); // -2.67 (back inner face)
+
+    // Upper wall: single trapezoid (z=0→EXT_DEPTH, y=2.00→roofY)
+    addPlane(layers.strawclay, matStrawClay,
+        new THREE.Vector3(westX, 2.00, EXT_DEPTH),
+        new THREE.Vector3(westX, 2.00, 0.00),
+        new THREE.Vector3(westX, roofY(0.00), 0.00),
+        new THREE.Vector3(westX, roofY(EXT_DEPTH), EXT_DEPTH)
+    );
+    // Foundation section below gabion line (z=2.10→EXT_DEPTH, y=FRONT_FOUND_H→2.00)
+    addPlane(layers.strawclay, matStrawClay,
+        new THREE.Vector3(westX, FRONT_FOUND_H, EXT_DEPTH),
+        new THREE.Vector3(westX, FRONT_FOUND_H, 2.10),
+        new THREE.Vector3(westX, 2.00, 2.10),
+        new THREE.Vector3(westX, 2.00, EXT_DEPTH)
+    );
+    // North upper triangle (z=backFaceZ→0, tapers from CUT_HEIGHT to ceiling at ridge)
+    addPlane(layers.strawclay, matStrawClay,
+        new THREE.Vector3(westX, CUT_HEIGHT, 0),
+        new THREE.Vector3(westX, CUT_HEIGHT, backFaceZ),
+        new THREE.Vector3(westX, CUT_HEIGHT, backFaceZ),
+        new THREE.Vector3(westX, roofY(0) - roofInset, 0)
+    );
+
+    // ── East wall interior (mirror of west) ──
+    const eastX = eastMidX - inset; // interior face
+
+    // Upper wall: single trapezoid (z=0→EXT_DEPTH, y=2.00→roofY)
+    addPlane(layers.strawclay, matStrawClay,
+        new THREE.Vector3(eastX, 2.00, 0.00),
+        new THREE.Vector3(eastX, 2.00, EXT_DEPTH),
+        new THREE.Vector3(eastX, roofY(EXT_DEPTH), EXT_DEPTH),
+        new THREE.Vector3(eastX, roofY(0.00), 0.00)
+    );
+    // Foundation section below gabion line (z=2.10→EXT_DEPTH, y=FRONT_FOUND_H→2.00)
+    addPlane(layers.strawclay, matStrawClay,
+        new THREE.Vector3(eastX, FRONT_FOUND_H, 2.10),
+        new THREE.Vector3(eastX, FRONT_FOUND_H, EXT_DEPTH),
+        new THREE.Vector3(eastX, 2.00, EXT_DEPTH),
+        new THREE.Vector3(eastX, 2.00, 2.10)
+    );
+    // North upper triangle (z=backFaceZ→0, tapers from CUT_HEIGHT to ceiling at ridge)
+    addPlane(layers.strawclay, matStrawClay,
+        new THREE.Vector3(eastX, CUT_HEIGHT, backFaceZ),
+        new THREE.Vector3(eastX, CUT_HEIGHT, 0),
+        new THREE.Vector3(eastX, roofY(0) - roofInset, 0),
+        new THREE.Vector3(eastX, CUT_HEIGHT, backFaceZ)
+    );
+
+    // ── South wall interior (z ≈ 2.72) ──
+    // South window spans full width (-2.20 → 2.20), sill FRONT_FOUND_H → header 1.90
+    // Only the strip ABOVE the window header needs straw-clay
+    // Place at inner wall face so it sits behind the window frame (at z=2.85)
+    const southZ = EXT_DEPTH - WALL_THICK + 0.02;
+    const southRoofY = roofY(EXT_DEPTH);
+    addPlane(layers.strawclay, matStrawClay,
+        new THREE.Vector3(-2.20, 1.90, southZ),
+        new THREE.Vector3( 2.20, 1.90, southZ),
+        new THREE.Vector3( 2.20, southRoofY, southZ),
+        new THREE.Vector3(-2.20, southRoofY, southZ)
+    );
+
+    // ═══════════════════════════════════════════════════════════════════
+    // NORTH SIDE — U-cut interior walls (z = 0 → back gabion face)
+    // Straw-clay sits on the INTERIOR side of the gabion inner face,
+    // visible from inside the building (not buried in the stone fill).
+    // ═══════════════════════════════════════════════════════════════════
+
+    const gabOffset = 0.03;
+    // Gabion inner face positions (the face toward building center)
+    const gabionXLo = -halfW + gabOffset + WALL_THICK;  // -2.17 (west inner face)
+    const gabionXHi =  halfW - gabOffset - WALL_THICK;  //  2.17 (east inner face)
+    const nOff = 0.02; // small offset from gabion face toward interior
+
+    // ── Back wall (z = backFaceZ, floor → CUT_HEIGHT) ──
+    addPlane(layers.strawclay, matStrawClay,
+        new THREE.Vector3(gabionXLo, 0, backFaceZ + nOff),
+        new THREE.Vector3(gabionXHi, 0, backFaceZ + nOff),
+        new THREE.Vector3(gabionXHi, CUT_HEIGHT, backFaceZ + nOff),
+        new THREE.Vector3(gabionXLo, CUT_HEIGHT, backFaceZ + nOff)
+    );
+
+    // ── West side (z = backFaceZ → 0, floor → CUT_HEIGHT) ──
+    addPlane(layers.strawclay, matStrawClay,
+        new THREE.Vector3(gabionXLo + nOff, 0, 0),
+        new THREE.Vector3(gabionXLo + nOff, 0, backFaceZ),
+        new THREE.Vector3(gabionXLo + nOff, CUT_HEIGHT, backFaceZ),
+        new THREE.Vector3(gabionXLo + nOff, CUT_HEIGHT, 0)
+    );
+
+    // ── East side (z = backFaceZ → 0, floor → CUT_HEIGHT) ──
+    addPlane(layers.strawclay, matStrawClay,
+        new THREE.Vector3(gabionXHi - nOff, 0, backFaceZ),
+        new THREE.Vector3(gabionXHi - nOff, 0, 0),
+        new THREE.Vector3(gabionXHi - nOff, CUT_HEIGHT, 0),
+        new THREE.Vector3(gabionXHi - nOff, CUT_HEIGHT, backFaceZ)
+    );
+}
+
+// ─── Exterior Wall Cladding ──────────────────────────────────────────
+// Three layers outside the wattle/gabion walls at realistic thicknesses.
+// Mirrors the Light Straw-Clay interior coverage on the exterior face.
+// Layer 1: Exterior straw-clay insulation (100mm)
+// Layer 2: Burlap/hessian mesh (holds straw-clay while curing)
+// Layer 3: Lime-earth render (final weatherproof coat)
+function buildExteriorCladding() {
+    const halfW = CUT_WIDTH / 2;
+    const westMidX = -(halfW - WALL_THICK / 2);
+    const eastMidX =  (halfW - WALL_THICK / 2);
+    const backFaceZ = -(CUT_DEPTH - 0.03 - WALL_THICK);
+
+    // Exterior face of wattle is ~0.06m outside the post centerline
+    const wattleExt = 0.06;
+
+    // Gabion outer face positions (for north U-cut exterior)
+    const gabOffset = 0.03;
+    const gabionXLo = -halfW + gabOffset;             // west outer face
+    const gabionXHi =  halfW - gabOffset;             // east outer face
+    const gabionBackZ = -(CUT_DEPTH - gabOffset);     // back outer face
+
+    // Three layer offsets
+    const layerDefs = [
+        { layer: layers.extcladding, mat: matExtStrawClay, gap: 1 },
+        { layer: layers.burlap,      mat: matBurlap,       gap: 2 },
+        { layer: layers.limerender,  mat: matLimeRender,   gap: 3 },
+    ];
+
+    for (const ld of layerDefs) {
+        const off = wattleExt + ld.gap * EXPLODE_GAP;
+        const nOff = ld.gap * EXPLODE_GAP;  // north gabion offset
+
+        // ═════════════════════════════════════════════════════════════
+        // SOUTH EXTENSION — exposed walls (z = 0 → EXT_DEPTH)
+        // ═════════════════════════════════════════════════════════════
+
+        // ── West wall exterior (normal → -X outward) ──
+        const wxOuter = westMidX - off;
+
+        // Upper wall: gabion top (2.00) → roof, z=0→EXT_DEPTH
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(wxOuter, 2.00, EXT_DEPTH),
+            new THREE.Vector3(wxOuter, 2.00, 0.00),
+            new THREE.Vector3(wxOuter, roofY(0.00), 0.00),
+            new THREE.Vector3(wxOuter, roofY(EXT_DEPTH), EXT_DEPTH)
+        );
+        // Lower wall: foundation (FRONT_FOUND_H) → gabion top (2.00), z=2.10→EXT_DEPTH
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(wxOuter, FRONT_FOUND_H, EXT_DEPTH),
+            new THREE.Vector3(wxOuter, FRONT_FOUND_H, 2.10),
+            new THREE.Vector3(wxOuter, 2.00, 2.10),
+            new THREE.Vector3(wxOuter, 2.00, EXT_DEPTH)
+        );
+        // West door north pillar: z=0→0.3, y=FRONT_FOUND_H→2.00
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(wxOuter, FRONT_FOUND_H, 0.30),
+            new THREE.Vector3(wxOuter, FRONT_FOUND_H, 0.00),
+            new THREE.Vector3(wxOuter, 2.00, 0.00),
+            new THREE.Vector3(wxOuter, 2.00, 0.30)
+        );
+        // West door south pillar: z=1.50→2.10, y=FRONT_FOUND_H→2.00
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(wxOuter, FRONT_FOUND_H, 2.10),
+            new THREE.Vector3(wxOuter, FRONT_FOUND_H, 1.50),
+            new THREE.Vector3(wxOuter, 2.00, 1.50),
+            new THREE.Vector3(wxOuter, 2.00, 2.10)
+        );
+        // North gable triangle (z=backFaceZ→0, CUT_HEIGHT→roofY)
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(wxOuter, CUT_HEIGHT, 0),
+            new THREE.Vector3(wxOuter, CUT_HEIGHT, backFaceZ),
+            new THREE.Vector3(wxOuter, CUT_HEIGHT, backFaceZ),
+            new THREE.Vector3(wxOuter, roofY(0), 0)
+        );
+
+        // ── East wall exterior (normal → +X outward) ──
+        const exOuter = eastMidX + off;
+
+        // Upper wall: z=0→EXT_DEPTH
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(exOuter, 2.00, EXT_DEPTH),
+            new THREE.Vector3(exOuter, 2.00, 0.00),
+            new THREE.Vector3(exOuter, roofY(0.00), 0.00),
+            new THREE.Vector3(exOuter, roofY(EXT_DEPTH), EXT_DEPTH)
+        );
+        // Lower wall: z=2.10→EXT_DEPTH
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(exOuter, FRONT_FOUND_H, EXT_DEPTH),
+            new THREE.Vector3(exOuter, FRONT_FOUND_H, 2.10),
+            new THREE.Vector3(exOuter, 2.00, 2.10),
+            new THREE.Vector3(exOuter, 2.00, EXT_DEPTH)
+        );
+        // East window north pillar: z=0→0.3, y=FRONT_FOUND_H→2.00
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(exOuter, FRONT_FOUND_H, 0.00),
+            new THREE.Vector3(exOuter, FRONT_FOUND_H, 0.30),
+            new THREE.Vector3(exOuter, 2.00, 0.30),
+            new THREE.Vector3(exOuter, 2.00, 0.00)
+        );
+        // East window south pillar: z=1.50→2.10, y=FRONT_FOUND_H→2.00
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(exOuter, FRONT_FOUND_H, 1.50),
+            new THREE.Vector3(exOuter, FRONT_FOUND_H, 2.10),
+            new THREE.Vector3(exOuter, 2.00, 2.10),
+            new THREE.Vector3(exOuter, 2.00, 1.50)
+        );
+        // North gable triangle (z=backFaceZ→0, CUT_HEIGHT→roofY)
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(exOuter, CUT_HEIGHT, backFaceZ),
+            new THREE.Vector3(exOuter, CUT_HEIGHT, 0),
+            new THREE.Vector3(exOuter, roofY(0), 0),
+            new THREE.Vector3(exOuter, CUT_HEIGHT, backFaceZ)
+        );
+
+        // ── South wall exterior ──
+        const szOuter = EXT_DEPTH + off;
+        const southRoofY = roofY(EXT_DEPTH);
+
+        // Strip above window (full width)
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(wxOuter, 1.90, szOuter),
+            new THREE.Vector3(exOuter, 1.90, szOuter),
+            new THREE.Vector3(exOuter, southRoofY, szOuter),
+            new THREE.Vector3(wxOuter, southRoofY, szOuter)
+        );
+        // Strip below window (full width, sill at 0.80)
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(wxOuter, FRONT_FOUND_H, szOuter),
+            new THREE.Vector3(exOuter, FRONT_FOUND_H, szOuter),
+            new THREE.Vector3(exOuter, 0.80, szOuter),
+            new THREE.Vector3(wxOuter, 0.80, szOuter)
+        );
+        // Left of window (0.80 → 1.90)
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(wxOuter, 0.80, szOuter),
+            new THREE.Vector3(-2.20, 0.80, szOuter),
+            new THREE.Vector3(-2.20, 1.90, szOuter),
+            new THREE.Vector3(wxOuter, 1.90, szOuter)
+        );
+        // Right of window (0.80 → 1.90)
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(2.20, 0.80, szOuter),
+            new THREE.Vector3(exOuter, 0.80, szOuter),
+            new THREE.Vector3(exOuter, 1.90, szOuter),
+            new THREE.Vector3(2.20, 1.90, szOuter)
+        );
+
+        // ═════════════════════════════════════════════════════════════
+        // NORTH U-CUT — exterior face of gabion walls
+        // ═════════════════════════════════════════════════════════════
+
+        // Back wall (z = gabionBackZ, floor → CUT_HEIGHT)
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(gabionXHi + nOff, 0, gabionBackZ - nOff),
+            new THREE.Vector3(gabionXLo - nOff, 0, gabionBackZ - nOff),
+            new THREE.Vector3(gabionXLo - nOff, CUT_HEIGHT, gabionBackZ - nOff),
+            new THREE.Vector3(gabionXHi + nOff, CUT_HEIGHT, gabionBackZ - nOff)
+        );
+        // West side (z = backFaceZ → 0, floor → CUT_HEIGHT)
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(gabionXLo - nOff, 0, backFaceZ),
+            new THREE.Vector3(gabionXLo - nOff, 0, 0),
+            new THREE.Vector3(gabionXLo - nOff, CUT_HEIGHT, 0),
+            new THREE.Vector3(gabionXLo - nOff, CUT_HEIGHT, backFaceZ)
+        );
+        // East side (z = backFaceZ → 0, floor → CUT_HEIGHT)
+        addPlane(ld.layer, ld.mat,
+            new THREE.Vector3(gabionXHi + nOff, 0, 0),
+            new THREE.Vector3(gabionXHi + nOff, 0, backFaceZ),
+            new THREE.Vector3(gabionXHi + nOff, CUT_HEIGHT, backFaceZ),
+            new THREE.Vector3(gabionXHi + nOff, CUT_HEIGHT, 0)
+        );
+    }
+}
+
+// ─── Raised Floor (eucalyptus wattle) ────────────────────────────────
+// Wattle floor covering the full 5x6.5m rectangle.
+function buildFloor() {
+    const halfW = CUT_WIDTH / 2;
+    const geo = new THREE.BoxGeometry(CUT_WIDTH, FLOOR_THICK, TOTAL_DEPTH);
+    const mesh = new THREE.Mesh(geo, matFloor);
+    mesh.position.set(0, FRONT_FOUND_H + FLOOR_THICK / 2, -CUT_DEPTH + TOTAL_DEPTH / 2);
+    mesh.receiveShadow = true;
+    layers.floor.add(mesh);
+
+    // Edge detail — subtle border line
+    const edgeGeo = new THREE.EdgesGeometry(geo);
+    const edgeMat = new THREE.LineBasicMaterial({ color: 0x6a5d4b, transparent: true, opacity: 0.3 });
+    const edges = new THREE.LineSegments(edgeGeo, edgeMat);
+    edges.position.copy(mesh.position);
+    layers.floor.add(edges);
+}
+
+
+// ─── Dimension Lines & Annotations ──────────────────────────────────
+function buildAnnotations() {
+    const lineMat = new THREE.LineBasicMaterial({ color: 0xc9a227, transparent: true, opacity: 0.5 });
+    const halfW = CUT_WIDTH / 2;
+
+    // Width line across the front: 5m
+    const wPts = [
+        new THREE.Vector3(-halfW, 0.05, EXT_DEPTH + 0.8),
+        new THREE.Vector3(halfW, 0.05, EXT_DEPTH + 0.8)
+    ];
+    const wGeo = new THREE.BufferGeometry().setFromPoints(wPts);
+    scene.add(new THREE.Line(wGeo, lineMat));
+
+    // Tick marks
+    for (const x of [-halfW, halfW]) {
+        const tPts = [
+            new THREE.Vector3(x, 0.05, EXT_DEPTH + 0.6),
+            new THREE.Vector3(x, 0.05, EXT_DEPTH + 1.0)
+        ];
+        scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(tPts), lineMat));
+    }
+
+    // Depth line along the side: 6.5m total
+    const dPts = [
+        new THREE.Vector3(halfW + 0.8, 0.05, EXT_DEPTH),
+        new THREE.Vector3(halfW + 0.8, 0.05, -CUT_DEPTH)
+    ];
+    const dGeo = new THREE.BufferGeometry().setFromPoints(dPts);
+    scene.add(new THREE.Line(dGeo, lineMat));
+
+    // Tick marks for depth
+    for (const z of [EXT_DEPTH, 0, -CUT_DEPTH]) {
+        const tPts = [
+            new THREE.Vector3(halfW + 0.6, 0.05, z),
+            new THREE.Vector3(halfW + 1.0, 0.05, z)
+        ];
+        scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(tPts), lineMat));
+    }
+
+    // Height line on back wall: 2m
+    const hPts = [
+        new THREE.Vector3(halfW + 0.5, 0, -CUT_DEPTH + 0.03),
+        new THREE.Vector3(halfW + 0.5, CUT_HEIGHT, -CUT_DEPTH + 0.03)
+    ];
+    const hGeo = new THREE.BufferGeometry().setFromPoints(hPts);
+    scene.add(new THREE.Line(hGeo, lineMat));
+
+    for (const y of [0, CUT_HEIGHT]) {
+        const tPts = [
+            new THREE.Vector3(halfW + 0.3, y, -CUT_DEPTH + 0.03),
+            new THREE.Vector3(halfW + 0.7, y, -CUT_DEPTH + 0.03)
+        ];
+        scene.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(tPts), lineMat));
+    }
+}
+
+// ─── Build Everything ────────────────────────────────────────────────
+buildTerrain();
+buildEPDM();
+buildGabionWalls();
+buildWattleWalls();
+buildStrawClay();
+buildExteriorCladding();
+buildDoor();
+buildWindow();
+buildSouthWindow();
+buildRoof();
+buildSolarPanels();
+buildFloor();
+buildAnnotations();
+
+// ─── Legend Toggle ───────────────────────────────────────────────────
+document.querySelectorAll('.legend-item').forEach(item => {
+    item.addEventListener('click', () => {
+        const layerName = item.dataset.layer;
+        const group = layers[layerName];
+        if (!group) return;
+        group.visible = !group.visible;
+        item.classList.toggle('disabled');
+    });
+});
+
+// ─── Animation Loop ──────────────────────────────────────────────────
+function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+}
+animate();
+
+// ─── Resize ──────────────────────────────────────────────────────────
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+
+</body>
+</html>

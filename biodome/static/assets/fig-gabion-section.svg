@@ -1,0 +1,272 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 460">
+  <defs>
+    <style>
+      .label { font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 12px; }
+      .label-sm { font-family: -apple-system, system-ui, sans-serif; fill: #555; font-size: 11px; }
+      .dim { font-family: -apple-system, system-ui, sans-serif; fill: #c9a227; font-size: 12px; font-weight: 600; }
+      .dim-line { stroke: #c9a227; stroke-width: 1; fill: none; }
+      .struct { stroke: #1a2e1a; stroke-width: 2; fill: none; }
+      .mesh { stroke: #888; stroke-width: 1; fill: none; }
+      .stone { fill: #ccc; stroke: #999; stroke-width: 1; }
+      .flat-stone { fill: #b0a890; stroke: #8a7e60; stroke-width: 1; }
+      .earth { fill: #d4c4a0; }
+      .ground-fill { fill: #f0ebe3; }
+      .pole { fill: #8b6914; stroke: #5a4510; stroke-width: 1.5; }
+      .gravel { fill: #aaa; stroke: #888; stroke-width: 0.8; }
+      .wire { stroke: #666; stroke-width: 1.5; fill: none; }
+      .geotextile { stroke: #6a9a6a; stroke-width: 2; stroke-dasharray: 6,2; fill: none; }
+      .pipe { fill: #e0e0e0; stroke: #666; stroke-width: 1.5; }
+      .gravel-bed { fill: #bbb; stroke: #999; stroke-width: 0.6; }
+    </style>
+    <marker id="a-s" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6" stroke="#c9a227" fill="none" stroke-width="1"/>
+    </marker>
+    <marker id="a-e" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" stroke="#c9a227" fill="none" stroke-width="1"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="380" y="24" text-anchor="middle" class="label" style="font-size:15px; font-weight:700;">Gabion Foundation — Cross-Section with French Drain and Pole Socket</text>
+
+  <!-- Scale: 40cm ring width = 200px, so 1cm = 5px -->
+  <!-- Gabion centered at x=280 (left edge) to x=480 (right edge) = 200px = 40cm -->
+  <!-- Ground level at y=200 -->
+  <!-- 30cm above grade = 150px above ground → top at y=50 -->
+  <!-- 35cm below grade = 175px below ground → bottom at y=375 -->
+
+  <!-- Earth background -->
+  <rect x="40" y="200" width="680" height="235" class="ground-fill"/>
+
+  <!-- Trench excavation (slightly wider than gabion) -->
+  <path d="M250,200 L250,375 L510,375 L510,200" fill="#f5f0e8" stroke="none"/>
+
+  <!-- Ground level line -->
+  <line x1="40" y1="200" x2="250" y2="200" stroke="#1a2e1a" stroke-width="1.5"/>
+  <line x1="510" y1="200" x2="720" y2="200" stroke="#1a2e1a" stroke-width="1.5"/>
+  <text x="725" y="204" class="label-sm" style="font-size:10px;">grade</text>
+
+  <!-- Geotextile liner (lines trench bottom and sides, folds over top) -->
+  <!-- Left side fold-over flap -->
+  <path d="M295,50 L275,50 L275,55 L295,55" class="geotextile"/>
+  <!-- Left side going down and across bottom -->
+  <path d="M260,55 L260,370 L500,370 L500,55" class="geotextile"/>
+  <!-- Right side fold-over flap -->
+  <path d="M465,50 L485,50 L485,55 L465,55" class="geotextile"/>
+
+  <!-- Gravel bed (50mm = 25px, at y=350 to y=375, on top of geotextile at bottom) -->
+  <!-- Small circles representing gravel -->
+  <circle cx="290" cy="362" r="3" class="gravel-bed"/>
+  <circle cx="300" cy="366" r="2.5" class="gravel-bed"/>
+  <circle cx="310" cy="360" r="3" class="gravel-bed"/>
+  <circle cx="320" cy="365" r="2.5" class="gravel-bed"/>
+  <circle cx="330" cy="361" r="3" class="gravel-bed"/>
+  <circle cx="340" cy="367" r="2.5" class="gravel-bed"/>
+  <circle cx="350" cy="363" r="3" class="gravel-bed"/>
+  <circle cx="360" cy="360" r="2.5" class="gravel-bed"/>
+  <circle cx="370" cy="366" r="3" class="gravel-bed"/>
+  <circle cx="380" cy="362" r="2.5" class="gravel-bed"/>
+  <circle cx="390" cy="367" r="3" class="gravel-bed"/>
+  <circle cx="400" cy="361" r="2.5" class="gravel-bed"/>
+  <circle cx="410" cy="365" r="3" class="gravel-bed"/>
+  <circle cx="420" cy="360" r="2.5" class="gravel-bed"/>
+  <circle cx="430" cy="366" r="3" class="gravel-bed"/>
+  <circle cx="440" cy="362" r="2.5" class="gravel-bed"/>
+  <circle cx="450" cy="367" r="3" class="gravel-bed"/>
+  <circle cx="460" cy="361" r="2.5" class="gravel-bed"/>
+  <circle cx="470" cy="365" r="3" class="gravel-bed"/>
+  <!-- Gravel above pipe -->
+  <circle cx="295" cy="345" r="2.5" class="gravel-bed"/>
+  <circle cx="305" cy="348" r="2" class="gravel-bed"/>
+  <circle cx="315" cy="344" r="2.5" class="gravel-bed"/>
+  <circle cx="325" cy="349" r="2" class="gravel-bed"/>
+  <circle cx="440" cy="345" r="2.5" class="gravel-bed"/>
+  <circle cx="450" cy="348" r="2" class="gravel-bed"/>
+  <circle cx="460" cy="344" r="2.5" class="gravel-bed"/>
+  <circle cx="470" cy="349" r="2" class="gravel-bed"/>
+
+  <!-- Perforated drain pipe (100mm = 50px diameter, r=25) centered at y=350 -->
+  <circle cx="380" cy="350" r="25" class="pipe"/>
+  <!-- Perforation dots on lower half -->
+  <circle cx="365" cy="370" r="2" fill="#999"/>
+  <circle cx="375" cy="373" r="2" fill="#999"/>
+  <circle cx="385" cy="373" r="2" fill="#999"/>
+  <circle cx="395" cy="370" r="2" fill="#999"/>
+  <circle cx="370" cy="362" r="1.5" fill="#999"/>
+  <circle cx="390" cy="362" r="1.5" fill="#999"/>
+
+  <!-- Gabion cage outline (65cm = 325px, y=50 to y=375) -->
+  <rect x="280" y="50" width="200" height="325" fill="none" stroke="#1a2e1a" stroke-width="2"/>
+
+  <!-- Wire mesh pattern (vertical lines) -->
+  <line x1="300" y1="50" x2="300" y2="375" class="mesh"/>
+  <line x1="320" y1="50" x2="320" y2="375" class="mesh"/>
+  <line x1="340" y1="50" x2="340" y2="375" class="mesh"/>
+  <line x1="360" y1="50" x2="360" y2="375" class="mesh"/>
+  <line x1="380" y1="50" x2="380" y2="375" class="mesh"/>
+  <line x1="400" y1="50" x2="400" y2="375" class="mesh"/>
+  <line x1="420" y1="50" x2="420" y2="375" class="mesh"/>
+  <line x1="440" y1="50" x2="440" y2="375" class="mesh"/>
+  <line x1="460" y1="50" x2="460" y2="375" class="mesh"/>
+  <!-- Wire mesh pattern (horizontal lines) -->
+  <line x1="280" y1="75" x2="480" y2="75" class="mesh"/>
+  <line x1="280" y1="100" x2="480" y2="100" class="mesh"/>
+  <line x1="280" y1="125" x2="480" y2="125" class="mesh"/>
+  <line x1="280" y1="150" x2="480" y2="150" class="mesh"/>
+  <line x1="280" y1="175" x2="480" y2="175" class="mesh"/>
+  <line x1="280" y1="200" x2="480" y2="200" class="mesh"/>
+  <line x1="280" y1="225" x2="480" y2="225" class="mesh"/>
+  <line x1="280" y1="250" x2="480" y2="250" class="mesh"/>
+  <line x1="280" y1="275" x2="480" y2="275" class="mesh"/>
+  <line x1="280" y1="300" x2="480" y2="300" class="mesh"/>
+  <line x1="280" y1="325" x2="480" y2="325" class="mesh"/>
+  <line x1="280" y1="350" x2="480" y2="350" class="mesh"/>
+
+  <!-- Stones filling the gabion (irregular shapes) -->
+  <!-- Bottom layer (around pipe area, y=300–340) -->
+  <ellipse cx="300" cy="318" rx="12" ry="9" class="stone"/>
+  <ellipse cx="330" cy="312" rx="13" ry="10" class="stone"/>
+  <ellipse cx="440" cy="315" rx="12" ry="9" class="stone"/>
+  <ellipse cx="465" cy="310" rx="11" ry="8" class="stone"/>
+  <!-- Middle-low layer -->
+  <ellipse cx="295" cy="282" rx="11" ry="9" class="stone"/>
+  <ellipse cx="325" cy="288" rx="14" ry="10" class="stone"/>
+  <ellipse cx="358" cy="280" rx="12" ry="9" class="stone"/>
+  <ellipse cx="390" cy="285" rx="15" ry="10" class="stone"/>
+  <ellipse cx="425" cy="282" rx="13" ry="9" class="stone"/>
+  <ellipse cx="458" cy="288" rx="12" ry="8" class="stone"/>
+  <!-- Middle layer -->
+  <ellipse cx="305" cy="255" rx="13" ry="10" class="stone"/>
+  <ellipse cx="340" cy="260" rx="14" ry="9" class="stone"/>
+  <ellipse cx="375" cy="253" rx="12" ry="10" class="stone"/>
+  <ellipse cx="410" cy="258" rx="15" ry="9" class="stone"/>
+  <ellipse cx="445" cy="255" rx="13" ry="10" class="stone"/>
+  <!-- Middle-high layer -->
+  <ellipse cx="295" cy="228" rx="12" ry="9" class="stone"/>
+  <ellipse cx="328" cy="232" rx="14" ry="10" class="stone"/>
+  <ellipse cx="362" cy="226" rx="13" ry="9" class="stone"/>
+  <ellipse cx="398" cy="230" rx="14" ry="10" class="stone"/>
+  <ellipse cx="432" cy="228" rx="12" ry="9" class="stone"/>
+  <ellipse cx="462" cy="232" rx="11" ry="8" class="stone"/>
+  <!-- Upper layer -->
+  <ellipse cx="305" cy="200" rx="11" ry="8" class="stone"/>
+  <ellipse cx="335" cy="204" rx="13" ry="9" class="stone"/>
+  <ellipse cx="368" cy="198" rx="12" ry="9" class="stone"/>
+  <ellipse cx="400" cy="202" rx="14" ry="9" class="stone"/>
+  <ellipse cx="432" cy="200" rx="12" ry="8" class="stone"/>
+  <ellipse cx="460" cy="204" rx="11" ry="8" class="stone"/>
+  <!-- High layer -->
+  <ellipse cx="295" cy="172" rx="11" ry="9" class="stone"/>
+  <ellipse cx="325" cy="175" rx="13" ry="9" class="stone"/>
+  <ellipse cx="358" cy="170" rx="12" ry="10" class="stone"/>
+  <ellipse cx="392" cy="174" rx="14" ry="9" class="stone"/>
+  <ellipse cx="425" cy="172" rx="12" ry="9" class="stone"/>
+  <ellipse cx="455" cy="175" rx="11" ry="8" class="stone"/>
+  <!-- Higher layer -->
+  <ellipse cx="305" cy="143" rx="12" ry="8" class="stone"/>
+  <ellipse cx="338" cy="146" rx="13" ry="9" class="stone"/>
+  <ellipse cx="372" cy="140" rx="14" ry="10" class="stone"/>
+  <ellipse cx="408" cy="144" rx="12" ry="9" class="stone"/>
+  <ellipse cx="440" cy="142" rx="13" ry="8" class="stone"/>
+  <ellipse cx="465" cy="146" rx="10" ry="8" class="stone"/>
+  <!-- Highest layer -->
+  <ellipse cx="295" cy="115" rx="11" ry="8" class="stone"/>
+  <ellipse cx="328" cy="118" rx="13" ry="9" class="stone"/>
+  <ellipse cx="362" cy="112" rx="14" ry="10" class="stone"/>
+  <ellipse cx="398" cy="116" rx="12" ry="9" class="stone"/>
+  <ellipse cx="432" cy="114" rx="13" ry="8" class="stone"/>
+  <ellipse cx="462" cy="118" rx="10" ry="8" class="stone"/>
+
+  <!-- Socket void through gabion (40cm embedment depth) -->
+  <rect x="350" y="48" width="60" height="204" fill="#faf8f5"/>
+  <rect x="350" y="48" width="60" height="204" fill="none" stroke="#1a2e1a" stroke-width="1.5" stroke-dasharray="4,3"/>
+
+  <!-- Geotextile fold-over flaps at top (over the fill, under bearing stones) -->
+  <!-- Left fold-over -->
+  <path d="M280,55 L310,55" class="geotextile" stroke-width="2.5"/>
+  <!-- Right fold-over -->
+  <path d="M450,55 L480,55" class="geotextile" stroke-width="2.5"/>
+
+  <!-- Flat bearing stones on top (flanking the socket) -->
+  <rect x="280" y="50" width="68" height="22" rx="2" class="flat-stone"/>
+  <rect x="412" y="50" width="68" height="22" rx="2" class="flat-stone"/>
+
+  <!-- Pole: 8cm diameter, shown as vertical element rising from socket -->
+  <rect x="360" y="36" width="40" height="216" rx="6" class="pole"/>
+
+  <!-- Gravel packing in gaps between pole and socket walls -->
+  <circle cx="355" cy="80" r="3" class="gravel"/>
+  <circle cx="355" cy="105" r="3" class="gravel"/>
+  <circle cx="355" cy="130" r="3" class="gravel"/>
+  <circle cx="355" cy="155" r="3" class="gravel"/>
+  <circle cx="355" cy="180" r="3" class="gravel"/>
+  <circle cx="355" cy="205" r="3" class="gravel"/>
+  <circle cx="355" cy="230" r="3" class="gravel"/>
+  <circle cx="405" cy="90" r="3" class="gravel"/>
+  <circle cx="405" cy="115" r="3" class="gravel"/>
+  <circle cx="405" cy="140" r="3" class="gravel"/>
+  <circle cx="405" cy="165" r="3" class="gravel"/>
+  <circle cx="405" cy="190" r="3" class="gravel"/>
+  <circle cx="405" cy="215" r="3" class="gravel"/>
+  <circle cx="405" cy="240" r="3" class="gravel"/>
+
+  <!-- Wire lashing from pole to gabion mesh -->
+  <path d="M360,125 L330,125" class="wire" stroke-dasharray="4,2"/>
+  <path d="M400,125 L430,125" class="wire" stroke-dasharray="4,2"/>
+
+  <!-- Label: pole continues upward -->
+  <text x="415" y="40" class="label-sm" style="fill:#8b6914; font-weight:600;">↑ pole rises</text>
+  <text x="418" y="52" class="label-sm" style="fill:#8b6914; font-style:italic;">to form arch</text>
+
+  <!-- DIMENSIONS -->
+  <!-- Width: 40cm -->
+  <line x1="280" y1="410" x2="480" y2="410" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="380" y="408" text-anchor="middle" class="dim">40cm</text>
+
+  <!-- Above grade: 30cm -->
+  <line x1="540" y1="50" x2="540" y2="200" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="555" y="130" class="dim">30cm</text>
+  <text x="555" y="145" class="label-sm">above grade</text>
+
+  <!-- Below grade: 35cm -->
+  <line x1="540" y1="200" x2="540" y2="375" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="555" y="290" class="dim">35cm</text>
+  <text x="555" y="305" class="label-sm">below grade</text>
+
+  <!-- Socket width: 12cm -->
+  <line x1="350" y1="30" x2="410" y2="30" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="330" y="34" text-anchor="end" class="dim" style="font-size:10px;">12cm socket</text>
+
+  <!-- Labels — left side -->
+  <text x="90" y="70" class="label" style="font-weight:600;">Flat bearing</text>
+  <text x="90" y="84" class="label" style="font-weight:600;">stones on top</text>
+  <line x1="175" y1="78" x2="278" y2="62" stroke="#1a2e1a" stroke-width="0.8" opacity="0.5"/>
+
+  <text x="90" y="180" class="label">Stone fill</text>
+  <text x="90" y="194" class="label-sm">10-20cm pieces</text>
+  <line x1="145" y1="182" x2="278" y2="182" stroke="#1a2e1a" stroke-width="0.8" opacity="0.5"/>
+
+  <text x="90" y="270" class="label">Wire mesh cage</text>
+  <text x="90" y="284" class="label-sm">3mm galv., 10x10cm</text>
+
+  <!-- Labels — new drain elements (left side, lower) -->
+  <text x="90" y="330" class="label" style="font-weight:600; fill:#6a9a6a;">Geotextile liner</text>
+  <text x="90" y="344" class="label-sm" style="fill:#6a9a6a;">non-woven, 150–200 g/m²</text>
+  <line x1="192" y1="336" x2="260" y2="350" stroke="#6a9a6a" stroke-width="0.8" opacity="0.7"/>
+
+  <!-- Labels — pipe and gravel (right side, lower) -->
+  <text x="620" y="340" class="label" style="font-weight:600;">100mm perforated</text>
+  <text x="620" y="354" class="label" style="font-weight:600;">pipe</text>
+  <line x1="615" y1="348" x2="406" y2="350" stroke="#666" stroke-width="0.8" opacity="0.5"/>
+
+  <text x="620" y="378" class="label-sm">20mm gravel bed</text>
+  <line x1="615" y1="374" x2="475" y2="364" stroke="#999" stroke-width="0.8" opacity="0.5"/>
+
+  <!-- Label — geotextile fold-over (top) -->
+  <text x="90" y="120" class="label-sm" style="fill:#6a9a6a;">Geotextile fold-over</text>
+  <line x1="195" y1="116" x2="290" y2="55" stroke="#6a9a6a" stroke-width="0.8" opacity="0.7"/>
+
+  <!-- Bottom labels -->
+  <text x="380" y="435" text-anchor="middle" class="label" style="font-weight:600;">Pole base embedded 40cm</text>
+  <text x="380" y="449" text-anchor="middle" class="label-sm">gravel-packed, wire-lashed to mesh</text>
+</svg>

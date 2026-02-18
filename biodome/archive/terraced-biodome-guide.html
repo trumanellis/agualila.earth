@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete build guide for the Terraced BioDome: 24m² half-dome using an existing terrace wall. Construction details, wall assessment, and waterproofing.">
+    <title>Terraced BioDome — Complete Build Guide (24m²)</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+    <style>
+        :root {
+            --forest-dark: #1a2e1a;
+            --forest-mid: #2d4a2d;
+            --earth-warm: #c9a227;
+            --cream: #faf8f5;
+            --cream-dark: #f0ebe3;
+            --text-dark: #2a2a2a;
+            --text-mid: #555;
+            --warning-bg: #fff8e6;
+            --warning-border: #e6c200;
+            --tip-bg: #e8f5e9;
+            --tip-border: #4caf50;
+            --danger-bg: #ffebee;
+            --danger-border: #ef5350;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: Georgia, 'Times New Roman', serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--text-dark);
+            background: var(--cream);
+        }
+
+        /* Header */
+        .header {
+            background: var(--forest-dark);
+            color: white;
+            padding: 80px 24px;
+            text-align: center;
+        }
+
+        .header h1 { font-size: 2.5rem; margin-bottom: 16px; color: white; }
+        .header .tagline { color: rgba(255,255,255,0.8); max-width: 600px; margin: 0 auto 32px; font-size: 1.2rem; }
+
+        .header-stats { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; padding-top: 32px; border-top: 1px solid rgba(255,255,255,0.2); }
+        .stat { text-align: center; }
+        .stat-value { font-size: 2.5rem; font-weight: 700; display: block; }
+        .stat-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.6); }
+
+        /* Navigation */
+        .nav { background: var(--forest-mid); position: sticky; top: 0; z-index: 100; padding: 0 20px; }
+        .nav-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 24px; overflow-x: auto; }
+        .nav-brand { font-weight: 700; color: white; padding: 14px 0; font-size: 0.95rem; white-space: nowrap; text-decoration: none; }
+        .nav-links { display: flex; gap: 4px; }
+        .nav-links a { color: rgba(255,255,255,0.75); text-decoration: none; padding: 14px 12px; font-size: 0.85rem; white-space: nowrap; transition: color 0.2s; }
+        .nav-links a:hover { color: white; }
+
+        /* Main Content */
+        .container { max-width: 760px; margin: 0 auto; padding: 60px 24px; }
+
+        /* Typography */
+        h1, h2, h3, h4 { color: var(--forest-dark); line-height: 1.3; }
+        h1 { font-size: 2rem; margin-bottom: 1.5rem; padding-bottom: 0.75rem; border-bottom: 2px solid var(--forest-mid); }
+        h2 { font-size: 1.6rem; margin-top: 3rem; margin-bottom: 1rem; }
+        h3 { font-size: 1.25rem; margin-top: 2rem; margin-bottom: 0.75rem; }
+        h4 { font-size: 1.1rem; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+        p { margin-bottom: 1.25rem; }
+        strong { font-weight: 600; color: var(--forest-dark); }
+
+        ul, ol { margin-bottom: 1.5rem; padding-left: 1.5rem; }
+        li { margin-bottom: 0.5rem; }
+
+        /* Tables */
+        table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+        th, td { padding: 10px 14px; text-align: left; border-bottom: 1px solid #ddd; }
+        th { background: var(--forest-dark); color: white; font-weight: 600; }
+        tr:nth-child(even) { background: var(--cream-dark); }
+
+        /* Callout Boxes */
+        .warning-box, .tip-box, .danger-box { padding: 20px 24px; border-radius: 6px; margin: 1.5rem 0; border-left: 4px solid; }
+        .warning-box { background: var(--warning-bg); border-color: var(--warning-border); }
+        .tip-box { background: var(--tip-bg); border-color: var(--tip-border); }
+        .danger-box { background: var(--danger-bg); border-color: var(--danger-border); }
+        .callout-title { font-weight: 700; margin-bottom: 8px; }
+
+        /* Process Steps */
+        .process-step { display: flex; gap: 20px; margin: 1.5rem 0; align-items: flex-start; }
+        .step-number { width: 36px; height: 36px; background: var(--forest-dark); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 0.9rem; flex-shrink: 0; }
+        .step-content h4 { margin-top: 0; margin-bottom: 0.5rem; }
+
+        /* Table of Contents */
+        .toc { background: var(--cream-dark); border: 1px solid #ddd; border-radius: 8px; padding: 24px 32px; margin: 2rem 0; }
+        .toc h3 { margin: 0 0 16px; font-size: 1.1rem; }
+        .toc ol { margin: 0; padding-left: 1.5rem; }
+        .toc li { margin-bottom: 8px; }
+        .toc a { color: var(--forest-dark); text-decoration: none; }
+        .toc a:hover { color: var(--earth-warm); }
+
+        /* Cross-links */
+        .cross-links { background: var(--forest-dark); color: white; padding: 24px 32px; border-radius: 8px; margin: 2rem 0; }
+        .cross-links h3 { color: white; margin: 0 0 12px; font-size: 1.1rem; }
+        .cross-links a { color: var(--earth-warm); text-decoration: none; }
+        .cross-links a:hover { text-decoration: underline; }
+        .cross-links ul { margin: 0; padding-left: 1.5rem; }
+        .cross-links li { margin-bottom: 6px; }
+
+        /* Download Button */
+        .download-btn { display: inline-block; padding: 14px 28px; background: var(--earth-warm); color: var(--forest-dark); text-decoration: none; font-weight: 600; border-radius: 6px; border: none; cursor: pointer; font-size: 1rem; transition: background 0.2s; }
+        .download-btn:hover { background: #d9b237; }
+
+        /* Section Group Header */
+        .section-group { background: var(--forest-mid); color: white; padding: 32px 24px; margin: 3rem -24px 2rem; text-align: center; }
+        .section-group h2 { color: white; margin: 0 0 8px; }
+        .section-group p { color: rgba(255,255,255,0.7); margin: 0; }
+
+        /* Stats Grid */
+        .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; margin: 2rem 0; }
+        .stat-card { background: white; padding: 20px; border-radius: 8px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .stat-card-value { font-size: 1.8rem; font-weight: 700; color: var(--forest-dark); }
+        .stat-card-label { font-size: 0.8rem; color: var(--text-mid); text-transform: uppercase; }
+
+        /* Severity indicators */
+        .severity-low { background: #4caf50; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; }
+        .severity-medium { background: #ff9800; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; }
+        .severity-high { background: #f44336; color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; }
+
+        /* Footer */
+        footer { background: var(--forest-dark); color: white; text-align: center; padding: 40px 24px; margin-top: 60px; }
+        footer p { color: rgba(255,255,255,0.7); font-size: 0.9rem; }
+        footer a { color: var(--earth-warm); text-decoration: none; }
+
+        /* Print Styles */
+        @media print {
+            .nav, .download-btn, .cross-links { display: none; }
+            .header { padding: 30px 0; }
+            .container { max-width: 100%; padding: 20px 0; }
+            h2 { page-break-before: always; }
+            h2:first-of-type { page-break-before: avoid; }
+            table { page-break-inside: avoid; font-size: 0.85rem; }
+            .process-step { page-break-inside: avoid; }
+            .section-group { margin: 2rem 0; page-break-before: always; }
+            a[href]::after { content: " (" attr(href) ")"; font-size: 0.8em; color: #666; }
+            a[href^="#"]::after { content: ""; }
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 50px 20px; }
+            .header h1 { font-size: 2rem; }
+            .container { padding: 40px 20px; }
+            .nav-brand { display: none; }
+            .section-group { margin: 2rem -20px 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header class="header">
+    <h1>Terraced BioDome</h1>
+    <p class="tagline">24m² half-dome using an existing terrace wall — the most affordable design</p>
+    <div style="margin-bottom: 24px;">
+        <button class="download-btn" onclick="window.print()">Download as PDF</button>
+    </div>
+    <div class="header-stats">
+        <div class="stat">
+            <span class="stat-value">24m²</span>
+            <span class="stat-label">Floor Area</span>
+        </div>
+        <div class="stat">
+            <span class="stat-value">9m</span>
+            <span class="stat-label">Width</span>
+        </div>
+        <div class="stat">
+            <span class="stat-value">€3-5k</span>
+            <span class="stat-label">Budget</span>
+        </div>
+        <div class="stat">
+            <span class="stat-value">90-150</span>
+            <span class="stat-label">Trees Removed</span>
+        </div>
+    </div>
+</header>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-brand">← Back to Designs</a>
+        <div class="nav-links">
+            <a href="#overview">Overview</a>
+            <a href="#wall-assessment">Wall Assessment</a>
+            <a href="#foundation">Foundation</a>
+            <a href="#waterproofing">Waterproofing</a>
+            <a href="#bom">Materials</a>
+            <a href="#phases">Phases</a>
+        </div>
+    </div>
+</nav>
+
+<main class="container">
+
+    <nav class="toc">
+        <h3>Table of Contents</h3>
+        <ol>
+            <li><a href="#overview">Design Overview &amp; Key Specs</a></li>
+            <li><a href="#wall-assessment">Terrace Wall Structural Assessment</a></li>
+            <li><a href="#foundation">Foundation: Semicircular Gabion Arc</a></li>
+            <li><a href="#walls">Wall Framework</a></li>
+            <li><a href="#roof">Lean-to Roof Structure</a></li>
+            <li><a href="#waterproofing">Wall Junction Waterproofing (Critical)</a></li>
+            <li><a href="#bom">Bill of Materials</a></li>
+            <li><a href="#phases">Construction Phases (16 weeks)</a></li>
+            <li><a href="#floor-plan">Floor Plan (24m²)</a></li>
+            <li><a href="#maintenance">Maintenance Schedule</a></li>
+        </ol>
+    </nav>
+
+    <div class="cross-links">
+        <h3>Universal Techniques Required</h3>
+        <p>Before starting construction, master these techniques from the <a href="shared-reference.html">Shared Reference Guide</a>:</p>
+        <ul>
+            <li><a href="shared-reference.html#harvesting">Eucalyptus Harvesting &amp; Eradication</a></li>
+            <li><a href="shared-reference.html#treatment">Pole Treatment Protocol</a></li>
+            <li><a href="shared-reference.html#walls">Light Straw-Clay Wall Infill</a></li>
+        </ul>
+    </div>
+
+    <!-- Overview -->
+    <section id="overview">
+        <h1>Design Overview</h1>
+
+        <p>The Terraced BioDome is a 24m² half-dome that uses an existing stone terrace wall as its back wall. It's the most affordable design and ideal for sloped sites with sturdy terrace walls.</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-value">9m</div>
+                <div class="stat-card-label">Curved Width</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">2.5m</div>
+                <div class="stat-card-label">Front Wall</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">5.0m</div>
+                <div class="stat-card-label">Ridge Height</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">40%</div>
+                <div class="stat-card-label">Less Materials</div>
+            </div>
+        </div>
+
+        <h3>Key Specifications</h3>
+        <ul>
+            <li><strong>Floor area:</strong> 24m² (half of Standard design)</li>
+            <li><strong>Roof type:</strong> Lean-to with living roof</li>
+            <li><strong>Cost:</strong> 40% cheaper than full BioDome</li>
+            <li><strong>Trees removed:</strong> 90-150 eucalyptus</li>
+            <li><strong>Build time:</strong> 14-16 weeks (dedicated team)</li>
+            <li><strong>Crew required:</strong> 2-4 people (simpler than Standard)</li>
+        </ul>
+
+        <div class="tip-box">
+            <div class="callout-title">Best For</div>
+            <p>Sites with existing stone terrace walls. Smaller households or couples. Those wanting the most affordable option. Projects where a simpler roof structure is preferred.</p>
+        </div>
+
+        <div class="warning-box">
+            <div class="callout-title">Prerequisite: Suitable Terrace Wall</div>
+            <p>This design requires an existing stone terrace wall that meets structural requirements. Complete the Wall Assessment section before proceeding.</p>
+        </div>
+    </section>
+
+    <!-- Wall Assessment -->
+    <div class="section-group" id="wall-assessment">
+        <h2>Terrace Wall Assessment</h2>
+        <p>Critical evaluation before committing to this design</p>
+    </div>
+
+    <section>
+        <p>Before committing materials and labor, conduct a thorough structural evaluation of your existing terrace wall. This is the most important step for the Terraced BioDome.</p>
+
+        <h3>Minimum Requirements</h3>
+        <ul>
+            <li><strong>Structural integrity:</strong> No large displacement, bulging, or collapses</li>
+            <li><strong>Height:</strong> Minimum 2.8m (roof ridge rests at wall top)</li>
+            <li><strong>Length:</strong> At least 10m of usable wall</li>
+            <li><strong>Face condition:</strong> Reasonably flat (not severely convex)</li>
+            <li><strong>Base stability:</strong> No signs of tipping, settling, or undercutting</li>
+            <li><strong>Drainage:</strong> Water moves away from wall</li>
+        </ul>
+
+        <h3>Visual Inspection Categories</h3>
+
+        <div class="tip-box">
+            <div class="callout-title">Category 1: Overall Geometry</div>
+            <ul>
+                <li>Walk full length at 2m intervals, take photos</li>
+                <li>Look for <strong>bulging:</strong> Measure deviation from plumb. Any bulge &gt;5cm is a concern</li>
+                <li>Check for <strong>rotation:</strong> Does top lean outward? Indicates slip plane</li>
+                <li>Measure <strong>height</strong> at minimum 3 points</li>
+                <li>Record visible <strong>cracks:</strong> Note orientation, length, width</li>
+            </ul>
+        </div>
+
+        <div class="tip-box">
+            <div class="callout-title">Category 2: Joint Condition</div>
+            <ul>
+                <li>Examine <strong>mortar joints:</strong> Probe with screwdriver—should require firm pressure</li>
+                <li>Check for <strong>open joints:</strong> Gaps &gt;2cm = concern</li>
+                <li>Look for <strong>plant roots</strong> in joints</li>
+                <li>Tap with hammer: Solid sound = good; hollow = poor quality</li>
+            </ul>
+        </div>
+
+        <div class="tip-box">
+            <div class="callout-title">Category 3: Drainage Evidence</div>
+            <ul>
+                <li><strong>White mineral staining</strong> on wall face = water movement</li>
+                <li>Look for <strong>wet zones</strong> at base (poor drainage behind wall)</li>
+                <li>Identify <strong>weep holes</strong> (good) or blocked drains (bad)</li>
+                <li>Check for <strong>erosion channels</strong> on face</li>
+            </ul>
+        </div>
+
+        <div class="tip-box">
+            <div class="callout-title">Category 4: Base Stability</div>
+            <ul>
+                <li>Examine <strong>footing visibility:</strong> Can you see the base?</li>
+                <li>Check for <strong>undercutting:</strong> Water erosion undermining base?</li>
+                <li>Look for <strong>settlement:</strong> Different heights at wall ends?</li>
+                <li>Measure <strong>distance from wall toe to erosion</strong></li>
+            </ul>
+        </div>
+
+        <h3>Assessment Table</h3>
+
+        <table>
+            <tr>
+                <th>Observation</th>
+                <th>Severity</th>
+                <th>Action Required</th>
+            </tr>
+            <tr>
+                <td>Minor cosmetic cracking (&lt;1mm)</td>
+                <td><span class="severity-low">Low</span></td>
+                <td>Proceed with monitoring. Document and recheck in 6 months</td>
+            </tr>
+            <tr>
+                <td>Bulge 2–5cm from plumb</td>
+                <td><span class="severity-medium">Medium</span></td>
+                <td>Consult structural engineer. May be stable if not increasing</td>
+            </tr>
+            <tr>
+                <td>Bulge &gt;5cm; cracks widening</td>
+                <td><span class="severity-high">High</span></td>
+                <td>Do NOT attach roof. Repair or stabilization required first</td>
+            </tr>
+            <tr>
+                <td>Active water seepage (wet after rain)</td>
+                <td><span class="severity-medium">Medium</span></td>
+                <td>Install/repair drainage behind wall before building</td>
+            </tr>
+            <tr>
+                <td>Open joints (&gt;2cm) at top or base</td>
+                <td><span class="severity-medium">Medium</span></td>
+                <td>Repoint with hydraulic lime mortar before attaching ledger</td>
+            </tr>
+            <tr>
+                <td>Wall rotation (top leans out)</td>
+                <td><span class="severity-high">High</span></td>
+                <td>Engineer assessment required. Likely unsafe for roof loading</td>
+            </tr>
+            <tr>
+                <td>Footing exposed or undercut</td>
+                <td><span class="severity-high">High</span></td>
+                <td>Protect footing immediately. Stabilize before proceeding</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Foundation -->
+    <section id="foundation">
+        <h1>Foundation: Semicircular Gabion Arc</h1>
+
+        <p>The foundation is a 180° arc of gabion baskets that ties into the terrace wall at both ends, creating a complete structural ring.</p>
+
+        <h3>Specifications</h3>
+        <ul>
+            <li><strong>Shape:</strong> Semicircular arc (180°), radius ~4.5m</li>
+            <li><strong>Width:</strong> 60cm (ring width from inner to outer face)</li>
+            <li><strong>Height:</strong> 50cm above grade, 30cm below (total 80cm)</li>
+            <li><strong>Connections:</strong> Both ends tie into terrace wall base using steel plates or through-stones</li>
+        </ul>
+
+        <h3>Construction Sequence</h3>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Mark the Arc</h4>
+                <p>Using a stake at center point (against terrace wall), mark a 4.5m radius semicircle with string. Both ends should touch the terrace wall base.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Excavate Arc Trench</h4>
+                <p>Dig 30cm deep × 70cm wide along the semicircular arc. Level bottom carefully.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Tie into Terrace Wall</h4>
+                <p>At both arc ends, install steel plates embedded into gabion that connect to terrace wall. May require drilling into wall base or using through-stones.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Fill with Stone</h4>
+                <p>Assemble gabion mesh cages, fill with sorted granite. Level top course with flat bearing stones for post seating.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Walls -->
+    <section id="walls">
+        <h1>Wall Framework</h1>
+
+        <h3>Vertical Posts</h3>
+        <ul>
+            <li><strong>Curved front posts:</strong> ~14 posts on semicircular front</li>
+            <li><strong>Wall-end posts:</strong> 2 additional posts where arc meets terrace wall</li>
+            <li><strong>Diameter:</strong> 15-20cm</li>
+            <li><strong>Spacing:</strong> ~1.2m apart around the arc</li>
+        </ul>
+
+        <h3>Horizontal Wattle</h3>
+        <ul>
+            <li><strong>Quantity:</strong> ~98 poles (~7 levels × 14 spans)</li>
+            <li><strong>Diameter:</strong> 5-8cm</li>
+            <li><strong>Wall thickness:</strong> 35-45cm light straw-clay (same as Standard)</li>
+        </ul>
+
+        <p>Weave horizontals between vertical posts, alternating inside/outside for each level.</p>
+    </section>
+
+    <!-- Roof -->
+    <section id="roof">
+        <h1>Lean-to Roof Structure</h1>
+
+        <p>Unlike the Standard BioDome's reciprocal roof, the Terraced design uses a simple lean-to structure with parallel rafters spanning from the curved front wall to the terrace wall.</p>
+
+        <h3>Roof Specifications</h3>
+        <ul>
+            <li><strong>Rafters:</strong> 14-15 poles, 15-18cm diameter, 4m length</li>
+            <li><strong>Spacing:</strong> ~1.2m apart (matching wall post spacing)</li>
+            <li><strong>Base (eaves):</strong> 3.0m height at curved front wall</li>
+            <li><strong>Ridge:</strong> 5.0m height at terrace wall</li>
+            <li><strong>Slope:</strong> 25-30° pitch</li>
+            <li><strong>Overhang:</strong> 1.0-1.5m beyond curved wall for weather protection</li>
+        </ul>
+
+        <h3>Ledger Board</h3>
+        <p>The high end of all rafters rests on a ledger beam permanently anchored to the terrace wall face. This is the critical structural connection.</p>
+
+        <ul>
+            <li><strong>Ledger beam:</strong> Eucalyptus 12-15cm diameter, ~6-7m length</li>
+            <li><strong>Height:</strong> ~4.5m (ridge height minus one rafter depth)</li>
+            <li><strong>Mounting:</strong> 5-6 steel plates with M12 stainless chemical anchors</li>
+        </ul>
+
+        <h3>Purlins</h3>
+        <ul>
+            <li><strong>Quantity:</strong> 3-4 purlins, 8-10cm diameter</li>
+            <li><strong>Arrangement:</strong> Semicircular arcs parallel to curved wall</li>
+            <li><strong>Attachment:</strong> Lashed and pegged to rafters</li>
+        </ul>
+
+        <h3>Living Roof</h3>
+        <p>Same construction as Standard BioDome:</p>
+        <ol>
+            <li><strong>Sheathing:</strong> Cork board 30mm over purlins</li>
+            <li><strong>Waterproofing:</strong> EPDM liner 1mm, 15cm overlaps</li>
+            <li><strong>Drainage:</strong> Drainage mat + filter fabric</li>
+            <li><strong>Growing medium:</strong> 10-15cm lightweight substrate</li>
+            <li><strong>Planting:</strong> Sedums and drought-tolerant groundcovers</li>
+        </ol>
+    </section>
+
+    <!-- Waterproofing -->
+    <div class="section-group" id="waterproofing">
+        <h2>Wall Junction Waterproofing</h2>
+        <p>The most critical detail in this design</p>
+    </div>
+
+    <section>
+        <div class="danger-box">
+            <div class="callout-title">Most Important Detail</div>
+            <p>The junction where the new roof meets the existing terrace wall is the most vulnerable point for water infiltration. Water entering here leaks into the building AND undermines the historic wall. <strong>This is the most important weatherproofing detail in the entire Terraced BioDome design.</strong></p>
+        </div>
+
+        <h3>Ledger Board Installation (8 Steps)</h3>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Mark Ledger Height</h4>
+                <p>Ridge height (5.0m) minus one rafter depth (0.4-0.5m) = ledger at ~4.5m. Use level and chalk line to mark across wall face.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Mark Anchor Points</h4>
+                <p>Mark anchor points every 1.2m along chalk line. Center each steel plate (150×150×6mm) over anchor point.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Core-Drill Anchor Holes</h4>
+                <p>16mm diamond core drill, 200mm deep into <strong>solid stone only</strong> (not mortar joints). Requires professional equipment.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Clean Out Dust</h4>
+                <p>Blow out all dust using hand pump (not breath). Hole must be completely clean for chemical anchor to cure properly.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h4>Inject Chemical Anchor</h4>
+                <p>Inject epoxy from <strong>bottom of hole upward</strong>, filling completely. Epoxy should squeeze out at surface.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">6</div>
+            <div class="step-content">
+                <h4>Set Threaded Rod</h4>
+                <p>Insert M12 stainless rod into wet epoxy with slow rotation. Do not disturb for 24 hours (longer if cold).</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">7</div>
+            <div class="step-content">
+                <h4>Test First Anchor</h4>
+                <p>After full cure, apply 50 N·m torque with torque wrench. Rod should not rotate. If it does, rework location.</p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">8</div>
+            <div class="step-content">
+                <h4>Bolt Ledger in Place</h4>
+                <p>Lift ledger onto steel plates. Bolt with stainless washers and nuts. Tighten gradually. Verify level.</p>
+            </div>
+        </div>
+
+        <h3>Counter-Flashing Detail (5 Layers)</h3>
+
+        <ol>
+            <li><strong>Layer 1 – Reglet:</strong> Horizontal groove 15mm deep × 100mm wide cut into stone, 100mm above ledger</li>
+            <li><strong>Layer 2 – Counter-flashing:</strong> Lead or aluminum, 200mm tall, upper edge in reglet, lower edge with 45° drip lip</li>
+            <li><strong>Layer 3 – Sealant:</strong> Polyurethane in reglet, tooled smooth</li>
+            <li><strong>Layer 4 – Step flashing:</strong> EPDM 300×300mm squares, 100mm overlap, shingled pattern</li>
+            <li><strong>Layer 5 – Main membrane:</strong> EPDM roof liner overlaps step flashing by 150mm</li>
+        </ol>
+
+        <div class="danger-box">
+            <div class="callout-title">Mandatory Maintenance</div>
+            <p>The polyurethane sealant <strong>WILL crack</strong> within 5-7 years due to pole movement and UV exposure. This is expected.</p>
+            <ul>
+                <li><strong>Year 1:</strong> Inspect after first winter rains</li>
+                <li><strong>Years 2-5:</strong> Annual visual inspection each autumn</li>
+                <li><strong>Year 5-7:</strong> Re-apply polyurethane sealant completely</li>
+                <li><strong>Ongoing:</strong> Re-seal every 5 years. Budget €50-100/cycle.</li>
+            </ul>
+        </div>
+
+        <h3>Drainage Behind Wall</h3>
+        <ul>
+            <li><strong>Do NOT seal weep holes.</strong> Keep them clear and functioning</li>
+            <li><strong>Maintain 50mm gap at building base</strong> where foundation meets wall</li>
+            <li><strong>Slope interior floor away from wall</strong> (minimum 1:50)</li>
+            <li><strong>Install French drain if needed</strong> for evidence of water backing up</li>
+        </ul>
+    </section>
+
+    <!-- Bill of Materials -->
+    <div class="section-group" id="bom">
+        <h2>Bill of Materials</h2>
+        <p>Complete materials list with costs</p>
+    </div>
+
+    <section>
+        <table>
+            <tr>
+                <th>Item</th>
+                <th>Quantity</th>
+                <th>Specifications</th>
+                <th>Cost Range</th>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Structural</td></tr>
+            <tr>
+                <td>Posts</td>
+                <td>16 pcs</td>
+                <td>15-20cm dia, 3m length</td>
+                <td>€0-40</td>
+            </tr>
+            <tr>
+                <td>Wattle poles</td>
+                <td>98 pcs</td>
+                <td>5-8cm dia, 3m length</td>
+                <td>€0-50</td>
+            </tr>
+            <tr>
+                <td>Ring beam poles</td>
+                <td>10 pcs</td>
+                <td>12-15cm dia, 2-3m length</td>
+                <td>€0-25</td>
+            </tr>
+            <tr>
+                <td>Rafters</td>
+                <td>14-15 pcs</td>
+                <td>15-18cm dia, 4m length</td>
+                <td>€0-30</td>
+            </tr>
+            <tr>
+                <td>Purlins</td>
+                <td>20 pcs</td>
+                <td>8-10cm dia, 2-3m length</td>
+                <td>€0-20</td>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Foundation &amp; Anchoring</td></tr>
+            <tr>
+                <td>Gabion mesh</td>
+                <td>40 linear m</td>
+                <td>3mm wire, 10×10cm openings</td>
+                <td>€120-200</td>
+            </tr>
+            <tr>
+                <td>Granite stone</td>
+                <td>8-12m³</td>
+                <td>10-25cm pieces</td>
+                <td>€0-480</td>
+            </tr>
+            <tr>
+                <td>Steel plates</td>
+                <td>4-6 pcs</td>
+                <td>150×150×6mm with holes</td>
+                <td>€20-40</td>
+            </tr>
+            <tr>
+                <td>Chemical anchors</td>
+                <td>6 sets</td>
+                <td>M12 stainless + epoxy</td>
+                <td>€50-80</td>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Waterproofing</td></tr>
+            <tr>
+                <td>EPDM flashing strip</td>
+                <td>12m × 300mm</td>
+                <td>0.5mm EPDM</td>
+                <td>€48-72</td>
+            </tr>
+            <tr>
+                <td>Counter-flashing</td>
+                <td>10m</td>
+                <td>Lead or aluminum</td>
+                <td>€60-120</td>
+            </tr>
+            <tr>
+                <td>Butyl tape</td>
+                <td>2 rolls</td>
+                <td>19mm × 30m</td>
+                <td>€30-40</td>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Wall Infill</td></tr>
+            <tr>
+                <td>Clay soil</td>
+                <td>8-10m³</td>
+                <td>High clay content</td>
+                <td>€0-200</td>
+            </tr>
+            <tr>
+                <td>Sharp sand</td>
+                <td>6-8m³</td>
+                <td>Washed, angular</td>
+                <td>€120-240</td>
+            </tr>
+            <tr>
+                <td>Straw bales</td>
+                <td>20 bales</td>
+                <td>Standard rectangular</td>
+                <td>€60-100</td>
+            </tr>
+            <tr><td colspan="4" style="background: var(--cream-dark); font-weight: 600;">Roofing</td></tr>
+            <tr>
+                <td>Cork board</td>
+                <td>50m²</td>
+                <td>30mm thick</td>
+                <td>€400-750</td>
+            </tr>
+            <tr>
+                <td>EPDM liner</td>
+                <td>50m²</td>
+                <td>1mm thick</td>
+                <td>€300-500</td>
+            </tr>
+            <tr>
+                <td>Drainage mat</td>
+                <td>50m²</td>
+                <td>Dimpled + filter</td>
+                <td>€150-250</td>
+            </tr>
+            <tr>
+                <td>Growing medium</td>
+                <td>5m³</td>
+                <td>Lightweight substrate</td>
+                <td>€200-300</td>
+            </tr>
+        </table>
+
+        <h3>Budget Summary</h3>
+        <table>
+            <tr>
+                <th>Budget Level</th>
+                <th>Total Cost</th>
+                <th>Notes</th>
+            </tr>
+            <tr>
+                <td><strong>Minimal</strong></td>
+                <td>€1,800-2,500</td>
+                <td>Harvest poles, on-site stone</td>
+            </tr>
+            <tr>
+                <td><strong>Realistic</strong></td>
+                <td>€3,500-5,500</td>
+                <td>Mixed sources, quality control</td>
+            </tr>
+            <tr>
+                <td><strong>Comfortable</strong></td>
+                <td>€6,000-8,000</td>
+                <td>All purchased, hired specialists</td>
+            </tr>
+        </table>
+    </section>
+
+    <!-- Construction Phases -->
+    <div class="section-group" id="phases">
+        <h2>Construction Phases</h2>
+        <p>14-16 week timeline</p>
+    </div>
+
+    <section>
+        <div class="process-step">
+            <div class="step-number">0</div>
+            <div class="step-content">
+                <h4>Phase 0: Wall Assessment &amp; Preparation (Weeks 1-2)</h4>
+                <ul>
+                    <li>Complete structural survey of terrace wall</li>
+                    <li>Clean wall face of vegetation</li>
+                    <li>Repoint loose mortar joints with hydraulic lime mortar</li>
+                    <li>Mark ledger line at ~4.5m height</li>
+                    <li>Core-drill anchor holes (5-6 holes)</li>
+                    <li>Inject chemical anchors, allow 24-48hr cure</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+                <h4>Phase 1: Pole Harvest &amp; Treatment (Weeks 2-5)</h4>
+                <ul>
+                    <li>Fell ~60 eucalyptus trees</li>
+                    <li>Debark within 48 hours</li>
+                    <li>Set up borax treatment tank</li>
+                    <li>Dry under cover 2-3 weeks</li>
+                </ul>
+                <p><em>See: <a href="shared-reference.html#treatment">Pole Treatment Protocol</a></em></p>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+                <h4>Phase 2: Foundation Arc (Weeks 4-6)</h4>
+                <ul>
+                    <li>Excavate semicircular trench (4.5m radius)</li>
+                    <li>Tie arc ends into terrace wall base</li>
+                    <li>Assemble gabion cages and fill with stone</li>
+                    <li>Allow 1 week settling</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+                <h4>Phase 3: Wall Framework (Weeks 6-7)</h4>
+                <ul>
+                    <li>Char and oil 16 main posts</li>
+                    <li>Set posts at ~1.2m spacing around arc</li>
+                    <li>Weave horizontal wattle (~98 poles)</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+                <h4>Phase 4: Ring Beam &amp; Ledger (Weeks 7-8)</h4>
+                <ul>
+                    <li>Install ledger on terrace wall (8 steps above)</li>
+                    <li>Install curved ring beam on front wall top</li>
+                    <li>Connect ring beam ends to ledger with brackets</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+                <h4>Phase 5: Lean-to Roof (Weeks 8-9)</h4>
+                <ul>
+                    <li>Lift 14-15 rafters into position, spacing 1.2m</li>
+                    <li>Spike and lash all connections</li>
+                    <li>Install purlins across rafters</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">6</div>
+            <div class="step-content">
+                <h4>Phase 6: Critical Waterproofing (Weeks 9-10)</h4>
+                <ul>
+                    <li>Cut reglet into terrace wall</li>
+                    <li>Install counter-flashing and seal</li>
+                    <li>Install step flashing (EPDM squares)</li>
+                    <li>Install cork sheathing and main EPDM membrane</li>
+                    <li><strong>Water test for 1 hour</strong>—do not proceed until dry</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="process-step">
+            <div class="step-number">7</div>
+            <div class="step-content">
+                <h4>Phase 7: Wall Infill &amp; Finishing (Weeks 10-16)</h4>
+                <ul>
+                    <li>Mix clay slip, coat straw, pack into cavities</li>
+                    <li>Allow 4-6 weeks drying</li>
+                    <li>Apply lime render (scratch coat + finish coat)</li>
+                    <li>Install windows, doors, floor</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Floor Plan -->
+    <section id="floor-plan">
+        <h1>Floor Plan (24m²)</h1>
+
+        <p>The 24m² floor is compact but efficient. The straight back wall (terrace) simplifies furniture placement.</p>
+
+        <h3>Suggested Zones</h3>
+        <ul>
+            <li><strong>Entry (2m²):</strong> At one end of curved front, near kitchen for deliveries</li>
+            <li><strong>Living Area (8m²):</strong> Center of curved front, maximizing south-facing light</li>
+            <li><strong>Kitchen Zone (4m²):</strong> Adjacent to entry, compact galley layout</li>
+            <li><strong>Sleeping Area (6m²):</strong> Against terrace wall for thermal mass benefit</li>
+            <li><strong>Bathroom (3m²):</strong> Corner between kitchen and sleeping (shared plumbing)</li>
+            <li><strong>Storage (1m²):</strong> Nooks along terrace wall</li>
+        </ul>
+
+        <h3>Design Benefits</h3>
+        <ul>
+            <li><strong>Thermal mass:</strong> Terrace wall absorbs solar heat during day, releases at night</li>
+            <li><strong>Light:</strong> Curved front maximizes southern exposure</li>
+            <li><strong>Accessibility:</strong> Single-story, no stairs</li>
+            <li><strong>Efficiency:</strong> Compact footprint reduces heating load</li>
+        </ul>
+    </section>
+
+    <!-- Maintenance -->
+    <section id="maintenance">
+        <h1>Maintenance Schedule</h1>
+
+        <h3>Critical: Junction Re-sealing</h3>
+        <ul>
+            <li><strong>Every 5-7 years:</strong> Re-apply polyurethane sealant at reglet. Remove old cracked sealant completely first. Budget €50-100.</li>
+        </ul>
+
+        <h3>Seasonal</h3>
+        <ul>
+            <li><strong>Autumn:</strong> Inspect wall junction before rainy season. Check for cracks in sealant.</li>
+            <li><strong>Spring:</strong> Repair any winter water damage to render.</li>
+            <li><strong>Summer:</strong> Maintain defensible space. Check weep holes are clear.</li>
+        </ul>
+
+        <h3>Long-term</h3>
+        <ul>
+            <li><strong>Every 5-10 years:</strong> Reapply linseed oil to exposed timber</li>
+            <li><strong>At 15-20 years:</strong> Inspect wire lashings, replace if corroded</li>
+            <li><strong>At 30-40 years:</strong> Assess timber condition for replacement</li>
+        </ul>
+
+        <p><em>See: <a href="shared-reference.html#fire">Fire Safety &amp; Defensible Space</a></em></p>
+    </section>
+
+    <div class="cross-links">
+        <h3>Other Designs</h3>
+        <ul>
+            <li><a href="standard-biodome-guide.html">Standard BioDome</a> — 55m² circular dome with reciprocal roof</li>
+            <li><a href="solar-pod-guide.html">Solar Pod</a> — 29m² rectangular with 3.2kW solar array</li>
+        </ul>
+        <p style="margin-top: 12px;"><a href="index.html">← Back to Design Selection</a></p>
+    </div>
+
+</main>
+
+<footer>
+    <p>Terraced BioDome — Complete Build Guide</p>
+    <p>Version 1.0 — January 2026 — <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons BY-SA 4.0</a></p>
+</footer>
+
+</body>
+</html>

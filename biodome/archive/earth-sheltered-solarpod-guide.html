@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Complete build guide for the Earth Sheltered SolarPod: 30m² earth-sheltered structure with Da Vinci bridge rafters. Cut into the hillside for passive thermal regulation.">
+    <title>Earth Sheltered SolarPod — Build Guide (30m²)</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌿</text></svg>">
+    <link rel="stylesheet" href="guide.css">
+</head>
+<body>
+
+<header class="header">
+    <h1>Earth Sheltered SolarPod</h1>
+    <p class="tagline">30m² earth-sheltered structure — cut into the hillside, roofed with Da Vinci bridge rafters</p>
+    <div style="margin-bottom: 24px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+        <a href="earth_sheltered_viewer.html" class="download-btn" style="text-decoration: none;">Explore 3D Model</a>
+        <button class="download-btn" onclick="window.print()" style="background: transparent; color: rgba(255,255,255,0.7); border: 2px solid rgba(255,255,255,0.3);">Download as PDF</button>
+    </div>
+    <div class="header-stats">
+        <div class="stat"><span class="stat-value">30m²</span><span class="stat-label">Sheltered Area</span></div>
+        <div class="stat"><span class="stat-value">5 × 6m</span><span class="stat-label">Footprint</span></div>
+        <div class="stat"><span class="stat-value">3m</span><span class="stat-label">Cut Depth</span></div>
+        <div class="stat"><span class="stat-value">22m²</span><span class="stat-label">Earth-Contact</span></div>
+    </div>
+</header>
+
+<nav class="nav">
+    <div class="nav-inner">
+        <a href="index.html" class="nav-brand">← Back to Designs</a>
+        <div class="nav-links">
+            <a href="#overview">Overview</a>
+            <a href="#excavation">Excavation</a>
+            <a href="#foundation">Foundation</a>
+            <a href="#frame">Frame</a>
+            <a href="#roof">Roof</a>
+            <a href="#shell">Shell</a>
+            <a href="#solar">Solar</a>
+            <a href="#openings">Openings</a>
+            <a href="#bom">Materials</a>
+            <a href="#phases">Phases</a>
+        </div>
+    </div>
+</nav>
+
+<div class="viewer-embed-wrapper">
+    <iframe class="viewer-embed" src="earth_sheltered_viewer.html" loading="lazy" title="Interactive 3D model of the Earth Sheltered SolarPod"></iframe>
+    <a href="earth_sheltered_viewer.html" class="viewer-fullscreen">Open Fullscreen</a>
+</div>
+
+<main class="container">
+
+    <nav class="toc">
+        <h3>Table of Contents</h3>
+        <ol>
+            <li><a href="#overview">Design Overview</a></li>
+            <li><a href="#excavation">Site Excavation &amp; Retaining</a></li>
+            <li><a href="#foundation">Foundation: Gabion Perimeter</a></li>
+            <li><a href="#frame">Wall Framework: Wattle Basket</a></li>
+            <li><a href="#roof">Roof: Da Vinci Bridge Rafters</a></li>
+            <li><a href="#shell">Shell: Straw-Clay &amp; EPDM</a></li>
+            <li><a href="#solar">Living Roof &amp; Solar Array</a></li>
+            <li><a href="#openings">Openings: Door &amp; Windows</a></li>
+            <li><a href="#interior">Interior Finish</a></li>
+            <li><a href="#bom">Bill of Materials</a></li>
+            <li><a href="#phases">Construction Phases</a></li>
+            <li><a href="#floor-plan">Floor Plan</a></li>
+            <li><a href="#maintenance">Maintenance</a></li>
+        </ol>
+    </nav>
+
+    <div class="cross-links">
+        <h3>Read First</h3>
+        <p>Before starting, master these techniques from the <a href="shared-reference.html">Shared Reference Guide</a>:</p>
+        <ul>
+            <li><a href="shared-reference.html#harvesting">Eucalyptus Harvesting &amp; Eradication</a></li>
+            <li><a href="shared-reference.html#treatment">Pole Treatment Protocol</a></li>
+            <li><a href="shared-reference.html#structural">Structural Design Values</a></li>
+        </ul>
+    </div>
+
+    <!-- Section 1: Design Overview -->
+    <section id="overview">
+        <h1>Design Overview</h1>
+
+        <p>The Earth Sheltered SolarPod is a 5×6m rectangular earth-sheltered structure. Unlike the Standard BioDome's circular dome, this design is cut 3 meters into a hillside, using the earth itself as thermal mass and fire protection. The rectangular footprint integrates naturally with hillside contours, creating a 30m² sheltered space that breathes with the land.</p>
+
+        <p>Twenty-two square meters of wall surface are banked against the hillside, providing passive cooling in summer and warmth retention in winter. The 3m cut depth puts the rear wall entirely below grade. This is not a bunker — the south-facing front is fully open with a glazed door and windows, bringing light deep into the interior. The earth-contact walls stabilize interior temperature year-round, reducing heating and cooling needs to near zero.</p>
+
+        <p>The SolarPod's signature innovation is its roof: Leonardo da Vinci's self-supporting bridge principle, adapted as A-frame gable rafters. In the Codex Atlanticus (1480s), da Vinci sketched a bridge where interlocking beams hold together through geometry alone, no fasteners required. Here, that same principle creates A-frame rafter pairs spanning the 5m width. Each pair interlocks with its neighbors across the rectangular span, forming a strong gable roof without a ridge beam or central support. Where the Standard BioDome uses full-span arches for a dome, the SolarPod translates the interlocking principle into A-frame pairs spanning a rectangle.</p>
+
+        <p>The hillside cut is retained with gabion walls — stone-filled wire cages that serve dual purpose. They hold back the earth and provide the structure's rear and side foundations. The front gabion course anchors the wattle wall frame and door threshold. The gabions create a stable bearing surface for the eucalyptus pole frame, while allowing subsurface water to drain freely through the stone fill.</p>
+
+        <p>The A-frame gable creates an ideal south-facing slope for solar panel mounting. Unlike a dome (which has no flat surface facing south), the SolarPod's geometry was designed with solar harvest in mind. The north-facing slope carries the living roof — a sedum and native grass layer providing thermal mass, fire resistance, and visual integration with the hillside. The south-facing slope mounts photovoltaic panels, angled to capture maximum sun throughout the year.</p>
+
+        <p>The material palette mirrors the Standard BioDome: eucalyptus poles for the frame, wattle weave for wall structure, light straw-clay for insulation, EPDM membrane for waterproofing, lime-earth render for exterior finish, burlap mesh for reinforcement. The key additions are the gabion retaining walls and the solar-ready roof structure. The eucalyptus poles are harvested from invasive stands, treated with borax solution, and assembled green (freshly cut). As the poles dry in place, they shrink and lock together, creating a structure that tightens over time.</p>
+
+        <p>The SolarPod is a marriage of ancient building techniques and modern passive design. The earth-sheltered concept has protected humans for millennia — from Neolithic pit-houses to prairie soddies to Icelandic turf homes. The da Vinci bridge principle is Renaissance geometry. The straw-clay and wattle techniques are medieval. The solar integration and EPDM waterproofing are 21st century. Together, they create a structure that is simple to build, cheap to heat, and nearly invisible from the hillside above.</p>
+
+        <div class="stats-grid">
+            <div class="stat-card">
+                <div class="stat-card-value">5 × 6m</div>
+                <div class="stat-card-label">Footprint</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">30m²</div>
+                <div class="stat-card-label">Sheltered Area</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">22m²</div>
+                <div class="stat-card-label">Earth-Contact Walls</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">3m</div>
+                <div class="stat-card-label">Cut Depth</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">2m</div>
+                <div class="stat-card-label">Cut Height</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-card-value">A-frame</div>
+                <div class="stat-card-label">Roof Type</div>
+            </div>
+        </div>
+
+        <h3>Key Specifications</h3>
+        <ul>
+            <li><strong>Shape:</strong> Rectangular earth-sheltered structure with A-frame gable roof</li>
+            <li><strong>Floor area:</strong> 30m² (comparable to a small cabin)</li>
+            <li><strong>Earth-contact:</strong> 22m² of walls banked into hillside</li>
+            <li><strong>Roof:</strong> Da Vinci bridge rafters with EPDM membrane, living roof on north slope, solar panels on south slope</li>
+            <li><strong>Exterior:</strong> Lime-earth render on exposed front wall, earth-banked sides and rear</li>
+            <li><strong>Crew:</strong> 2-4 people for entire build</li>
+            <li><strong>Trees removed:</strong> 60-120 eucalyptus saplings and young trees</li>
+            <li><strong>Build time:</strong> ~5-7 weeks in summer (longer in winter)</li>
+            <li><strong>Lifespan:</strong> 30-40 years with maintenance</li>
+        </ul>
+
+        <h3>Thermal Performance</h3>
+        <p>Earth-sheltered construction provides exceptional thermal stability. The earth maintains a nearly constant temperature of 12-16°C year-round at 2-3m depth, moderating interior conditions without mechanical systems.</p>
+
+        <table>
+            <tr>
+                <th>Season</th>
+                <th>Outdoor Range</th>
+                <th>Interior Range</th>
+                <th>Effect</th>
+            </tr>
+            <tr>
+                <td>Summer</td>
+                <td>25-35°C</td>
+                <td>18-22°C</td>
+                <td>Earth cools interior by 5-10°C</td>
+            </tr>
+            <tr>
+                <td>Winter</td>
+                <td>0-10°C</td>
+                <td>12-16°C</td>
+                <td>Earth warms interior by 8-12°C</td>
+            </tr>
+            <tr>
+                <td>Spring/Fall</td>
+                <td>10-20°C</td>
+                <td>14-18°C</td>
+                <td>Stable comfort zone</td>
+            </tr>
+        </table>
+
+        <div class="tip-box">
+            <div class="callout-title">Why Earth-Sheltered?</div>
+            <p>Three meters of earth provides thermal mass equivalent to 40cm of concrete. It buffers temperature swings, filters air pollutants, provides wildfire protection, and creates acoustic insulation. The hillside integration also reduces visual impact and protects the structure from wind.</p>
+        </div>
+    </section>
+
+    <!-- Section 2: Excavation -->
+    <section id="excavation">
+        <h1>Site Excavation &amp; Retaining</h1>
+        <p>This section covers site selection criteria, slope angle requirements, excavation method for the 3m deep × 5m wide cut, drainage behind gabion walls, and soil storage for the living roof.</p>
+        <p class="stub">Section under development. Check back soon.</p>
+        <h3>Key Topics</h3>
+        <ul>
+            <li>Site selection: south-facing slope, 15-30° angle, stable soil (clay/loam preferred)</li>
+            <li>Excavation dimensions: 3m deep × 5m wide × 6m long cut</li>
+            <li>Cut profile: vertical rear wall, stepped sides for gabion courses</li>
+            <li>Drainage design: geotextile wrap, perforated pipe at base of gabion walls</li>
+            <li>Soil storage: stockpile topsoil for living roof substrate</li>
+            <li>Compaction and grading: level floor, proper drainage fall</li>
+        </ul>
+    </section>
+
+    <!-- Section 3: Foundation -->
+    <section id="foundation">
+        <h1>Foundation: Gabion Perimeter</h1>
+        <p>This section covers gabion cage dimensions, stone fill requirements, integration with the retaining wall, front foundation course, and pole anchor points.</p>
+        <p class="stub">Section under development. Check back soon.</p>
+        <h3>Key Topics</h3>
+        <ul>
+            <li>Gabion cage sizing: 1m × 0.5m × 0.5m units (or custom to fit cut profile)</li>
+            <li>Stone fill: 10-20cm local granite or schist, hand-placed at corners and edges</li>
+            <li>Retaining wall integration: stepped courses following hillside cut</li>
+            <li>Front foundation: single gabion course at south face, anchors wattle wall frame</li>
+            <li>Pole anchor points: flat stone caps on gabion units, 40cm spacing</li>
+            <li>Drainage pipe routing: 100mm perforated HDPE at base of rear and side walls</li>
+        </ul>
+    </section>
+
+    <!-- Section 4: Wall Framework -->
+    <section id="frame">
+        <h1>Wall Framework: Wattle Basket</h1>
+        <p>This section covers eucalyptus pole selection, vertical post spacing, wattle weave pattern, integration with the gabion base, and connection to roof rafters.</p>
+        <p class="stub">Section under development. Check back soon.</p>
+        <h3>Key Topics</h3>
+        <ul>
+            <li>Vertical posts: 8-10cm diameter eucalyptus, 2.5m height, 40cm spacing</li>
+            <li>Horizontal weavers: 3-5cm diameter, woven between verticals</li>
+            <li>Wattle basket structure: creates cavity for straw-clay insulation</li>
+            <li>Integration with gabion base: posts set into stone fill, wedged tight</li>
+            <li>Top plate connection: horizontal beam ties posts, receives roof rafters</li>
+            <li>Corner posts: heavier gauge (10-12cm), anchored deep into gabion</li>
+        </ul>
+    </section>
+
+    <!-- Section 5: Roof -->
+    <section id="roof">
+        <h1>Roof: Da Vinci Bridge Rafters</h1>
+        <p>This section covers A-frame rafter pairs, interlocking beam geometry, rafter sizing for the 5m span, purlin layout, and connection to the wall plate.</p>
+        <p class="stub">Section under development. Check back soon.</p>
+        <h3>Key Topics</h3>
+        <ul>
+            <li>Da Vinci bridge principle: interlocking A-frame pairs, no central ridge beam</li>
+            <li>Rafter sizing: 10-12cm diameter eucalyptus, 3.5m length per rafter</li>
+            <li>Interlocking geometry: notched laps where rafters cross, locked by gravity and compression</li>
+            <li>Purlin layout: 5-7cm diameter horizontal poles, 50cm spacing, support EPDM deck</li>
+            <li>Connection to wall plate: rafter feet notched over plate, pegged with hardwood dowels</li>
+            <li>Gable ends: infilled with wattle weave or fixed glazing</li>
+        </ul>
+    </section>
+
+    <!-- Section 6: Shell -->
+    <section id="shell">
+        <h1>Shell: Straw-Clay &amp; EPDM</h1>
+        <p>This section covers light straw-clay mix for walls, EPDM membrane application, burlap mesh reinforcement, lime-earth render, and waterproofing at the earth-contact junction.</p>
+        <p class="stub">Section under development. Check back soon.</p>
+        <h3>Key Topics</h3>
+        <ul>
+            <li>Light straw-clay mix: 12:1 straw-to-clay ratio, hand-packed into wattle basket</li>
+            <li>Wall thickness: 30-40cm, provides R-20 to R-25 insulation</li>
+            <li>EPDM membrane: 1.2mm thickness, applied over purlin deck with 30cm overlaps</li>
+            <li>Burlap mesh reinforcement: laid over EPDM, receives lime-earth render</li>
+            <li>Lime-earth render: 3:1 sand-to-lime, troweled in two coats</li>
+            <li>Earth-contact waterproofing: EPDM wraps down into gabion fill, sealed with bentonite clay</li>
+        </ul>
+    </section>
+
+    <!-- Section 7: Solar -->
+    <section id="solar">
+        <h1>Living Roof &amp; Solar Array</h1>
+        <p>This section covers the living roof on the north-facing slope (substrate depth, plant selection), solar panel mounting on the south-facing slope, structural load considerations, and wiring penetrations.</p>
+        <p class="stub">Section under development. Check back soon.</p>
+        <h3>Key Topics</h3>
+        <ul>
+            <li>Living roof substrate: 15-20cm depth, lightweight aggregate mix (perlite, compost, sand)</li>
+            <li>Plant selection: sedum species, native grasses, low-maintenance perennials</li>
+            <li>North slope coverage: full living roof for thermal mass and fire resistance</li>
+            <li>Solar panel mounting: aluminum rail system on south slope, 35° tilt angle</li>
+            <li>Structural load: roof designed for 200 kg/m² (living roof + snow + wind)</li>
+            <li>Wiring penetrations: conduit through gable end, sealed with EPDM boot</li>
+        </ul>
+    </section>
+
+    <!-- Section 8: Openings -->
+    <section id="openings">
+        <h1>Openings: Door &amp; Windows</h1>
+        <p>This section covers the south-facing glazed door, window placement for cross-ventilation, chestnut frames with precision joinery, and weathersealing at the earth-contact boundary.</p>
+        <p class="stub">Section under development. Check back soon.</p>
+        <h3>Key Topics</h3>
+        <ul>
+            <li>South-facing door: 2m × 0.9m, double-glazed insulated unit, chestnut frame</li>
+            <li>Window placement: two 1m × 0.8m windows flanking door for cross-ventilation</li>
+            <li>Chestnut joinery: mortise-and-tenon frames, wedged tight, finished with linseed oil</li>
+            <li>Weathersealing: EPDM gaskets at frame perimeter, lime-earth caulk at wattle junction</li>
+            <li>Earth-contact transition: frames set proud of earth-banked walls, no buried wood</li>
+            <li>Hardware: stainless steel hinges, passive vents for humidity control</li>
+        </ul>
+    </section>
+
+    <!-- Section 9: Interior -->
+    <section id="interior">
+        <h1>Interior Finish</h1>
+        <p>This section covers limewash on interior walls, floor finish options, thermal mass floor, and built-in furniture from eucalyptus.</p>
+        <p class="stub">Section under development. Check back soon.</p>
+        <h3>Key Topics</h3>
+        <ul>
+            <li>Limewash: white or earth-pigmented, three coats for breathable finish</li>
+            <li>Floor options: rammed earth, concrete slab, stone pavers</li>
+            <li>Thermal mass floor: dark-colored surface to absorb solar gain from south windows</li>
+            <li>Built-in furniture: eucalyptus pole benches, shelving, loft platform</li>
+            <li>Moisture management: passive venting, humidity-buffering lime finish</li>
+        </ul>
+    </section>
+
+    <!-- Section 10: BOM -->
+    <section id="bom">
+        <h1>Bill of Materials</h1>
+        <p>This section provides a complete materials list with quantities, sourcing notes, and cost estimates.</p>
+        <p class="stub">Section under development. Check back soon.</p>
+        <h3>Key Topics</h3>
+        <ul>
+            <li>Eucalyptus poles: quantities by diameter and length</li>
+            <li>Gabion materials: wire cages, geotextile, stone fill, drainage pipe</li>
+            <li>Insulation: straw bales, clay, burlap mesh</li>
+            <li>Waterproofing: EPDM membrane, seam tape, fasteners</li>
+            <li>Finishes: lime, sand, earth pigments</li>
+            <li>Openings: door and window units, hardware</li>
+            <li>Solar system: panels, inverter, batteries, wiring</li>
+            <li>Living roof: substrate mix, plants</li>
+        </ul>
+    </section>
+
+    <!-- Section 11: Phases -->
+    <section id="phases">
+        <h1>Construction Phases</h1>
+        <p>This section provides a phase breakdown with timeline, crew requirements, tool list, and critical path.</p>
+        <p class="stub">Section under development. Check back soon.</p>
+        <h3>Key Topics</h3>
+        <ul>
+            <li>Phase 1: Site excavation and gabion foundation (2 weeks)</li>
+            <li>Phase 2: Wall frame and roof rafters (2 weeks)</li>
+            <li>Phase 3: Wattle weave and straw-clay insulation (1.5 weeks)</li>
+            <li>Phase 4: EPDM membrane and exterior render (1 week)</li>
+            <li>Phase 5: Living roof and solar installation (1 week)</li>
+            <li>Phase 6: Openings and interior finish (1 week)</li>
+            <li>Tool list: excavator, wire cutters, chainsaw, tampers, scaffolding</li>
+            <li>Critical path: excavation → gabions → frame → roof → shell</li>
+        </ul>
+    </section>
+
+    <!-- Section 12: Floor Plan -->
+    <section id="floor-plan">
+        <h1>Floor Plan</h1>
+        <p>This section provides 5×6m layout options, furniture placement, storage, and utilities routing.</p>
+        <p class="stub">Section under development. Check back soon.</p>
+        <h3>Key Topics</h3>
+        <ul>
+            <li>Layout zones: entry/kitchen (south), sleeping (north), living (center)</li>
+            <li>Furniture placement: built-in benches along earth-contact walls</li>
+            <li>Storage: shelving and cupboards integrated into frame</li>
+            <li>Utilities: water supply, greywater drainage, electrical from solar</li>
+            <li>Heating: rocket mass heater or wood stove (optional)</li>
+        </ul>
+    </section>
+
+    <!-- Section 13: Maintenance -->
+    <section id="maintenance">
+        <h1>Maintenance</h1>
+        <p>This section covers seasonal checks, earth-contact wall inspection, living roof care, solar panel maintenance, and EPDM inspection schedule.</p>
+        <p class="stub">Section under development. Check back soon.</p>
+        <h3>Key Topics</h3>
+        <ul>
+            <li>Seasonal checks: spring (drainage inspection), summer (living roof weeding), fall (gutter cleaning), winter (snow load monitoring)</li>
+            <li>Earth-contact walls: annual check for moisture intrusion, re-seal EPDM junctions as needed</li>
+            <li>Living roof care: monthly weeding in first year, annual fertilizing, replant bare spots</li>
+            <li>Solar panel maintenance: quarterly cleaning, annual electrical inspection</li>
+            <li>EPDM inspection: biannual visual check for tears or lifted seams, repair with patch tape</li>
+            <li>Expected repairs: re-render exterior every 5-7 years, replace EPDM after 25-30 years</li>
+        </ul>
+    </section>
+
+    <div class="cross-links">
+        <h3>Other Designs</h3>
+        <ul>
+            <li><a href="standard-biodome-guide.html">Standard BioDome</a> — 28m² circular wattle dome</li>
+        </ul>
+        <p style="margin-top: 12px;"><a href="index.html">&larr; Back to Design Selection</a></p>
+    </div>
+
+</main>
+
+<footer>
+    <p>Earth Sheltered SolarPod — Build Guide</p>
+    <p>Version 1.0 — February 2026 — <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons BY-SA 4.0</a></p>
+</footer>
+
+</body>
+</html>

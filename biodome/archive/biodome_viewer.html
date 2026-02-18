@@ -1,0 +1,1683 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Standard BioDome — 3D Model</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background: #0d1a0d; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; }
+        canvas { display: block; }
+
+        #back-link {
+            position: fixed; top: 16px; left: 16px; z-index: 100;
+            color: rgba(255,255,255,0.6); text-decoration: none; font-size: 14px;
+            padding: 8px 14px; background: rgba(0,0,0,0.5); border-radius: 6px;
+            transition: all 0.2s;
+        }
+        #back-link:hover { color: #c9a227; background: rgba(0,0,0,0.7); }
+
+        #title-bar {
+            position: fixed; top: 16px; left: 50%; transform: translateX(-50%); z-index: 100;
+            text-align: center; pointer-events: none;
+        }
+        #title-bar h1 { color: white; font-size: 18px; font-weight: 600; margin-bottom: 2px; }
+        #title-bar p { color: rgba(255,255,255,0.5); font-size: 12px; }
+
+        #legend {
+            position: fixed; bottom: 20px; left: 20px; z-index: 100;
+            background: rgba(0,0,0,0.75); border-radius: 10px; padding: 16px 20px;
+            color: white; min-width: 200px; backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        #legend h3 { font-size: 13px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 12px; }
+
+        .legend-item {
+            display: flex; align-items: center; gap: 10px; margin-bottom: 8px;
+            cursor: pointer; padding: 4px 6px; border-radius: 4px;
+            transition: background 0.15s; user-select: none;
+        }
+        .legend-item:hover { background: rgba(255,255,255,0.08); }
+        .legend-item.disabled { opacity: 0.35; }
+        .legend-swatch { width: 14px; height: 14px; border-radius: 3px; flex-shrink: 0; }
+        .legend-label { font-size: 13px; color: rgba(255,255,255,0.85); }
+        .legend-group { font-size: 10px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.08em; margin: 10px 0 4px 0; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.06); }
+        .legend-group:first-of-type { margin-top: 0; padding-top: 0; border-top: none; }
+
+        #controls-hint {
+            position: fixed; bottom: 20px; right: 20px; z-index: 100;
+            background: rgba(0,0,0,0.5); border-radius: 8px; padding: 12px 16px;
+            color: rgba(255,255,255,0.4); font-size: 11px; line-height: 1.6;
+            backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        #stats-panel {
+            position: fixed; top: 16px; right: 16px; z-index: 100;
+            background: rgba(0,0,0,0.6); border-radius: 8px; padding: 14px 18px;
+            color: white; backdrop-filter: blur(10px); border: 1px solid rgba(255,255,255,0.1);
+        }
+        .stat-row { display: flex; justify-content: space-between; gap: 24px; margin-bottom: 4px; }
+        .stat-label { font-size: 11px; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.05em; }
+        .stat-value { font-size: 13px; font-weight: 600; color: #c9a227; }
+    </style>
+</head>
+<body>
+
+<a id="back-link" href="standard-biodome-guide.html">&larr; Build Guide</a>
+
+<div id="title-bar">
+    <h1>Standard BioDome</h1>
+    <p>6m wattle dome &mdash; natural arch profile</p>
+</div>
+
+<div id="stats-panel">
+    <div class="stat-row"><span class="stat-label">Diameter</span><span class="stat-value">6m</span></div>
+    <div class="stat-row"><span class="stat-label">Apex Height</span><span class="stat-value">4m</span></div>
+    <div class="stat-row"><span class="stat-label">Floor Area</span><span class="stat-value">28 m&sup2;</span></div>
+    <div class="stat-row"><span class="stat-label">Arches</span><span class="stat-value">8 (7 + 1 fan pair)</span></div>
+</div>
+
+<div id="legend">
+    <h3>Components</h3>
+
+    <div class="legend-group">Structure</div>
+    <div class="legend-item" data-layer="foundation">
+        <div class="legend-swatch" style="background: #7a7a7a;"></div>
+        <span class="legend-label">Gabion Foundation</span>
+    </div>
+    <div class="legend-item" data-layer="floor">
+        <div class="legend-swatch" style="background: #7a5a2a;"></div>
+        <span class="legend-label">Raised Floor <span style="opacity:0.45; font-size:11px;">(eucalyptus wattle)</span></span>
+    </div>
+    <div class="legend-item" data-layer="arches">
+        <div class="legend-swatch" style="background: #a07030;"></div>
+        <span class="legend-label">Arch Poles <span style="opacity:0.45; font-size:11px;">(eucalyptus)</span></span>
+    </div>
+    <div class="legend-item" data-layer="rings">
+        <div class="legend-swatch" style="background: #c49a5a;"></div>
+        <span class="legend-label">Horizontal Rings (7) <span style="opacity:0.45; font-size:11px;">(bamboo)</span></span>
+    </div>
+    <div class="legend-item" data-layer="wattle">
+        <div class="legend-swatch" style="background: #d4b88a;"></div>
+        <span class="legend-label">Wattle Infill <span style="opacity:0.45; font-size:11px;">(bamboo splits)</span></span>
+    </div>
+
+    <div class="legend-group">Envelope</div>
+    <div class="legend-item" data-layer="strawclay">
+        <div class="legend-swatch" style="background: #c8a84e;"></div>
+        <span class="legend-label">Straw-Clay <span style="opacity:0.45; font-size:11px;">(100 mm)</span></span>
+    </div>
+    <div class="legend-item" data-layer="shell">
+        <div class="legend-swatch" style="background: #1a1a1a;"></div>
+        <span class="legend-label">EPDM Membrane <span style="opacity:0.45; font-size:11px;">(1.2 mm)</span></span>
+    </div>
+    <div class="legend-item" data-layer="stoneskirt">
+        <div class="legend-swatch" style="background: #8a8578;"></div>
+        <span class="legend-label">Stone Skirt <span style="opacity:0.45; font-size:11px;">(gabion, 800 mm)</span></span>
+    </div>
+    <div class="legend-item" data-layer="limerender">
+        <div class="legend-swatch" style="background: #e8dcc8;"></div>
+        <span class="legend-label">Lime-Earth Render <span style="opacity:0.45; font-size:11px;">(lite + earth)</span></span>
+    </div>
+
+    <div class="legend-group">Openings</div>
+    <div class="legend-item" data-layer="door">
+        <div class="legend-swatch" style="background: #5c4033;"></div>
+        <span class="legend-label">Door &amp; Windows</span>
+    </div>
+    <div class="legend-item" data-layer="windporch">
+        <div class="legend-swatch" style="background: #8b6914;"></div>
+        <span class="legend-label">Wind Porch</span>
+    </div>
+    <div class="legend-item" data-layer="ventcap">
+        <div class="legend-swatch" style="background: #555;"></div>
+        <span class="legend-label">Apex Vent Cap</span>
+    </div>
+    <div class="legend-item" data-layer="annotations">
+        <div class="legend-swatch" style="background: #c9a227;"></div>
+        <span class="legend-label">Dimensions</span>
+    </div>
+</div>
+
+<div id="controls-hint">
+    Drag &mdash; Rotate<br>
+    Scroll &mdash; Zoom<br>
+    Right-drag &mdash; Pan<br>
+    Click legend &mdash; Toggle
+</div>
+
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+    }
+}
+</script>
+
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+
+// ─── Constants ───────────────────────────────────────────────────────
+const R = 3;          // dome base radius (meters)
+const H = 4;          // dome apex height
+const A = 1.53;       // catenary parameter (solved for R=3, H=4)
+const FHEIGHT = 0.5;  // foundation height above ground
+const FWIDTH = 0.4;   // foundation ring width
+
+// Wind Porch (Katak) — enclosed vestibule at door
+const PORCH_DEPTH = 1.2;     // projection outward from dome face
+const PORCH_WIDTH = 2.0;     // matches double-bay door opening
+const PORCH_H_INNER = 2.2;   // height at dome junction
+const PORCH_H_OUTER = 2.0;   // height at outer door frame
+const PORCH_POST_R = 0.05;   // corner post radius (10cm dia)
+
+// Window Boxes — projecting deep reveals
+const WIN_BOX_DEPTH = 0.20;  // 20cm projection from dome EPDM
+
+const NUM_ARCHES = 8;
+const NUM_RINGS = 7;
+const DOOR_ANGLE = Math.PI / 2;           // east-facing door
+const DOOR_ANGULAR_HALF = Math.PI / 8 * 0.85;  // double-bay arch door (~2m wide)
+const DOOR_ARCH_START = 1.5;     // height where rectangular becomes arch
+const DOOR_ARCH_PEAK = 2.2;      // apex of the door arch
+
+// Pole radii (visual scale)
+const ARCH_R = 0.045;    // main arch poles ~9cm diameter
+const RING_R = 0.028;    // horizontal ring poles ~6cm
+const WATTLE_R = 0.012;  // vertical wattle infill ~3cm
+
+// ─── Dome Profile ────────────────────────────────────────────────────
+function domeHeight(r) {
+    if (Math.abs(r) >= R) return 0;
+    return A * (Math.cosh(R / A) - Math.cosh(r / A));
+}
+
+function domeRadius(h) {
+    if (h <= 0) return R;
+    const val = Math.cosh(R / A) - h / A;
+    if (val <= 1) return 0;
+    return A * Math.acosh(val);
+}
+
+// ─── Scene Setup ─────────────────────────────────────────────────────
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(0x0d1a0d);
+scene.fog = new THREE.FogExp2(0x0d1a0d, 0.025);
+
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(7, 5, 7);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.1;
+document.body.appendChild(renderer.domElement);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+controls.target.set(0, 1.8, 0);
+controls.enableDamping = true;
+controls.dampingFactor = 0.08;
+controls.minDistance = 3;
+controls.maxDistance = 25;
+controls.maxPolarAngle = Math.PI / 2 + 0.15;
+controls.update();
+
+// ─── Lighting ────────────────────────────────────────────────────────
+const ambientLight = new THREE.AmbientLight(0x404050, 0.6);
+scene.add(ambientLight);
+
+const sunLight = new THREE.DirectionalLight(0xfff5e6, 1.8);
+sunLight.position.set(8, 12, 6);
+sunLight.castShadow = true;
+sunLight.shadow.mapSize.set(2048, 2048);
+sunLight.shadow.camera.left = -8;
+sunLight.shadow.camera.right = 8;
+sunLight.shadow.camera.top = 8;
+sunLight.shadow.camera.bottom = -8;
+sunLight.shadow.camera.near = 1;
+sunLight.shadow.camera.far = 30;
+sunLight.shadow.bias = -0.001;
+scene.add(sunLight);
+
+const fillLight = new THREE.DirectionalLight(0x8090b0, 0.4);
+fillLight.position.set(-5, 3, -4);
+scene.add(fillLight);
+
+const rimLight = new THREE.DirectionalLight(0xc9a227, 0.3);
+rimLight.position.set(-3, 6, 8);
+scene.add(rimLight);
+
+// ─── Materials ───────────────────────────────────────────────────────
+const matArch = new THREE.MeshStandardMaterial({ color: 0xa07030, roughness: 0.8, metalness: 0.05 });
+const matRing = new THREE.MeshStandardMaterial({ color: 0xc49a5a, roughness: 0.85, metalness: 0.02 });
+const matWattle = new THREE.MeshStandardMaterial({ color: 0xd4b88a, roughness: 0.9, metalness: 0.0 });
+// Procedural gabion stone fill texture
+const matFoundation = (() => {
+    const sz = 256;
+    const canvas = document.createElement('canvas');
+    canvas.width = sz; canvas.height = sz;
+    const ctx = canvas.getContext('2d');
+
+    ctx.fillStyle = '#6a6a6a';
+    ctx.fillRect(0, 0, sz, sz);
+
+    // Individual stones
+    for (let i = 0; i < 200; i++) {
+        const x = Math.random() * sz;
+        const y = Math.random() * sz;
+        const rx = 4 + Math.random() * 10;
+        const ry = 3 + Math.random() * 8;
+        const lum = 30 + Math.random() * 35;
+        ctx.fillStyle = `hsl(0, 0%, ${lum}%)`;
+        ctx.globalAlpha = 0.6 + Math.random() * 0.4;
+        ctx.beginPath();
+        ctx.ellipse(x, y, rx, ry, Math.random() * Math.PI, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.strokeStyle = `hsl(0, 0%, ${lum - 10}%)`;
+        ctx.lineWidth = 0.5;
+        ctx.globalAlpha = 0.5;
+        ctx.stroke();
+    }
+
+    // Wire mesh overlay
+    ctx.globalAlpha = 0.15;
+    ctx.strokeStyle = '#888';
+    ctx.lineWidth = 0.5;
+    for (let x = 0; x < sz; x += 16) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, sz); ctx.stroke();
+    }
+    for (let y = 0; y < sz; y += 16) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(sz, y); ctx.stroke();
+    }
+
+    ctx.globalAlpha = 1;
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(3, 1);
+
+    return new THREE.MeshStandardMaterial({
+        map: tex,
+        roughness: 0.95,
+        metalness: 0.1,
+        side: THREE.DoubleSide
+    });
+})();
+// Procedural straw-clay texture: fibrous straw + clay color variation
+const matStrawClay = (() => {
+    const sz = 512;
+    const canvas = document.createElement('canvas');
+    canvas.width = sz; canvas.height = sz;
+    const ctx = canvas.getContext('2d');
+
+    // Base clay colour
+    ctx.fillStyle = '#b89848';
+    ctx.fillRect(0, 0, sz, sz);
+
+    // Noise: irregular clay patches
+    for (let i = 0; i < 6000; i++) {
+        const x = Math.random() * sz;
+        const y = Math.random() * sz;
+        const r = Math.random() * 6 + 1;
+        const lum = 140 + Math.random() * 60;
+        const hue = 30 + Math.random() * 15;
+        ctx.fillStyle = `hsl(${hue}, 50%, ${lum / 2.55}%)`;
+        ctx.globalAlpha = 0.15 + Math.random() * 0.15;
+        ctx.beginPath();
+        ctx.ellipse(x, y, r, r * 0.5, Math.random() * Math.PI, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Straw fibres: many short angled strokes
+    ctx.globalAlpha = 1;
+    for (let i = 0; i < 3000; i++) {
+        const x = Math.random() * sz;
+        const y = Math.random() * sz;
+        const len = 8 + Math.random() * 20;
+        const angle = Math.random() * Math.PI; // mostly horizontal
+        const lum = 180 + Math.random() * 50;
+        ctx.strokeStyle = `hsl(${42 + Math.random() * 10}, ${50 + Math.random() * 20}%, ${lum / 2.55}%)`;
+        ctx.lineWidth = 0.5 + Math.random() * 1.2;
+        ctx.globalAlpha = 0.25 + Math.random() * 0.35;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
+        ctx.lineTo(x + Math.cos(angle) * len, y + Math.sin(angle) * len);
+        ctx.stroke();
+    }
+
+    ctx.globalAlpha = 1;
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(4, 4);
+
+    // Bump map from same canvas for surface relief
+    const bump = new THREE.CanvasTexture(canvas);
+    bump.wrapS = bump.wrapT = THREE.RepeatWrapping;
+    bump.repeat.set(4, 4);
+
+    return new THREE.MeshStandardMaterial({
+        map: tex,
+        bumpMap: bump,
+        bumpScale: 0.6,
+        roughness: 1.0,
+        metalness: 0.0
+    });
+})();
+const matShell = new THREE.MeshStandardMaterial({ color: 0x1a1a1a, roughness: 0.55, metalness: 0.05 });
+const matStoneSkirt = new THREE.MeshStandardMaterial({ color: 0x8a8578, roughness: 0.95, metalness: 0.05, side: THREE.DoubleSide });
+const matLimeRender = new THREE.MeshStandardMaterial({ color: 0xe8dcc8, roughness: 0.7, metalness: 0.0 });
+const matDoor = new THREE.MeshStandardMaterial({ color: 0x5c4033, roughness: 0.75, metalness: 0.05 });
+// Procedural terrain texture with tropical grass and earth variation
+const matGround = (() => {
+    const sz = 512;
+    const canvas = document.createElement('canvas');
+    canvas.width = sz; canvas.height = sz;
+    const ctx = canvas.getContext('2d');
+
+    // Base tropical green (warmer than earth-sheltered)
+    ctx.fillStyle = '#2a4a2a';
+    ctx.fillRect(0, 0, sz, sz);
+
+    // Grass patches — warmer tropical greens
+    for (let i = 0; i < 8000; i++) {
+        const x = Math.random() * sz;
+        const y = Math.random() * sz;
+        const r = Math.random() * 4 + 1;
+        const hue = 90 + Math.random() * 45;
+        const lum = 20 + Math.random() * 25;
+        ctx.fillStyle = `hsl(${hue}, 45%, ${lum}%)`;
+        ctx.globalAlpha = 0.15 + Math.random() * 0.2;
+        ctx.beginPath();
+        ctx.ellipse(x, y, r, r * 0.6, Math.random() * Math.PI, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    // Dirt / earth patches
+    for (let i = 0; i < 2000; i++) {
+        const x = Math.random() * sz;
+        const y = Math.random() * sz;
+        const r = Math.random() * 5 + 1;
+        const hue = 20 + Math.random() * 20;
+        const lum = 18 + Math.random() * 15;
+        ctx.fillStyle = `hsl(${hue}, 40%, ${lum}%)`;
+        ctx.globalAlpha = 0.1 + Math.random() * 0.15;
+        ctx.beginPath();
+        ctx.ellipse(x, y, r, r * 0.7, Math.random() * Math.PI, 0, Math.PI * 2);
+        ctx.fill();
+    }
+
+    ctx.globalAlpha = 1;
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(6, 6);
+
+    return new THREE.MeshStandardMaterial({
+        map: tex,
+        roughness: 1.0,
+        metalness: 0.0
+    });
+})();
+const matVentCap = new THREE.MeshStandardMaterial({ color: 0x555555, roughness: 0.6, metalness: 0.1 });
+const matWindow = new THREE.MeshPhysicalMaterial({
+    color: 0x88bbdd, roughness: 0.05, metalness: 0.0,
+    transmission: 0.85, thickness: 0.02, transparent: true, opacity: 0.35,
+    side: THREE.DoubleSide
+});
+const matPorch = new THREE.MeshStandardMaterial({ color: 0x8b6914, roughness: 0.8, metalness: 0.05 });
+// Procedural eucalyptus wattle floor texture
+const matFloor = (() => {
+    const sz = 512;
+    const canvas = document.createElement('canvas');
+    canvas.width = sz; canvas.height = sz;
+    const ctx = canvas.getContext('2d');
+    // Base brown
+    ctx.fillStyle = '#7a5a2a';
+    ctx.fillRect(0, 0, sz, sz);
+    // Woven eucalyptus strips — alternating direction per row
+    const stripH = 8;
+    for (let y = 0; y < sz; y += stripH) {
+        const row = Math.floor(y / stripH);
+        const angle = (row % 2 === 0) ? 0.05 : -0.05;
+        const lum = 35 + Math.random() * 20;
+        const hue = 28 + Math.random() * 12;
+        ctx.fillStyle = `hsl(${hue}, 45%, ${lum}%)`;
+        ctx.globalAlpha = 0.7 + Math.random() * 0.3;
+        ctx.save();
+        ctx.translate(0, y);
+        ctx.rotate(angle);
+        ctx.fillRect(-10, 0, sz + 20, stripH - 1);
+        ctx.restore();
+        // Gap line between strips
+        ctx.globalAlpha = 0.3;
+        ctx.strokeStyle = '#3a2a10';
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(0, y + stripH);
+        ctx.lineTo(sz, y + stripH);
+        ctx.stroke();
+    }
+    ctx.globalAlpha = 1;
+    const tex = new THREE.CanvasTexture(canvas);
+    tex.wrapS = tex.wrapT = THREE.RepeatWrapping;
+    tex.repeat.set(4, 4);
+    return new THREE.MeshStandardMaterial({
+        map: tex, roughness: 0.9, metalness: 0.0, side: THREE.DoubleSide
+    });
+})();
+
+// ─── Layer Groups ────────────────────────────────────────────────────
+const layers = {
+    foundation: new THREE.Group(),
+    floor: new THREE.Group(),
+    arches: new THREE.Group(),
+    rings: new THREE.Group(),
+    wattle: new THREE.Group(),
+    strawclay: new THREE.Group(),
+    shell: new THREE.Group(),
+    stoneskirt: new THREE.Group(),
+    limerender: new THREE.Group(),
+    door: new THREE.Group(),
+    windporch: new THREE.Group(),
+    ventcap: new THREE.Group(),
+    annotations: new THREE.Group()
+};
+
+Object.values(layers).forEach(g => scene.add(g));
+
+// ─── Helper: Tube along curve ────────────────────────────────────────
+function makeTube(curve, radius, material, segments) {
+    segments = segments || 48;
+    const geo = new THREE.TubeGeometry(curve, segments, radius, 8, false);
+    const mesh = new THREE.Mesh(geo, material);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    return mesh;
+}
+
+// ─── Ground Plane ────────────────────────────────────────────────────
+const groundGeo = new THREE.CircleGeometry(15, 64);
+groundGeo.rotateX(-Math.PI / 2);
+const ground = new THREE.Mesh(groundGeo, matGround);
+ground.receiveShadow = true;
+scene.add(ground);
+
+// ─── Foundation: Gabion Ring (stacked cage courses) ─────────────────
+function buildFoundation() {
+    // Gabion ring sits OUTSIDE the pole line so it supports the stone skirt.
+    // Inner edge at R (pole sockets in the inner lip), outer edge at R + FWIDTH.
+    const innerR = R;
+    const outerR = R + FWIDTH;
+
+    // Stack gabion cages in courses (2 courses for 0.5m height)
+    const numCourses = 2;
+    const courseH = FHEIGHT / numCourses;
+
+    // Each course is subdivided into individual cage segments around the ring
+    const numCages = 24; // ~24 cages around the circumference
+    const edgeMat = new THREE.LineBasicMaterial({ color: 0x999999, transparent: true, opacity: 0.6 });
+
+    for (let course = 0; course < numCourses; course++) {
+        const yBase = course * courseH;
+
+        for (let ci = 0; ci < numCages; ci++) {
+            const angle0 = (ci / numCages) * Math.PI * 2;
+            const angle1 = ((ci + 1) / numCages) * Math.PI * 2;
+            const angleMid = (angle0 + angle1) / 2;
+
+            // Build a curved cage segment using LatheGeometry for a small arc
+            const gapFrac = 0.005; // tiny angular gap between cages
+            const a0 = angle0 + gapFrac;
+            const a1 = angle1 - gapFrac;
+            const arcAngle = a1 - a0;
+
+            // Rectangular cross-section profile for this course
+            const profile = [
+                new THREE.Vector2(innerR, yBase + 0.005),
+                new THREE.Vector2(innerR, yBase + courseH - 0.005),
+                new THREE.Vector2(outerR, yBase + courseH - 0.005),
+                new THREE.Vector2(outerR, yBase + 0.005),
+            ];
+
+            const geo = new THREE.LatheGeometry(profile, 4, a0, arcAngle);
+            const mesh = new THREE.Mesh(geo, matFoundation);
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            layers.foundation.add(mesh);
+
+            // Wire cage edges overlay
+            const edgeGeo = new THREE.EdgesGeometry(geo);
+            const edges = new THREE.LineSegments(edgeGeo, edgeMat);
+            layers.foundation.add(edges);
+        }
+    }
+}
+
+// ─── Raised Floor (eucalyptus wattle) ────────────────────────────────
+function buildFloor() {
+    // ── Main circular floor inside the dome ──
+    const floorGeo = new THREE.CircleGeometry(R, 64);
+    floorGeo.rotateX(-Math.PI / 2);
+    const floor = new THREE.Mesh(floorGeo, matFloor);
+    floor.position.y = FHEIGHT;
+    floor.receiveShadow = true;
+    layers.floor.add(floor);
+
+    // Subtle edge ring for definition
+    const edgeGeo = new THREE.EdgesGeometry(floorGeo);
+    const edgeMat = new THREE.LineBasicMaterial({ color: 0x5a4020, transparent: true, opacity: 0.4 });
+    const edgeLines = new THREE.LineSegments(edgeGeo, edgeMat);
+    edgeLines.position.y = FHEIGHT;
+    layers.floor.add(edgeLines);
+
+    // ── Porch floor extension ──
+    const doorDir = new THREE.Vector2(Math.cos(DOOR_ANGLE), Math.sin(DOOR_ANGLE));
+    const perpDir = new THREE.Vector2(-Math.sin(DOOR_ANGLE), Math.cos(DOOR_ANGLE));
+    const halfW = PORCH_WIDTH / 2;
+    const innerD = R;
+    const outerD = R + 0.15 + PORCH_DEPTH;
+    const verts = [];
+    const dSegs = 4, wSegs = 8;
+    for (let di = 0; di <= dSegs; di++) {
+        const d = innerD + (di / dSegs) * (outerD - innerD);
+        for (let wi = 0; wi <= wSegs; wi++) {
+            const lat = (wi / wSegs) * 2 - 1;
+            const x = d * doorDir.x + lat * halfW * perpDir.x;
+            const z = d * doorDir.y + lat * halfW * perpDir.y;
+            verts.push(x, FHEIGHT, z);
+        }
+    }
+    const idx = [];
+    for (let di = 0; di < dSegs; di++) {
+        for (let wi = 0; wi < wSegs; wi++) {
+            const a = di * (wSegs + 1) + wi;
+            const b = a + 1;
+            const c = a + wSegs + 1;
+            const d2 = c + 1;
+            idx.push(a, c, b);
+            idx.push(b, c, d2);
+        }
+    }
+    const porchGeo = new THREE.BufferGeometry();
+    porchGeo.setIndex(idx);
+    porchGeo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+    porchGeo.computeVertexNormals();
+    const porchFloor = new THREE.Mesh(porchGeo, matFloor);
+    porchFloor.receiveShadow = true;
+    layers.floor.add(porchFloor);
+}
+
+// ─── Arch Poles ──────────────────────────────────────────────────────
+function buildArches() {
+    for (let i = 0; i < NUM_ARCHES; i++) {
+        const theta = (i / NUM_ARCHES) * Math.PI;
+
+        // Skip arch whose plane passes through the door opening
+        if (Math.abs(theta - DOOR_ANGLE) < 0.01) continue;
+
+        const pts = [];
+        const segs = 40;
+        for (let j = 0; j <= segs; j++) {
+            const s = (j / segs) * 2 - 1; // -1 to 1
+            const r = Math.abs(s) * R;
+            const h = domeHeight(r) + FHEIGHT;
+            pts.push(new THREE.Vector3(
+                s * R * Math.cos(theta),
+                h,
+                s * R * Math.sin(theta)
+            ));
+        }
+        const curve = new THREE.CatmullRomCurve3(pts);
+        layers.arches.add(makeTube(curve, ARCH_R, matArch, 48));
+    }
+}
+
+// ─── Check if angle is in door opening ───────────────────────────────
+function isInDoor(angle, h) {
+    let a = ((angle % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+    let d = ((DOOR_ANGLE % (2 * Math.PI)) + 2 * Math.PI) % (2 * Math.PI);
+    let diff = Math.abs(a - d);
+    if (diff > Math.PI) diff = 2 * Math.PI - diff;
+    if (h > DOOR_ARCH_PEAK) return false;
+    let maxHalf;
+    if (h <= DOOR_ARCH_START) {
+        maxHalf = DOOR_ANGULAR_HALF;
+    } else {
+        const t = (h - DOOR_ARCH_START) / (DOOR_ARCH_PEAK - DOOR_ARCH_START);
+        maxHalf = DOOR_ANGULAR_HALF * Math.cos(t * Math.PI / 2);
+    }
+    return diff < maxHalf * 1.1;
+}
+
+// ─── Arch window definitions ─────────────────────────────────────────
+// Each window spans the gap between two adjacent arch poles
+const ARCH_WINDOWS = [
+    { center: 15.5 * Math.PI / 8 },   // front — visible from default camera
+    { center: 7.5 * Math.PI / 8 },    // left side
+];
+const WIN_ANGULAR_HALF = Math.PI / 16 * 0.85;  // slightly narrower than full pole gap
+const WIN_SILL_H = 0.9;          // sill height (dome coords) — above stone skirt
+const WIN_ARCH_START = 1.4;      // where rectangular portion becomes arch
+const WIN_ARCH_PEAK = 1.9;       // apex of the arch top
+
+function isInWindow(angle, h) {
+    for (const w of ARCH_WINDOWS) {
+        let diff = Math.abs(angle - w.center);
+        if (diff > Math.PI) diff = 2 * Math.PI - diff;
+        if (h < WIN_SILL_H || h > WIN_ARCH_PEAK) continue;
+        let maxHalf;
+        if (h <= WIN_ARCH_START) {
+            maxHalf = WIN_ANGULAR_HALF;
+        } else {
+            const t = (h - WIN_ARCH_START) / (WIN_ARCH_PEAK - WIN_ARCH_START);
+            maxHalf = WIN_ANGULAR_HALF * Math.cos(t * Math.PI / 2);
+        }
+        if (diff < maxHalf * 1.15) return true;
+    }
+    return false;
+}
+
+// ─── Horizontal Wattle Rings ─────────────────────────────────────────
+function buildRings() {
+    for (let i = 1; i <= NUM_RINGS; i++) {
+        const h = i * 0.5;
+        const r = domeRadius(h);
+        if (r < 0.3) continue;
+
+        const pts = [];
+        const segs = 96;
+        let inGap = false;
+
+        for (let j = 0; j <= segs; j++) {
+            const angle = (j / segs) * Math.PI * 2;
+            const doorCheck = isInDoor(angle, h) || isInWindow(angle, h);
+
+            if (doorCheck && !inGap) {
+                // Entering door gap: close current segment
+                if (pts.length > 3) {
+                    const curve = new THREE.CatmullRomCurve3(pts, false);
+                    layers.rings.add(makeTube(curve, RING_R, matRing, pts.length));
+                }
+                pts.length = 0;
+                inGap = true;
+                continue;
+            } else if (!doorCheck && inGap) {
+                inGap = false;
+            }
+
+            if (doorCheck) continue;
+
+            const archFreq = NUM_ARCHES * 2;
+            const weaveAmp = 0.02 * (1 + i * 0.08);
+            const offset = Math.sin(angle * archFreq) * weaveAmp * (i % 2 === 0 ? 1 : -1);
+
+            const px = (r + offset) * Math.cos(angle);
+            const pz = (r + offset) * Math.sin(angle);
+            const py = domeHeight(r) + FHEIGHT;
+            pts.push(new THREE.Vector3(px, py, pz));
+        }
+
+        if (pts.length > 3) {
+            const curve = new THREE.CatmullRomCurve3(pts, false);
+            layers.rings.add(makeTube(curve, RING_R, matRing, pts.length));
+        }
+    }
+}
+
+// ─── Vertical Wattle Infill ──────────────────────────────────────────
+function buildWattle() {
+    for (let ringIdx = 0; ringIdx < NUM_RINGS; ringIdx++) {
+        const hLow = ringIdx * 0.5;
+        const hHigh = (ringIdx + 1) * 0.5;
+        const rLow = domeRadius(hLow);
+        const rHigh = domeRadius(hHigh);
+        if (rHigh < 0.2) continue;
+
+        const avgR = (rLow + rHigh) / 2;
+        const circumference = 2 * Math.PI * avgR;
+        const numSticks = Math.max(8, Math.floor(circumference / 0.15));
+
+        for (let j = 0; j < numSticks; j++) {
+            const angle = (j / numSticks) * Math.PI * 2;
+            if (isInDoor(angle, (hLow + hHigh) / 2) || isInWindow(angle, (hLow + hHigh) / 2)) continue;
+
+            const pts = [];
+            const subSegs = 6;
+            for (let k = 0; k <= subSegs; k++) {
+                const t = k / subSegs;
+                const h = hLow + t * (hHigh - hLow);
+                const r = domeRadius(h);
+                const weave = Math.sin(t * Math.PI) * 0.015 * (j % 2 === 0 ? 1 : -1);
+                const px = (r + weave) * Math.cos(angle);
+                const pz = (r + weave) * Math.sin(angle);
+                const py = domeHeight(r) + FHEIGHT;
+                pts.push(new THREE.Vector3(px, py, pz));
+            }
+
+            const curve = new THREE.CatmullRomCurve3(pts);
+            layers.wattle.add(makeTube(curve, WATTLE_R, matWattle, 6));
+        }
+    }
+}
+
+// ─── Shared: dome surface with normal offset ────────────────────────
+// Generates a dome surface mesh offset outward along surface normals.
+// opts: { minH, maxH, skipDoor, skipWindows, extraThickness }
+function buildDomeSurface(offset, material, group, opts = {}) {
+    const { minH = 0, maxH = H, skipDoor = true, skipWindows = true } = opts;
+    const radSegs = 48;
+    const angSegs = 96;
+    const vertices = [];
+    const indices = [];
+    const skip = [];
+
+    for (let i = 0; i <= radSegs; i++) {
+        const r = (i / radSegs) * R;
+        const h = domeHeight(r);
+        const sinhRA = Math.sinh(r / A);
+        const coshRA = Math.cosh(r / A);
+        const nr = sinhRA / coshRA; // tanh — radial component
+        const nh = 1 / coshRA;      // vertical component
+        const sr = r + offset * nr;
+        const sh = h + offset * nh + FHEIGHT;
+        for (let j = 0; j <= angSegs; j++) {
+            const angle = (j / angSegs) * Math.PI * 2;
+            vertices.push(sr * Math.cos(angle), sh, sr * Math.sin(angle));
+            const outH = h < minH || h > maxH;
+            const inDoor = skipDoor && isInDoor(angle, h);
+            const inWin = skipWindows && isInWindow(angle, h);
+            skip.push(outH || inDoor || inWin);
+        }
+    }
+
+    for (let i = 0; i < radSegs; i++) {
+        for (let j = 0; j < angSegs; j++) {
+            const a = i * (angSegs + 1) + j;
+            const b = a + 1;
+            const c = a + angSegs + 1;
+            const d = c + 1;
+            if (skip[a] || skip[b] || skip[c] || skip[d]) continue;
+            indices.push(a, b, c);
+            indices.push(b, d, c);
+        }
+    }
+
+    if (indices.length === 0) return;
+    const geo = new THREE.BufferGeometry();
+    geo.setIndex(indices);
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+    geo.computeVertexNormals();
+
+    const mesh = new THREE.Mesh(geo, material);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    group.add(mesh);
+}
+
+// ─── Straw-Clay Insulation (100mm on outside of wattle) ─────────────
+function buildStrawClay() {
+    // Outer surface of straw-clay: wattle face (~0.04m) + 100mm insulation
+    buildDomeSurface(0.14, matStrawClay, layers.strawclay);
+}
+
+// ─── EPDM Membrane (over burlap, over straw-clay) ───────────────────
+function buildShell() {
+    // Sits just outside the straw-clay + burlap
+    buildDomeSurface(0.15, matShell, layers.shell);
+}
+
+// ─── Stone Skirt (base 0–0.8m, over EPDM) ──────────────────────────
+function buildStoneSkirt() {
+    // Stone is 20cm thick (inner face at EPDM, outer face 20cm beyond).
+    // Height: 0–0.8m above gabion top. Needs volume — inner face, outer face, top cap.
+    const INNER_OFF = 0.15;  // inner face = EPDM surface
+    const OUTER_OFF = 0.35;  // outer face = 20cm of stone
+    const SKIRT_H = 0.8;
+    const angSegs = 96;
+    const hSegs = 12;
+
+    const verts = [];
+    const idx = [];
+    const skip = [];
+
+    // Two concentric rings of vertices (inner & outer) at each height step
+    for (let hi = 0; hi <= hSegs; hi++) {
+        const h = (hi / hSegs) * SKIRT_H;
+        const r = domeRadius(h);
+        const sinhRA = Math.sinh(r / A);
+        const coshRA = Math.cosh(r / A);
+        const nr = sinhRA / coshRA;
+        const nh = 1 / coshRA;
+
+        for (let face = 0; face < 2; face++) { // 0 = inner, 1 = outer
+            const off = face === 0 ? INNER_OFF : OUTER_OFF;
+            const sr = r + off * nr;
+            const sh = h + off * nh + FHEIGHT;
+            for (let j = 0; j <= angSegs; j++) {
+                const angle = (j / angSegs) * Math.PI * 2;
+                verts.push(sr * Math.cos(angle), sh, sr * Math.sin(angle));
+                skip.push(isInDoor(angle, h));
+            }
+        }
+    }
+
+    // Row stride: 2 faces × (angSegs+1) vertices per height step
+    const rowStride = 2 * (angSegs + 1);
+    const faceStride = angSegs + 1;
+
+    for (let hi = 0; hi < hSegs; hi++) {
+        const base = hi * rowStride;
+        const next = (hi + 1) * rowStride;
+        for (let j = 0; j < angSegs; j++) {
+            // Outer face (face=1): quads between height steps
+            const oa = base + faceStride + j;
+            const ob = oa + 1;
+            const oc = next + faceStride + j;
+            const od = oc + 1;
+            if (!(skip[oa] || skip[ob] || skip[oc] || skip[od])) {
+                idx.push(oa, ob, oc);
+                idx.push(ob, od, oc);
+            }
+            // Inner face (face=0): reverse winding so normals point inward
+            const ia = base + j;
+            const ib = ia + 1;
+            const ic = next + j;
+            const id = ic + 1;
+            if (!(skip[ia] || skip[ib] || skip[ic] || skip[id])) {
+                idx.push(ia, ic, ib);
+                idx.push(ib, ic, id);
+            }
+        }
+    }
+
+    // Top cap: connect inner and outer at the top height step
+    const topBase = hSegs * rowStride;
+    for (let j = 0; j < angSegs; j++) {
+        const ti = topBase + j;           // inner
+        const to = topBase + faceStride + j; // outer
+        const ti2 = ti + 1;
+        const to2 = to + 1;
+        if (!(skip[ti] || skip[to] || skip[ti2] || skip[to2])) {
+            idx.push(ti, to, ti2);
+            idx.push(ti2, to, to2);
+        }
+    }
+
+    if (idx.length === 0) return;
+    const geo = new THREE.BufferGeometry();
+    geo.setIndex(idx);
+    geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+    geo.computeVertexNormals();
+
+    const mesh = new THREE.Mesh(geo, matStoneSkirt);
+    mesh.castShadow = true;
+    mesh.receiveShadow = true;
+    layers.stoneskirt.add(mesh);
+}
+
+// ─── Lime-Earth Render (0.8m to apex, over EPDM) ────────────────────
+function buildLimeRender() {
+    // Thin render coat over wire mesh on EPDM, above the stone skirt
+    buildDomeSurface(0.17, matLimeRender, layers.limerender, {
+        minH: 0.7, maxH: H
+    });
+}
+
+// ─── Door, Windows & Replacement Arches ─────────────────────────────
+function buildOpenings() {
+    const postR = 0.05;
+    const leftAngle = DOOR_ANGLE - DOOR_ANGULAR_HALF;
+    const rightAngle = DOOR_ANGLE + DOOR_ANGULAR_HALF;
+
+    // ── Arch door frame posts: foundation to arch start ──
+    for (const angle of [leftAngle, rightAngle]) {
+        const pts = [];
+        for (let i = 0; i <= 16; i++) {
+            const h = (i / 16) * DOOR_ARCH_START;
+            const r = domeRadius(h);
+            pts.push(new THREE.Vector3(
+                r * Math.cos(angle), h + FHEIGHT, r * Math.sin(angle)
+            ));
+        }
+        layers.door.add(makeTube(new THREE.CatmullRomCurve3(pts), postR, matDoor, 16));
+    }
+
+    // ── Door arch top frame (from left post, over peak, to right post) ──
+    const doorArchPts = [];
+    for (let i = 0; i <= 24; i++) {
+        const lat = (i / 24) * 2 - 1;  // -1 to 1
+        const a = DOOR_ANGLE + DOOR_ANGULAR_HALF * lat;
+        const h = DOOR_ARCH_START + (DOOR_ARCH_PEAK - DOOR_ARCH_START) * Math.cos(lat * Math.PI / 2);
+        const r = domeRadius(h);
+        doorArchPts.push(new THREE.Vector3(
+            r * Math.cos(a), h + FHEIGHT, r * Math.sin(a)
+        ));
+    }
+    layers.door.add(makeTube(new THREE.CatmullRomCurve3(doorArchPts), postR, matDoor, 24));
+
+    // ── Threshold sill ──
+    const threshPts = [];
+    for (let i = 0; i <= 12; i++) {
+        const t = i / 12;
+        const a = leftAngle + t * (rightAngle - leftAngle);
+        threshPts.push(new THREE.Vector3(
+            R * Math.cos(a), FHEIGHT, R * Math.sin(a)
+        ));
+    }
+    layers.door.add(makeTube(new THREE.CatmullRomCurve3(threshPts), postR * 0.8, matDoor, 12));
+
+    // ── Door-framing pair: two arches from two back sockets, fanning to door edges ──
+    const backCenter = DOOR_ANGLE + Math.PI;
+    const BACK_OFFSET = 5 * Math.PI / 180; // ±5° offset between the two back sockets
+    const backAngles = [backCenter - BACK_OFFSET, backCenter + BACK_OFFSET];
+    const fanEndAngles = [leftAngle, rightAngle];
+    for (let fi = 0; fi < 2; fi++) {
+        const pts = [];
+        const segs = 48;
+        // Back base position (butt end at its own socket)
+        const bx = R * Math.cos(backAngles[fi]);
+        const bz = R * Math.sin(backAngles[fi]);
+        // Door-side position (thin end at flanking socket)
+        const ex = R * Math.cos(fanEndAngles[fi]);
+        const ez = R * Math.sin(fanEndAngles[fi]);
+
+        for (let j = 0; j <= segs; j++) {
+            const t = j / segs;
+            // Linear interpolation in plan view — nearly diametric, ~11° off-axis
+            const x = (1 - t) * bx + t * ex;
+            const z = (1 - t) * bz + t * ez;
+            const r = Math.sqrt(x * x + z * z);
+            const h = domeHeight(Math.min(r, R)) + FHEIGHT;
+            pts.push(new THREE.Vector3(x, h, z));
+        }
+
+        const curve = new THREE.CatmullRomCurve3(pts);
+        layers.arches.add(makeTube(curve, ARCH_R, matArch, 48));
+    }
+
+    // ── Arch Windows (between adjacent poles) ──
+    ARCH_WINDOWS.forEach(w => {
+        const center = w.center;
+        const cols = 12;
+        const rows = 16;
+        const verts = [];
+        const idx = [];
+
+        // Glass pane — flush with dome wall surface (matches inner frame offset)
+        for (let i = 0; i <= rows; i++) {
+            const vt = i / rows;
+            const h = WIN_SILL_H + vt * (WIN_ARCH_PEAK - WIN_SILL_H);
+            let halfAngle;
+            if (h <= WIN_ARCH_START) {
+                halfAngle = WIN_ANGULAR_HALF;
+            } else {
+                const t = (h - WIN_ARCH_START) / (WIN_ARCH_PEAK - WIN_ARCH_START);
+                halfAngle = WIN_ANGULAR_HALF * Math.cos(t * Math.PI / 2);
+            }
+            if (halfAngle < 0.002) halfAngle = 0.002;
+            for (let j = 0; j <= cols; j++) {
+                const u = j / cols;
+                const ang = center - halfAngle + u * 2 * halfAngle;
+                const r = domeRadius(h) + 0.08;
+                verts.push(r * Math.cos(ang), h + FHEIGHT, r * Math.sin(ang));
+            }
+        }
+
+        for (let i = 0; i < rows; i++) {
+            for (let j = 0; j < cols; j++) {
+                const a = i * (cols + 1) + j;
+                const b = a + 1;
+                const c = a + cols + 1;
+                const d = c + 1;
+                idx.push(a, c, b);
+                idx.push(b, c, d);
+            }
+        }
+
+        const geo = new THREE.BufferGeometry();
+        geo.setIndex(idx);
+        geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+        geo.computeVertexNormals();
+        const pane = new THREE.Mesh(geo, matWindow);
+        layers.door.add(pane);
+
+        // Frame
+        const frameR = 0.025;
+
+        // Sill beam
+        const sillPts = [];
+        for (let j = 0; j <= 12; j++) {
+            const u = j / 12;
+            const a = center - WIN_ANGULAR_HALF + u * 2 * WIN_ANGULAR_HALF;
+            const r = domeRadius(WIN_SILL_H) + 0.08;
+            sillPts.push(new THREE.Vector3(r * Math.cos(a), WIN_SILL_H + FHEIGHT, r * Math.sin(a)));
+        }
+        layers.door.add(makeTube(new THREE.CatmullRomCurve3(sillPts), frameR, matDoor, 12));
+
+        // Left stile (sill to arch start)
+        const leftPts = [];
+        for (let i = 0; i <= 10; i++) {
+            const h = WIN_SILL_H + (i / 10) * (WIN_ARCH_START - WIN_SILL_H);
+            const r = domeRadius(h) + 0.08;
+            const a = center - WIN_ANGULAR_HALF;
+            leftPts.push(new THREE.Vector3(r * Math.cos(a), h + FHEIGHT, r * Math.sin(a)));
+        }
+        layers.door.add(makeTube(new THREE.CatmullRomCurve3(leftPts), frameR, matDoor, 10));
+
+        // Right stile (sill to arch start)
+        const rightPts = [];
+        for (let i = 0; i <= 10; i++) {
+            const h = WIN_SILL_H + (i / 10) * (WIN_ARCH_START - WIN_SILL_H);
+            const r = domeRadius(h) + 0.08;
+            const a = center + WIN_ANGULAR_HALF;
+            rightPts.push(new THREE.Vector3(r * Math.cos(a), h + FHEIGHT, r * Math.sin(a)));
+        }
+        layers.door.add(makeTube(new THREE.CatmullRomCurve3(rightPts), frameR, matDoor, 10));
+
+        // Arch top frame (from left arch-start, over peak, to right arch-start)
+        const archPts = [];
+        for (let i = 0; i <= 24; i++) {
+            const lat = (i / 24) * 2 - 1;  // -1 to 1
+            const a = center + WIN_ANGULAR_HALF * lat;
+            const h = WIN_ARCH_START + (WIN_ARCH_PEAK - WIN_ARCH_START) * Math.cos(lat * Math.PI / 2);
+            const r = domeRadius(h) + 0.08;
+            archPts.push(new THREE.Vector3(r * Math.cos(a), h + FHEIGHT, r * Math.sin(a)));
+        }
+        layers.door.add(makeTube(new THREE.CatmullRomCurve3(archPts), frameR, matDoor, 24));
+    });
+}
+
+// ─── Apex Vent Cap ───────────────────────────────────────────────────
+function buildVentCap() {
+    // Crown wire bundle ring
+    const crownGeo = new THREE.TorusGeometry(0.2, 0.03, 8, 16);
+    crownGeo.rotateX(Math.PI / 2);
+    const crown = new THREE.Mesh(crownGeo, matArch);
+    crown.position.y = H + FHEIGHT;
+    layers.ventcap.add(crown);
+
+    // Support post
+    const postGeo = new THREE.CylinderGeometry(0.02, 0.02, 0.25, 6);
+    const post = new THREE.Mesh(postGeo, matVentCap);
+    post.position.y = H + FHEIGHT + 0.125;
+    layers.ventcap.add(post);
+
+    // Conical rain cap
+    const capGeo = new THREE.ConeGeometry(0.3, 0.2, 12);
+    const cap = new THREE.Mesh(capGeo, matVentCap);
+    cap.position.y = H + FHEIGHT + 0.35;
+    cap.castShadow = true;
+    layers.ventcap.add(cap);
+}
+
+// ─── Wind Porch (Katak) ─────────────────────────────────────────────
+function buildWindPorch() {
+    // The porch is an arched tunnel projecting outward from the dome at the door.
+    // Its arch profile matches the door: straight walls to DOOR_ARCH_START (1.5m),
+    // then a curved arch to the peak. The peak drops from inner (2.2m) to outer (2.0m)
+    // for drainage.
+    const doorDir = new THREE.Vector2(Math.cos(DOOR_ANGLE), Math.sin(DOOR_ANGLE));
+    const perpDir = new THREE.Vector2(-Math.sin(DOOR_ANGLE), Math.cos(DOOR_ANGLE));
+    const halfW = PORCH_WIDTH / 2;
+
+    // Porch is an open tunnel — camera can see both inside and outside,
+    // so surface materials need double-sided rendering
+    const matStrawClayDS = matStrawClay.clone();
+    matStrawClayDS.side = THREE.DoubleSide;
+    const matShellDS = matShell.clone();
+    matShellDS.side = THREE.DoubleSide;
+    const matLimeDS = matLimeRender.clone();
+    matLimeDS.side = THREE.DoubleSide;
+
+    // Outer face at fixed plumb position (dome EPDM at base + porch depth)
+    const outerOffset = domeRadius(0) + 0.15 + PORCH_DEPTH;
+
+    // Inner radial offset follows dome EPDM surface at each height
+    function innerOffsetAtH(h) {
+        return domeRadius(Math.max(0, Math.min(h, H - 0.01))) + 0.15;
+    }
+
+    // Helper: world position given depth (0=inner dome surface, 1=outer plumb face)
+    function porchPos(depth, lateral, h) {
+        const inner = innerOffsetAtH(h);
+        const d = inner + depth * (outerOffset - inner);
+        const x = d * doorDir.x + lateral * perpDir.x;
+        const z = d * doorDir.y + lateral * perpDir.y;
+        return new THREE.Vector3(x, h + FHEIGHT, z);
+    }
+
+    // Helper: arch height at lateral parameter (-1 to 1) for a given peak height
+    function archH(lat, peak) {
+        return DOOR_ARCH_START + (peak - DOOR_ARCH_START) * Math.cos(lat * Math.PI / 2);
+    }
+
+    // ── Corner posts: plumb vertical, ground to DOOR_ARCH_START ──
+    for (const depth of [0, 1]) {
+        for (const side of [+halfW, -halfW]) {
+            const bot = porchPos(depth, side, 0);
+            const top = porchPos(depth, side, DOOR_ARCH_START);
+            layers.windporch.add(makeTube(new THREE.CatmullRomCurve3([bot, top]), PORCH_POST_R, matPorch, 8));
+        }
+    }
+
+    // ── Side eave poles: inner to outer at DOOR_ARCH_START on each side ──
+    for (const side of [+halfW, -halfW]) {
+        const pts = [
+            porchPos(0, side, DOOR_ARCH_START),
+            porchPos(1, side, DOOR_ARCH_START)
+        ];
+        layers.windporch.add(makeTube(new THREE.CatmullRomCurve3(pts), RING_R, matPorch, 8));
+    }
+
+    // ── Arch frames at inner and outer ends ──
+    function makeArchFrame(depth, peak, mat, radius) {
+        const pts = [];
+        const segs = 24;
+        for (let i = 0; i <= segs; i++) {
+            const lat = (i / segs) * 2 - 1;
+            const h = archH(lat, peak);
+            pts.push(porchPos(depth, halfW * lat, h));
+        }
+        layers.windporch.add(makeTube(new THREE.CatmullRomCurve3(pts), radius, mat, segs));
+    }
+    makeArchFrame(0, PORCH_H_INNER, matPorch, ARCH_R);   // inner arch (dome face)
+    makeArchFrame(1, PORCH_H_OUTER, matDoor, ARCH_R);     // outer arch (entrance)
+
+    // ── Arch rafters: curved members from inner to outer at various lat positions ──
+    const numRafters = 5;
+    for (let ri = 0; ri < numRafters; ri++) {
+        const lat = (ri / (numRafters - 1)) * 2 - 1;
+        const pts = [];
+        const segs = 8;
+        for (let j = 0; j <= segs; j++) {
+            const depth = j / segs;
+            const peak = PORCH_H_INNER + depth * (PORCH_H_OUTER - PORCH_H_INNER);
+            pts.push(porchPos(depth, halfW * lat, archH(lat, peak)));
+        }
+        layers.windporch.add(makeTube(new THREE.CatmullRomCurve3(pts), RING_R * 0.8, matPorch, segs));
+    }
+
+    // ── Sidewall wattle (straight portion: ground to DOOR_ARCH_START) ──
+    for (const side of [+halfW, -halfW]) {
+        const numSticks = 8;
+        for (let j = 0; j < numSticks; j++) {
+            const depth = (j + 0.5) / numSticks;
+            const bot = porchPos(depth, side, 0);
+            const top = porchPos(depth, side, DOOR_ARCH_START);
+            layers.windporch.add(makeTube(new THREE.CatmullRomCurve3([bot, top]), WATTLE_R, matWattle, 6));
+        }
+        for (let ri = 1; ri <= 3; ri++) {
+            const h = ri * DOOR_ARCH_START / 4;
+            const pts = [porchPos(0, side, h), porchPos(1, side, h)];
+            layers.windporch.add(makeTube(new THREE.CatmullRomCurve3(pts), WATTLE_R, matWattle, 6));
+        }
+    }
+
+    // ── Outer door frame posts + threshold ──
+    for (const side of [+halfW, -halfW]) {
+        const bot = porchPos(1, side, 0);
+        const top = porchPos(1, side, DOOR_ARCH_START);
+        layers.windporch.add(makeTube(new THREE.CatmullRomCurve3([bot, top]), PORCH_POST_R * 0.8, matDoor, 8));
+    }
+    {
+        const pts = [porchPos(1, +halfW, 0), porchPos(1, -halfW, 0)];
+        layers.windporch.add(makeTube(new THREE.CatmullRomCurve3(pts), PORCH_POST_R * 0.6, matDoor, 8));
+    }
+
+    // ── Barrel-vault roof surfaces (straw-clay + EPDM) ──
+    // Straw-clay sits 1cm inside EPDM, matching dome layer offsets (0.14 vs 0.15)
+    for (const ld of [
+        { hOff: -0.01, wOff: -0.01, mat: matStrawClayDS, layer: layers.strawclay },
+        { hOff: 0,     wOff: 0,     mat: matShellDS,     layer: layers.shell },
+        { hOff: 0.02,  wOff: 0.02,  mat: matLimeDS,      layer: layers.limerender }
+    ]) {
+        const verts = [];
+        const idx = [];
+        const archSegs = 16, depthSegs = 6;
+        for (let di = 0; di <= depthSegs; di++) {
+            const depth = di / depthSegs;
+            const peak = PORCH_H_INNER + depth * (PORCH_H_OUTER - PORCH_H_INNER);
+            for (let ai = 0; ai <= archSegs; ai++) {
+                const lat = (ai / archSegs) * 2 - 1;
+                const p = porchPos(depth, (halfW + ld.wOff) * lat, archH(lat, peak) + ld.hOff);
+                verts.push(p.x, p.y, p.z);
+            }
+        }
+        for (let di = 0; di < depthSegs; di++) {
+            for (let ai = 0; ai < archSegs; ai++) {
+                const a = di * (archSegs + 1) + ai;
+                const b = a + 1;
+                const c = a + archSegs + 1;
+                const d = c + 1;
+                idx.push(a, b, c);
+                idx.push(b, d, c);
+            }
+        }
+        const geo = new THREE.BufferGeometry();
+        geo.setIndex(idx);
+        geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+        geo.computeVertexNormals();
+        const mesh = new THREE.Mesh(geo, ld.mat);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        ld.layer.add(mesh);
+    }
+
+    // ── Sidewall surfaces (straw-clay + EPDM: ground to DOOR_ARCH_START) ──
+    for (const sideIdx of [0, 1]) {
+        const side = sideIdx === 0 ? +halfW : -halfW;
+        const outDir = sideIdx === 0 ? 1 : -1;
+        for (const ld of [
+            { off: 0,    mat: matStrawClayDS, layer: layers.strawclay },
+            { off: 0.01, mat: matShellDS,     layer: layers.shell }
+        ]) {
+            const verts = [];
+            const idx = [];
+            const dSegs = 6, hSegs = 6;
+            for (let hi = 0; hi <= hSegs; hi++) {
+                const h = (hi / hSegs) * DOOR_ARCH_START;
+                for (let di = 0; di <= dSegs; di++) {
+                    const p = porchPos(di / dSegs, side + outDir * ld.off, h);
+                    verts.push(p.x, p.y, p.z);
+                }
+            }
+            for (let hi = 0; hi < hSegs; hi++) {
+                for (let di = 0; di < dSegs; di++) {
+                    const a = hi * (dSegs + 1) + di;
+                    const b = a + 1;
+                    const c = a + dSegs + 1;
+                    const d = c + 1;
+                    if (sideIdx === 0) { idx.push(a, b, c); idx.push(b, d, c); }
+                    else { idx.push(a, c, b); idx.push(b, c, d); }
+                }
+            }
+            const geo = new THREE.BufferGeometry();
+            geo.setIndex(idx);
+            geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+            geo.computeVertexNormals();
+            const mesh = new THREE.Mesh(geo, ld.mat);
+            mesh.castShadow = true;
+            mesh.receiveShadow = true;
+            ld.layer.add(mesh);
+        }
+    }
+
+    // ── Stone skirt on porch sidewalls (lower 0.8m) ──
+    const SKIRT_H = 0.8;
+    for (const sideIdx of [0, 1]) {
+        const side = sideIdx === 0 ? +halfW : -halfW;
+        const nx = sideIdx === 0 ? perpDir.x : -perpDir.x;
+        const nz = sideIdx === 0 ? perpDir.y : -perpDir.y;
+        const off = 0.20;
+        const verts = [];
+        const idx = [];
+        const dSegs = 6, hSegs = 4;
+        for (let hi = 0; hi <= hSegs; hi++) {
+            const h = (hi / hSegs) * SKIRT_H;
+            for (let di = 0; di <= dSegs; di++) {
+                const p = porchPos(di / dSegs, side, h);
+                verts.push(p.x + nx * off, p.y, p.z + nz * off);
+            }
+        }
+        for (let hi = 0; hi < hSegs; hi++) {
+            for (let di = 0; di < dSegs; di++) {
+                const a = hi * (dSegs + 1) + di;
+                const b = a + 1;
+                const c = a + dSegs + 1;
+                const d = c + 1;
+                if (sideIdx === 0) { idx.push(a, b, c); idx.push(b, d, c); }
+                else { idx.push(a, c, b); idx.push(b, c, d); }
+            }
+        }
+        const geo = new THREE.BufferGeometry();
+        geo.setIndex(idx);
+        geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+        geo.computeVertexNormals();
+        const mesh = new THREE.Mesh(geo, matStoneSkirt);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        layers.stoneskirt.add(mesh);
+    }
+
+    // ── Lime render on porch sidewalls (SKIRT_H to DOOR_ARCH_START) ──
+    for (const sideIdx of [0, 1]) {
+        const side = sideIdx === 0 ? +halfW : -halfW;
+        const nx = sideIdx === 0 ? perpDir.x : -perpDir.x;
+        const nz = sideIdx === 0 ? perpDir.y : -perpDir.y;
+        const off = 0.12;
+        const verts = [];
+        const idx = [];
+        const dSegs = 6, hSegs = 4;
+        for (let hi = 0; hi <= hSegs; hi++) {
+            const h = SKIRT_H + (hi / hSegs) * (DOOR_ARCH_START - SKIRT_H);
+            for (let di = 0; di <= dSegs; di++) {
+                const p = porchPos(di / dSegs, side, h);
+                verts.push(p.x + nx * off, p.y, p.z + nz * off);
+            }
+        }
+        for (let hi = 0; hi < hSegs; hi++) {
+            for (let di = 0; di < dSegs; di++) {
+                const a = hi * (dSegs + 1) + di;
+                const b = a + 1;
+                const c = a + dSegs + 1;
+                const d = c + 1;
+                if (sideIdx === 0) { idx.push(a, b, c); idx.push(b, d, c); }
+                else { idx.push(a, c, b); idx.push(b, c, d); }
+            }
+        }
+        const geo = new THREE.BufferGeometry();
+        geo.setIndex(idx);
+        geo.setAttribute('position', new THREE.Float32BufferAttribute(verts, 3));
+        geo.computeVertexNormals();
+        const mesh = new THREE.Mesh(geo, matLimeDS);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        layers.limerender.add(mesh);
+    }
+
+    // ── Porch foundation: U-shaped gabion extension ──
+    const armH = FHEIGHT;
+    // Left arm
+    {
+        const p0 = porchPos(0, +halfW, 0);
+        const p1 = porchPos(1, +halfW, 0);
+        const cx = (p0.x + p1.x) / 2, cz = (p0.z + p1.z) / 2;
+        const geo = new THREE.BoxGeometry(FWIDTH, armH, PORCH_DEPTH);
+        const mesh = new THREE.Mesh(geo, matFoundation);
+        mesh.position.set(cx, armH / 2, cz);
+        mesh.lookAt(cx + doorDir.x, armH / 2, cz + doorDir.y);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        layers.foundation.add(mesh);
+    }
+    // Right arm
+    {
+        const p0 = porchPos(0, -halfW, 0);
+        const p1 = porchPos(1, -halfW, 0);
+        const cx = (p0.x + p1.x) / 2, cz = (p0.z + p1.z) / 2;
+        const geo = new THREE.BoxGeometry(FWIDTH, armH, PORCH_DEPTH);
+        const mesh = new THREE.Mesh(geo, matFoundation);
+        mesh.position.set(cx, armH / 2, cz);
+        mesh.lookAt(cx + doorDir.x, armH / 2, cz + doorDir.y);
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        layers.foundation.add(mesh);
+    }
+    // Cross piece
+    {
+        const pL = porchPos(1, +halfW, 0);
+        const pR = porchPos(1, -halfW, 0);
+        const cx = (pL.x + pR.x) / 2, cz = (pL.z + pR.z) / 2;
+        const crossLen = Math.sqrt((pL.x - pR.x) ** 2 + (pL.z - pR.z) ** 2);
+        const geo = new THREE.BoxGeometry(crossLen + FWIDTH, armH, FWIDTH);
+        const mesh = new THREE.Mesh(geo, matFoundation);
+        mesh.position.set(cx, armH / 2, cz);
+        const crossAngle = Math.atan2(pR.z - pL.z, pR.x - pL.x);
+        mesh.rotation.y = -crossAngle;
+        mesh.castShadow = true;
+        mesh.receiveShadow = true;
+        layers.foundation.add(mesh);
+    }
+}
+
+// ─── Window Boxes (Projecting Deep Reveals) ─────────────────────────
+function buildWindowBoxes() {
+    const frameR = 0.025;
+
+    ARCH_WINDOWS.forEach(w => {
+        const center = w.center;
+
+        // For each window, build a 20cm projecting box frame
+        // The box has 4 short frame members at corners projecting outward,
+        // cheek walls, and the glazing sits at the outer plumb frame.
+
+        // Get dome surface positions at window corners
+        const positions = [];
+        const cornerDefs = [
+            { h: WIN_SILL_H, angOff: -WIN_ANGULAR_HALF },  // bottom-left
+            { h: WIN_SILL_H, angOff: WIN_ANGULAR_HALF },   // bottom-right
+            { h: WIN_ARCH_START, angOff: -WIN_ANGULAR_HALF }, // top-left
+            { h: WIN_ARCH_START, angOff: WIN_ANGULAR_HALF },  // top-right
+        ];
+
+        for (const cd of cornerDefs) {
+            const r = domeRadius(cd.h);
+            const a = center + cd.angOff;
+            // Surface normal direction (outward)
+            const sinhRA = Math.sinh(r / A);
+            const coshRA = Math.cosh(r / A);
+            const nr = sinhRA / coshRA;
+            // Inner position (at EPDM surface)
+            const innerR = r + 0.15;
+            const innerY = cd.h + FHEIGHT;
+            // Outer position (projected outward by WIN_BOX_DEPTH)
+            const outerR = innerR + WIN_BOX_DEPTH * nr;
+            const outerY = innerY + WIN_BOX_DEPTH * (1 / coshRA);
+            positions.push({
+                inner: new THREE.Vector3(innerR * Math.cos(a), innerY, innerR * Math.sin(a)),
+                outer: new THREE.Vector3(outerR * Math.cos(a), outerY, outerR * Math.sin(a))
+            });
+        }
+
+        // ── 4 short projecting frame members at corners ──
+        for (const pos of positions) {
+            const pts = [pos.inner, pos.outer];
+            layers.door.add(makeTube(new THREE.CatmullRomCurve3(pts), frameR, matDoor, 4));
+        }
+
+        // ── Outer frame: sill, stiles, arch top at projected position ──
+        // Outer sill
+        const outerSillPts = [];
+        for (let j = 0; j <= 12; j++) {
+            const u = j / 12;
+            const a = center - WIN_ANGULAR_HALF + u * 2 * WIN_ANGULAR_HALF;
+            const r = domeRadius(WIN_SILL_H);
+            const sinhRA = Math.sinh(r / A);
+            const coshRA = Math.cosh(r / A);
+            const nr = sinhRA / coshRA;
+            const nh = 1 / coshRA;
+            const outerR = r + 0.15 + WIN_BOX_DEPTH * nr;
+            const outerY = WIN_SILL_H + WIN_BOX_DEPTH * nh + FHEIGHT;
+            outerSillPts.push(new THREE.Vector3(outerR * Math.cos(a), outerY, outerR * Math.sin(a)));
+        }
+        layers.door.add(makeTube(new THREE.CatmullRomCurve3(outerSillPts), frameR, matDoor, 12));
+
+        // Outer left stile
+        const outerLeftPts = [];
+        for (let i = 0; i <= 10; i++) {
+            const h = WIN_SILL_H + (i / 10) * (WIN_ARCH_START - WIN_SILL_H);
+            const r = domeRadius(h);
+            const sinhRA = Math.sinh(r / A);
+            const coshRA = Math.cosh(r / A);
+            const nr = sinhRA / coshRA;
+            const nh = 1 / coshRA;
+            const outerR = r + 0.15 + WIN_BOX_DEPTH * nr;
+            const outerY = h + WIN_BOX_DEPTH * nh + FHEIGHT;
+            const a = center - WIN_ANGULAR_HALF;
+            outerLeftPts.push(new THREE.Vector3(outerR * Math.cos(a), outerY, outerR * Math.sin(a)));
+        }
+        layers.door.add(makeTube(new THREE.CatmullRomCurve3(outerLeftPts), frameR, matDoor, 10));
+
+        // Outer right stile
+        const outerRightPts = [];
+        for (let i = 0; i <= 10; i++) {
+            const h = WIN_SILL_H + (i / 10) * (WIN_ARCH_START - WIN_SILL_H);
+            const r = domeRadius(h);
+            const sinhRA = Math.sinh(r / A);
+            const coshRA = Math.cosh(r / A);
+            const nr = sinhRA / coshRA;
+            const nh = 1 / coshRA;
+            const outerR = r + 0.15 + WIN_BOX_DEPTH * nr;
+            const outerY = h + WIN_BOX_DEPTH * nh + FHEIGHT;
+            const a = center + WIN_ANGULAR_HALF;
+            outerRightPts.push(new THREE.Vector3(outerR * Math.cos(a), outerY, outerR * Math.sin(a)));
+        }
+        layers.door.add(makeTube(new THREE.CatmullRomCurve3(outerRightPts), frameR, matDoor, 10));
+
+        // Outer arch top
+        const outerArchPts = [];
+        for (let i = 0; i <= 24; i++) {
+            const lat = (i / 24) * 2 - 1;
+            const a = center + WIN_ANGULAR_HALF * lat;
+            const h = WIN_ARCH_START + (WIN_ARCH_PEAK - WIN_ARCH_START) * Math.cos(lat * Math.PI / 2);
+            const r = domeRadius(h);
+            const sinhRA = Math.sinh(r / A);
+            const coshRA = Math.cosh(r / A);
+            const nr = sinhRA / coshRA;
+            const nh = 1 / coshRA;
+            const outerR = r + 0.15 + WIN_BOX_DEPTH * nr;
+            const outerY = h + WIN_BOX_DEPTH * nh + FHEIGHT;
+            outerArchPts.push(new THREE.Vector3(outerR * Math.cos(a), outerY, outerR * Math.sin(a)));
+        }
+        layers.door.add(makeTube(new THREE.CatmullRomCurve3(outerArchPts), frameR, matDoor, 24));
+
+        // ── Cheek wall surfaces (small wattle+straw-clay between dome and outer frame) ──
+        // Sill cheek (bottom of box)
+        const sillCheekVerts = [];
+        const sillCheekIdx = [];
+        const sillSegsU = 12, sillSegsV = 3;
+        for (let vi = 0; vi <= sillSegsV; vi++) {
+            const tv = vi / sillSegsV; // 0=dome surface, 1=outer
+            for (let ui = 0; ui <= sillSegsU; ui++) {
+                const tu = ui / sillSegsU;
+                const a = center - WIN_ANGULAR_HALF + tu * 2 * WIN_ANGULAR_HALF;
+                const r = domeRadius(WIN_SILL_H);
+                const sinhRA = Math.sinh(r / A);
+                const coshRA = Math.cosh(r / A);
+                const nr = sinhRA / coshRA;
+                const nh = 1 / coshRA;
+                const depth = tv * WIN_BOX_DEPTH;
+                const sr = r + 0.15 + depth * nr;
+                // Sill slopes outward 5° for drainage
+                const sillSlope = tv * Math.sin(5 * Math.PI / 180) * WIN_BOX_DEPTH;
+                const sy = WIN_SILL_H + depth * nh + FHEIGHT - sillSlope;
+                sillCheekVerts.push(sr * Math.cos(a), sy, sr * Math.sin(a));
+            }
+        }
+        for (let vi = 0; vi < sillSegsV; vi++) {
+            for (let ui = 0; ui < sillSegsU; ui++) {
+                const a = vi * (sillSegsU + 1) + ui;
+                const b = a + 1;
+                const c = a + sillSegsU + 1;
+                const d = c + 1;
+                sillCheekIdx.push(a, b, c);
+                sillCheekIdx.push(b, d, c);
+            }
+        }
+        const sillGeo = new THREE.BufferGeometry();
+        sillGeo.setIndex(sillCheekIdx);
+        sillGeo.setAttribute('position', new THREE.Float32BufferAttribute(sillCheekVerts, 3));
+        sillGeo.computeVertexNormals();
+        const sillMesh = new THREE.Mesh(sillGeo, matStrawClay);
+        sillMesh.castShadow = true;
+        layers.door.add(sillMesh);
+    });
+}
+
+// ─── Dimension Lines & Annotations ──────────────────────────────────
+function buildAnnotations() {
+    const lineMat = new THREE.LineBasicMaterial({ color: 0xc9a227, transparent: true, opacity: 0.5 });
+    const tickLen = 0.2;
+
+    // ── Diameter: horizontal line at ground level showing 6m span ──
+    const dPts = [
+        new THREE.Vector3(-R, 0.05, R + 1.0),
+        new THREE.Vector3(R, 0.05, R + 1.0)
+    ];
+    layers.annotations.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(dPts), lineMat));
+
+    // Tick marks at each end
+    for (const x of [-R, R]) {
+        const tPts = [
+            new THREE.Vector3(x, 0.05, R + 1.0 - tickLen),
+            new THREE.Vector3(x, 0.05, R + 1.0 + tickLen)
+        ];
+        layers.annotations.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(tPts), lineMat));
+    }
+
+    // ── Apex height: vertical line from ground to apex showing 4m ──
+    const hPts = [
+        new THREE.Vector3(R + 1.0, 0, 0),
+        new THREE.Vector3(R + 1.0, H + FHEIGHT, 0)
+    ];
+    layers.annotations.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(hPts), lineMat));
+
+    // Tick marks at ground and apex
+    for (const y of [0, H + FHEIGHT]) {
+        const tPts = [
+            new THREE.Vector3(R + 1.0 - tickLen, y, 0),
+            new THREE.Vector3(R + 1.0 + tickLen, y, 0)
+        ];
+        layers.annotations.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(tPts), lineMat));
+    }
+
+    // ── Foundation height: short vertical showing 0.5m gabion ──
+    const fPts = [
+        new THREE.Vector3(R + FWIDTH + 0.6, 0, R * 0.5),
+        new THREE.Vector3(R + FWIDTH + 0.6, FHEIGHT, R * 0.5)
+    ];
+    layers.annotations.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(fPts), lineMat));
+
+    for (const y of [0, FHEIGHT]) {
+        const tPts = [
+            new THREE.Vector3(R + FWIDTH + 0.6 - tickLen, y, R * 0.5),
+            new THREE.Vector3(R + FWIDTH + 0.6 + tickLen, y, R * 0.5)
+        ];
+        layers.annotations.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(tPts), lineMat));
+    }
+}
+
+// ─── Build Everything ────────────────────────────────────────────────
+buildFoundation();
+buildFloor();
+buildArches();
+buildRings();
+buildWattle();
+buildStrawClay();
+buildShell();
+buildStoneSkirt();
+buildLimeRender();
+buildOpenings();
+buildWindPorch();
+buildVentCap();
+buildAnnotations();
+
+// Start with outer layers hidden so the wattle structure is visible
+const hiddenLayers = ['strawclay', 'shell', 'stoneskirt', 'limerender'];
+hiddenLayers.forEach(name => {
+    layers[name].visible = false;
+    document.querySelector(`[data-layer="${name}"]`).classList.add('disabled');
+});
+
+// ─── Legend Toggle ───────────────────────────────────────────────────
+document.querySelectorAll('.legend-item').forEach(item => {
+    item.addEventListener('click', () => {
+        const layerName = item.dataset.layer;
+        const group = layers[layerName];
+        if (!group) return;
+        group.visible = !group.visible;
+        item.classList.toggle('disabled');
+    });
+});
+
+// ─── Animation Loop ──────────────────────────────────────────────────
+function animate() {
+    requestAnimationFrame(animate);
+    controls.update();
+    renderer.render(scene, camera);
+}
+animate();
+
+// ─── Resize ──────────────────────────────────────────────────────────
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+
+</body>
+</html>

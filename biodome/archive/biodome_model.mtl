@@ -1,0 +1,60 @@
+# Material Library for Regenerative BioDome
+# Use with biodome_model.obj
+
+# Granite foundation
+newmtl foundation_stone
+Kd 0.6 0.6 0.58
+Ks 0.1 0.1 0.1
+Ns 10
+d 1.0
+
+# Cob wall (earth tones)
+newmtl cob_wall
+Kd 0.76 0.60 0.42
+Ks 0.05 0.05 0.05
+Ns 5
+d 1.0
+
+# Lime rendered exterior
+newmtl lime_render
+Kd 0.95 0.93 0.88
+Ks 0.1 0.1 0.1
+Ns 20
+d 1.0
+
+# Eucalyptus poles (treated wood)
+newmtl eucalyptus_pole
+Kd 0.55 0.40 0.25
+Ks 0.15 0.12 0.08
+Ns 30
+d 1.0
+
+# Living roof (green)
+newmtl living_roof
+Kd 0.35 0.55 0.30
+Ks 0.05 0.05 0.05
+Ns 5
+d 1.0
+
+# Earthen floor
+newmtl earthen_floor
+Kd 0.60 0.45 0.30
+Ks 0.1 0.08 0.06
+Ns 15
+d 1.0
+
+# Window glass (transparent)
+newmtl glass
+Kd 0.7 0.85 0.95
+Ks 0.95 0.95 0.95
+Ns 200
+d 0.25
+Tr 0.75
+illum 2
+
+# Door (wood)
+newmtl door_wood
+Kd 0.45 0.30 0.18
+Ks 0.2 0.15 0.1
+Ns 40
+d 1.0

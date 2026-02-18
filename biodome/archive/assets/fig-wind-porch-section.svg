@@ -1,0 +1,187 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 560">
+  <defs>
+    <style>
+      .label { font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 12px; }
+      .label-sm { font-family: -apple-system, system-ui, sans-serif; fill: #555; font-size: 11px; }
+      .label-bold { font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 13px; font-weight: 700; }
+      .dim { font-family: -apple-system, system-ui, sans-serif; fill: #c9a227; font-size: 11px; font-weight: 600; }
+      .title { font-family: -apple-system, system-ui, sans-serif; fill: #1a2e1a; font-size: 15px; font-weight: 700; }
+      .dim-line { stroke: #c9a227; stroke-width: 1; fill: none; }
+      .ground { fill: #d5cfc5; stroke: #1a2e1a; stroke-width: 1.5; }
+      .gabion { fill: #b0aca0; stroke: #1a2e1a; stroke-width: 1.5; }
+      .straw-clay { fill: #c8a84e; stroke: #8b7530; stroke-width: 1; }
+      .epdm { fill: #2a2a2a; stroke: #111; stroke-width: 1; }
+      .stone { fill: #8a8578; stroke: #5a5548; stroke-width: 1; }
+      .lime { fill: #e8dcc8; stroke: #c0b4a0; stroke-width: 1; }
+      .wattle { fill: #d4b88a; stroke: #a08050; stroke-width: 1; }
+      .pole { fill: #a07030; stroke: #6a4820; stroke-width: 1; }
+      .interior { fill: #faf8f5; }
+      .dome-curve { fill: none; stroke: #1a2e1a; stroke-width: 2; }
+      .section-cut { fill: none; stroke: #ef5350; stroke-width: 1; stroke-dasharray: 8,4; }
+    </style>
+    <marker id="a-e" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" stroke="#c9a227" fill="none" stroke-width="1"/>
+    </marker>
+    <marker id="a-s" markerWidth="8" markerHeight="6" refX="0" refY="3" orient="auto">
+      <path d="M8,0 L0,3 L8,6" stroke="#c9a227" fill="none" stroke-width="1"/>
+    </marker>
+    <!-- Water flow arrow -->
+    <marker id="flow" markerWidth="6" markerHeight="5" refX="6" refY="2.5" orient="auto">
+      <path d="M0,0 L6,2.5 L0,5" fill="#4488cc" stroke="none"/>
+    </marker>
+  </defs>
+
+  <!-- Title -->
+  <text x="380" y="24" text-anchor="middle" class="title">Wind Porch — Cross-Section Through Door Center</text>
+  <text x="380" y="42" text-anchor="middle" class="label-sm">Side view through arch peak showing barrel-vault profile, layer stack, and EPDM junction</text>
+
+  <!-- Ground line at y=430. Scale: 1m ~ 100px vertical, ~80px horizontal -->
+  <!-- Foundation top at y=380 (0.5m above ground) -->
+  <!-- Grade at y=430 -->
+
+  <!-- Ground -->
+  <rect x="40" y="430" width="680" height="80" fill="#e0ddd0"/>
+  <line x1="40" y1="430" x2="720" y2="430" stroke="#888" stroke-width="1"/>
+
+  <!-- === GABION FOUNDATION === -->
+  <!-- Main ring section (under dome wall) at x=280-320 -->
+  <rect x="275" y="380" width="50" height="50" class="gabion"/>
+  <!-- Cross-hatching for stone fill -->
+  <line x1="280" y1="385" x2="320" y2="425" stroke="#888" stroke-width="0.5"/>
+  <line x1="280" y1="400" x2="305" y2="425" stroke="#888" stroke-width="0.5"/>
+  <line x1="295" y1="385" x2="320" y2="410" stroke="#888" stroke-width="0.5"/>
+
+  <!-- Porch gabion arm (extends rightward from ring) -->
+  <rect x="320" y="380" width="96" height="50" class="gabion"/>
+  <line x1="325" y1="385" x2="410" y2="425" stroke="#888" stroke-width="0.5"/>
+  <line x1="355" y1="385" x2="410" y2="410" stroke="#888" stroke-width="0.5"/>
+  <line x1="325" y1="405" x2="380" y2="425" stroke="#888" stroke-width="0.5"/>
+
+  <!-- Porch gabion cross piece -->
+  <rect x="408" y="380" width="40" height="50" class="gabion"/>
+  <text x="430" y="465" text-anchor="middle" class="label-sm" style="fill:#7a7a7a;">gabion cross piece</text>
+
+  <!-- === DOME WALL (left side) === -->
+  <!-- Dome curve (just a partial arc showing the lower wall near the door) -->
+  <!-- Dome wall leaning ~15 degrees inward -->
+  <!-- At base (y=380): x=300 (inner face) -->
+  <!-- At 2.2m up (y=160): wall has moved inward -->
+
+  <!-- Straw-clay on dome wall near door -->
+  <path d="M312,380 L312,160 C312,155 316,152 320,150 L334,150 C330,152 326,155 326,160 L326,380 Z" class="straw-clay"/>
+
+  <!-- EPDM on dome wall -->
+  <path d="M326,380 L326,160 C326,155 330,152 334,150 L338,150 C334,152 330,155 330,160 L330,380 Z" class="epdm"/>
+
+  <!-- Wattle structure indication -->
+  <path d="M300,380 L300,170 C300,165 304,160 308,158" class="dome-curve" stroke-width="1.5"/>
+
+  <!-- Interior label -->
+  <text x="240" y="280" text-anchor="middle" class="label-bold">INTERIOR</text>
+  <path d="M260,284 L295,284" stroke="#555" stroke-width="0.5" marker-end="url(#a-e)"/>
+
+  <!-- === PORCH STRUCTURE === -->
+
+  <!-- Inner post (at dome face, plumb vertical to arch spring line 1.5m) -->
+  <rect x="326" y="230" width="10" height="150" class="pole" rx="2"/>
+  <text x="340" y="225" class="label-sm" style="fill:#a07030; font-weight:600;">inner post (to 1.5m)</text>
+  <line x1="322" y1="230" x2="340" y2="230" stroke="#a07030" stroke-width="0.5" stroke-dasharray="2,2"/>
+  <text x="310" y="228" text-anchor="end" class="label-sm" style="font-size:8px; fill:#a07030;">arch spring</text>
+
+  <!-- Outer post (plumb vertical to arch spring line 1.5m) -->
+  <rect x="424" y="230" width="10" height="150" class="pole" rx="2"/>
+  <text x="440" y="225" class="label-sm" style="fill:#a07030; font-weight:600;">outer post (to 1.5m)</text>
+
+  <!-- Porch barrel-vault roof (arch curve from inner peak to outer peak) -->
+  <!-- Inner peak at 2.2m = y=160, outer peak at 2.0m = y=180 -->
+  <!-- This section cuts through the arch center, so it shows the peak profile -->
+  <path d="M330,168 C360,155 405,160 434,180" stroke="#a07030" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <text x="380" y="150" text-anchor="middle" class="label-sm">arch rafter (barrel vault)</text>
+
+  <!-- EPDM on porch roof (follows arch curve) -->
+  <path d="M326,166 C356,152 402,158 440,178" stroke="#2a2a2a" stroke-width="3" fill="none"/>
+
+  <!-- Straw-clay on porch sidewall -->
+  <rect x="336" y="230" width="12" height="150" class="straw-clay" rx="1"/>
+  <text x="350" y="300" class="label-sm" style="font-size:9px; fill:#8b7530;" transform="rotate(90 350 300)">straw-clay 100mm</text>
+
+  <!-- EPDM on porch sidewall -->
+  <rect x="348" y="230" width="3" height="150" class="epdm"/>
+
+  <!-- Stone skirt on porch (lower 80cm) -->
+  <rect x="350" y="300" width="16" height="80" class="stone"/>
+  <text x="372" y="345" class="label-sm" style="font-size:9px; fill:#5a5548;">stone</text>
+
+  <!-- Lime render on porch (above stone) -->
+  <rect x="350" y="230" width="10" height="70" class="lime"/>
+
+  <!-- Porch interior air space -->
+  <rect x="366" y="184" width="58" height="196" fill="#faf8f5" stroke="none" opacity="0.3"/>
+  <text x="395" y="290" text-anchor="middle" class="label-bold" style="font-size:11px;">PORCH</text>
+  <text x="395" y="306" text-anchor="middle" class="label-sm" style="font-size:10px;">airlock</text>
+
+  <!-- Outer door frame at outer post -->
+  <rect x="418" y="180" width="10" height="200" fill="#5c4033" stroke="#3a2a1a" stroke-width="1" rx="1"/>
+  <text x="436" y="280" class="label-sm" style="fill:#5c4033; font-weight:600;">plumb</text>
+  <text x="436" y="294" class="label-sm" style="fill:#5c4033; font-weight:600;">door frame</text>
+
+  <!-- === EPDM JUNCTION DETAIL (critical) === -->
+  <!-- Highlight box -->
+  <rect x="315" y="145" width="30" height="40" fill="none" stroke="#ef5350" stroke-width="2" stroke-dasharray="4,3" rx="3"/>
+  <text x="250" y="130" class="label-bold" style="fill:#ef5350; font-size:11px;">EPDM JUNCTION</text>
+  <path d="M295,132 L318,150" stroke="#ef5350" stroke-width="1" marker-end="url(#a-e)"/>
+
+  <!-- Junction detail callout (enlarged) -->
+  <rect x="60" y="60" width="180" height="90" rx="4" fill="#fff8e6" stroke="#e6c200" stroke-width="1"/>
+  <text x="150" y="78" text-anchor="middle" class="label-bold" style="font-size:11px;">EPDM Lap Order</text>
+  <text x="70" y="96" class="label-sm" style="font-size:10px;">1. Porch EPDM applied first</text>
+  <text x="70" y="112" class="label-sm" style="font-size:10px;">2. Dome EPDM laps OVER porch</text>
+  <text x="70" y="128" class="label-sm" style="font-size:10px;">3. 15cm overlap + primer + tape</text>
+  <text x="70" y="144" class="label-sm" style="font-size:10px; fill:#4488cc;">Water: dome &rarr; porch &rarr; out</text>
+
+  <!-- Water flow arrow on roof (follows arch curve outward) -->
+  <path d="M340,162 C370,155 405,162 425,178" stroke="#4488cc" stroke-width="2" fill="none" marker-end="url(#flow)"/>
+  <text x="378" y="192" text-anchor="middle" class="label-sm" style="fill:#4488cc; font-size:9px;">water flow</text>
+
+  <!-- === DIMENSIONS === -->
+  <!-- Porch depth 1.2m -->
+  <line x1="330" y1="450" x2="430" y2="450" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="380" y="446" text-anchor="middle" class="dim">1.2m</text>
+
+  <!-- Inner height 2.2m -->
+  <line x1="260" y1="380" x2="260" y2="160" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="256" y="280" text-anchor="end" class="dim" transform="rotate(-90 256 280)">2.2m inner</text>
+
+  <!-- Outer height 2.0m -->
+  <line x1="470" y1="380" x2="470" y2="180" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="474" y="280" class="dim" transform="rotate(90 474 280)">2.0m outer</text>
+
+  <!-- Foundation height 0.5m -->
+  <line x1="200" y1="380" x2="200" y2="430" class="dim-line" marker-start="url(#a-s)" marker-end="url(#a-e)"/>
+  <text x="196" y="410" text-anchor="end" class="dim">0.5m</text>
+
+  <!-- Arch profile note -->
+  <text x="380" y="208" text-anchor="middle" class="label-sm" style="fill:#555; font-size:9px;">barrel-vault arch — inner peak 2.2m, outer peak 2.0m (drainage slope)</text>
+
+  <!-- Grade label -->
+  <text x="600" y="445" class="label-sm" style="fill:#888;">grade</text>
+
+  <!-- Foundation labels -->
+  <text x="298" y="415" text-anchor="middle" class="label-sm" style="font-size:9px; fill:#7a7a7a;">gabion ring</text>
+  <text x="370" y="415" text-anchor="middle" class="label-sm" style="font-size:9px; fill:#7a7a7a;">porch arm</text>
+
+  <!-- Layer stack legend -->
+  <rect x="540" y="60" width="180" height="120" rx="6" fill="white" stroke="#ddd" stroke-width="1"/>
+  <text x="630" y="78" text-anchor="middle" class="label-bold" style="font-size:11px;">Layer Stack</text>
+  <rect x="552" y="86" width="14" height="10" class="wattle"/><text x="572" y="95" class="label-sm" style="font-size:10px;">Wattle</text>
+  <rect x="552" y="100" width="14" height="10" class="straw-clay"/><text x="572" y="109" class="label-sm" style="font-size:10px;">Straw-clay 100mm</text>
+  <rect x="552" y="114" width="14" height="10" class="epdm"/><text x="572" y="123" class="label-sm" style="font-size:10px;">EPDM 1.5mm</text>
+  <rect x="552" y="128" width="14" height="10" class="stone"/><text x="572" y="137" class="label-sm" style="font-size:10px;">Stone skirt (base)</text>
+  <rect x="552" y="142" width="14" height="10" class="lime"/><text x="572" y="151" class="label-sm" style="font-size:10px;">Lime render (upper)</text>
+  <rect x="552" y="156" width="14" height="10" class="gabion"/><text x="572" y="165" class="label-sm" style="font-size:10px;">Gabion foundation</text>
+
+  <!-- Notes -->
+  <rect x="60" y="500" width="640" height="48" rx="4" fill="#e8f5e9" stroke="#4caf50" stroke-width="1"/>
+  <text x="380" y="518" text-anchor="middle" class="label-sm" style="font-size:11px; font-weight:600;">Thermal Airlock</text>
+  <text x="380" y="536" text-anchor="middle" class="label-sm" style="font-size:11px;">Plumb outer door frame eliminates slant. Enclosed porch buffers wind and rain.</text>
+</svg>
