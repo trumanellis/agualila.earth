@@ -637,6 +637,30 @@
             padding: 6rem 2rem;
         }
         
+        /* Writings Section */
+        .writings {
+            background: var(--color-night);
+            padding: 6rem 2rem;
+        }
+
+        .writings-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .writings-content h2 {
+            margin-bottom: 1rem;
+        }
+
+        .writings-content .lead {
+            margin-bottom: 3rem;
+        }
+
+        .writings #substack-articles {
+            text-align: left;
+        }
+
         .practice-content {
             max-width: 800px;
         }
@@ -780,6 +804,109 @@
                 font-size: 0.7rem;
             }
         }
+
+        /* Ecosystem Section */
+        .ecosystem {
+            background: var(--color-night);
+            flex-direction: column;
+            padding: 6rem 2rem;
+        }
+
+        .ecosystem-content {
+            max-width: 1100px;
+            text-align: center;
+            width: 100%;
+        }
+
+        .ecosystem h2 {
+            margin-bottom: 3rem;
+        }
+
+        .eco-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--color-moss);
+        }
+
+        .eco-card {
+            background: var(--color-night);
+            padding: 3rem 2rem;
+            text-align: left;
+            transition: background 0.4s ease;
+        }
+
+        .eco-card:hover {
+            background: var(--color-forest);
+        }
+
+        .eco-card-active {
+            background: var(--color-forest);
+            border-top: 2px solid var(--color-glow);
+        }
+
+        .eco-icon {
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--color-moss);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .eco-card h3 {
+            color: var(--color-light);
+            font-size: clamp(1.25rem, 2vw, 1.5rem);
+            margin-bottom: 0.5rem;
+        }
+
+        .eco-domain {
+            font-family: var(--font-body);
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--color-sage);
+            margin-bottom: 1rem;
+        }
+
+        .eco-card p {
+            color: var(--color-mist);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 1rem;
+        }
+
+        .eco-link {
+            color: var(--color-glow);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .eco-link:hover {
+            text-decoration: underline;
+        }
+
+        .vision a.eco-link {
+            color: var(--color-glow);
+            text-decoration: underline;
+            text-decoration-color: rgba(196, 168, 108, 0.3);
+            text-underline-offset: 3px;
+        }
+
+        .vision a.eco-link:hover {
+            text-decoration-color: var(--color-glow);
+        }
+
+        @media (max-width: 900px) {
+            .eco-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
@@ -835,10 +962,10 @@
             <h2 data-lang="pt">Nas montanhas do centro de Portugal, estamos a provar que a restauração do Paraíso é possível.</h2>
             
             <p data-lang="en">
-                Água Lila is more than our first Temple—it's the living laboratory where the Synchronicity Engine's principles are tested in soil, stone, and sweat.
+                Água Lila is more than our first Temple—it's the living laboratory where the <a href="https://syncengine.earth" class="eco-link" target="_blank" rel="noopener noreferrer">Synchronicity Engine</a>'s principles are tested in soil, stone, and sweat.
             </p>
             <p data-lang="pt">
-                Água Lila é mais do que o nosso primeiro Templo—é o laboratório vivo onde os princípios do Synchronicity Engine são testados em solo, pedra e suor.
+                Água Lila é mais do que o nosso primeiro Templo—é o laboratório vivo onde os princípios do <a href="https://syncengine.earth" class="eco-link" target="_blank" rel="noopener noreferrer">Synchronicity Engine</a> são testados em solo, pedra e suor.
             </p>
             
             <p data-lang="en">
@@ -849,11 +976,55 @@
             </p>
 
             <p data-lang="en">
-                This is where code meets soil—the Synchronicity Engine's principles made tangible, tested in the living laboratory of land and community.
+                This is where code meets soil—the <a href="https://syncengine.earth" class="eco-link" target="_blank" rel="noopener noreferrer">Synchronicity Engine</a>'s principles made tangible, tested in the living laboratory of land and community.
             </p>
             <p data-lang="pt">
-                É aqui que o código encontra o solo—os princípios do Synchronicity Engine tornados tangíveis, testados no laboratório vivo da terra e comunidade.
+                É aqui que o código encontra o solo—os princípios do <a href="https://syncengine.earth" class="eco-link" target="_blank" rel="noopener noreferrer">Synchronicity Engine</a> tornados tangíveis, testados no laboratório vivo da terra e comunidade.
             </p>
+        </div>
+    </section>
+
+    <!-- Ecosystem -->
+    <section class="screen ecosystem">
+        <div class="ecosystem-content fade-up">
+            <p class="eyebrow" data-lang="en">The Ecosystem</p>
+            <p class="eyebrow" data-lang="pt">O Ecossistema</p>
+
+            <h2 data-lang="en">Three nodes in a living pattern</h2>
+            <h2 data-lang="pt">Três nós num padrão vivo</h2>
+
+            <div class="eco-grid">
+                <!-- Temples of Refuge -->
+                <div class="eco-card">
+                    <div class="eco-icon">⛩️</div>
+                    <h3>Temples of Refuge</h3>
+                    <p class="eco-domain">templesofrefuge.earth</p>
+                    <p data-lang="en">The spiritual parent. A Free Temple rooted in direct knowing, sacred play, and the conviction that Earth is a conscious teacher—not property to be owned.</p>
+                    <p data-lang="pt">O berço espiritual. Um Templo Livre enraizado no conhecimento direto, no jogo sagrado, e na convicção de que a Terra é uma professora consciente—não propriedade a ser possuída.</p>
+                    <a href="https://templesofrefuge.earth" class="eco-link" target="_blank" rel="noopener noreferrer" data-lang="en">Visit →</a>
+                    <a href="https://templesofrefuge.earth" class="eco-link" target="_blank" rel="noopener noreferrer" data-lang="pt">Visitar →</a>
+                </div>
+
+                <!-- Agua Lila (current) -->
+                <div class="eco-card eco-card-active">
+                    <div class="eco-icon">🌿</div>
+                    <h3>Água Lila</h3>
+                    <p class="eco-domain">agualila.earth</p>
+                    <p data-lang="en">Where code meets soil. The living laboratory where developers, designers, and dreamers gather to build the technologies of regeneration.</p>
+                    <p data-lang="pt">Onde o código encontra o solo. O laboratório vivo onde programadores, designers e sonhadores se reúnem para construir as tecnologias da regeneração.</p>
+                </div>
+
+                <!-- Synchronicity Engine -->
+                <div class="eco-card">
+                    <div class="eco-icon">◈</div>
+                    <h3>Synchronicity Engine</h3>
+                    <p class="eco-domain">syncengine.earth</p>
+                    <p data-lang="en">A peer-to-peer sacred economy where human attention is the conserved quantity and Tokens of Gratitude replace extraction. Where intention becomes infrastructure.</p>
+                    <p data-lang="pt">Uma economia sagrada entre pares onde a atenção humana é a quantidade conservada e Tokens de Gratidão substituem a extração. Onde a intenção se torna infraestrutura.</p>
+                    <a href="https://syncengine.earth" class="eco-link" target="_blank" rel="noopener noreferrer" data-lang="en">Explore →</a>
+                    <a href="https://syncengine.earth" class="eco-link" target="_blank" rel="noopener noreferrer" data-lang="pt">Explorar →</a>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -1029,6 +1200,26 @@
         <p class="lightbox-caption"></p>
     </div>
 
+    <!-- Writings Section -->
+    <section class="screen writings">
+        <div class="writings-content fade-up">
+            <p class="eyebrow" data-lang="en">From the Land</p>
+            <p class="eyebrow" data-lang="pt">Da Terra</p>
+
+            <h2 data-lang="en">Writings</h2>
+            <h2 data-lang="pt">Escritos</h2>
+
+            <p class="lead" data-lang="en">
+                Reflections, stories, and transmissions from Água Lila.
+            </p>
+            <p class="lead" data-lang="pt">
+                Reflexões, histórias e transmissões de Água Lila.
+            </p>
+
+            <div id="substack-articles"></div>
+        </div>
+    </section>
+
     <!-- Practice Section -->
     <section class="screen practice">
         <div class="practice-content fade-up">
@@ -1132,6 +1323,16 @@
     <footer>
         <p>© Água Lila · Temples of Refuge</p>
     </footer>
+
+    <script src="https://templesofrefuge.earth/shared/substack-feed.js"></script>
+    <script>
+    SubstackFeed.init({
+      container: '#substack-articles',
+      tag: 'AguaLila',
+      limit: 6,
+      style: 'grid'
+    });
+    </script>
 
     <script>
         // Language switching
