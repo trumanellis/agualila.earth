@@ -4,19 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Água Lila — Paradise in Action</title>
-    <meta name="description" content="A living laboratory where sacred technology meets sacred land. In the mountains of Portugal, we're proving Paradise restoration is possible.">
+    <meta name="description" content="A living laboratory and a sacred land of playful regeneration. In the mountains of Portugal, we're proving Paradise restoration is possible.">
 
     <!-- Open Graph / social previews -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="Água Lila">
     <meta property="og:title" content="Água Lila — Paradise in Action">
-    <meta property="og:description" content="A living laboratory where sacred technology meets sacred land. In the mountains of Portugal, we're proving Paradise restoration is possible.">
+    <meta property="og:description" content="A living laboratory and a sacred land of playful regeneration. In the mountains of Portugal, we're proving Paradise restoration is possible.">
     <meta property="og:url" content="https://agualila.earth/">
     <meta property="og:image" content="https://agualila.earth/assets/monastery-hillside-morning-mist-valley.jpeg">
     <meta property="og:image:alt" content="A monastery on a misty hillside in the mountains of Portugal">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="Água Lila — Paradise in Action">
-    <meta name="twitter:description" content="Sacred technology meets sacred land. Proving Paradise restoration is possible.">
+    <meta name="twitter:description" content="A sacred land of playful regeneration. Proving Paradise restoration is possible.">
     <meta name="twitter:image" content="https://agualila.earth/assets/monastery-hillside-morning-mist-valley.jpeg">
 
     <!-- Fonts -->
@@ -206,6 +206,11 @@
             color: var(--color-glow);
         }
 
+        @media (max-width: 700px) {
+            .hero-subtitle-part { display: block; }
+            .hero-subtitle-sep { display: none; }
+        }
+
         .hero .lead {
             animation: fadeIn 2s ease-out 0.5s both;
         }
@@ -213,8 +218,8 @@
         .scroll-indicator {
             position: absolute;
             bottom: 3rem;
-            left: 50%;
-            transform: translateX(-50%);
+            left: 0;
+            right: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -936,16 +941,16 @@
             <p class="eyebrow" data-lang="pt">Paraíso em Ação</p>
             <h1>Água Lila</h1>
             <p class="hero-subtitle" data-lang="en">
-                <em>Água</em>—water as life-force · <em>Lila</em>—sacred play, cosmic creativity
+                <span class="hero-subtitle-part"><em>Água</em>—water as life-force</span><span class="hero-subtitle-sep"> · </span><span class="hero-subtitle-part"><em>Lila</em>—sacred play, cosmic creativity</span>
             </p>
             <p class="hero-subtitle" data-lang="pt">
-                <em>Água</em>—água como força vital · <em>Lila</em>—jogo sagrado, criatividade cósmica
+                <span class="hero-subtitle-part"><em>Água</em>—água como força vital</span><span class="hero-subtitle-sep"> · </span><span class="hero-subtitle-part"><em>Lila</em>—jogo sagrado, criatividade cósmica</span>
             </p>
             <p class="lead" data-lang="en">
-                Where sacred technology meets sacred land
+                A sacred land of playful regeneration
             </p>
             <p class="lead" data-lang="pt">
-                Onde tecnologia sagrada encontra terra sagrada
+                Uma terra sagrada de regeneração lúdica
             </p>
         </div>
         <div class="scroll-indicator">
@@ -989,10 +994,10 @@
             </p>
 
             <p data-lang="en">
-                This is where code meets soil—the <a href="https://syncengine.earth" class="eco-link" target="_blank" rel="noopener noreferrer">Synchronicity Engine</a>'s principles made tangible, tested in the living laboratory of land and community.
+                What we're building here isn't a theory to be published—it's a valley to be lived in. Water systems, food forests, and the daily rhythms of a community learning to belong to a place.
             </p>
             <p data-lang="pt">
-                É aqui que o código encontra o solo—os princípios do <a href="https://syncengine.earth" class="eco-link" target="_blank" rel="noopener noreferrer">Synchronicity Engine</a> tornados tangíveis, testados no laboratório vivo da terra e comunidade.
+                O que estamos a construir aqui não é uma teoria para publicar—é um vale para habitar. Sistemas de água, florestas comestíveis e os ritmos diários de uma comunidade a aprender a pertencer a um lugar.
             </p>
         </div>
     </section>
@@ -1321,12 +1326,12 @@
             
             <div class="connect-badge">
                 <p data-lang="en">
-                    A physical Temple node within <a href="#">Temples of Refuge</a><br>
-                    Gralheira · São Pedro do Sul · Montanhas Mágicas · Portugal
+                    A physical Temple node within <a href="https://templesofrefuge.earth" target="_blank" rel="noopener noreferrer">Temples of Refuge</a><br>
+                    São Pedro do Sul · Montanhas Mágicas · Portugal
                 </p>
                 <p data-lang="pt">
-                    Um nó físico do Templo dentro dos <a href="#">Templos de Refúgio</a><br>
-                    Gralheira · São Pedro do Sul · Montanhas Mágicas · Portugal
+                    Um nó físico do Templo dentro dos <a href="https://templesofrefuge.earth" target="_blank" rel="noopener noreferrer">Templos de Refúgio</a><br>
+                    São Pedro do Sul · Montanhas Mágicas · Portugal
                 </p>
             </div>
         </div>
