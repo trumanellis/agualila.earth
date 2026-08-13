@@ -98,7 +98,7 @@ There is no commercial business model at Água Lila.
 
 Instead:
 	•	Offerings are gifts
-	•	Support flows through gratitude and voluntary contribution
+	•	The life of the land is carried by service, care, and presence
 	•	Land regeneration, art, and care are the “returns”
 	•	Excess resources are recycled into the Temple network
 
